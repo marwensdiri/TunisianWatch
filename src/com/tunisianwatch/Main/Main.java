@@ -19,8 +19,8 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException {
-  
+    public static void main(String[] args) {
+        System.out.println("Dev.Gear");
     }
     
 }
