@@ -10,6 +10,6 @@ package com.tunisianwatch.Dao;
  *
  * @author Marwen
  */
-public class CitoyenDao {
+public class UtilisateurDao {
     
 }
