@@ -49,11 +49,19 @@ public class UtilisateurDao {
     }
 
     public void updateUser(int id, Utilisateur u) {
-        String requete = "";
+        String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-         //   ps.setString(1, u.setIdEtablissement(1));
-            //  ps.setInt(2, u.setNom("nom"));
+            ps.setInt(1, u.getIdEtablissement());
+            ps.setString(2, u.getNom());
+            ps.setString(3, u.getPrenom());
+            ps.setString(4, u.getPhoto());
+            ps.setString(5, u.getLogin());
+            ps.setString(6, u.getMdp());
+            ps.setString(7, u.getMail());
+            ps.setString(8, u.getType()+"");
+            ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.setInt(10, u.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
@@ -64,6 +72,16 @@ public class UtilisateurDao {
 
     public void deleteUser(int id) {
 
+        String requete = "delete from utilisateur where id=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Utilisateur supprimée");
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression "+ex.getMessage());
+        }
     }
 
     public List<Utilisateur> selectUsers() {
