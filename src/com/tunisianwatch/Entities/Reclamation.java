@@ -5,7 +5,7 @@ import java.util.*;
 public class Reclamation {
 
 	private int id;
-        private int idLeu;
+        private int idLieu;
         private Date date;
         private Date heure;
         private String description;
@@ -16,7 +16,7 @@ public class Reclamation {
 
     public Reclamation(int id, int idLeu, Date date, Date heure, String description, String titre, int idCitoyen, int idDomaine, boolean etat) {
         this.id = id;
-        this.idLeu = idLeu;
+        this.idLieu = idLeu;
         this.date = date;
         this.heure = heure;
         this.description = description;
@@ -27,7 +27,7 @@ public class Reclamation {
     }
 
     public Reclamation(int idLeu, Date date, Date heure, String description, String titre, int idCitoyen, int idDomaine, boolean etat) {
-        this.idLeu = idLeu;
+        this.idLieu = idLeu;
         this.date = date;
         this.heure = heure;
         this.description = description;
@@ -42,8 +42,8 @@ public class Reclamation {
         return id;
     }
 
-    public int getIdLeu() {
-        return idLeu;
+    public int getIdLieu() {
+        return idLieu;
     }
 
     public Date getDate() {
@@ -78,8 +78,8 @@ public class Reclamation {
         this.id = id;
     }
 
-    public void setIdLeu(int idLeu) {
-        this.idLeu = idLeu;
+    public void setIdLieu(int idLeu) {
+        this.idLieu = idLeu;
     }
 
     public void setDate(Date date) {
