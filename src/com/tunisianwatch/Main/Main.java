@@ -8,13 +8,14 @@ package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import java.sql.Date;
+
 
 /**
  *
  * @author Marwen
  */
 public class Main {
+    private static java.util.Date date;
 
     /**
      * @param args the command line arguments
@@ -26,13 +27,14 @@ public class Main {
 //                new MainFrame().setVisible(true);
 //            }
 //        });
+
+
+        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
+
+        UtilisateurDao userdao = new UtilisateurDao();
         
+        userdao.insertUser(u1);
         
     }
-   Utilisateur u1 = new Utilisateur(1, "marwen", "sdiri", new Date(06/06/1990), null, null, null, null, 'c');
-  
-   UtilisateurDao userdao = new UtilisateurDao();
- 
-   
-  
+
 }

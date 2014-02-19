@@ -6,7 +6,7 @@
 
 package com.tunisianwatch.Entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 /**
@@ -28,7 +28,7 @@ public class Utilisateur {
 	private char type;
         private int idEtablissement;
 
-    public Utilisateur(int idEtablissement, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
+    public Utilisateur(int idEtablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.idEtablissement = idEtablissement;
         this.nom = nom;
         this.prenom = prenom;
@@ -40,7 +40,7 @@ public class Utilisateur {
         this.type = type;
     }
 
-    public Utilisateur(int id, int idEtablissement, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
+    public Utilisateur(int id, int idEtablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
