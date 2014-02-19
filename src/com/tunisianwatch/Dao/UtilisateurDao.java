@@ -63,7 +63,7 @@ public class UtilisateurDao {
             ps.setString(7, u.getMail());
             ps.setString(8, u.getType()+"");
             ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
-            ps.setInt(10, u.getId());
+            ps.setInt(10, id);
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
