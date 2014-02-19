@@ -44,7 +44,7 @@ public class UtilisateurDao {
         String requete = "";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-         //   ps.setString(1, u.setIdEtablissement(1));
+         //    ps.setString(1, u.setIdEtablissement(1));
           //  ps.setInt(2, u.setNom("nom"));
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
