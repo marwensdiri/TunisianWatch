@@ -6,9 +6,7 @@
 
 package com.tunisianwatch.Main;
 
-import com.tunisianwatch.Connection.ResourceManager;
-import java.sql.Connection;
-import java.sql.SQLException;
+import com.tunisianwatch.Gui.MainFrame;
 
 /**
  *
@@ -19,10 +17,13 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException {
-        Connection con = ResourceManager.getInstance();
-        con.close();
-        System.out.println("Dev.Gear");
+    public static void main(String[] args) {
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
     }
     
 }
