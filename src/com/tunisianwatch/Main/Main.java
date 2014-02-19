@@ -8,6 +8,7 @@ package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.sql.Date;
 
 /**
  *
@@ -28,9 +29,10 @@ public class Main {
         
         
     }
-   Utilisateur u1 = new Utilisateur(1, "marwen", "sdiri", null, "login", "pwd", "mail", "", 'c');
+   Utilisateur u1 = new Utilisateur(1, "marwen", "sdiri", new Date(06/06/1990), null, null, null, null, 'c');
   
    UtilisateurDao userdao = new UtilisateurDao();
  
+   
   
 }

@@ -28,7 +28,8 @@ public class Utilisateur {
 	private char type;
         private int idEtablissement;
 
-    public Utilisateur( String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
+    public Utilisateur(int idEtablissement, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
+        this.idEtablissement = idEtablissement;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -39,7 +40,8 @@ public class Utilisateur {
         this.type = type;
     }
 
-    public Utilisateur(int idEtablissement, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
+    public Utilisateur(int id, int idEtablissement, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;

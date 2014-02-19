@@ -30,15 +30,15 @@ public class UtilisateurDao {
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(2, u.getIdEtablissement());
+            ps.setInt(2, u.getIdEtablissement());
             ps.setString(3, u.getNom());
             ps.setString(4, u.getPrenom());
             ps.setString(5, u.getPhoto());
             ps.setString(6, u.getLogin());
             ps.setString(7, u.getMdp());
             ps.setString(8, u.getMail());
-            ps.setString(9, u.getType());
-            ps.setString(10, u.getDateNaissance());
+            ps.setString(9, u.getType()+"");
+            ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -85,7 +85,7 @@ public class UtilisateurDao {
             ps.setString(2, password);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), resultat.getDate("datenaissance"), resultat.getString("photo"), resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"),resultat.getString("type").charAt(0), resultat.getInt("idetablissement"));
+                user = new Utilisateur(resultat.getInt("id"), resultat.getInt("idetablissement"),resultat.getString("nom"), resultat.getString("prenom"), resultat.getDate("datenaissance"), resultat.getString("photo"), resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"),resultat.getString("type").charAt(0));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
