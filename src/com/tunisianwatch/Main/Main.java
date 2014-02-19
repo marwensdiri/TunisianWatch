@@ -11,6 +11,7 @@ import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Gui.MainFrame;
+import java.util.List;
 
 
 /**
@@ -25,27 +26,30 @@ public class Main {
      */
     public static void main(String[] args) {
         /* Create and display the form */
-      /*  java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
-        });*/
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new MainFrame().setVisible(true);
+//            }
+//        });
+
+  /*      
+   // Test by marwen 
+        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
+
+        UtilisateurDao userdao = new UtilisateurDao();
         
-       EtablissementDao dao= new EtablissementDao();
+        //userdao.insertUser(u1);
+        //userdao.updateUser(2, u1);
+        List<Utilisateur> listUsers =userdao.selectUsers();
+        Utilisateur u2 = userdao.selectUserById(2);
+        System.out.println(listUsers);
+        System.out.println(u2);
         
-        Etablissement E = dao.selectEtablissementById(1);
-        E.setNom("Mairie");
-        dao.updateEtablissement(1, E);
-        System.out.println(E.getNom());
-       // dao.deleteEtablissement(3);
+       // userdao.deleteUser(14);
         
-        
-//        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
-//
-//        UtilisateurDao userdao = new UtilisateurDao();
-//        
-//        userdao.insertUser(u1);
-        
+   //  Fin Test by marwen  
+           
+   */        
     }
 
 }

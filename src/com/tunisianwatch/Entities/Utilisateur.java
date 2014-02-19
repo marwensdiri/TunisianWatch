@@ -28,6 +28,10 @@ public class Utilisateur {
 	private char type;
         private int idEtablissement;
 
+    public Utilisateur() {
+    }
+
+        
     public Utilisateur(int idEtablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.idEtablissement = idEtablissement;
         this.nom = nom;
@@ -59,6 +63,10 @@ public class Utilisateur {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNom() {
         return nom;
     }
