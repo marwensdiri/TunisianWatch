@@ -28,8 +28,7 @@ public class Utilisateur {
 	private char type;
         private int idEtablissement;
 
-    public Utilisateur(int id, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
-        this.id = id;
+    public Utilisateur( String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -40,8 +39,7 @@ public class Utilisateur {
         this.type = type;
     }
 
-    public Utilisateur(int id, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type, int idEtablissement) {
-        this.id = id;
+    public Utilisateur(int idEtablissement, String nom, String prenom, Date dateNaissance, String photo, String login, String mdp, String mail, char type) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -57,10 +55,6 @@ public class Utilisateur {
         
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNom() {
