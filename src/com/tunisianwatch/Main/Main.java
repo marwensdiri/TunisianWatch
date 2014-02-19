@@ -6,7 +6,9 @@
 
 package com.tunisianwatch.Main;
 
+import com.tunisianwatch.Dao.EtablissementDao;
 import com.tunisianwatch.Dao.UtilisateurDao;
+import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Gui.MainFrame;
 
@@ -23,13 +25,21 @@ public class Main {
      */
     public static void main(String[] args) {
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+      /*  java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainFrame().setVisible(true);
             }
-        });
-
-
+        });*/
+        
+       EtablissementDao dao= new EtablissementDao();
+        
+        Etablissement E = dao.selectEtablissementById(1);
+        E.setNom("Mairie");
+        dao.updateEtablissement(1, E);
+        System.out.println(E.getNom());
+       // dao.deleteEtablissement(3);
+        
+        
 //        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
 //
 //        UtilisateurDao userdao = new UtilisateurDao();

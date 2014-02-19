@@ -18,7 +18,7 @@ public class EtablissementDao {
      * @param E
      */
     public void insertEtablissement(Etablissement E) {
-        String requete = "insert into etablissement (nom , description,image,idlieux) values (?,?,?,?,?)";
+        String requete = "insert into etablissement (nom , description,image,idlieux) values (?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
@@ -28,7 +28,6 @@ public class EtablissementDao {
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
-
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
     }
@@ -48,19 +47,25 @@ public class EtablissementDao {
             ps.setInt(4, E.getIdLieu());
             ps.setInt(5, E.getId());
             ps.executeUpdate();
+            System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
-            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
         }
     }
 
-    public List<Etablissement> selectEtablissements() throws SQLException {
+    public List<Etablissement> selectEtablissements() {
         List<Etablissement> etablissements = new ArrayList<Etablissement>();
         String requete = "select * from etablissement";
-        Statement statement = ResourceManager.getInstance().createStatement();
-        ResultSet resultat = statement.executeQuery(requete);
-        while (resultat.next()) {
-            Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
-            etablissements.add(E);
+        Statement statement;
+        try {
+            statement = ResourceManager.getInstance().createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+            while (resultat.next()) {
+                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+                etablissements.add(E);
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement"+ex.getMessage());
         }
         return etablissements;
     }
@@ -75,8 +80,10 @@ public class EtablissementDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
-            ResultSet resultat = ps.executeQuery(requete);
-            E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+            }
         } catch (SQLException ex) {
 
         }
@@ -94,9 +101,10 @@ public class EtablissementDao {
         try {
             ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
-            ps.executeUpdate(requete);
+            ps.executeUpdate();
+            System.out.println("Suppression effectuée avec succès");
         } catch (SQLException ex) {
-            Logger.getLogger(EtablissementDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
 
     }
