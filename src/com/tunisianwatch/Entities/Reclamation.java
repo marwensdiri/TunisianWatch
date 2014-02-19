@@ -36,8 +36,11 @@ public class Reclamation {
         this.idDomaine = idDomaine;
         this.etat = etat;
     }
-    
 
+    public Reclamation() {
+    }
+    
+    
     public int getId() {
         return id;
     }
