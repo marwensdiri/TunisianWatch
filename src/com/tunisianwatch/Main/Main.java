@@ -8,6 +8,7 @@ package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import com.tunisianwatch.Gui.MainFrame;
 
 
 /**
@@ -22,18 +23,18 @@ public class Main {
      */
     public static void main(String[] args) {
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new MainFrame().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
 
 
-        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
-
-        UtilisateurDao userdao = new UtilisateurDao();
-        
-        userdao.insertUser(u1);
+//        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
+//
+//        UtilisateurDao userdao = new UtilisateurDao();
+//        
+//        userdao.insertUser(u1);
         
     }
 
