@@ -10,6 +10,8 @@ import com.tunisianwatch.Dao.ReclamationDao;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -21,19 +23,11 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public static void main(String[] args) {
-        //<tmp> 
-        MainFrame m = new MainFrame();
-        //</tmp>
+        
     }
     public MainFrame() {
         initComponents();
-        //<tmp>
-        //Reclamation r = new Reclamation(5, new java.util.Date(), new java.util.Date(), "fjkh", "dd", 3 , 1, true);
-        ReclamationDao rdao = new ReclamationDao();
-        //rdao.insertReclamation(r);
-        Reclamation r = new Reclamation(6, new java.util.Date(), new java.util.Date(), "farouk", "youssef", 3 , 1, true);
-        rdao.updateReclamation(2, r);
-        //</tmp>
+        
     }
 
     /**
