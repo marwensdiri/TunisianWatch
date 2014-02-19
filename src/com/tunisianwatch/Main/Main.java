@@ -6,13 +6,17 @@
 
 package com.tunisianwatch.Main;
 
+import com.tunisianwatch.Dao.UtilisateurDao;
+import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Gui.MainFrame;
+
 
 /**
  *
  * @author Marwen
  */
 public class Main {
+    private static java.util.Date date;
 
     /**
      * @param args the command line arguments
@@ -24,6 +28,14 @@ public class Main {
                 new MainFrame().setVisible(true);
             }
         });
+
+
+//        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
+//
+//        UtilisateurDao userdao = new UtilisateurDao();
+//        
+//        userdao.insertUser(u1);
+        
     }
-    
+
 }
