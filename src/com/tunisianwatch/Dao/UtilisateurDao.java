@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,12 +87,69 @@ public class UtilisateurDao {
     }
 
     public List<Utilisateur> selectUsers() {
-        return null;
+        List<Utilisateur> listeUsers = new ArrayList<Utilisateur>();
+
+        String requete = "select * from Utilisateur";
+        try {
+           Statement statement = ResourceManager.getInstance()
+                   .createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+
+            while(resultat.next()){
+                Utilisateur user =new Utilisateur();
+
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                listeUsers.add(user);
+            }
+            return listeUsers;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors du chargement des utilisateurs "+ex.getMessage());
+            return null;
+        }
 
     }
 
     public Utilisateur selectUserById(int id) {
-        return null;
+        Utilisateur user =new Utilisateur();
+        
+        String requete = "select * from Utilisateur where id=?";
+        try {
+           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+
+            while(resultat.next()){
+                
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                
+            }
+            return user;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            return null;
+        }
 
     }
 
