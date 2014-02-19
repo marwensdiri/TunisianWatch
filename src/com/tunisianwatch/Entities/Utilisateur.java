@@ -31,6 +31,12 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
+    @Override
+    public String toString() {
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", photo=" + photo + ", login=" + login + ", mdp=" + mdp + ", mail=" + mail + ", type=" + type + ", idEtablissement=" + idEtablissement + '}';
+    }
+    
+    
         
     public Utilisateur(int idEtablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.idEtablissement = idEtablissement;

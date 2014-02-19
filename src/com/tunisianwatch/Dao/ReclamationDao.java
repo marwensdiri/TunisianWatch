@@ -2,11 +2,9 @@ package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.Reclamation;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReclamationDao {
@@ -114,6 +112,195 @@ public class ReclamationDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByIdLieu(int idLieu) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where idlieu=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idLieu);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByDate(Date date) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where date=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByTime(Date date) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where heure=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setTime(1, new java.sql.Time(date.getTime()));
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByTitre(String titre) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where titre=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, titre);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByIdCitoyen(int idCitoyen) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where idcitoyen=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idCitoyen);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByIdDomaine(int idDomaine) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where iddomaine=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idDomaine);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                rec.setId(resultat.getInt("id"));
+                rec.setIdLieu(resultat.getInt("idlieu"));
+                rec.setDate(resultat.getDate("date"));
+                rec.setHeure(resultat.getTime("heure"));
+                rec.setDescription(resultat.getString("description"));
+                rec.setTitre(resultat.getString("titre"));
+                rec.setIdCitoyen(resultat.getInt("idcitoyen"));
+                rec.setIdDomaine(resultat.getInt("iddomaine"));
+                rec.setEtat(resultat.getBoolean("etat"));
+            }
+            return rec;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Reclamation selectReclamationByEtat(boolean etat) {
+        Reclamation rec = new Reclamation();
+        String requete = "select * from reclamation where etat=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setBoolean(1, etat);
             ResultSet resultat = ps.executeQuery();
             while (resultat.next()) {
                 rec.setId(resultat.getInt("id"));

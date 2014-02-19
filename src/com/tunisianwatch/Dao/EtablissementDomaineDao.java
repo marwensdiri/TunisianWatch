@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EtablissementDomaineDao {
 
@@ -92,6 +90,40 @@ public class EtablissementDomaineDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+                ED = new EtablissementDomaine(resultat.getInt("id"), resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement"+ex.getMessage());
+        }
+        return ED;
+
+    }
+    
+    public EtablissementDomaine seletcEtablissementDomaineByIdEtablissement(int idetablissement) {
+        String requete = "select * from etablissement_domaine where idetablissement=?";
+        EtablissementDomaine ED = null;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idetablissement);
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+                ED = new EtablissementDomaine(resultat.getInt("id"), resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement"+ex.getMessage());
+        }
+        return ED;
+
+    }
+    
+    public EtablissementDomaine seletcEtablissementDomaineByIdDomaine(int idDomaine) {
+        String requete = "select * from etablissement_domaine where iddomaine=?";
+        EtablissementDomaine ED = null;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idDomaine);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 ED = new EtablissementDomaine(resultat.getInt("id"), resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
