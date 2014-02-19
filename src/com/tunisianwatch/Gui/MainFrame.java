@@ -6,7 +6,9 @@
 
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.ReclamationDao;
 import com.tunisianwatch.Dao.UtilisateurDao;
+import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Entities.Utilisateur;
 
 /**
@@ -20,6 +22,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        Reclamation r = new Reclamation(5, new java.util.Date(), new java.util.Date(), "fjkh", "dd", 3 , 1, true);
+        ReclamationDao rdao = new ReclamationDao();
+        rdao.insertReclamation(r);
     }
 
     /**
