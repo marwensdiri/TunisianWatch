@@ -34,11 +34,11 @@ public class Acceuil extends javax.swing.JFrame {
         CitoyenPanel = new javax.swing.JPanel();
         responsablePanel = new javax.swing.JPanel();
         EtablissementPanel = new javax.swing.JPanel();
+        etablissementPanel = new javax.swing.JPanel();
         StatPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acceuil");
-        setPreferredSize(new java.awt.Dimension(900, 500));
 
         menuTabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         menuTabbedPane.setToolTipText("");
@@ -49,7 +49,7 @@ public class Acceuil extends javax.swing.JFrame {
         reclamationPanel.setLayout(reclamationPanelLayout);
         reclamationPanelLayout.setHorizontalGroup(
             reclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addGap(0, 1248, Short.MAX_VALUE)
         );
         reclamationPanelLayout.setVerticalGroup(
             reclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,7 +73,7 @@ public class Acceuil extends javax.swing.JFrame {
         CitoyenPanel.setLayout(CitoyenPanelLayout);
         CitoyenPanelLayout.setHorizontalGroup(
             CitoyenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addGap(0, 1248, Short.MAX_VALUE)
         );
         CitoyenPanelLayout.setVerticalGroup(
             CitoyenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +86,7 @@ public class Acceuil extends javax.swing.JFrame {
         responsablePanel.setLayout(responsablePanelLayout);
         responsablePanelLayout.setHorizontalGroup(
             responsablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addGap(0, 1248, Short.MAX_VALUE)
         );
         responsablePanelLayout.setVerticalGroup(
             responsablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,15 +95,26 @@ public class Acceuil extends javax.swing.JFrame {
 
         menuTabbedPane.addTab("Gestion des Responsables", responsablePanel);
 
+        javax.swing.GroupLayout etablissementPanelLayout = new javax.swing.GroupLayout(etablissementPanel);
+        etablissementPanel.setLayout(etablissementPanelLayout);
+        etablissementPanelLayout.setHorizontalGroup(
+            etablissementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1248, Short.MAX_VALUE)
+        );
+        etablissementPanelLayout.setVerticalGroup(
+            etablissementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 495, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout EtablissementPanelLayout = new javax.swing.GroupLayout(EtablissementPanel);
         EtablissementPanel.setLayout(EtablissementPanelLayout);
         EtablissementPanelLayout.setHorizontalGroup(
             EtablissementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addComponent(etablissementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         EtablissementPanelLayout.setVerticalGroup(
             EtablissementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addComponent(etablissementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         menuTabbedPane.addTab("Gestion des Etablissements", EtablissementPanel);
@@ -112,7 +123,7 @@ public class Acceuil extends javax.swing.JFrame {
         StatPanel.setLayout(StatPanelLayout);
         StatPanelLayout.setHorizontalGroup(
             StatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addGap(0, 1248, Short.MAX_VALUE)
         );
         StatPanelLayout.setVerticalGroup(
             StatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,11 +136,11 @@ public class Acceuil extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(menuTabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(menuTabbedPane)
         );
 
         pack();
@@ -174,6 +185,7 @@ public class Acceuil extends javax.swing.JFrame {
     private javax.swing.JPanel CitoyenPanel;
     private javax.swing.JPanel EtablissementPanel;
     private javax.swing.JPanel StatPanel;
+    private javax.swing.JPanel etablissementPanel;
     private javax.swing.JPanel menuReclamation;
     private javax.swing.JTabbedPane menuTabbedPane;
     private javax.swing.JPanel reclamationPanel;
