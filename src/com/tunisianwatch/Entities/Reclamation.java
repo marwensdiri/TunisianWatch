@@ -134,4 +134,11 @@ public class Reclamation {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Reclamation{" + "id=" + id + ", idLieu=" + idLieu + ", date=" + date + ", heure=" + heure + ", description=" + description + ", titre=" + titre + ", idCitoyen=" + idCitoyen + ", idDomaine=" + idDomaine + ", etat=" + etat + '}';
+    }
+    
+    
 }

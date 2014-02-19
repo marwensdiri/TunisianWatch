@@ -6,9 +6,9 @@
 
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Dao.ReclamationDao;
+import com.tunisianwatch.Dao.DomaineDao;
 import com.tunisianwatch.Dao.UtilisateurDao;
-import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Utilisateur;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,10 +24,12 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public static void main(String[] args) {
         
+        MainFrame m = new MainFrame();
+        
     }
     public MainFrame() {
         initComponents();
-        
+               
     }
 
     /**
