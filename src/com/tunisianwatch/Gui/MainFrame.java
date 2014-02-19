@@ -6,6 +6,9 @@
 
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.UtilisateurDao;
+import com.tunisianwatch.Entities.Utilisateur;
+
 /**
  *
  * @author asd
@@ -99,7 +102,9 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ConnectionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectionBtnActionPerformed
-        
+        Utilisateur user;
+        user = new UtilisateurDao().Connect(loginTextField.getText(), mdpPasswordField.getText());
+        if(user!=null) System.out.println("aa");
     }//GEN-LAST:event_ConnectionBtnActionPerformed
 
 
