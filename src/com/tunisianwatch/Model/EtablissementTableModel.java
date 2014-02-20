@@ -15,7 +15,7 @@ import javax.swing.table.TableModel;
  */
 public class EtablissementTableModel implements TableModel{
 
-    private String title[] = { "Nom", "Description", "Domaines" };
+    private String title[] = { "Nom", "Description", "Domaines","Responsable" };
     
     
     @Override
