@@ -17,6 +17,13 @@ public class EtablissementDomaine {
         this.idDomaine = idDomaine;
     }
 
+    @Override
+    public String toString() {
+        return "EtablissementDomaine{" + "idEtablissement=" + idEtablissement + ", idDomaine=" + idDomaine + ", id=" + id + '}';
+    }
+    
+    
+
     public void setIdEtablissement(int idEtablissement) {
         this.idEtablissement = idEtablissement;
     }

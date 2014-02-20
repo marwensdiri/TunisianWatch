@@ -152,6 +152,171 @@ public class UtilisateurDao {
         }
 
     }
+    
+    public Utilisateur selectUserByNom(String nom) {
+        Utilisateur user =new Utilisateur();
+        
+        String requete = "select * from Utilisateur where id=?";
+        try {
+           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, nom);
+            ResultSet resultat = ps.executeQuery();
+
+            while(resultat.next()){
+                
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                
+            }
+            return user;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            return null;
+        }
+
+    }
+    
+    public Utilisateur selectUserByPrenom(String prenom) {
+        Utilisateur user =new Utilisateur();
+        
+        String requete = "select * from Utilisateur where id=?";
+        try {
+           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, prenom);
+            ResultSet resultat = ps.executeQuery();
+
+            while(resultat.next()){
+                
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                
+            }
+            return user;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            return null;
+        }
+
+    }
+    
+    public Utilisateur selectUserByLogin(String login) {
+        Utilisateur user =new Utilisateur();
+        
+        String requete = "select * from Utilisateur where id=?";
+        try {
+           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, login);
+            ResultSet resultat = ps.executeQuery();
+
+            while(resultat.next()){
+                
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                
+            }
+            return user;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            return null;
+        }
+
+    }
+    
+    public Utilisateur selectUserByMail(String mail) {
+        Utilisateur user =new Utilisateur();
+        
+        String requete = "select * from Utilisateur where id=?";
+        try {
+           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, mail);
+            ResultSet resultat = ps.executeQuery();
+
+            while(resultat.next()){
+                
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                
+            }
+            return user;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            return null;
+        }
+
+    }
+    
+    public Utilisateur selectUserByType(char type) {
+        Utilisateur user =new Utilisateur();
+        
+        String requete = "select * from Utilisateur where id=?";
+        try {
+           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, type+"");
+            ResultSet resultat = ps.executeQuery();
+
+            while(resultat.next()){
+                
+                user.setId(resultat.getInt(1));
+                user.setIdEtablissement(resultat.getInt(2));
+                user.setNom(resultat.getString(3));
+                user.setPrenom(resultat.getString(4));
+                user.setPhoto(resultat.getString(5));
+                user.setLogin(resultat.getString(6));
+                user.setMdp(resultat.getString(7));
+                user.setMail(resultat.getString(8));
+                user.setType(resultat.getString(9).charAt(0));
+                user.setDateNaissance(resultat.getDate(10));
+                
+                
+            }
+            return user;
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            return null;
+        }
+
+    }
 
     public Utilisateur Connect(String login, String password) {
         Utilisateur user = null;

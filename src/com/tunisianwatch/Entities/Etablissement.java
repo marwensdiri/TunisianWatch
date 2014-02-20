@@ -23,6 +23,13 @@ public class Etablissement {
         this.idLieu = idLieu;
     }
 
+    @Override
+    public String toString() {
+        return "Etablissement{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", image=" + image + ", idLieu=" + idLieu + '}';
+    }
+
+    
+    
     public int getId() {
         return id;
     }

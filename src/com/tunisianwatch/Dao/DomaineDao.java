@@ -2,7 +2,6 @@ package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.Domaine;
-import com.tunisianwatch.Entities.Reclamation;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,6 +104,29 @@ public class DomaineDao {
             return null;
         }
     }
+    
+    public Domaine selectDomaineByNom(String nom) {
+        Domaine d = new Domaine();
+        String requete = "select * from domaine where nom=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, nom);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                d.setId(resultat.getInt("id"));
+                d.setNom(resultat.getString("nom"));
+                
+            }
+            return d;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
+            return null;
+        }
+    }
+    
+    
 
     /**
      *

@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EtablissementDao {
 
@@ -80,6 +78,40 @@ public class EtablissementDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return E;
+
+    }
+    
+    public Etablissement selectEtablissementByNom(String nom) {
+        String requete = "select * from etablissement where nom=?";
+        Etablissement E = null;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, nom);
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return E;
+
+    }
+    
+    public Etablissement selectEtablissementByIdLien(int idLieu) {
+        String requete = "select * from etablissement where idlieux=?";
+        Etablissement E = null;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idLieu);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
