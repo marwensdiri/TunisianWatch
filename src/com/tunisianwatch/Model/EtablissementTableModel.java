@@ -15,6 +15,9 @@ import javax.swing.table.TableModel;
  */
 public class EtablissementTableModel implements TableModel{
 
+    private String title[] = { "Nom", "Description", "Domaines" };
+    
+    
     @Override
     public int getRowCount() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -22,12 +25,12 @@ public class EtablissementTableModel implements TableModel{
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.title.length;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.title[columnIndex];
     }
 
     @Override

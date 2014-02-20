@@ -47,7 +47,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nom", "Description", "Domaines", "Responsable"
             }
         ));
         jScrollPane.setViewportView(ReclamationTable);
@@ -56,7 +56,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
         supprimerButton.setText("supprimer");
 
-        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Domaines", "Responsable" }));
 
         rechercheButton.setText("rechercher");
 
