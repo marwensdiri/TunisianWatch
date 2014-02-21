@@ -24,6 +24,7 @@ public class EtablissementTableModel extends AbstractTableModel {
     private String title[] = {"Nom", "Description", "Lieu", "Responsable", "Domaines"};
     private List<Etablissement> listEtablissement = new ArrayList<Etablissement>();
     private List<Etablissement> listResultSearch = new ArrayList<Etablissement>();
+    private boolean searching = false;
 
     public EtablissementTableModel() {
         this.listEtablissement = etablissementDao.selectEtablissements();
@@ -31,10 +32,13 @@ public class EtablissementTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if (listResultSearch.size() > 0) {
+        if (searching && listResultSearch.size() > 0) {
             return listResultSearch.size();
+        } else if (searching && listResultSearch.size() == 0) {
+            return 0;
+        } else {
+            return listEtablissement.size();
         }
-        return listEtablissement.size();
     }
 
     @Override
@@ -60,36 +64,42 @@ public class EtablissementTableModel extends AbstractTableModel {
 
     public void initSearch(String searchString, int searchIndex) {
         listResultSearch = new ArrayList<Etablissement>();
-        for (Etablissement etablissement : listEtablissement) {
-            if (searchIndex == 0) {
-                if (etablissement.getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                    listResultSearch.add(etablissement);
-                }
-            } else if (searchIndex == 1) {
-                if (etablissement.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                    listResultSearch.add(etablissement);
-                }
-            } else if (searchIndex == 2) {
-                if (etablissement.getResponsable().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                    listResultSearch.add(etablissement);
-                }
-            } else if (searchIndex == 3) {
-                List<Domaine> listDomaine = etablissement.getListDomaine();
-                for (int i = 0; i < listDomaine.size(); i++) {
-                    if (searchString.length()>0 && listDomaine.get(i).getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        if (listResultSearch.indexOf(etablissement) == -1) {
+        if (searchString.length() > 0) {
+            searching = true;
+            System.out.println(searchString.length());
+            for (Etablissement etablissement : listEtablissement) {
+                if (searchIndex == 0) {
+                    if (etablissement.getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                        listResultSearch.add(etablissement);
+                    }
+                } else if (searchIndex == 1) {
+                    if (etablissement.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                        listResultSearch.add(etablissement);
+                    }
+                } else if (searchIndex == 2) {
+                    if (etablissement.getResponsable().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                        listResultSearch.add(etablissement);
+                    }
+                } else if (searchIndex == 3) {
+                    List<Domaine> listDomaine = etablissement.getListDomaine();
+                    for (int i = 0; i < listDomaine.size(); i++) {
+                        if (listDomaine.get(i).getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
                             listResultSearch.add(etablissement);
+                            break;
                         }
                     }
                 }
             }
+        }
+        else{
+            searching=false;
         }
     }
 
 //fin du bloc de methodes personalisées
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Etablissement etablissement;
+        Etablissement etablissement = null;
         if (listResultSearch.size() > 0) {
             etablissement = listResultSearch.get(rowIndex);
         } else {
