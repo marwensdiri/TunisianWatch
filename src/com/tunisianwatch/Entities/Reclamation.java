@@ -4,49 +4,48 @@ import java.util.*;
 
 public class Reclamation {
 
-	private int id;
-        private int idLieu;
-        private Date date;
-        private Date heure;
-        private String description;
-	private String titre;
-	private int idCitoyen;
-        private int idDomaine;
-	private boolean etat;
+    private int id;
+    private Lieu lieu;
+    private Date date;
+    private Date heure;
+    private String description;
+    private String titre;
+    private Utilisateur citoyen;
+    private Domaine domaine;
+    private boolean etat;
 
-    public Reclamation(int id, int idLeu, Date date, Date heure, String description, String titre, int idCitoyen, int idDomaine, boolean etat) {
+    public Reclamation(int id, Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, boolean etat) {
         this.id = id;
-        this.idLieu = idLeu;
+        this.lieu = lieu;
         this.date = date;
         this.heure = heure;
         this.description = description;
         this.titre = titre;
-        this.idCitoyen = idCitoyen;
-        this.idDomaine = idDomaine;
+        this.citoyen = citoyen;
         this.etat = etat;
+        this.domaine = domaine;
     }
 
-    public Reclamation(int idLeu, Date date, Date heure, String description, String titre, int idCitoyen, int idDomaine, boolean etat) {
-        this.idLieu = idLeu;
+    public Reclamation(Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, boolean etat) {
+        this.lieu = lieu;
         this.date = date;
         this.heure = heure;
         this.description = description;
         this.titre = titre;
-        this.idCitoyen = idCitoyen;
-        this.idDomaine = idDomaine;
+        this.citoyen = citoyen;
         this.etat = etat;
+        this.domaine = domaine;
     }
 
     public Reclamation() {
     }
-    
-    
+
     public int getId() {
         return id;
     }
 
-    public int getIdLieu() {
-        return idLieu;
+    public Lieu getLieu() {
+        return lieu;
     }
 
     public Date getDate() {
@@ -65,12 +64,12 @@ public class Reclamation {
         return titre;
     }
 
-    public int getIdCitoyen() {
-        return idCitoyen;
+    public Utilisateur getCitoyen() {
+        return citoyen;
     }
 
-    public int getIdDomaine() {
-        return idDomaine;
+    public Domaine getDomaine() {
+        return domaine;
     }
 
     public boolean getEtat() {
@@ -81,8 +80,8 @@ public class Reclamation {
         this.id = id;
     }
 
-    public void setIdLieu(int idLeu) {
-        this.idLieu = idLeu;
+    public void setLieu(Lieu lieu) {
+        this.lieu = lieu;
     }
 
     public void setDate(Date date) {
@@ -101,12 +100,12 @@ public class Reclamation {
         this.titre = titre;
     }
 
-    public void setIdCitoyen(int idCitoyen) {
-        this.idCitoyen = idCitoyen;
+    public void setCitoyen(Utilisateur citoyen) {
+        this.citoyen = citoyen;
     }
 
-    public void setIdDomaine(int idDomaine) {
-        this.idDomaine = idDomaine;
+    public void setDomaine(Domaine domaine) {
+        this.domaine = domaine;
     }
 
     public void setEtat(boolean etat) {
@@ -135,10 +134,4 @@ public class Reclamation {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Reclamation{" + "id=" + id + ", idLieu=" + idLieu + ", date=" + date + ", heure=" + heure + ", description=" + description + ", titre=" + titre + ", idCitoyen=" + idCitoyen + ", idDomaine=" + idDomaine + ", etat=" + etat + '}';
-    }
-    
-    
 }
