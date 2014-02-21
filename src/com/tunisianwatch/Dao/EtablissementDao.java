@@ -1,8 +1,11 @@
 package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
+import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Etablissement;
+import com.tunisianwatch.Entities.EtablissementDomaine;
 import com.tunisianwatch.Entities.Lieu;
+import com.tunisianwatch.Entities.Utilisateur;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,13 +20,14 @@ public class EtablissementDao {
      * @param E
      */
     public void insertEtablissement(Etablissement E) {
-        String requete = "insert into etablissement (nom , description,image,idlieux) values (?,?,?,?)";
+        String requete = "insert into etablissement (nom , description,image,idlieu,idresponsable) values (?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
             ps.setString(3, E.getImage());
             ps.setInt(4, E.getLieu().getId());
+            ps.setInt(5, E.getResponsable().getId());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -37,14 +41,15 @@ public class EtablissementDao {
      * @param E
      */
     public void updateEtablissement(int id, Etablissement E) {
-        String requete = "update etablissement set nom=?, description=?, image=?,idlieux=? where id=?";
+        String requete = "update etablissement set nom=?, description=?, image=?,idlieu=?,idresponsable=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
             ps.setString(3, E.getImage());
             ps.setInt(4, E.getLieu().getId());
-            ps.setInt(5, E.getId());
+            ps.setInt(5, E.getResponsable().getId());
+            ps.setInt(6, E.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
@@ -54,6 +59,9 @@ public class EtablissementDao {
 
     public List<Etablissement> selectEtablissements() {
         LieuDao lieuDao = new LieuDao();
+        UtilisateurDao utilisaeurDao = new UtilisateurDao();
+        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+        DomaineDao domaineDao = new DomaineDao();
         List<Etablissement> etablissements = new ArrayList<Etablissement>();
         String requete = "select * from etablissement";
         Statement statement;
@@ -61,8 +69,15 @@ public class EtablissementDao {
             statement = ResourceManager.getInstance().createStatement();
             ResultSet resultat = statement.executeQuery(requete);
             while (resultat.next()) {
-                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
-                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
+                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
+                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
+                List<Domaine> listDomaine = new ArrayList<Domaine>();
+                for (int i = 0; i < listDomaine.size(); i++) {
+                    listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
+                }
+                E.setListDomaine(listDomaine);
                 etablissements.add(E);
             }
         } catch (SQLException ex) {
@@ -77,6 +92,9 @@ public class EtablissementDao {
      */
     public Etablissement selectEtablissementById(int id) {
         LieuDao lieuDao = new LieuDao();
+        UtilisateurDao utilisaeurDao = new UtilisateurDao();
+        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+        DomaineDao domaineDao = new DomaineDao();
         String requete = "select * from etablissement where id=?";
         Etablissement E = null;
         try {
@@ -84,8 +102,15 @@ public class EtablissementDao {
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
+                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
+                List<Domaine> listDomaine = new ArrayList<Domaine>();
+                for (int i = 0; i < listDomaine.size(); i++) {
+                    listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
+                }
+                E.setListDomaine(listDomaine);
             }
         } catch (SQLException ex) {
 
@@ -96,6 +121,9 @@ public class EtablissementDao {
 
     public Etablissement selectEtablissementByNom(String nom) {
         LieuDao lieuDao = new LieuDao();
+        UtilisateurDao utilisaeurDao = new UtilisateurDao();
+        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+        DomaineDao domaineDao = new DomaineDao();
         String requete = "select * from etablissement where nom=?";
         Etablissement E = null;
         try {
@@ -103,8 +131,14 @@ public class EtablissementDao {
             ps.setString(1, nom);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
+                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
+                List<Domaine> listDomaine = new ArrayList<Domaine>();
+                for (int i = 0; i < listDomaine.size(); i++) {
+                    listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
+                }
             }
         } catch (SQLException ex) {
 
@@ -115,15 +149,24 @@ public class EtablissementDao {
 
     public Etablissement selectEtablissementByIdLien(int idLieu) {
         LieuDao lieuDao = new LieuDao();
-        String requete = "select * from etablissement where idlieux=?";
+        UtilisateurDao utilisaeurDao = new UtilisateurDao();
+        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+        DomaineDao domaineDao = new DomaineDao();
+        String requete = "select * from etablissement where idlieu=?";
         Etablissement E = null;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, idLieu);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
+                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
+                List<Domaine> listDomaine = new ArrayList<Domaine>();
+                for (int i = 0; i < listDomaine.size(); i++) {
+                    listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
+                }
             }
         } catch (SQLException ex) {
 
@@ -137,6 +180,8 @@ public class EtablissementDao {
      * @param id
      */
     public void deleteEtablissement(int id) {
+        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+        etablissementDomaineDao.deleteEtablissementDomaineByEtablissement(id);
         String requete = "delete from etablissement where id=?";
         PreparedStatement ps;
         try {

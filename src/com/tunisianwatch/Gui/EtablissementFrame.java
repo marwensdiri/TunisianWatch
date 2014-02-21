@@ -5,6 +5,7 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.EtablissementDao;
 import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import java.util.ArrayList;
@@ -144,8 +145,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 if (lsm.isSelectedIndex(i)) {
                     Etablissement etabTmp = tableModel.getEtablissementAt(i);
                     listEtabtmp.add(etabTmp);
-                    /*new EtablissementDomaineDao().deleteEtablissementDomaineByEntreprise(identreprise);
-                     new EtablissementDao().deleteEtablissement(identreprise);*/
+                    //new EtablissementDao().deleteEtablissement(etabTmp.getId());
                 }
             }
             tableModel.removeRows(listEtabtmp);

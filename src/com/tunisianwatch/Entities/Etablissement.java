@@ -1,5 +1,8 @@
 package com.tunisianwatch.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Etablissement {
 
 	private int id;
@@ -7,20 +10,40 @@ public class Etablissement {
 	private String description;
 	private String image;
 	private Lieu lieu;
+        private Utilisateur responsable;
+        private List<Domaine> listDomaine= new ArrayList<Domaine>();
 
-    public Etablissement(String nom, String description, String image, Lieu lieu) {
+    public Etablissement(String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
         this.nom = nom;
         this.description = description;
         this.image = image;
         this.lieu = lieu;
+        this.responsable=responsable;
     }
 
-    public Etablissement(int id, String nom, String description, String image, Lieu lieu) {
+    public Etablissement(int id, String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.image = image;
         this.lieu = lieu;
+        this.responsable=responsable;
+    }
+    
+    public void addDomaine(Domaine d){
+        listDomaine.add(d);
+    }
+    
+    public void removeDomaine(Domaine d){
+        listDomaine.remove(d);
+    }
+    
+    public void setListDomaine(List<Domaine> listDomaine){
+        this.listDomaine=listDomaine;
+    }
+    
+    public List<Domaine> getListDomaine(){
+        return listDomaine;
     }
 
     @Override
@@ -50,6 +73,15 @@ public class Etablissement {
         return lieu;
     }
 
+    public Utilisateur getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Utilisateur responsable) {
+        this.responsable = responsable;
+    }
+
+    
 
     public void setId(int id) {
         this.id = id;

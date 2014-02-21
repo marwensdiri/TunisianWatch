@@ -21,7 +21,7 @@ public class EtablissementTableModel extends AbstractTableModel {
 
     private EtablissementDao etablissementDao = new EtablissementDao();
     private LieuDao lieuDao = new LieuDao();
-    private String title[] = {"Nom", "Description", "Lieu"};
+    private String title[] = {"Nom", "Description", "Lieu","Responsable"};
     private List<Etablissement> listEtablissement = new ArrayList<Etablissement>();
     private List<Etablissement> listResultSearch = new ArrayList<Etablissement>();
 
@@ -88,6 +88,9 @@ public class EtablissementTableModel extends AbstractTableModel {
             return etablissement.getDescription();
         } else if (columnIndex == 2) {
             return etablissement.getLieu();
+        }
+        else if (columnIndex == 3) {
+            return etablissement.getResponsable().getNom()+" "+etablissement.getResponsable().getPrenom();
         }
         return null;
     }
