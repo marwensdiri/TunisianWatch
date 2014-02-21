@@ -57,12 +57,12 @@ public class EtablissementTableModel extends AbstractTableModel {
         listResultSearch =  new ArrayList<Etablissement>();
         for(Etablissement etablissement : listEtablissement){
             if(searchIndex==0){
-                if(etablissement.getNom().matches("(.*)"+searchString+"(.*)")){
+                if(etablissement.getNom().toUpperCase().matches("(.*)"+searchString.toUpperCase()+"(.*)")){
                     listResultSearch.add(etablissement);
                 }
             }
             else if(searchIndex==1){
-                if(etablissement.getLieu().getNom().matches("(.*)"+searchString+"(.*)")){
+                if(etablissement.getLieu().getNom().toUpperCase().matches("(.*)"+searchString.toUpperCase()+"(.*)")){
                     listResultSearch.add(etablissement);
                 }
             }
