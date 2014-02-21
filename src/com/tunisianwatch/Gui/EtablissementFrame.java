@@ -67,7 +67,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
             }
         });
 
-        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Lieu" }));
+        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Lieu", "Responsable", "Domaine" }));
 
         rechercheLabel.setText("Recherche par");
 

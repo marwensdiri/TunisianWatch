@@ -74,7 +74,7 @@ public class EtablissementDao {
                 Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
-                for (int i = 0; i < listDomaine.size(); i++) {
+                for (int i = 0; i < listEtabDomaine.size(); i++){
                     listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
                 }
                 E.setListDomaine(listDomaine);

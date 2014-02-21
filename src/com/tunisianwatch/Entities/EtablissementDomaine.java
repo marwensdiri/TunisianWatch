@@ -4,22 +4,23 @@ public class EtablissementDomaine {
 
     private int idEtablissement;
     private int idDomaine;
-    private int id;
 
-    public EtablissementDomaine(int idEtablissement, int idDomaine, int id) {
-        this.idEtablissement = idEtablissement;
-        this.idDomaine = idDomaine;
-        this.id = id;
-    }
-
+    
+    /**
+     *
+     * @param idEtablissement
+     * @param idDomaine
+     */
     public EtablissementDomaine(int idEtablissement, int idDomaine) {
         this.idEtablissement = idEtablissement;
         this.idDomaine = idDomaine;
     }
 
+    
+
     @Override
     public String toString() {
-        return "EtablissementDomaine{" + "idEtablissement=" + idEtablissement + ", idDomaine=" + idDomaine + ", id=" + id + '}';
+        return "EtablissementDomaine{" + "idEtablissement=" + idEtablissement + ", idDomaine=" + idDomaine + '}';
     }
     
     
@@ -32,9 +33,6 @@ public class EtablissementDomaine {
         this.idDomaine = idDomaine;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getIdEtablissement() {
         return idEtablissement;
@@ -44,9 +42,6 @@ public class EtablissementDomaine {
         return idDomaine;
     }
 
-    public int getId() {
-        return id;
-    }
     
     
     

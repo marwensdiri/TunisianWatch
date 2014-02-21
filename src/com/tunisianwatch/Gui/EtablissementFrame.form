@@ -103,9 +103,11 @@
     <Component class="javax.swing.JComboBox" name="CategComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="4">
             <StringItem index="0" value="Nom"/>
             <StringItem index="1" value="Lieu"/>
+            <StringItem index="2" value="Responsable"/>
+            <StringItem index="3" value="Domaine"/>
           </StringArray>
         </Property>
       </Properties>

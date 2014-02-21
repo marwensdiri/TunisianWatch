@@ -7,8 +7,8 @@ package com.tunisianwatch.Model;
 
 import com.tunisianwatch.Dao.EtablissementDao;
 import com.tunisianwatch.Dao.LieuDao;
+import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Etablissement;
-import com.tunisianwatch.Entities.Lieu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -21,7 +21,7 @@ public class EtablissementTableModel extends AbstractTableModel {
 
     private EtablissementDao etablissementDao = new EtablissementDao();
     private LieuDao lieuDao = new LieuDao();
-    private String title[] = {"Nom", "Description", "Lieu","Responsable"};
+    private String title[] = {"Nom", "Description", "Lieu", "Responsable", "Domaines"};
     private List<Etablissement> listEtablissement = new ArrayList<Etablissement>();
     private List<Etablissement> listResultSearch = new ArrayList<Etablissement>();
 
@@ -69,11 +69,24 @@ public class EtablissementTableModel extends AbstractTableModel {
                 if (etablissement.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
                     listResultSearch.add(etablissement);
                 }
+            } else if (searchIndex == 2) {
+                if (etablissement.getResponsable().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                    listResultSearch.add(etablissement);
+                }
+            } else if (searchIndex == 3) {
+                List<Domaine> listDomaine = etablissement.getListDomaine();
+                for (int i = 0; i < listDomaine.size(); i++) {
+                    if (searchString.length()>0 && listDomaine.get(i).getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                        if (listResultSearch.indexOf(etablissement) == -1) {
+                            listResultSearch.add(etablissement);
+                        }
+                    }
+                }
             }
         }
     }
 
-    //fin du bloc de methodes personalisées
+//fin du bloc de methodes personalisées
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Etablissement etablissement;
@@ -88,9 +101,18 @@ public class EtablissementTableModel extends AbstractTableModel {
             return etablissement.getDescription();
         } else if (columnIndex == 2) {
             return etablissement.getLieu();
-        }
-        else if (columnIndex == 3) {
-            return etablissement.getResponsable().getNom()+" "+etablissement.getResponsable().getPrenom();
+        } else if (columnIndex == 3) {
+            return etablissement.getResponsable().getNom() + " " + etablissement.getResponsable().getPrenom();
+        } else if (columnIndex == 4) {
+            String domaines = "";
+            List<Domaine> listDomaine = etablissement.getListDomaine();
+            for (int i = 0; i < listDomaine.size(); i++) {
+                domaines += listDomaine.get(i).getNom();
+                if (i != listDomaine.size() - 1) {
+                    domaines += ",";
+                }
+            }
+            return domaines;
         }
         return null;
     }
