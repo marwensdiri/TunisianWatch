@@ -51,6 +51,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         ajoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion des Etablissements");
 
         ReclamationTable.setModel(tableModel);
         jScrollPane.setViewportView(ReclamationTable);
