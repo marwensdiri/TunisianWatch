@@ -3,64 +3,58 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Model;
 
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+import com.tunisianwatch.Dao.DomaineDao;
+import com.tunisianwatch.Dao.EtablissementDao;
+import com.tunisianwatch.Dao.LieuDao;
+import com.tunisianwatch.Entities.Etablissement;
+import com.tunisianwatch.Entities.Lieu;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author asd
  */
-public class EtablissementTableModel implements TableModel{
+public class EtablissementTableModel extends AbstractTableModel {
 
-    private String title[] = { "Nom", "Description", "Domaines","Responsable" };
-    
-    
+    private EtablissementDao etablissementDao = new EtablissementDao();
+    private LieuDao lieuDao = new LieuDao();
+    private String title[] = {"Nom", "Description", "Lieu"};
+    private List<Etablissement> listEtablissement = new ArrayList<Etablissement>();
+
+    public EtablissementTableModel() {
+        this.listEtablissement = etablissementDao.selectEtablissements();
+    }
+
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return listEtablissement.size();
     }
 
     @Override
     public int getColumnCount() {
-       return this.title.length;
-    }
-
-    @Override
-    public String getColumnName(int columnIndex) {
-        return this.title[columnIndex];
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return title.length;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Etablissement etablissement = listEtablissement.get(rowIndex);
+        if (columnIndex == 0) {
+            return etablissement.getNom();
+        } else if (columnIndex == 1) {
+            return etablissement.getDescription();
+        } else if (columnIndex == 2) {
+            Lieu lieu = lieuDao.selectLieuById(etablissement.getIdLieu());
+            return lieu;
+        }
+        return null;
     }
 
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getColumnName(int col) {
+        return this.title[col];
     }
 
-    @Override
-    public void addTableModelListener(TableModelListener l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeTableModelListener(TableModelListener l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

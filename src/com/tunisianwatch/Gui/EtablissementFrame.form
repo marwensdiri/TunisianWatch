@@ -27,12 +27,6 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Component id="modifierButton" min="-2" pref="108" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="supprimerButton" min="-2" pref="108" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="rechercheLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -41,6 +35,13 @@
                       <Component id="CategComboBox" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="rechercheButton" min="-2" pref="121" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="ajoutButton" min="-2" pref="108" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="modifierButton" min="-2" pref="108" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="supprimerButton" min="-2" pref="108" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="417" max="32767" attributes="0"/>
@@ -60,11 +61,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane" min="-2" pref="455" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="modifierButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="supprimerButton" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="supprimerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="modifierButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ajoutButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,13 +78,8 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="ReclamationTable">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Nom" type="java.lang.Object"/>
-                <Column editable="true" title="Description" type="java.lang.Object"/>
-                <Column editable="true" title="Domaines" type="java.lang.Object"/>
-                <Column editable="true" title="Responsable" type="java.lang.Object"/>
-              </Table>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="tableModel" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -120,6 +117,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="rechercheTextField">
+    </Component>
+    <Component class="javax.swing.JButton" name="ajoutButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ajouter"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

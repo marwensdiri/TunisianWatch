@@ -6,16 +6,26 @@
 
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.EtablissementDao;
+import com.tunisianwatch.Model.EtablissementTableModel;
+
 /**
  *
  * @author asd
  */
 public class EtablissementFrame extends javax.swing.JFrame {
 
+    
+    EtablissementTableModel tableModel;
+    
+    
+   
+    
     /**
      * Creates new form EtablissementFrame
      */
     public EtablissementFrame() {
+        tableModel = new EtablissementTableModel();
         initComponents();
     }
 
@@ -36,20 +46,11 @@ public class EtablissementFrame extends javax.swing.JFrame {
         rechercheButton = new javax.swing.JButton();
         rechercheLabel = new javax.swing.JLabel();
         rechercheTextField = new javax.swing.JTextField();
+        ajoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ReclamationTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nom", "Description", "Domaines", "Responsable"
-            }
-        ));
+        ReclamationTable.setModel(tableModel);
         jScrollPane.setViewportView(ReclamationTable);
 
         modifierButton.setText("modifier");
@@ -62,6 +63,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
         rechercheLabel.setText("Recherche par");
 
+        ajoutButton.setText("ajouter");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,18 +74,19 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(rechercheLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rechercheButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(rechercheButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(417, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,10 +101,11 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supprimerButton)
                     .addComponent(modifierButton)
-                    .addComponent(supprimerButton))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(ajoutButton))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,6 +119,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CategComboBox;
     private javax.swing.JTable ReclamationTable;
+    private javax.swing.JButton ajoutButton;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JButton modifierButton;
     private javax.swing.JButton rechercheButton;
