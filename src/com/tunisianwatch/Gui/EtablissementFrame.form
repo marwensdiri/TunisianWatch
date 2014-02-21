@@ -34,8 +34,6 @@
                       <Component id="rechercheTextField" min="-2" pref="124" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="CategComboBox" min="-2" pref="120" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="rechercheButton" min="-2" pref="121" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="ajoutButton" min="-2" pref="108" max="-2" attributes="0"/>
@@ -45,7 +43,7 @@
                       <Component id="supprimerButton" min="-2" pref="108" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="417" max="32767" attributes="0"/>
+              <EmptySpace pref="530" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,7 +53,6 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CategComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rechercheButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rechercheLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rechercheTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -67,7 +64,7 @@
                   <Component id="modifierButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ajoutButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -102,17 +99,11 @@
     <Component class="javax.swing.JComboBox" name="CategComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="2">
             <StringItem index="0" value="Nom"/>
-            <StringItem index="1" value="Domaines"/>
-            <StringItem index="2" value="Responsable"/>
+            <StringItem index="1" value="Lieu"/>
           </StringArray>
         </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="rechercheButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="rechercher"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="rechercheLabel">
@@ -121,6 +112,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="rechercheTextField">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rechercheTextFieldKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ajoutButton">
       <Properties>

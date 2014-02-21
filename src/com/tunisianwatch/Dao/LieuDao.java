@@ -61,6 +61,8 @@ public class LieuDao {
         }
         return lieux;
     }
+    
+    
 
     /**
      *
@@ -72,6 +74,23 @@ public class LieuDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+               lieu= new Lieu(resultat.getInt("id"), resultat.getString("nom"));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return lieu;
+
+    }
+    
+      public Lieu selectLieuByNom(String nom) {
+        String requete = "select * from lieu where id=?";
+        Lieu lieu = null;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, nom);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                lieu= new Lieu(resultat.getInt("id"), resultat.getString("nom"));

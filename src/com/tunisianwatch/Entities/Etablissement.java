@@ -6,26 +6,26 @@ public class Etablissement {
 	private String nom;
 	private String description;
 	private String image;
-	private int idLieu;
+	private Lieu lieu;
 
-    public Etablissement(String nom, String description, String image, int idLieu) {
+    public Etablissement(String nom, String description, String image, Lieu lieu) {
         this.nom = nom;
         this.description = description;
         this.image = image;
-        this.idLieu = idLieu;
+        this.lieu = lieu;
     }
 
-    public Etablissement(int id, String nom, String description, String image, int idLieu) {
+    public Etablissement(int id, String nom, String description, String image, Lieu lieu) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.image = image;
-        this.idLieu = idLieu;
+        this.lieu = lieu;
     }
 
     @Override
     public String toString() {
-        return "Etablissement{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", image=" + image + ", idLieu=" + idLieu + '}';
+        return "Etablissement{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", image=" + image + ", Lieu=" + lieu + '}';
     }
 
     
@@ -46,8 +46,8 @@ public class Etablissement {
         return image;
     }
 
-    public int getIdLieu() {
-        return idLieu;
+    public Lieu getLieu() {
+        return lieu;
     }
 
 
@@ -67,8 +67,8 @@ public class Etablissement {
         this.image = image;
     }
 
-    public void setIdLieu(int idLieu) {
-        this.idLieu = idLieu;
+    public void setLieu(Lieu lieu) {
+        this.lieu = lieu;
     }        
 
 }

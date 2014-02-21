@@ -2,6 +2,7 @@ package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.Etablissement;
+import com.tunisianwatch.Entities.Lieu;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class EtablissementDao {
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
             ps.setString(3, E.getImage());
-            ps.setInt(4, E.getIdLieu());
+            ps.setInt(4, E.getLieu().getId());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -42,7 +43,7 @@ public class EtablissementDao {
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
             ps.setString(3, E.getImage());
-            ps.setInt(4, E.getIdLieu());
+            ps.setInt(4, E.getLieu().getId());
             ps.setInt(5, E.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
@@ -52,6 +53,7 @@ public class EtablissementDao {
     }
 
     public List<Etablissement> selectEtablissements() {
+        LieuDao lieuDao = new LieuDao();
         List<Etablissement> etablissements = new ArrayList<Etablissement>();
         String requete = "select * from etablissement";
         Statement statement;
@@ -59,11 +61,12 @@ public class EtablissementDao {
             statement = ResourceManager.getInstance().createStatement();
             ResultSet resultat = statement.executeQuery(requete);
             while (resultat.next()) {
-                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
+                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
                 etablissements.add(E);
             }
         } catch (SQLException ex) {
-            System.out.println("erreur lors du chargement"+ex.getMessage());
+            System.out.println("erreur lors du chargement" + ex.getMessage());
         }
         return etablissements;
     }
@@ -73,6 +76,7 @@ public class EtablissementDao {
      * @param id
      */
     public Etablissement selectEtablissementById(int id) {
+        LieuDao lieuDao = new LieuDao();
         String requete = "select * from etablissement where id=?";
         Etablissement E = null;
         try {
@@ -80,7 +84,8 @@ public class EtablissementDao {
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
             }
         } catch (SQLException ex) {
 
@@ -88,8 +93,9 @@ public class EtablissementDao {
         return E;
 
     }
-    
+
     public Etablissement selectEtablissementByNom(String nom) {
+        LieuDao lieuDao = new LieuDao();
         String requete = "select * from etablissement where nom=?";
         Etablissement E = null;
         try {
@@ -97,7 +103,8 @@ public class EtablissementDao {
             ps.setString(1, nom);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
             }
         } catch (SQLException ex) {
 
@@ -105,8 +112,9 @@ public class EtablissementDao {
         return E;
 
     }
-    
+
     public Etablissement selectEtablissementByIdLien(int idLieu) {
+        LieuDao lieuDao = new LieuDao();
         String requete = "select * from etablissement where idlieux=?";
         Etablissement E = null;
         try {
@@ -114,7 +122,8 @@ public class EtablissementDao {
             ps.setInt(1, idLieu);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), resultat.getInt("idlieux"));
+                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieux"));
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu);
             }
         } catch (SQLException ex) {
 

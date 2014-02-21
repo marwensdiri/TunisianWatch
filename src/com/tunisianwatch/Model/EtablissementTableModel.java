@@ -5,7 +5,6 @@
  */
 package com.tunisianwatch.Model;
 
-import com.tunisianwatch.Dao.DomaineDao;
 import com.tunisianwatch.Dao.EtablissementDao;
 import com.tunisianwatch.Dao.LieuDao;
 import com.tunisianwatch.Entities.Etablissement;
@@ -24,13 +23,16 @@ public class EtablissementTableModel extends AbstractTableModel {
     private LieuDao lieuDao = new LieuDao();
     private String title[] = {"Nom", "Description", "Lieu"};
     private List<Etablissement> listEtablissement = new ArrayList<Etablissement>();
-
+    private List<Etablissement> listResultSearch = new ArrayList<Etablissement>();
+    
     public EtablissementTableModel() {
         this.listEtablissement = etablissementDao.selectEtablissements();
     }
 
     @Override
     public int getRowCount() {
+        if(listResultSearch.size()>0)
+            return listResultSearch.size();
         return listEtablissement.size();
     }
 
@@ -51,18 +53,41 @@ public class EtablissementTableModel extends AbstractTableModel {
         }
     }
     
+    public void initSearch(String searchString,int searchIndex){
+        listResultSearch =  new ArrayList<Etablissement>();
+        for(Etablissement etablissement : listEtablissement){
+            if(searchIndex==0){
+                if(etablissement.getNom().matches("(.*)"+searchString+"(.*)")){
+                    listResultSearch.add(etablissement);
+                }
+            }
+            else if(searchIndex==1){
+                if(etablissement.getLieu().getNom().matches("(.*)"+searchString+"(.*)")){
+                    listResultSearch.add(etablissement);
+                }
+            }
+        }
+    }
+    
     //fin du bloc de methodes personalisées
+    
+    
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Etablissement etablissement = listEtablissement.get(rowIndex);
+        Etablissement etablissement;
+        if(listResultSearch.size()>0){
+            etablissement = listResultSearch.get(rowIndex);
+        }
+        else{
+             etablissement = listEtablissement.get(rowIndex);
+        }
         if (columnIndex == 0) {
             return etablissement.getNom();
         } else if (columnIndex == 1) {
             return etablissement.getDescription();
         } else if (columnIndex == 2) {
-            Lieu lieu = lieuDao.selectLieuById(etablissement.getIdLieu());
-            return lieu;
+            return etablissement.getLieu();
         }
         return null;
     }

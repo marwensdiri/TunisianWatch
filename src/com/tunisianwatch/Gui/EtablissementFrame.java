@@ -21,7 +21,8 @@ import javax.swing.event.ListSelectionListener;
 public class EtablissementFrame extends javax.swing.JFrame {
 
     EtablissementTableModel tableModel;
-    ListSelectionModel lsm ;
+    ListSelectionModel lsm;
+
     /**
      * Creates new form EtablissementFrame
      */
@@ -45,7 +46,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         modifierButton = new javax.swing.JButton();
         supprimerButton = new javax.swing.JButton();
         CategComboBox = new javax.swing.JComboBox();
-        rechercheButton = new javax.swing.JButton();
         rechercheLabel = new javax.swing.JLabel();
         rechercheTextField = new javax.swing.JTextField();
         ajoutButton = new javax.swing.JButton();
@@ -65,11 +65,15 @@ public class EtablissementFrame extends javax.swing.JFrame {
             }
         });
 
-        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Domaines", "Responsable" }));
-
-        rechercheButton.setText("rechercher");
+        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Lieu" }));
 
         rechercheLabel.setText("Recherche par");
+
+        rechercheTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rechercheTextFieldKeyReleased(evt);
+            }
+        });
 
         ajoutButton.setText("ajouter");
 
@@ -86,16 +90,14 @@ public class EtablissementFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rechercheButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(417, Short.MAX_VALUE))
+                .addContainerGap(530, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +105,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rechercheButton)
                     .addComponent(rechercheLabel)
                     .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -113,32 +114,37 @@ public class EtablissementFrame extends javax.swing.JFrame {
                     .addComponent(supprimerButton)
                     .addComponent(modifierButton)
                     .addComponent(ajoutButton))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void supprimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerButtonActionPerformed
-        if (lsm==null) {
-                    JOptionPane.showMessageDialog(null, "Selectionner au moin une ligne","Erreur de Selection",JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Find out which indexes are selected.
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
-                    List<Etablissement> listEtabtmp = new ArrayList<Etablissement>();
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) {
-                            Etablissement etabTmp = tableModel.getEtablissementAt(i);
-                            listEtabtmp.add(etabTmp);
-                            /*new EtablissementDomaineDao().deleteEtablissementDomaineByEntreprise(identreprise);
-                            new EtablissementDao().deleteEtablissement(identreprise);*/
-                        }
-                    }
-                    tableModel.removeRows(listEtabtmp);
-                    tableModel.fireTableDataChanged();
+        if (lsm == null) {
+            JOptionPane.showMessageDialog(null, "Selectionner au moin une ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Find out which indexes are selected.
+            int minIndex = lsm.getMinSelectionIndex();
+            int maxIndex = lsm.getMaxSelectionIndex();
+            List<Etablissement> listEtabtmp = new ArrayList<Etablissement>();
+            for (int i = minIndex; i <= maxIndex; i++) {
+                if (lsm.isSelectedIndex(i)) {
+                    Etablissement etabTmp = tableModel.getEtablissementAt(i);
+                    listEtabtmp.add(etabTmp);
+                    /*new EtablissementDomaineDao().deleteEtablissementDomaineByEntreprise(identreprise);
+                     new EtablissementDao().deleteEtablissement(identreprise);*/
                 }
+            }
+            tableModel.removeRows(listEtabtmp);
+            tableModel.fireTableDataChanged();
+        }
     }//GEN-LAST:event_supprimerButtonActionPerformed
+
+    private void rechercheTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rechercheTextFieldKeyReleased
+        tableModel.initSearch(rechercheTextField.getText(), CategComboBox.getSelectedIndex());
+        tableModel.fireTableDataChanged();
+    }//GEN-LAST:event_rechercheTextFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -150,7 +156,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private javax.swing.JButton ajoutButton;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JButton modifierButton;
-    private javax.swing.JButton rechercheButton;
     private javax.swing.JLabel rechercheLabel;
     private javax.swing.JTextField rechercheTextField;
     private javax.swing.JButton supprimerButton;
