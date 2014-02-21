@@ -38,7 +38,21 @@ public class EtablissementTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return title.length;
     }
-
+    
+    //bloc de methodes personalisées
+    
+    public Etablissement getEtablissementAt(int row){
+        return listEtablissement.get(row);
+    }
+    
+    public void removeRows(List<Etablissement> lEtab){
+        for(int i=0;i<lEtab.size();i++){
+            listEtablissement.remove(lEtab.get(i));
+        }
+    }
+    
+    //fin du bloc de methodes personalisées
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Etablissement etablissement = listEtablissement.get(rowIndex);

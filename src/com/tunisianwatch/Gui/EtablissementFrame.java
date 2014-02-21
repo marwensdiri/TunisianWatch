@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Dao.EtablissementDao;
+import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Model.EtablissementTableModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -15,18 +20,15 @@ import com.tunisianwatch.Model.EtablissementTableModel;
  */
 public class EtablissementFrame extends javax.swing.JFrame {
 
-    
     EtablissementTableModel tableModel;
-    
-    
-   
-    
+    ListSelectionModel lsm ;
     /**
      * Creates new form EtablissementFrame
      */
     public EtablissementFrame() {
         tableModel = new EtablissementTableModel();
         initComponents();
+        ReclamationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
     }
 
     /**
@@ -56,6 +58,11 @@ public class EtablissementFrame extends javax.swing.JFrame {
         modifierButton.setText("modifier");
 
         supprimerButton.setText("supprimer");
+        supprimerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supprimerButtonActionPerformed(evt);
+            }
+        });
 
         CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Domaines", "Responsable" }));
 
@@ -111,10 +118,30 @@ public class EtablissementFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void supprimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerButtonActionPerformed
+        if (lsm==null) {
+                    JOptionPane.showMessageDialog(null, "Selectionner au moin une ligne","Erreur de Selection",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Find out which indexes are selected.
+                    int minIndex = lsm.getMinSelectionIndex();
+                    int maxIndex = lsm.getMaxSelectionIndex();
+                    List<Etablissement> listEtabtmp = new ArrayList<Etablissement>();
+                    for (int i = minIndex; i <= maxIndex; i++) {
+                        if (lsm.isSelectedIndex(i)) {
+                            Etablissement etabTmp = tableModel.getEtablissementAt(i);
+                            listEtabtmp.add(etabTmp);
+                            /*new EtablissementDomaineDao().deleteEtablissementDomaineByEntreprise(identreprise);
+                            new EtablissementDao().deleteEtablissement(identreprise);*/
+                        }
+                    }
+                    tableModel.removeRows(listEtabtmp);
+                    tableModel.fireTableDataChanged();
+                }
+    }//GEN-LAST:event_supprimerButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CategComboBox;
@@ -127,4 +154,12 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private javax.swing.JTextField rechercheTextField;
     private javax.swing.JButton supprimerButton;
     // End of variables declaration//GEN-END:variables
+
+    public class ReclamationTableListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            lsm = (ListSelectionModel) e.getSource();
+        }
+    }
 }

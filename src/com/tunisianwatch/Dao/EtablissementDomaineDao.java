@@ -62,6 +62,19 @@ public class EtablissementDomaineDao {
             System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
     }
+    
+     public void deleteEtablissementDomaineByEntreprise(int identreprise) {
+        String requete = "delete from etablissement_domaine where id=?";
+        PreparedStatement ps;
+        try {
+            ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, identreprise);
+            ps.executeUpdate();
+            System.out.println("Suppression effectuée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+        }
+    }
 
     public List<EtablissementDomaine> selectEtablissementDomaines() {
         List<EtablissementDomaine> edList = new ArrayList<EtablissementDomaine>();
