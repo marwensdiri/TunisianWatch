@@ -24,15 +24,16 @@ public class EtablissementTableModel extends AbstractTableModel {
     private String title[] = {"Nom", "Description", "Lieu"};
     private List<Etablissement> listEtablissement = new ArrayList<Etablissement>();
     private List<Etablissement> listResultSearch = new ArrayList<Etablissement>();
-    
+
     public EtablissementTableModel() {
         this.listEtablissement = etablissementDao.selectEtablissements();
     }
 
     @Override
     public int getRowCount() {
-        if(listResultSearch.size()>0)
+        if (listResultSearch.size() > 0) {
             return listResultSearch.size();
+        }
         return listEtablissement.size();
     }
 
@@ -40,47 +41,46 @@ public class EtablissementTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return title.length;
     }
-    
+
     //bloc de methodes personalisées
-    
-    public Etablissement getEtablissementAt(int row){
+    public void refresh() {
+        listResultSearch = new ArrayList<Etablissement>();
+        this.listEtablissement = etablissementDao.selectEtablissements();
+    }
+
+    public Etablissement getEtablissementAt(int row) {
         return listEtablissement.get(row);
     }
-    
-    public void removeRows(List<Etablissement> lEtab){
-        for(int i=0;i<lEtab.size();i++){
+
+    public void removeRows(List<Etablissement> lEtab) {
+        for (int i = 0; i < lEtab.size(); i++) {
             listEtablissement.remove(lEtab.get(i));
         }
     }
-    
-    public void initSearch(String searchString,int searchIndex){
-        listResultSearch =  new ArrayList<Etablissement>();
-        for(Etablissement etablissement : listEtablissement){
-            if(searchIndex==0){
-                if(etablissement.getNom().toUpperCase().matches("(.*)"+searchString.toUpperCase()+"(.*)")){
+
+    public void initSearch(String searchString, int searchIndex) {
+        listResultSearch = new ArrayList<Etablissement>();
+        for (Etablissement etablissement : listEtablissement) {
+            if (searchIndex == 0) {
+                if (etablissement.getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
                     listResultSearch.add(etablissement);
                 }
-            }
-            else if(searchIndex==1){
-                if(etablissement.getLieu().getNom().toUpperCase().matches("(.*)"+searchString.toUpperCase()+"(.*)")){
+            } else if (searchIndex == 1) {
+                if (etablissement.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
                     listResultSearch.add(etablissement);
                 }
             }
         }
     }
-    
+
     //fin du bloc de methodes personalisées
-    
-    
-    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Etablissement etablissement;
-        if(listResultSearch.size()>0){
+        if (listResultSearch.size() > 0) {
             etablissement = listResultSearch.get(rowIndex);
-        }
-        else{
-             etablissement = listEtablissement.get(rowIndex);
+        } else {
+            etablissement = listEtablissement.get(rowIndex);
         }
         if (columnIndex == 0) {
             return etablissement.getNom();
