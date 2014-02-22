@@ -7,6 +7,7 @@
 package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Gui.EtablissementFrame;
+import com.tunisianwatch.Gui.MainFrame;
 
 
 /**
@@ -22,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
-               new EtablissementFrame().setVisible(true);
+               new MainFrame().setVisible(true);
            }
        });
 

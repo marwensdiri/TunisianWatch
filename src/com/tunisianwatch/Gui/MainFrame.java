@@ -114,9 +114,8 @@ public class MainFrame extends javax.swing.JFrame {
         Utilisateur user;
         user = new UtilisateurDao().Connect(loginTextField.getText(), mdpPasswordField.getText());
         if(user!=null){
-            this.hide();
-            //Acceuil A = new Acceuil();
-            //A.setVisible(true);
+            loginPanel = new testpanel();
+            loginPanel.setVisible(true);
         }
     }//GEN-LAST:event_ConnectionBtnActionPerformed
 
