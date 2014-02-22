@@ -25,25 +25,7 @@ public class Main {
                new EtablissementFrame().setVisible(true);
            }
        });
-
         
-   // Test by marwen 
-        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
-
-        UtilisateurDao userdao = new UtilisateurDao();
-        
-        userdao.insertUser(u1);
-        //userdao.updateUser(2, u1);
-       // List<Utilisateur> listUsers =userdao.selectUsers();
-       // Utilisateur u2 = userdao.selectUserById(2);
-       // System.out.println(listUsers);
-       // System.out.println(u2);
-        
-       // userdao.deleteUser(14);
-        
-   //  Fin Test by marwen  
-           
-           
     }
 
 }
