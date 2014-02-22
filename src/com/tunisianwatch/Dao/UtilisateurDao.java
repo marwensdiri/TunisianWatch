@@ -29,18 +29,20 @@ public class UtilisateurDao {
 
     public void insertUser(Utilisateur u) {
 
-        String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?)";
+        String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, u.getIdEtablissement());
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
             ps.setString(4, u.getPhoto());
-            ps.setString(5, u.getLogin());
-            ps.setString(6, u.getMdp());
-            ps.setString(7, u.getMail());
-            ps.setString(8, u.getType() + "");
-            ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.setString(5, u.getSexe() + "");
+            ps.setString(6, u.getAdress() + "");
+            ps.setString(7, u.getLogin());
+            ps.setString(8, u.getMdp());
+            ps.setString(9, u.getMail());
+            ps.setString(10, u.getType() + "");
+            ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -273,6 +275,19 @@ public class UtilisateurDao {
             Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return user;
+        }
+    }
+    
+    public void deleteUserByEtablissement(int idetablissement){
+        String requete = "delete from utilisateur where idetablissement=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idetablissement);
+            ps.executeUpdate();
+            System.out.println("Utilisateur supprimée");
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
     }
 

@@ -181,6 +181,8 @@ public class EtablissementDao {
      */
     public void deleteEtablissement(int id) {
         EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+        UtilisateurDao utilisateurDao = new UtilisateurDao();
+        utilisateurDao.deleteUserByEtablissement(id);
         etablissementDomaineDao.deleteEtablissementDomaineByEtablissement(id);
         String requete = "delete from etablissement where id=?";
         PreparedStatement ps;

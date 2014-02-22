@@ -26,7 +26,6 @@ public class ReclamationDao {
             ps.setInt(6, r.getCitoyen().getId());
             ps.setInt(7, r.getDomaine().getId());
             ps.setBoolean(8, r.getEtat());
-
             ps.executeUpdate();
 
             //<tmp>
@@ -75,6 +74,7 @@ public class ReclamationDao {
     public List<Reclamation> selectReclamations() {
         List<Reclamation> listeReclamations = new ArrayList<Reclamation>();
         LieuDao lieuDao = new LieuDao();
+        EvaluationDao evaluationDao = new EvaluationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         String requete = "select * from reclamation";
@@ -92,7 +92,7 @@ public class ReclamationDao {
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
                 r.setEtat(resultat.getBoolean("etat"));
-
+                r.setListEvaluation(evaluationDao.selectEvaluationByIdReclamation(resultat.getInt("id")));
                 listeReclamations.add(r);
             }
             return listeReclamations;
