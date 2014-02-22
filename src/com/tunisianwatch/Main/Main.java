@@ -6,7 +6,9 @@
 
 package com.tunisianwatch.Main;
 
-import com.tunisianwatch.Gui.EtablissementFrame;
+import com.tunisianwatch.Gui.Authentification;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -22,7 +24,11 @@ public class Main {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
-               new EtablissementFrame().setVisible(true);
+               try {
+                   new Authentification().setVisible(true);
+               } catch (Exception ex) {
+                   Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        });
         
