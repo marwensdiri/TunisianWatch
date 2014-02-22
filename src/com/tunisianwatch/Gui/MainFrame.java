@@ -3,15 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Dao.DomaineDao;
 import com.tunisianwatch.Dao.UtilisateurDao;
-import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Utilisateur;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -23,13 +18,14 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public static void main(String[] args) {
-        
+
         MainFrame m = new MainFrame();
-        
+
     }
+
     public MainFrame() {
         initComponents();
-               
+
     }
 
     /**
@@ -41,93 +37,124 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        loginPanel = new javax.swing.JPanel();
-        loginTextField = new javax.swing.JTextField();
-        mdpPasswordField = new javax.swing.JPasswordField();
-        ConnectionBtn = new javax.swing.JButton();
-        passLabel = new javax.swing.JLabel();
-        loginLabel = new javax.swing.JLabel();
+        CorePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(1100, 600));
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        ConnectionBtn.setBackground(new java.awt.Color(204, 0, 0));
-        ConnectionBtn.setForeground(new java.awt.Color(255, 255, 255));
-        ConnectionBtn.setText("Connection");
-        ConnectionBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectionBtnActionPerformed(evt);
-            }
-        });
-
-        passLabel.setText("Mot de passe");
-
-        loginLabel.setText("Login");
-
-        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
-        loginPanel.setLayout(loginPanelLayout);
-        loginPanelLayout.setHorizontalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(262, 262, 262)
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ConnectionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(344, Short.MAX_VALUE))
-        );
-        loginPanelLayout.setVerticalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loginLabel))
-                .addGap(18, 18, 18)
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passLabel))
-                .addGap(18, 18, 18)
-                .addComponent(ConnectionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-        );
+        CorePanel.add(new com.tunisianwatch.Gui.AcceuilPanel()); //LoginPanel()
+        CorePanel.setLayout(new java.awt.CardLayout());
+        getContentPane().add(CorePanel, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ConnectionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectionBtnActionPerformed
-        Utilisateur user;
-        user = new UtilisateurDao().Connect(loginTextField.getText(), mdpPasswordField.getText());
-        if(user!=null){
-            this.hide();
-            //Acceuil A = new Acceuil();
-            //A.setVisible(true);
-        }
-    }//GEN-LAST:event_ConnectionBtnActionPerformed
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ConnectionBtn;
-    private javax.swing.JLabel loginLabel;
-    private javax.swing.JPanel loginPanel;
-    private javax.swing.JTextField loginTextField;
-    private javax.swing.JPasswordField mdpPasswordField;
-    private javax.swing.JLabel passLabel;
+    private javax.swing.JPanel CorePanel;
     // End of variables declaration//GEN-END:variables
+
+    public class LoginPanel extends javax.swing.JPanel implements Runnable {
+
+        /**
+         * Creates new form LoginPanel
+         */
+        public LoginPanel() {
+            initComponents();
+        }
+
+        /**
+         * This method is called from within the constructor to initialize the
+         * form. WARNING: Do NOT modify this code. The content of this method is
+         * always regenerated by the Form Editor.
+         */
+        @SuppressWarnings("unchecked")
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        private void initComponents() {
+
+            loginPanel = new javax.swing.JPanel();
+            loginTextField = new javax.swing.JTextField();
+            mdpPasswordField = new javax.swing.JPasswordField();
+            ConnectionBtn = new javax.swing.JButton();
+            passLabel = new javax.swing.JLabel();
+            loginLabel = new javax.swing.JLabel();
+
+            setPreferredSize(new java.awt.Dimension(870, 500));
+            setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+            ConnectionBtn.setBackground(new java.awt.Color(204, 0, 0));
+            ConnectionBtn.setForeground(new java.awt.Color(255, 255, 255));
+            ConnectionBtn.setText("Connection");
+            ConnectionBtn.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ConnectionBtnActionPerformed(evt);
+                }
+            });
+
+            passLabel.setText("Mot de passe");
+
+            loginLabel.setText("Login");
+
+            javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
+            loginPanel.setLayout(loginPanelLayout);
+            loginPanelLayout.setHorizontalGroup(
+                    loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                            .addGap(275, 275, 275)
+                            .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(passLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ConnectionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap(342, Short.MAX_VALUE))
+            );
+            loginPanelLayout.setVerticalGroup(
+                    loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                            .addGap(190, 190, 190)
+                            .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(loginLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(passLabel))
+                            .addGap(18, 18, 18)
+                            .addComponent(ConnectionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+            );
+
+            add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 500));
+        }// </editor-fold>                        
+
+        private void ConnectionBtnActionPerformed(java.awt.event.ActionEvent evt) {
+            Thread thr = new Thread(this);
+            thr.start();
+        }
+
+        // Variables declaration - do not modify                     
+        private javax.swing.JButton ConnectionBtn;
+        private javax.swing.JLabel loginLabel;
+        private javax.swing.JPanel loginPanel;
+        private javax.swing.JTextField loginTextField;
+        private javax.swing.JPasswordField mdpPasswordField;
+        private javax.swing.JLabel passLabel;
+        // End of variables declaration
+
+        @Override
+        public void run() {
+            Utilisateur user;
+            user = new UtilisateurDao().Connect(loginTextField.getText(), mdpPasswordField.getText());
+            if (user != null) {
+                CorePanel.removeAll();
+                CorePanel.add(new AcceuilPanel());
+                CorePanel.repaint();
+                CorePanel.revalidate();
+            }
+        }
+    }
 }

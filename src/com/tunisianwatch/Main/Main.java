@@ -7,6 +7,7 @@
 package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Gui.EtablissementFrame;
+import com.tunisianwatch.Gui.MainFrame;
 
 
 /**
@@ -22,17 +23,17 @@ public class Main {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
-               new EtablissementFrame().setVisible(true);
+               new MainFrame().setVisible(true);
            }
        });
 
         
    // Test by marwen 
-        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
+        /*Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
 
         UtilisateurDao userdao = new UtilisateurDao();
         
-        userdao.insertUser(u1);
+        userdao.insertUser(u1);*/
         //userdao.updateUser(2, u1);
        // List<Utilisateur> listUsers =userdao.selectUsers();
        // Utilisateur u2 = userdao.selectUserById(2);
