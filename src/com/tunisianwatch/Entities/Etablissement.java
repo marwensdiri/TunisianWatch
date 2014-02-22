@@ -1,28 +1,58 @@
 package com.tunisianwatch.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Etablissement {
 
 	private int id;
 	private String nom;
 	private String description;
 	private String image;
-	private int idLieu;
+	private Lieu lieu;
+        private Utilisateur responsable;
+        private List<Domaine> listDomaine= new ArrayList<Domaine>();
 
-    public Etablissement(String nom, String description, String image, int idLieu) {
+    public Etablissement(String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
         this.nom = nom;
         this.description = description;
         this.image = image;
-        this.idLieu = idLieu;
+        this.lieu = lieu;
+        this.responsable=responsable;
     }
 
-    public Etablissement(int id, String nom, String description, String image, int idLieu) {
+    public Etablissement(int id, String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.image = image;
-        this.idLieu = idLieu;
+        this.lieu = lieu;
+        this.responsable=responsable;
+    }
+    
+    public void addDomaine(Domaine d){
+        listDomaine.add(d);
+    }
+    
+    public void removeDomaine(Domaine d){
+        listDomaine.remove(d);
+    }
+    
+    public void setListDomaine(List<Domaine> listDomaine){
+        this.listDomaine=listDomaine;
+    }
+    
+    public List<Domaine> getListDomaine(){
+        return listDomaine;
     }
 
+    @Override
+    public String toString() {
+        return "Etablissement{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", image=" + image + ", Lieu=" + lieu + '}';
+    }
+
+    
+    
     public int getId() {
         return id;
     }
@@ -39,10 +69,19 @@ public class Etablissement {
         return image;
     }
 
-    public int getIdLieu() {
-        return idLieu;
+    public Lieu getLieu() {
+        return lieu;
     }
 
+    public Utilisateur getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Utilisateur responsable) {
+        this.responsable = responsable;
+    }
+
+    
 
     public void setId(int id) {
         this.id = id;
@@ -60,8 +99,8 @@ public class Etablissement {
         this.image = image;
     }
 
-    public void setIdLieu(int idLieu) {
-        this.idLieu = idLieu;
+    public void setLieu(Lieu lieu) {
+        this.lieu = lieu;
     }        
 
 }

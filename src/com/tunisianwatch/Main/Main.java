@@ -6,12 +6,7 @@
 
 package com.tunisianwatch.Main;
 
-import com.tunisianwatch.Dao.EtablissementDao;
-import com.tunisianwatch.Dao.UtilisateurDao;
-import com.tunisianwatch.Entities.Etablissement;
-import com.tunisianwatch.Entities.Utilisateur;
-import com.tunisianwatch.Gui.MainFrame;
-import java.util.List;
+import com.tunisianwatch.Gui.EtablissementFrame;
 
 
 /**
@@ -25,12 +20,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new MainFrame().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+           public void run() {
+               new EtablissementFrame().setVisible(true);
+           }
+       });
 
         
    // Test by marwen 

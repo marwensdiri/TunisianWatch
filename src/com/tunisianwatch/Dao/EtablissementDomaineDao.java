@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EtablissementDomaineDao {
 
@@ -35,29 +33,28 @@ public class EtablissementDomaineDao {
      * @param id
      * @param ED
      */
-    public void updateEtablissementDomaine(int id, EtablissementDomaine ED) {
-        String requete = "update etablissement_domaine set idetablissement=?";
-        try {
-            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            System.out.println("Mise à jour effectuée avec succès");
-        } catch (SQLException ex) {
-            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
-        }
 
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void deleteEtablissementDomaine(int id) {
-        String requete = "delete from etablissement_domaine where id=?";
+    
+    public void deleteEtablissementDomaine(int idetablissement, int iddomaine) {
+        String requete = "delete from etablissement_domaine where iddomaine=? and idetablissement=?";
         PreparedStatement ps;
         try {
             ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setInt(1, id);
+            ps.setInt(1, iddomaine);
+            ps.setInt(2, idetablissement);
+            ps.executeUpdate();
+            System.out.println("Suppression effectuée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+        }
+    }
+
+    public void deleteEtablissementDomaineByEtablissement(int idetablissement) {
+        String requete = "delete from etablissement_domaine where idetablissement=?";
+        PreparedStatement ps;
+        try {
+            ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idetablissement);
             ps.executeUpdate();
             System.out.println("Suppression effectuée avec succès");
         } catch (SQLException ex) {
@@ -73,7 +70,7 @@ public class EtablissementDomaineDao {
             statement = ResourceManager.getInstance().createStatement();
             ResultSet resultat = statement.executeQuery(requete);
             while (resultat.next()) {
-                EtablissementDomaine ED = new EtablissementDomaine(resultat.getInt("id"), resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
+                EtablissementDomaine ED = new EtablissementDomaine(resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
                 edList.add(ED);
             }
         } catch (SQLException ex) {
@@ -94,13 +91,49 @@ public class EtablissementDomaineDao {
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                ED = new EtablissementDomaine(resultat.getInt("id"), resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
+                ED = new EtablissementDomaine(resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
             }
         } catch (SQLException ex) {
-            System.out.println("erreur lors du chargement"+ex.getMessage());
+            System.out.println("erreur lors du chargement" + ex.getMessage());
         }
         return ED;
 
+    }
+
+    public List<EtablissementDomaine> seletcEtablissementDomaineByIdEtablissement(int idetablissement) {
+        String requete = "select * from etablissement_domaine where idetablissement=?";
+        List<EtablissementDomaine> listEtablissementDomaine = new ArrayList<EtablissementDomaine>();
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idetablissement);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                EtablissementDomaine etabDomaine;
+                etabDomaine = new EtablissementDomaine(resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
+                listEtablissementDomaine.add(etabDomaine);
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement" + ex.getMessage());
+        }
+        return listEtablissementDomaine;
+    }
+
+    public List<EtablissementDomaine> seletcEtablissementDomaineByIdDomaine(int idDomaine) {
+        String requete = "select * from etablissement_domaine where iddomaine=?";
+        List<EtablissementDomaine> listEtablissementDomaine = new ArrayList<EtablissementDomaine>();
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idDomaine);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                EtablissementDomaine etabDomaine;
+                etabDomaine = new EtablissementDomaine(resultat.getInt("idetablissement"), resultat.getInt("iddomaine"));
+                listEtablissementDomaine.add(etabDomaine);
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement" + ex.getMessage());
+        }
+        return listEtablissementDomaine;
     }
 
 }
