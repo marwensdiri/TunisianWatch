@@ -28,7 +28,7 @@ public class UtilisateurDao {
     PreparedStatement pst = null;
 
     public void insertUser(Utilisateur u) {
-        
+
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -39,7 +39,7 @@ public class UtilisateurDao {
             ps.setString(5, u.getLogin());
             ps.setString(6, u.getMdp());
             ps.setString(7, u.getMail());
-            ps.setString(8, u.getType()+"");
+            ps.setString(8, u.getType() + "");
             ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
@@ -51,19 +51,21 @@ public class UtilisateurDao {
     }
 
     public void updateUser(int id, Utilisateur u) {
-        String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
+        String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, u.getIdEtablissement());
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
             ps.setString(4, u.getPhoto());
-            ps.setString(5, u.getLogin());
-            ps.setString(6, u.getMdp());
-            ps.setString(7, u.getMail());
-            ps.setString(8, u.getType()+"");
-            ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
-            ps.setInt(10, id);
+            ps.setString(5, u.getSexe() + "");
+            ps.setString(6, u.getAdress() + "");
+            ps.setString(7, u.getLogin());
+            ps.setString(8, u.getMdp());
+            ps.setString(9, u.getMail());
+            ps.setString(10, u.getType() + "");
+            ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.setInt(12, id);
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
@@ -81,8 +83,8 @@ public class UtilisateurDao {
             ps.executeUpdate();
             System.out.println("Utilisateur supprimée");
         } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la suppression "+ex.getMessage());
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
     }
 
@@ -91,228 +93,166 @@ public class UtilisateurDao {
 
         String requete = "select * from Utilisateur";
         try {
-           Statement statement = ResourceManager.getInstance()
-                   .createStatement();
+            Statement statement = ResourceManager.getInstance()
+                    .createStatement();
             ResultSet resultat = statement.executeQuery(requete);
 
-            while(resultat.next()){
-                Utilisateur user =new Utilisateur();
-
+            while (resultat.next()) {
+                Utilisateur user = new Utilisateur();
                 user.setId(resultat.getInt(1));
                 user.setIdEtablissement(resultat.getInt(2));
                 user.setNom(resultat.getString(3));
                 user.setPrenom(resultat.getString(4));
                 user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
+                user.setSexe(resultat.getString(6).charAt(0));
+                user.setAdress(resultat.getString(7));
+                user.setLogin(resultat.getString(8));
+                user.setMdp(resultat.getString(9));
+                user.setMail(resultat.getString(10));
+                user.setType(resultat.getString(11).charAt(0));
+                user.setDateNaissance(resultat.getDate(12));
+
                 listeUsers.add(user);
             }
             return listeUsers;
         } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors du chargement des utilisateurs "+ex.getMessage());
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors du chargement des utilisateurs " + ex.getMessage());
             return null;
         }
 
     }
 
     public Utilisateur selectUserById(int id) {
-        Utilisateur user =new Utilisateur();
-        
+        Utilisateur user = new Utilisateur();
+
         String requete = "select * from Utilisateur where id=?";
         try {
-           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
 
-            while(resultat.next()){
-                
+            while (resultat.next()) {
+
                 user.setId(resultat.getInt(1));
                 user.setIdEtablissement(resultat.getInt(2));
                 user.setNom(resultat.getString(3));
                 user.setPrenom(resultat.getString(4));
                 user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
-                
+                user.setSexe(resultat.getString(6).charAt(0));
+                user.setAdress(resultat.getString(7));
+                user.setLogin(resultat.getString(8));
+                user.setMdp(resultat.getString(9));
+                user.setMail(resultat.getString(10));
+                user.setType(resultat.getString(11).charAt(0));
+                user.setDateNaissance(resultat.getDate(12));
+
             }
             return user;
         } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
             return null;
         }
 
     }
-    
-    public Utilisateur selectUserByNom(String nom) {
-        Utilisateur user =new Utilisateur();
-        
-        String requete = "select * from Utilisateur where id=?";
-        try {
-           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, nom);
-            ResultSet resultat = ps.executeQuery();
 
-            while(resultat.next()){
-                
-                user.setId(resultat.getInt(1));
-                user.setIdEtablissement(resultat.getInt(2));
-                user.setNom(resultat.getString(3));
-                user.setPrenom(resultat.getString(4));
-                user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
-                
-            }
-            return user;
-        } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
-            return null;
-        }
-
-    }
-    
-    public Utilisateur selectUserByPrenom(String prenom) {
-        Utilisateur user =new Utilisateur();
-        
-        String requete = "select * from Utilisateur where id=?";
-        try {
-           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, prenom);
-            ResultSet resultat = ps.executeQuery();
-
-            while(resultat.next()){
-                
-                user.setId(resultat.getInt(1));
-                user.setIdEtablissement(resultat.getInt(2));
-                user.setNom(resultat.getString(3));
-                user.setPrenom(resultat.getString(4));
-                user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
-                
-            }
-            return user;
-        } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
-            return null;
-        }
-
-    }
-    
     public Utilisateur selectUserByLogin(String login) {
-        Utilisateur user =new Utilisateur();
-        
-        String requete = "select * from Utilisateur where id=?";
+        Utilisateur user = new Utilisateur();
+
+        String requete = "select * from Utilisateur where login=?";
         try {
-           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, login);
             ResultSet resultat = ps.executeQuery();
 
-            while(resultat.next()){
-                
+            while (resultat.next()) {
+
                 user.setId(resultat.getInt(1));
                 user.setIdEtablissement(resultat.getInt(2));
                 user.setNom(resultat.getString(3));
                 user.setPrenom(resultat.getString(4));
                 user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
-                
+                user.setSexe(resultat.getString(6).charAt(0));
+                user.setAdress(resultat.getString(7));
+                user.setLogin(resultat.getString(8));
+                user.setMdp(resultat.getString(9));
+                user.setMail(resultat.getString(10));
+                user.setType(resultat.getString(11).charAt(0));
+                user.setDateNaissance(resultat.getDate(12));
             }
             return user;
         } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
             return null;
         }
 
     }
-    
+
     public Utilisateur selectUserByMail(String mail) {
-        Utilisateur user =new Utilisateur();
-        
-        String requete = "select * from Utilisateur where id=?";
+        Utilisateur user = new Utilisateur();
+
+        String requete = "select * from Utilisateur where mail=?";
         try {
-           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, mail);
             ResultSet resultat = ps.executeQuery();
 
-            while(resultat.next()){
-                
+            while (resultat.next()) {
+
                 user.setId(resultat.getInt(1));
                 user.setIdEtablissement(resultat.getInt(2));
                 user.setNom(resultat.getString(3));
                 user.setPrenom(resultat.getString(4));
                 user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
-                
+                user.setSexe(resultat.getString(6).charAt(0));
+                user.setAdress(resultat.getString(7));
+                user.setLogin(resultat.getString(8));
+                user.setMdp(resultat.getString(9));
+                user.setMail(resultat.getString(10));
+                user.setType(resultat.getString(11).charAt(0));
+                user.setDateNaissance(resultat.getDate(12));
+
             }
             return user;
         } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
             return null;
         }
 
     }
-    
+
     public Utilisateur selectUserByType(char type) {
-        Utilisateur user =new Utilisateur();
-        
+        Utilisateur user = new Utilisateur();
+
         String requete = "select * from Utilisateur where id=?";
         try {
-           PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, type+"");
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, type + "");
             ResultSet resultat = ps.executeQuery();
 
-            while(resultat.next()){
-                
+            while (resultat.next()) {
+
                 user.setId(resultat.getInt(1));
                 user.setIdEtablissement(resultat.getInt(2));
                 user.setNom(resultat.getString(3));
                 user.setPrenom(resultat.getString(4));
                 user.setPhoto(resultat.getString(5));
-                user.setLogin(resultat.getString(6));
-                user.setMdp(resultat.getString(7));
-                user.setMail(resultat.getString(8));
-                user.setType(resultat.getString(9).charAt(0));
-                user.setDateNaissance(resultat.getDate(10));
-                
-                
+                user.setSexe(resultat.getString(6).charAt(0));
+                user.setAdress(resultat.getString(7));
+                user.setLogin(resultat.getString(8));
+                user.setMdp(resultat.getString(9));
+                user.setMail(resultat.getString(10));
+                user.setType(resultat.getString(11).charAt(0));
+                user.setDateNaissance(resultat.getDate(12));
+
             }
             return user;
         } catch (SQLException ex) {
-           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs "+ex.getMessage());
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
             return null;
         }
 
@@ -327,7 +267,7 @@ public class UtilisateurDao {
             ps.setString(2, password);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                user = new Utilisateur(resultat.getInt("id"), resultat.getInt("idetablissement"),resultat.getString("nom"), resultat.getString("prenom"), resultat.getString("photo"), resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"),resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
+                user = new Utilisateur(resultat.getInt("id"), resultat.getInt("idetablissement"), resultat.getString("nom"), resultat.getString("prenom"), resultat.getString("photo"), resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,6 +13,7 @@ public class Reclamation {
     private Utilisateur citoyen;
     private Domaine domaine;
     private boolean etat;
+    private List<Evaluation> listEvaluation = new ArrayList<Evaluation>();
 
     public Reclamation(int id, Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, boolean etat) {
         this.id = id;
@@ -37,6 +38,14 @@ public class Reclamation {
         this.domaine = domaine;
     }
 
+    public void addEvaluation(Evaluation ev){
+        listEvaluation.add(ev);
+    }
+    
+    public void removeEvaluation(Evaluation ev){
+        listEvaluation.remove(ev);
+    }
+    
     public Reclamation() {
     }
 
@@ -111,6 +120,19 @@ public class Reclamation {
     public void setEtat(boolean etat) {
         this.etat = etat;
     }
+
+
+    public List<Evaluation> getListEvaluation() {
+        return listEvaluation;
+    }
+
+    public void setListEvaluation(List<Evaluation> listEvaluation) {
+        this.listEvaluation = listEvaluation;
+    }
+    
+    
+    
+    
 
     @Override
     public int hashCode() {
