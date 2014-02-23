@@ -139,7 +139,7 @@ public class ReclamationTableModel extends AbstractTableModel {
         } else if (columnIndex == 5) {
             return reclamation.getDomaine().getNom();
         } else if (columnIndex == 6) {
-            return reclamation.getCitoyen().getNom();
+            return reclamation.getCitoyen().getPrenom()+" "+reclamation.getCitoyen().getNom();
         } else if (columnIndex == 7) {
             if (reclamation.getEtat() == 0) {
                 return "Nouvelle";

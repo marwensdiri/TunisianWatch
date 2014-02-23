@@ -41,7 +41,9 @@ public class AcceuilPanel extends javax.swing.JPanel {
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(870, 500));
 
-        bodyPanel.setBackground(new java.awt.Color(0, 0, 0));
+        bodyPanel.setBackground(new java.awt.Color(204, 204, 204));
+
+        menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         etablissementButton.setBackground(new java.awt.Color(204, 0, 0));
         etablissementButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,9 +81,10 @@ public class AcceuilPanel extends javax.swing.JPanel {
                 .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(etablissementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
+        contentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         contentPanel.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
