@@ -5,11 +5,8 @@
  */
 package com.tunisianwatch.Model;
 
-import com.tunisianwatch.Dao.EtablissementDao;
 import com.tunisianwatch.Dao.LieuDao;
 import com.tunisianwatch.Dao.ReclamationDao;
-import com.tunisianwatch.Entities.Domaine;
-import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Entities.Reclamation;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +65,6 @@ public class ReclamationTableModel extends AbstractTableModel {
         listResultSearch = new ArrayList<Reclamation>();
         if (searchString.length() > 0) {
             searching = true;
-            System.out.println(searchString.length());
             for (Reclamation reclamation : listReclamation) {
                 if (searchIndex == 0) {
                     if (reclamation.getTitre().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {

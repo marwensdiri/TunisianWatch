@@ -11,6 +11,7 @@ import com.tunisianwatch.Model.EtablissementTableModel;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -29,6 +30,7 @@ public class EtablissementPanel extends javax.swing.JPanel {
     public EtablissementPanel() {
         tableModel = new EtablissementTableModel();
         initComponents();
+        EtablissementTable.getSelectionModel().addListSelectionListener(new EtablissementTableListener());
     }
 
     /**
@@ -193,7 +195,7 @@ public class EtablissementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_supprimerButtonActionPerformed
 
-public class ReclamationTableListener implements ListSelectionListener {
+public class EtablissementTableListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {

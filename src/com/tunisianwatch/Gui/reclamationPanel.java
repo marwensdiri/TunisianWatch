@@ -30,6 +30,7 @@ public class reclamationPanel extends javax.swing.JPanel {
     public reclamationPanel() {
         tableModel = new ReclamationTableModel();
         initComponents();
+        ReclamationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
     }
 
     /**
