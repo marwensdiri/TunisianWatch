@@ -12,8 +12,12 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import sun.reflect.generics.tree.CharSignature;
 
 /**
  *
@@ -483,20 +487,78 @@ public class GérerCitoyen extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_rechActionPerformed
 
     private void btm_rech1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btm_rech1ActionPerformed
-
+        String value1= txt_rech.getText();
+        String id=(String) jComboBox7.getSelectedItem();
+        UtilisateurDao userdao = new UtilisateurDao();
+        if(value1.length()!= 0) {
+        try{
+        
+         userdao.deleteUser(Integer.parseInt(id));
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        }else JOptionPane.showMessageDialog(null, "Champ vide !! Tapez votre mot à rechercher","Message d'avertissement",JOptionPane.WARNING_MESSAGE);
+   
     }//GEN-LAST:event_btm_rech1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
+        Update_table();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btm_update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btm_update1ActionPerformed
-
+        try{
+         Utilisateur user = new Utilisateur();
+         UtilisateurDao userdao = new UtilisateurDao();
+         int rows = table_liste.getSelectedRow();
+         String value1= (table_liste.getModel().getValueAt(rows, 0).toString());
+         String value2= (table_liste.getModel().getValueAt(rows, 1).toString());
+         String value3= (table_liste.getModel().getValueAt(rows, 2).toString());
+         String value4= (table_liste.getModel().getValueAt(rows, 3).toString());
+         String value5= (table_liste.getModel().getValueAt(rows, 4).toString());
+         String value6= (table_liste.getModel().getValueAt(rows, 5).toString());
+         String value7= (table_liste.getModel().getValueAt(rows, 6).toString());
+         String value8= (table_liste.getModel().getValueAt(rows, 7).toString());
+         String value9= (table_liste.getModel().getValueAt(rows, 8).toString());
+         String value10= (table_liste.getModel().getValueAt(rows, 9).toString());
+         String value11= (table_liste.getModel().getValueAt(rows, 10).toString());
+         
+         int x = Integer.parseInt(value1);
+         user.setNom(value2);
+         user.setPrenom(value3);
+         user.setPhoto(value4);
+         user.setSexe(value5.charAt(0));
+         user.setAdress(value6);
+         user.setLogin(value7);
+         user.setMdp(value8);
+         user.setMail(value9);
+         user.setType(value10.charAt(0));
+         user.setDateNaissance(new Date(value11));
+         userdao.updateUser(x, user);
+         
+         }catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
     }//GEN-LAST:event_btm_update1ActionPerformed
 
     private void btm_supprimer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btm_supprimer1ActionPerformed
-
-
+        int rows = table_liste.getSelectedRow();
+        System.out.println(rows);
+        if(rows != -1){
+        int p= JOptionPane.showConfirmDialog(null, "Voulez-vous supprimé ?","Supprimé",JOptionPane.YES_NO_OPTION) ; 
+        if(p==0){
+        try{           
+         
+         String id= (table_liste.getModel().getValueAt(rows, 0).toString());
+         UtilisateurDao userdao = new UtilisateurDao();
+         userdao.deleteUser(Integer.parseInt(id));
+         JOptionPane.showMessageDialog(null, "Ligne Supprimé");
+     }catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
+        Update_table();
+        }
+        }else JOptionPane.showMessageDialog(null, "Champ vide !! Selectionner une ligne ","Message d'avertissement",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_btm_supprimer1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
