@@ -53,6 +53,8 @@ public class reclamationPanel extends javax.swing.JPanel {
         modifierButton = new javax.swing.JButton();
         supprimerButton = new javax.swing.JButton();
 
+        setLayout(new java.awt.CardLayout());
+
         corePanel.setLayout(new java.awt.CardLayout());
 
         CategComboBox.setBackground(new java.awt.Color(204, 0, 0));
@@ -146,26 +148,7 @@ public class reclamationPanel extends javax.swing.JPanel {
 
         corePanel.add(contentPanel, "card3");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(corePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(corePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        add(corePanel, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
     private void rechercheTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rechercheTextFieldKeyReleased

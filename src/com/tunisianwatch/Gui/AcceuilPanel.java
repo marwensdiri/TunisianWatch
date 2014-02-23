@@ -95,7 +95,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
                 .addContainerGap())
         );
         bodyPanelLayout.setVerticalGroup(
