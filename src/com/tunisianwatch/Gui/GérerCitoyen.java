@@ -549,7 +549,8 @@ public class GérerCitoyen extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nomActionPerformed
 
     private void Update_table() {
-        String requete = "select nom, prenom, mail, mdp, datenaissance  from Utilisateur";
+        String requete = "select nom, prenom,mail  from Utilisateur";
+        UtilisateurDao userDao = new UtilisateurDao();
         try {
             Statement statement = ResourceManager.getInstance()
                     .createStatement();
