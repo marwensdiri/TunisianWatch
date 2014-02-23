@@ -25,7 +25,7 @@ public class ReclamationDao {
             ps.setString(5, r.getTitre());
             ps.setInt(6, r.getCitoyen().getId());
             ps.setInt(7, r.getDomaine().getId());
-            ps.setBoolean(8, r.getEtat());
+            ps.setInt(8, r.getEtat());
             ps.executeUpdate();
 
             //<tmp>
@@ -55,7 +55,7 @@ public class ReclamationDao {
             ps.setString(5, r.getTitre());
             ps.setInt(6, r.getCitoyen().getId());
             ps.setInt(7, r.getDomaine().getId());
-            ps.setBoolean(8, r.getEtat());
+            ps.setInt(8, r.getEtat());
             ps.setInt(9, id);
 
             ps.executeUpdate();
@@ -91,7 +91,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 r.setListEvaluation(evaluationDao.selectEvaluationByIdReclamation(resultat.getInt("id")));
                 listeReclamations.add(r);
             }
@@ -126,7 +126,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
             }
             return r;
 
@@ -157,7 +157,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 listReclamation.add(r);
             }
             return listReclamation;
@@ -189,7 +189,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 listReclamation.add(r);
             }
             return listReclamation;
@@ -221,7 +221,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 listReclamation.add(r);
             }
             return listReclamation;
@@ -254,7 +254,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 return r;
             }
         } catch (SQLException ex) {
@@ -285,7 +285,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 listReclamation.add(r);
             }
             return listReclamation;
@@ -317,7 +317,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 listReclamation.add(r);
             }
             return listReclamation;
@@ -329,7 +329,7 @@ public class ReclamationDao {
         }
     }
 
-    public List<Reclamation> selectReclamationByEtat(boolean etat) {
+    public List<Reclamation> selectReclamationByEtat(int etat) {
         LieuDao lieuDao = new LieuDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
@@ -337,7 +337,7 @@ public class ReclamationDao {
         String requete = "select * from reclamation where etat=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setBoolean(1, etat);
+            ps.setInt(1, etat);
             ResultSet resultat = ps.executeQuery();
             while (resultat.next()) {
                Reclamation r = new Reclamation();
@@ -349,7 +349,7 @@ public class ReclamationDao {
                 r.setTitre(resultat.getString("titre"));
                 r.setCitoyen(utilisateurDao.selectUserById(resultat.getInt("idcitoyen")));
                 r.setDomaine(domaineDao.selectDomaineById(resultat.getInt("iddomaine")));
-                r.setEtat(resultat.getBoolean("etat"));
+                r.setEtat(resultat.getInt("etat"));
                 listReclamation.add(r);
             }
             return listReclamation;

@@ -17,7 +17,6 @@ public class AcceuilPanel extends javax.swing.JPanel {
     /**
      * Creates new form Acceul
      */
-    private Dimension dimension;
     
     public AcceuilPanel() {
         initComponents();
@@ -35,13 +34,14 @@ public class AcceuilPanel extends javax.swing.JPanel {
         bodyPanel = new javax.swing.JPanel();
         menuPanel = new javax.swing.JPanel();
         etablissementButton = new javax.swing.JButton();
+        reclamationButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(870, 500));
 
-        bodyPanel.setBackground(new java.awt.Color(153, 0, 0));
+        bodyPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         etablissementButton.setBackground(new java.awt.Color(204, 0, 0));
         etablissementButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -52,21 +52,34 @@ public class AcceuilPanel extends javax.swing.JPanel {
             }
         });
 
+        reclamationButton.setBackground(new java.awt.Color(204, 0, 0));
+        reclamationButton.setForeground(new java.awt.Color(255, 255, 255));
+        reclamationButton.setText("Gestion des Reclamations");
+        reclamationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reclamationButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+            .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(etablissementButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reclamationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etablissementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
+                .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(etablissementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
 
         contentPanel.setLayout(new java.awt.CardLayout());
@@ -113,11 +126,19 @@ public class AcceuilPanel extends javax.swing.JPanel {
         contentPanel.revalidate();
     }//GEN-LAST:event_etablissementButtonActionPerformed
 
+    private void reclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new reclamationPanel());
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_reclamationButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JButton etablissementButton;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JButton reclamationButton;
     // End of variables declaration//GEN-END:variables
 }
