@@ -81,7 +81,6 @@ public class GérerCitoyen extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         btm_update1 = new javax.swing.JButton();
         btm_supprimer1 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -266,8 +265,6 @@ public class GérerCitoyen extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Ajouter Citoyen", jPanel2);
 
-        jPanel5.setLayout(null);
-
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -280,7 +277,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(319, 319, 319)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,11 +287,8 @@ public class GérerCitoyen extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel5.add(jPanel6);
-        jPanel6.setBounds(0, 0, 840, 76);
-
         jPanel8.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12), new java.awt.Color(153, 0, 102))); // NOI18N
         jPanel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         table_liste.setModel(new javax.swing.table.DefaultTableModel(
@@ -326,7 +320,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
         });
 
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 0, 255));
+        jButton8.setForeground(new java.awt.Color(153, 0, 51));
         jButton8.setText("Fermer");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,7 +338,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
         });
 
         btm_rech1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btm_rech1.setForeground(new java.awt.Color(0, 0, 255));
+        btm_rech1.setForeground(new java.awt.Color(153, 0, 51));
         btm_rech1.setText("Recherche");
         btm_rech1.setFocusable(false);
         btm_rech1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -363,7 +357,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
         });
 
         btm_update1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btm_update1.setForeground(new java.awt.Color(0, 0, 255));
+        btm_update1.setForeground(new java.awt.Color(153, 0, 51));
         btm_update1.setText("Modifier");
         btm_update1.setFocusable(false);
         btm_update1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -375,7 +369,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
         });
 
         btm_supprimer1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btm_supprimer1.setForeground(new java.awt.Color(0, 0, 255));
+        btm_supprimer1.setForeground(new java.awt.Color(153, 0, 51));
         btm_supprimer1.setText("Supprimer");
         btm_supprimer1.setFocusable(false);
         btm_supprimer1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -399,7 +393,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
                 .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btm_rech1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
@@ -438,23 +432,24 @@ public class GérerCitoyen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel5.add(jPanel8);
-        jPanel8.setBounds(10, 87, 764, 440);
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jTabbedPane1.addTab("Gérer Citoyen", jPanel5);
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab3", jPanel7);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -689,7 +684,6 @@ public class GérerCitoyen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
