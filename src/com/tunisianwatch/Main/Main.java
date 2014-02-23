@@ -7,6 +7,7 @@
 package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Gui.Authentification;
+import com.tunisianwatch.Gui.MainFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +26,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
                try {
-                   new Authentification().setVisible(true);
+                   new MainFrame().setVisible(true);
                } catch (Exception ex) {
                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                }

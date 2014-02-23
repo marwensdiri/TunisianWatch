@@ -124,8 +124,8 @@ Animation animation= new Animation("Tunisian Watch");
         if(user!=null){
             JOptionPane.showMessageDialog(null, "Connexion établie");
             this.hide();
-            EtablissementFrame A = new EtablissementFrame();
-            A.setVisible(true);
+           // EtablissementFrame A = new EtablissementFrame();
+          //  A.setVisible(true);
         }else{
         JOptionPane.showMessageDialog(null, "Erreur d'authentification","Message d'avertissement",JOptionPane.ERROR_MESSAGE);
         

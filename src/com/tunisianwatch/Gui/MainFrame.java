@@ -81,7 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
             loginLabel = new javax.swing.JLabel();
 
             setPreferredSize(new java.awt.Dimension(870, 500));
-            setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+            
 
             ConnectionBtn.setBackground(new java.awt.Color(204, 0, 0));
             ConnectionBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,7 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addContainerGap())
             );
 
-            add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 500));
+            
         }// </editor-fold>                        
 
         private void ConnectionBtnActionPerformed(java.awt.event.ActionEvent evt) {
