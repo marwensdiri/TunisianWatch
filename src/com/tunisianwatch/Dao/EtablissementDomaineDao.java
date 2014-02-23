@@ -33,10 +33,8 @@ public class EtablissementDomaineDao {
      * @param id
      * @param ED
      */
-    /**
-     *
-     * @param id
-     */
+
+    
     public void deleteEtablissementDomaine(int idetablissement, int iddomaine) {
         String requete = "delete from etablissement_domaine where iddomaine=? and idetablissement=?";
         PreparedStatement ps;

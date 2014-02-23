@@ -12,9 +12,10 @@ public class Reclamation {
     private String titre;
     private Utilisateur citoyen;
     private Domaine domaine;
-    private boolean etat;
+    private int etat;
+    private List<Evaluation> listEvaluation = new ArrayList<Evaluation>();
 
-    public Reclamation(int id, Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, boolean etat) {
+    public Reclamation(int id, Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, int etat) {
         this.id = id;
         this.lieu = lieu;
         this.date = date;
@@ -26,7 +27,7 @@ public class Reclamation {
         this.domaine = domaine;
     }
 
-    public Reclamation(Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, boolean etat) {
+    public Reclamation(Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, int etat) {
         this.lieu = lieu;
         this.date = date;
         this.heure = heure;
@@ -37,6 +38,14 @@ public class Reclamation {
         this.domaine = domaine;
     }
 
+    public void addEvaluation(Evaluation ev){
+        listEvaluation.add(ev);
+    }
+    
+    public void removeEvaluation(Evaluation ev){
+        listEvaluation.remove(ev);
+    }
+    
     public Reclamation() {
     }
 
@@ -72,7 +81,7 @@ public class Reclamation {
         return domaine;
     }
 
-    public boolean getEtat() {
+    public int getEtat() {
         return etat;
     }
 
@@ -108,9 +117,22 @@ public class Reclamation {
         this.domaine = domaine;
     }
 
-    public void setEtat(boolean etat) {
+    public void setEtat(int etat) {
         this.etat = etat;
     }
+
+
+    public List<Evaluation> getListEvaluation() {
+        return listEvaluation;
+    }
+
+    public void setListEvaluation(List<Evaluation> listEvaluation) {
+        this.listEvaluation = listEvaluation;
+    }
+    
+    
+    
+    
 
     @Override
     public int hashCode() {

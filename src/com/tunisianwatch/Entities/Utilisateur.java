@@ -3,30 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Entities;
 
 import java.util.Date;
-
 
 /**
  *
  * @author Marwen
  */
-
-
 public class Utilisateur {
 
-	private int id;
-	private String nom;
-	private String prenom;
-	private Date dateNaissance;
-	private String photo;
-	private String login;
-	private String mdp;
-	private String mail;
-	private char type;
-        private int idEtablissement;
+    private int id;
+    private String nom;
+    private String prenom;
+    private char sexe;
+    private String adress;
+    private Date dateNaissance;
+    private String photo;
+    private String login;
+    private String mdp;
+    private String mail;
+    private char type;
+    private int idEtablissement;
 
     public Utilisateur() {
     }
@@ -35,10 +33,8 @@ public class Utilisateur {
     public String toString() {
         return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", photo=" + photo + ", login=" + login + ", mdp=" + mdp + ", mail=" + mail + ", type=" + type + ", idEtablissement=" + idEtablissement + '}';
     }
-    
-    
-        
-    public Utilisateur(int idEtablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
+
+    public Utilisateur(int idEtablissement, String nom, String prenom, String photo, char sexe, String adress, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.idEtablissement = idEtablissement;
         this.nom = nom;
         this.prenom = prenom;
@@ -48,6 +44,8 @@ public class Utilisateur {
         this.mdp = mdp;
         this.mail = mail;
         this.type = type;
+        this.adress = adress;
+        this.sexe = sexe;
     }
 
     public Utilisateur(int id, int idEtablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
@@ -63,8 +61,6 @@ public class Utilisateur {
         this.idEtablissement = idEtablissement;
     }
 
-        
-        
     public int getId() {
         return id;
     }
@@ -72,7 +68,7 @@ public class Utilisateur {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNom() {
         return nom;
     }
@@ -145,7 +141,20 @@ public class Utilisateur {
         this.idEtablissement = idEtablissement;
     }
 
-        
-        
-        
+    public char getSexe() {
+        return sexe;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setSexe(char sexe) {
+        this.sexe = sexe;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
 }

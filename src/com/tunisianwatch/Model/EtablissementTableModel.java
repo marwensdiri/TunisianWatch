@@ -66,7 +66,6 @@ public class EtablissementTableModel extends AbstractTableModel {
         listResultSearch = new ArrayList<Etablissement>();
         if (searchString.length() > 0) {
             searching = true;
-            System.out.println(searchString.length());
             for (Etablissement etablissement : listEtablissement) {
                 if (searchIndex == 0) {
                     if (etablissement.getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {

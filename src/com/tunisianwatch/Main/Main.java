@@ -6,7 +6,10 @@
 
 package com.tunisianwatch.Main;
 
-import com.tunisianwatch.Gui.EtablissementFrame;
+import com.tunisianwatch.Gui.Authentification;
+import com.tunisianwatch.Gui.MainFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -22,28 +25,14 @@ public class Main {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
-               new EtablissementFrame().setVisible(true);
+               try {
+                   new MainFrame().setVisible(true);
+               } catch (Exception ex) {
+                   Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        });
-
-  /*      
-   // Test by marwen 
-        Utilisateur u1 = new Utilisateur(2, "marwen", "sdiri", null, "login", "pwd", "monMail", 'c',  new java.sql.Date(2014-06-06));
-
-        UtilisateurDao userdao = new UtilisateurDao();
         
-        //userdao.insertUser(u1);
-        //userdao.updateUser(2, u1);
-        List<Utilisateur> listUsers =userdao.selectUsers();
-        Utilisateur u2 = userdao.selectUserById(2);
-        System.out.println(listUsers);
-        System.out.println(u2);
-        
-       // userdao.deleteUser(14);
-        
-   //  Fin Test by marwen  
-           
-   */        
     }
 
 }
