@@ -114,6 +114,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
         modifierButton.setBackground(new java.awt.Color(204, 0, 0));
         modifierButton.setForeground(new java.awt.Color(255, 255, 255));
         modifierButton.setText("modifier");
+        modifierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifierButtonActionPerformed(evt);
+            }
+        });
 
         supprimerButton.setBackground(new java.awt.Color(204, 0, 0));
         supprimerButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -213,6 +218,10 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
       
     }//GEN-LAST:event_ajoutButtonActionPerformed
+
+    private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modifierButtonActionPerformed
 
     public class ReclamationTableListener implements ListSelectionListener {
 
