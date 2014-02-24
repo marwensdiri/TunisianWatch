@@ -17,21 +17,12 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public static void main(String[] args) {
-
-        MainFrame m = new MainFrame();
-
-    }
 
     public MainFrame() {
         initComponents();
-        setTitle("Tunisianwatch");
     }
 
 
-    public void sTitle(String title){
-        setTitle(title);
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        CorePanel.add(new com.tunisianwatch.Gui.AcceuilPanel()); //LoginPanel()
+        CorePanel.add(new AcceuilPanel()); //LoginPanel()
         CorePanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(CorePanel, "card2");
 
