@@ -5,10 +5,8 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.ChartDAO;
-import java.awt.Panel;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+
 
 /**
  *
