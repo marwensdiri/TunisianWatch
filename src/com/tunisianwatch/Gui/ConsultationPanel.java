@@ -29,13 +29,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
      * Creates new form reclamationPanel
      */
     public ConsultationPanel(String type) {
-        initComponents();
         this.type = type;
+        initComponents();
         if (type.equals("etablissement")) {
             tableModel = new EtablissementTableModel();
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Lieu", "Responsable", "Domaine"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Etablissements"));
         } else if (type.equals("reclamation")) {
+            ajoutButton.hide();
             tableModel = new ReclamationTableModel();
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Réclamations"));
@@ -69,6 +70,8 @@ public class ConsultationPanel extends javax.swing.JPanel {
 
         corePanel.setLayout(new java.awt.CardLayout());
 
+        contentPanel.setBackground(new java.awt.Color(255, 255, 255));
+
         CategComboBox.setBackground(new java.awt.Color(204, 0, 0));
         CategComboBox.setForeground(new java.awt.Color(255, 255, 255));
         CategComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -94,11 +97,12 @@ public class ConsultationPanel extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane.setViewportView(consultationTable);
 
         ajoutButton.setBackground(new java.awt.Color(204, 0, 0));
         ajoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        ajoutButton.setText("ajouter");
+        ajoutButton.setText("Ajouter");
         ajoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ajoutButtonActionPerformed(evt);
@@ -107,11 +111,21 @@ public class ConsultationPanel extends javax.swing.JPanel {
 
         modifierButton.setBackground(new java.awt.Color(204, 0, 0));
         modifierButton.setForeground(new java.awt.Color(255, 255, 255));
-        modifierButton.setText("modifier");
+        if(type.equals("reclamation")){
+            modifierButton.setText("Apérçu");
+        }
+        else{
+            modifierButton.setText("Modifier");
+        }
+        modifierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifierButtonActionPerformed(evt);
+            }
+        });
 
         supprimerButton.setBackground(new java.awt.Color(204, 0, 0));
         supprimerButton.setForeground(new java.awt.Color(255, 255, 255));
-        supprimerButton.setText("supprimer");
+        supprimerButton.setText("Supprimer");
         supprimerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 supprimerButtonActionPerformed(evt);
@@ -123,9 +137,9 @@ public class ConsultationPanel extends javax.swing.JPanel {
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(rechercheLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,16 +148,13 @@ public class ConsultationPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
                         .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane)))
+                    .addComponent(jScrollPane))
                 .addContainerGap())
         );
         contentPanelLayout.setVerticalGroup(
@@ -156,8 +167,8 @@ public class ConsultationPanel extends javax.swing.JPanel {
                     .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refreshButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                .addGap(25, 25, 25)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supprimerButton)
                     .addComponent(modifierButton)
@@ -207,6 +218,16 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ajoutButtonActionPerformed
+
+    private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.setLayout(new java.awt.CardLayout());
+        if (type.equals("reclamation")){
+            contentPanel.add(new ReclamationApercuPanel());
+        }
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_modifierButtonActionPerformed
 
     public class ReclamationTableListener implements ListSelectionListener {
 
