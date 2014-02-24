@@ -51,7 +51,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
         this.listReclamation = reclamationtDao.selectReclamations();
     }
 
-    public Reclamation getReclamationAt(int row) {
+    public Reclamation getElementAt(int row) {
         return listReclamation.get(row);
     }
 
