@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author asd
  */
-public class ReclamationTableModel extends AbstractTableModel {
+public class ReclamationTableModel extends ConsultationTableModel {
 
     private ReclamationDao reclamationtDao = new ReclamationDao();
     private LieuDao lieuDao = new LieuDao();
@@ -55,9 +55,10 @@ public class ReclamationTableModel extends AbstractTableModel {
         return listReclamation.get(row);
     }
 
-    public void removeRows(List<Reclamation> lEtab) {
-        for (int i = 0; i < lEtab.size(); i++) {
-            listReclamation.remove(lEtab.get(i));
+    public void removeRows(List elements) {
+        List<Reclamation> lRec =(List<Reclamation>) elements;
+        for (int i = 0; i < lRec.size(); i++) {
+            listReclamation.remove(lRec.get(i));
         }
     }
 
