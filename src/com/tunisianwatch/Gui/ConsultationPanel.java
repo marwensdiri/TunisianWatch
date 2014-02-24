@@ -7,11 +7,12 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.Etablissement;
+import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
-import java.awt.Dimension;
+import com.tunisianwatch.Model.ReclamationTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -21,16 +22,23 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author asd
  */
-public class EtablissementPanel extends javax.swing.JPanel {
-   private EtablissementTableModel tableModel;
-   private ListSelectionModel lsm;
+public class ConsultationPanel extends javax.swing.JPanel {
+    private ConsultationTableModel tableModel;
+    private ListSelectionModel lsm;
+    private String type;
     /**
-     * Creates new form EtablissementPanel
+     * Creates new form reclamationPanel
      */
-    public EtablissementPanel() {
-        tableModel = new EtablissementTableModel();
+    public ConsultationPanel(String type) {
+        this.type=type;
+        if(type.equals("etablissement")){
+            tableModel = new EtablissementTableModel();
+        }
+        else if(type.equals("reclamation")){
+            tableModel = new ReclamationTableModel();
+        }
         initComponents();
-        EtablissementTable.getSelectionModel().addListSelectionListener(new EtablissementTableListener());
+        ReclamationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
     }
 
     /**
@@ -49,19 +57,23 @@ public class EtablissementPanel extends javax.swing.JPanel {
         rechercheLabel = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        EtablissementTable = new javax.swing.JTable();
+        ReclamationTable = new javax.swing.JTable();
         ajoutButton = new javax.swing.JButton();
         modifierButton = new javax.swing.JButton();
         supprimerButton = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
-        corePanel.setPreferredSize(new java.awt.Dimension(870, 500));
         corePanel.setLayout(new java.awt.CardLayout());
 
         CategComboBox.setBackground(new java.awt.Color(204, 0, 0));
         CategComboBox.setForeground(new java.awt.Color(255, 255, 255));
-        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nom", "Lieu", "Responsable", "Domaine" }));
+        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat" }));
+        CategComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategComboBoxActionPerformed(evt);
+            }
+        });
 
         rechercheTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -80,12 +92,17 @@ public class EtablissementPanel extends javax.swing.JPanel {
             }
         });
 
-        EtablissementTable.setModel(tableModel);
-        jScrollPane.setViewportView(EtablissementTable);
+        ReclamationTable.setModel(tableModel);
+        jScrollPane.setViewportView(ReclamationTable);
 
         ajoutButton.setBackground(new java.awt.Color(204, 0, 0));
         ajoutButton.setForeground(new java.awt.Color(255, 255, 255));
         ajoutButton.setText("ajouter");
+        ajoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutButtonActionPerformed(evt);
+            }
+        });
 
         modifierButton.setBackground(new java.awt.Color(204, 0, 0));
         modifierButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,54 +121,54 @@ public class EtablissementPanel extends javax.swing.JPanel {
         contentPanel.setLayout(contentPanelLayout);
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(contentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane)
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane))
-                    .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(contentPanelLayout.createSequentialGroup()
-                                .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(contentPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(rechercheLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(rechercheLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(contentPanelLayout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(179, Short.MAX_VALUE)))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rechercheLabel)
+                    .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refreshButton))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supprimerButton)
-                    .addComponent(modifierButton)
-                    .addComponent(ajoutButton))
-                .addContainerGap())
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(contentPanelLayout.createSequentialGroup()
+                    .addContainerGap(455, Short.MAX_VALUE)
+                    .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(supprimerButton)
+                        .addComponent(modifierButton)
+                        .addComponent(ajoutButton))
+                    .addGap(22, 22, 22)))
         );
 
-        corePanel.add(contentPanel, "card2");
+        corePanel.add(contentPanel, "card3");
 
-        add(corePanel, "card3");
+        add(corePanel, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
     private void rechercheTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rechercheTextFieldKeyReleased
@@ -171,31 +188,38 @@ public class EtablissementPanel extends javax.swing.JPanel {
             // Find out which indexes are selected.
             int minIndex = lsm.getMinSelectionIndex();
             int maxIndex = lsm.getMaxSelectionIndex();
-            List<Etablissement> listEtabtmp = new ArrayList<Etablissement>();
+            List elements = new ArrayList();
             for (int i = minIndex; i <= maxIndex; i++) {
                 if (lsm.isSelectedIndex(i)) {
-                    Etablissement etabTmp = tableModel.getEtablissementAt(i);
-                    listEtabtmp.add(etabTmp);
-                    //new EtablissementDao().deleteEtablissement(etabTmp.getId());
+                    Object element = tableModel.getElementAt(i);
+                    elements.add(element);
+                    //new ReclamationDao().deleteReclamation(etabTmp.getId());
                 }
             }
-            tableModel.removeRows(listEtabtmp);
+            tableModel.removeRows(elements);
             tableModel.fireTableDataChanged();
         }
     }//GEN-LAST:event_supprimerButtonActionPerformed
 
-public class EtablissementTableListener implements ListSelectionListener {
+    private void CategComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CategComboBoxActionPerformed
+
+    private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ajoutButtonActionPerformed
+
+    public class ReclamationTableListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
             lsm = (ListSelectionModel) e.getSource();
         }
     }
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CategComboBox;
-    private javax.swing.JTable EtablissementTable;
+    private javax.swing.JTable ReclamationTable;
     private javax.swing.JButton ajoutButton;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel corePanel;
