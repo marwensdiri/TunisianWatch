@@ -17,15 +17,9 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public static void main(String[] args) {
-
-        MainFrame m = new MainFrame();
-
-    }
 
     public MainFrame() {
         initComponents();
-        setTitle("Tunisianwatch");
     }
 
 
@@ -44,7 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        CorePanel.add(new com.tunisianwatch.Gui.AcceuilPanel()); //LoginPanel()
+        CorePanel.add(new AcceuilPanel()); //LoginPanel()
         CorePanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(CorePanel, "card2");
 
