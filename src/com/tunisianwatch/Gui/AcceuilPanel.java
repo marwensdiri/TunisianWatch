@@ -124,14 +124,14 @@ public class AcceuilPanel extends javax.swing.JPanel {
 
     private void etablissementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementButtonActionPerformed
         contentPanel.removeAll();
-        contentPanel.add(new EtablissementPanel());
+        contentPanel.add(new ConsultationPanel("etablissement"));
         contentPanel.repaint();
         contentPanel.revalidate();
     }//GEN-LAST:event_etablissementButtonActionPerformed
 
     private void reclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationButtonActionPerformed
         contentPanel.removeAll();
-        contentPanel.add(new reclamationPanel());
+        contentPanel.add(new ConsultationPanel("reclamation"));
         contentPanel.repaint();
         contentPanel.revalidate();
     }//GEN-LAST:event_reclamationButtonActionPerformed

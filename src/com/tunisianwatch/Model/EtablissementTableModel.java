@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author asd
  */
-public class EtablissementTableModel extends AbstractTableModel {
+public class EtablissementTableModel extends ConsultationTableModel {
 
     private EtablissementDao etablissementDao = new EtablissementDao();
     private LieuDao lieuDao = new LieuDao();
@@ -52,11 +52,12 @@ public class EtablissementTableModel extends AbstractTableModel {
         this.listEtablissement = etablissementDao.selectEtablissements();
     }
 
-    public Etablissement getEtablissementAt(int row) {
+    public Etablissement getElementAt(int row) {
         return listEtablissement.get(row);
     }
 
-    public void removeRows(List<Etablissement> lEtab) {
+    public void removeRows(List elements) {
+        List<Etablissement> lEtab=(List<Etablissement>) elements;
         for (int i = 0; i < lEtab.size(); i++) {
             listEtablissement.remove(lEtab.get(i));
         }
