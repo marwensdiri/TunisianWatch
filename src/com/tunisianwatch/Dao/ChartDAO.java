@@ -55,13 +55,13 @@ public class ChartDAO {
 
 
 
-        dataset.setValue(50, "Beja", "");
-        dataset.setValue(60, "Jandoba", "");
-        dataset.setValue(20, "Tunis", "");
-        dataset.setValue(10, "Bizete", "");
-        dataset.setValue(20, "Kirwen", "");
-        dataset.setValue(90, "Sfax", "");
-        dataset.setValue(53, "Mistir", "");
+//            dataset.setValue(50, "Beja", "");
+//            dataset.setValue(60, "Jandoba", "");
+//            dataset.setValue(20, "Tunis", "");
+//            dataset.setValue(10, "Bizete", "");
+//            dataset.setValue(20, "Kirwen", "");
+//            dataset.setValue(90, "Sfax", "");
+//            dataset.setValue(53, "Mistir", "");
 
 
         return dataset;
