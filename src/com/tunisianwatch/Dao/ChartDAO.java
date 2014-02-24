@@ -15,6 +15,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 import com.tunisianwatch.Dao.ReclamationDao;
 import com.tunisianwatch.Entities.Domaine;
+import com.tunisianwatch.Entities.Lieu;
 import java.util.ArrayList;
 
 /**
@@ -23,64 +24,48 @@ import java.util.ArrayList;
  */
 public class ChartDAO {
 
-    private static PieDataset createDataset() {
+    private static PieDataset createDatasetDomaine() {
         DefaultPieDataset result = new DefaultPieDataset();
-        result.setValue("Linux", 29);
-        result.setValue("Mac", 20);
-        result.setValue("Windows", 10);
-        result.setValue("Android", 50);
+        ReclamationDao rec = new ReclamationDao();
+        DomaineDao domaine = new DomaineDao();
+        
+        List<Domaine> listdomaine = domaine.selectDomaines();
+        for (Domaine d : listdomaine) {
+            List<Reclamation> listrec = rec.selectReclamationByIdDomaine(d.getId());
+            result.setValue(d.getNom(), listrec.size());
+        }
         return result;
-
     }
 
-    public static DefaultCategoryDataset CreateDataset() {
+    public static DefaultCategoryDataset CreateDatasetlieu() {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
+        ReclamationDao rec = new ReclamationDao();
+        LieuDao lieu = new LieuDao();
         
-        DomaineDao domaine = new DomaineDao();
-        List<Domaine> listdomaine = domaine.selectDomaines();
-        while (listdomaine.iterator().hasNext()) {//parcours par domaine
+        List<Lieu> listlieu = lieu.selectLieux();
+        
+        for(int i=0;i<listlieu.size();i++) {//parcours par lieu
+            List<Reclamation> listrec = rec.selectReclamationByIdDomaine(listlieu.get(i).getId());
+            String nom = listlieu.get(i).getNom();
             
-            ReclamationDao rec = new ReclamationDao();
-            List<Reclamation> list = rec.selectReclamationByIdDomaine(listdomaine.iterator().next().getId());
-
-            int som = 0;
-            while (list.iterator().hasNext()) {//nombre des reclamation par domain selectionné
-                som = som + 1;
-            }
-            String nom = listdomaine.iterator().next().getNom();
-             dataset.setValue(som, nom, nom);
+            dataset.setValue(listrec.size(), nom, "");
         }
-
-
-
-//            dataset.setValue(50, "Beja", "");
-//            dataset.setValue(60, "Jandoba", "");
-//            dataset.setValue(20, "Tunis", "");
-//            dataset.setValue(10, "Bizete", "");
-//            dataset.setValue(20, "Kirwen", "");
-//            dataset.setValue(90, "Sfax", "");
-//            dataset.setValue(53, "Mistir", "");
-
-
+        
         return dataset;
     }
 
-    public static JFreeChart Createbarchart(String titre, String axeX, String axeY) {
+    public static JFreeChart Createbarchartlieu(String titre, String axeX, String axeY) {
 
-        JFreeChart chart = ChartFactory.createBarChart3D(titre, axeX, axeY, CreateDataset());
+        JFreeChart chart = ChartFactory.createBarChart3D(titre, axeX, axeY, CreateDatasetlieu());
         return chart;
 
     }
 
-    public static JFreeChart createChart(String titre) {
+    public static JFreeChart createChartdomaine(String titre) {
 
-        JFreeChart chart = ChartFactory.createPieChart3D(titre, // Titre
-                createDataset(), // data
-                true,
-                true,
-                false);
+        JFreeChart chart = ChartFactory.createPieChart3D(titre,createDatasetDomaine(),true,true,true);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setStartAngle(290);
         plot.setDirection(Rotation.CLOCKWISE);

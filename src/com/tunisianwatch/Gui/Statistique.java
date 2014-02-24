@@ -19,14 +19,14 @@ public class Statistique extends javax.swing.JFrame {
      */
     public void AjouterChartpanelCercel(String titre){
         jPanel1.removeAll();
-        ChartPanel panel = new ChartPanel(ChartDAO.createChart(titre));
+        ChartPanel panel = new ChartPanel(ChartDAO.createChartdomaine(titre));
         panel.setBounds(10, 10, 750, 560);
         jPanel1.add(panel);
         jPanel1.repaint();
     }
     public void AjouterChartpanelBar(String titre,String axeX,String axeY){
         jPanel1.removeAll();
-        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchart(titre, axeX, axeY));      
+        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));      
         panel.setBounds(10, 10, 750, 560);
         jPanel1.add(panel);
         jPanel1.repaint();
