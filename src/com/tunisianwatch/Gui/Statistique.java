@@ -4,7 +4,7 @@
  */
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Dao.Chart_DAO;
+import com.tunisianwatch.Dao.ChartDAO;
 import java.awt.Panel;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
@@ -14,12 +14,27 @@ import org.jfree.chart.JFreeChart;
  *
  * @author DELL
  */
-public class StatistiqueDAO extends javax.swing.JFrame {
+public class Statistique extends javax.swing.JFrame {
 
     /**
-     * Creates new form StatistiqueDAO
+     * Creates new form Statistique
      */
-    public StatistiqueDAO() {
+    public void AjouterChartpanelCercel(String titre){
+        jPanel1.removeAll();
+        ChartPanel panel = new ChartPanel(ChartDAO.createChart(titre));
+        panel.setBounds(10, 10, 750, 560);
+        jPanel1.add(panel);
+        jPanel1.repaint();
+    }
+    public void AjouterChartpanelBar(String titre,String axeX,String axeY){
+        jPanel1.removeAll();
+        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchart(titre, axeX, axeY));      
+        panel.setBounds(10, 10, 750, 560);
+        jPanel1.add(panel);
+        jPanel1.repaint();
+    }
+    
+    public Statistique() {
         initComponents();
     }
 
@@ -58,6 +73,11 @@ public class StatistiqueDAO extends javax.swing.JFrame {
         });
 
         btn_etat.setText("Par Etat");
+        btn_etat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_etatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -129,26 +149,22 @@ public class StatistiqueDAO extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_domainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_domainActionPerformed
-       jPanel1.removeAll();
-        ChartPanel panel = new ChartPanel(Chart_DAO.createChart("Statistique par Domaines"));
-        panel.setBounds(10, 10, 750, 560);
-        jPanel1.add(panel);
-        jPanel1.repaint();
+        AjouterChartpanelCercel("Statistique par Domaines");
     }//GEN-LAST:event_btn_domainActionPerformed
 
     private void btn_regionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regionActionPerformed
         // TODO add your handling code here:
-        jPanel1.removeAll();
-        ChartPanel panel = new ChartPanel(Chart_DAO.Createbarchart("Statistique par Régions", 
-                "Régions", 
-                "Freqence des Reclamations"));      
-        panel.setBounds(10, 10, 750, 560);
-        jPanel1.add(panel);
-        jPanel1.repaint();
-        
-        
-        
+        AjouterChartpanelBar("Statistique par Régions","Régions","Freqence des Reclamations");
     }//GEN-LAST:event_btn_regionActionPerformed
+
+    private void btn_etatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_etatActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btn_etatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,20 +183,20 @@ public class StatistiqueDAO extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StatistiqueDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StatistiqueDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StatistiqueDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StatistiqueDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StatistiqueDAO().setVisible(true);
+                new Statistique().setVisible(true);
             }
         });
     }

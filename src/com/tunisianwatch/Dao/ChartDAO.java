@@ -21,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author DELL
  */
-public class Chart_DAO {
+public class ChartDAO {
 
     private static PieDataset createDataset() {
         DefaultPieDataset result = new DefaultPieDataset();
