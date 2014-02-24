@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
+import com.tunisianwatch.Model.UtilisateurTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -39,6 +40,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
             tableModel = new ReclamationTableModel();
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Réclamations"));
+        }else if (type.equals("citoyen")) {
+            //tableModel = new UtilisateurTableModel();
+            tableModel = new ReclamationTableModel();
+            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prenom", "Sexe", "Adresse"}));
+            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
         }
         consultationTable.setModel(tableModel);
         consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
@@ -205,7 +211,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     public class ReclamationTableListener implements ListSelectionListener {
