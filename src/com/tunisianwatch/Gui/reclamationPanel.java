@@ -61,6 +61,11 @@ public class reclamationPanel extends javax.swing.JPanel {
         CategComboBox.setBackground(new java.awt.Color(204, 0, 0));
         CategComboBox.setForeground(new java.awt.Color(255, 255, 255));
         CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat" }));
+        CategComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategComboBoxActionPerformed(evt);
+            }
+        });
 
         rechercheTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -103,15 +108,18 @@ public class reclamationPanel extends javax.swing.JPanel {
         contentPanel.setLayout(contentPanelLayout);
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
+            .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rechercheLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentPanelLayout.createSequentialGroup()
+                        .addComponent(rechercheLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane))
                 .addContainerGap())
             .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(contentPanelLayout.createSequentialGroup()
@@ -121,11 +129,7 @@ public class reclamationPanel extends javax.swing.JPanel {
                     .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(179, Short.MAX_VALUE))
-                .addGroup(contentPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane)
-                    .addContainerGap()))
+                    .addContainerGap(179, Short.MAX_VALUE)))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,12 +140,12 @@ public class reclamationPanel extends javax.swing.JPanel {
                     .addComponent(rechercheLabel)
                     .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refreshButton))
-                .addContainerGap(466, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
             .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(contentPanelLayout.createSequentialGroup()
-                    .addGap(61, 61, 61)
-                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addGap(18, 18, 18)
+                    .addContainerGap(455, Short.MAX_VALUE)
                     .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(supprimerButton)
                         .addComponent(modifierButton)
@@ -183,6 +187,10 @@ public class reclamationPanel extends javax.swing.JPanel {
             tableModel.fireTableDataChanged();
         }
     }//GEN-LAST:event_supprimerButtonActionPerformed
+
+    private void CategComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CategComboBoxActionPerformed
 
     public class ReclamationTableListener implements ListSelectionListener {
 

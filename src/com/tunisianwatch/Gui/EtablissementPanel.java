@@ -140,7 +140,7 @@ public class EtablissementPanel extends javax.swing.JPanel {
                     .addComponent(rechercheLabel)
                     .addComponent(refreshButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supprimerButton)
