@@ -39,7 +39,7 @@ public class Main {
             @Override
            public void run() {
                try {
-                   new MainFrame().setVisible(true);
+                   new Authentification().setVisible(true);
                } catch (Exception ex) {
                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                }
