@@ -206,7 +206,10 @@ public class AcceuilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_responsableButton1ActionPerformed
 
     private void statButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statButtonActionPerformed
-        // TODO add your handling code here:
+       contentPanel.removeAll();
+       contentPanel.add(new StatistiquePanel());
+       contentPanel.repaint();
+       contentPanel.revalidate();
     }//GEN-LAST:event_statButtonActionPerformed
 
 
