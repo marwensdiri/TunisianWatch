@@ -44,14 +44,14 @@ public class UtilisateurDao {
             ps.setString(9, u.getType() + "");
             ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+            JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion");
+            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
 
     }
-    
+
     public void insertResponsable(Utilisateur u) {
 
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -71,7 +71,7 @@ public class UtilisateurDao {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion");
+            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de l'insertion : " + ex.getMessage());
         }
 
@@ -95,11 +95,11 @@ public class UtilisateurDao {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ");
+            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
         }
     }
-    
+
     public void updateResponsable(int id, Utilisateur u) {
         String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -119,23 +119,25 @@ public class UtilisateurDao {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ");
+            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
         }
     }
 
     public void deleteUser(int id) {
-
-        String requete = "delete from utilisateur where id=?";
-        try {
-            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Utilisateur supprimée");
-        } catch (SQLException ex) {
-            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la suppression");
-            System.out.println("erreur lors de la suppression " + ex.getMessage());
+        int p = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimé ?", "Supprimé", JOptionPane.YES_NO_OPTION);
+        if (p == 0) {
+            String requete = "delete from utilisateur where id=?";
+            try {
+                PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+                ps.setInt(1, id);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Utilisateur supprimée");
+            } catch (SQLException ex) {
+                //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Erreur lors de la suppression", "Erreur", JOptionPane.ERROR_MESSAGE);
+                System.out.println("erreur lors de la suppression " + ex.getMessage());
+            }
         }
     }
 
@@ -151,9 +153,9 @@ public class UtilisateurDao {
             while (resultat.next()) {
                 Utilisateur user = new Utilisateur();
                 user.setId(resultat.getInt("id"));
-                if(resultat.getString("type").charAt(0)=='R'){
-                   Etablissement etablissement= new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
-                   user.setEtablissement(etablissement);
+                if (resultat.getString("type").charAt(0) == 'R') {
+                    Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
+                    user.setEtablissement(etablissement);
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
@@ -171,7 +173,7 @@ public class UtilisateurDao {
             return listeUsers;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors du chargement ");
+            JOptionPane.showMessageDialog(null, "Erreur lors du chargement ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors du chargement : " + ex.getMessage());
             return null;
         }
@@ -190,9 +192,9 @@ public class UtilisateurDao {
             if (resultat.next()) {
 
                 user.setId(resultat.getInt("id"));
-                if(resultat.getString("type").charAt(0)=='R'){
-                   Etablissement etablissement= new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
-                   user.setEtablissement(etablissement);
+                if (resultat.getString("type").charAt(0) == 'R') {
+                    Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
+                    user.setEtablissement(etablissement);
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
@@ -209,7 +211,7 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche  ");
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche  ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la recherche : " + ex.getMessage());
             return null;
         }
@@ -228,9 +230,9 @@ public class UtilisateurDao {
             while (resultat.next()) {
 
                 user.setId(resultat.getInt("id"));
-                if(resultat.getString("type").charAt(0)=='R'){
-                   Etablissement etablissement= new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
-                   user.setEtablissement(etablissement);
+                if (resultat.getString("type").charAt(0) == 'R') {
+                    Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
+                    user.setEtablissement(etablissement);
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
@@ -246,7 +248,7 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ");
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la recherche  " + ex.getMessage());
             return null;
         }
@@ -264,11 +266,10 @@ public class UtilisateurDao {
 
             if (resultat.next()) {
 
-               
                 user.setId(resultat.getInt("id"));
-                if(resultat.getString("type").charAt(0)=='R'){
-                   Etablissement etablissement= new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
-                   user.setEtablissement(etablissement);
+                if (resultat.getString("type").charAt(0) == 'R') {
+                    Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
+                    user.setEtablissement(etablissement);
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
@@ -284,7 +285,7 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ");
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la recherche " + ex.getMessage());
             return null;
         }
@@ -292,7 +293,7 @@ public class UtilisateurDao {
 
     public List<Utilisateur> selectUserByType(char type) {
 
-        List<Utilisateur> listUtilisateur = new ArrayList<Utilisateur>() ;
+        List<Utilisateur> listUtilisateur = new ArrayList<Utilisateur>();
         String requete = "select * from Utilisateur where type=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -302,9 +303,9 @@ public class UtilisateurDao {
             while (resultat.next()) {
                 Utilisateur user = new Utilisateur();
                 user.setId(resultat.getInt("id"));
-                if(resultat.getString("type").charAt(0)=='R'){
-                   Etablissement etablissement= new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
-                   user.setEtablissement(etablissement);
+                if (resultat.getString("type").charAt(0) == 'R') {
+                    Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
+                    user.setEtablissement(etablissement);
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
@@ -322,7 +323,7 @@ public class UtilisateurDao {
             return listUtilisateur;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ");
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la recherche " + ex.getMessage());
             return null;
         }
@@ -339,7 +340,7 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), resultat.getString("photo"), resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
-                if(resultat.getString("type").charAt(0)=='R'){
+                if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
                     user.setEtablissement(etablissement);
                 }
@@ -352,16 +353,19 @@ public class UtilisateurDao {
     }
 
     public void deleteUserByEtablissement(int idetablissement) {
-        String requete = "delete from utilisateur where idetablissement=?";
-        try {
-            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setInt(1, idetablissement);
-            ps.executeUpdate();
-            System.out.println("Utilisateur supprimée");
-        } catch (SQLException ex) {
-            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la suppression ");
-            System.out.println("erreur lors de la suppression " + ex.getMessage());
+        int p = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimé ?", "Supprimé", JOptionPane.YES_NO_OPTION);
+        if (p == 0) {
+            String requete = "delete from utilisateur where idetablissement=?";
+            try {
+                PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+                ps.setInt(1, idetablissement);
+                ps.executeUpdate();
+                System.out.println("Utilisateur supprimée");
+            } catch (SQLException ex) {
+                //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Erreur lors de la suppression ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                System.out.println("erreur lors de la suppression " + ex.getMessage());
+            }
         }
     }
 
