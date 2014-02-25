@@ -60,13 +60,13 @@ public class GérerCitoyen extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
-        txt_prenom = new javax.swing.JTextField();
-        txt_nom = new javax.swing.JTextField();
-        txt_mail = new javax.swing.JTextField();
-        txt_mdp = new javax.swing.JTextField();
-        txt_date = new com.toedter.calendar.JDateChooser();
-        txt_path = new javax.swing.JTextField();
-        combo_sexe = new javax.swing.JComboBox();
+        prenomTextfield = new javax.swing.JTextField();
+        nomTextfield = new javax.swing.JTextField();
+        mailTextfield = new javax.swing.JTextField();
+        mdpTextfield = new javax.swing.JTextField();
+        dateTextfield = new com.toedter.calendar.JDateChooser();
+        pathTextfield = new javax.swing.JTextField();
+        sexeCombox = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -232,36 +232,36 @@ public class GérerCitoyen extends javax.swing.JFrame {
         });
         jPanel2.add(jToggleButton1);
         jToggleButton1.setBounds(340, 383, 75, 31);
-        jPanel2.add(txt_prenom);
-        txt_prenom.setBounds(184, 151, 150, 28);
+        jPanel2.add(prenomTextfield);
+        prenomTextfield.setBounds(184, 151, 150, 28);
 
-        txt_nom.addActionListener(new java.awt.event.ActionListener() {
+        nomTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomActionPerformed(evt);
+                nomTextfieldActionPerformed(evt);
             }
         });
-        jPanel2.add(txt_nom);
-        txt_nom.setBounds(184, 105, 150, 28);
-        jPanel2.add(txt_mail);
-        txt_mail.setBounds(184, 241, 150, 28);
-        jPanel2.add(txt_mdp);
-        txt_mdp.setBounds(184, 287, 150, 28);
+        jPanel2.add(nomTextfield);
+        nomTextfield.setBounds(184, 105, 150, 28);
+        jPanel2.add(mailTextfield);
+        mailTextfield.setBounds(184, 241, 150, 28);
+        jPanel2.add(mdpTextfield);
+        mdpTextfield.setBounds(184, 287, 150, 28);
 
-        txt_date.setDateFormatString("yyyy-MM-d");
-        jPanel2.add(txt_date);
-        txt_date.setBounds(184, 333, 192, 29);
+        dateTextfield.setDateFormatString("yyyy-MM-d");
+        jPanel2.add(dateTextfield);
+        dateTextfield.setBounds(184, 333, 192, 29);
 
-        txt_path.addActionListener(new java.awt.event.ActionListener() {
+        pathTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_pathActionPerformed(evt);
+                pathTextfieldActionPerformed(evt);
             }
         });
-        jPanel2.add(txt_path);
-        txt_path.setBounds(184, 384, 150, 28);
+        jPanel2.add(pathTextfield);
+        pathTextfield.setBounds(184, 384, 150, 28);
 
-        combo_sexe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Homme", "Femme" }));
-        jPanel2.add(combo_sexe);
-        combo_sexe.setBounds(184, 197, 150, 24);
+        sexeCombox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Homme", "Femme" }));
+        jPanel2.add(sexeCombox);
+        sexeCombox.setBounds(184, 197, 150, 24);
 
         jTabbedPane1.addTab("Ajouter Citoyen", jPanel2);
 
@@ -561,7 +561,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
         shooser.showOpenDialog(null);
         File f = shooser.getSelectedFile();
         String filename = f.getAbsolutePath();
-        txt_path.setText(filename);
+        pathTextfield.setText(filename);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -570,13 +570,13 @@ public class GérerCitoyen extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        txt_nom.setText("");
-        txt_prenom.setText("");
-        txt_mail.setText("");
-        txt_mdp.setText("");
-        txt_path.setText("");
-        txt_date.setDate(null);
-         combo_sexe.setSelectedIndex(0);
+        nomTextfield.setText("");
+        prenomTextfield.setText("");
+        mailTextfield.setText("");
+        mdpTextfield.setText("");
+        pathTextfield.setText("");
+        dateTextfield.setDate(null);
+         sexeCombox.setSelectedIndex(0);
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -585,25 +585,25 @@ public class GérerCitoyen extends javax.swing.JFrame {
         Utilisateur user = new Utilisateur() ;
         UtilisateurDao userDao = new UtilisateurDao();
         
-        user.setNom(txt_nom.getText());
-        user.setPrenom(txt_prenom.getText());
-        user.setMail(txt_mail.getText());
-        user.setMdp(txt_mdp.getText());
-        user.setDateNaissance(txt_date.getDate());
-        user.setPhoto(txt_path.getText());
+        user.setNom(nomTextfield.getText());
+        user.setPrenom(prenomTextfield.getText());
+        user.setMail(mailTextfield.getText());
+        user.setMdp(mdpTextfield.getText());
+        user.setDateNaissance(dateTextfield.getDate());
+        user.setPhoto(pathTextfield.getText());
         user.setIdEtablissement(-1);
         user.setType(new Character('C'));
         userDao.insertUser(user);
         
     }//GEN-LAST:event_btm_ajouterActionPerformed
 
-    private void txt_pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pathActionPerformed
+    private void pathTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathTextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_pathActionPerformed
+    }//GEN-LAST:event_pathTextfieldActionPerformed
 
-    private void txt_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomActionPerformed
+    private void nomTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomTextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nomActionPerformed
+    }//GEN-LAST:event_nomTextfieldActionPerformed
 
     private void Update_table() {
         String requete = "select nom, prenom,mail  from Utilisateur";
@@ -662,7 +662,7 @@ public class GérerCitoyen extends javax.swing.JFrame {
     private javax.swing.JButton btm_rech1;
     private javax.swing.JButton btm_supprimer1;
     private javax.swing.JButton btm_update1;
-    private javax.swing.JComboBox combo_sexe;
+    private com.toedter.calendar.JDateChooser dateTextfield;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
@@ -688,13 +688,13 @@ public class GérerCitoyen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField mailTextfield;
+    private javax.swing.JTextField mdpTextfield;
+    private javax.swing.JTextField nomTextfield;
+    private javax.swing.JTextField pathTextfield;
+    private javax.swing.JTextField prenomTextfield;
+    private javax.swing.JComboBox sexeCombox;
     private javax.swing.JTable table_liste;
-    private com.toedter.calendar.JDateChooser txt_date;
-    private javax.swing.JTextField txt_mail;
-    private javax.swing.JTextField txt_mdp;
-    private javax.swing.JTextField txt_nom;
-    private javax.swing.JTextField txt_path;
-    private javax.swing.JTextField txt_prenom;
     private javax.swing.JTextField txt_rech;
     // End of variables declaration//GEN-END:variables
 }
