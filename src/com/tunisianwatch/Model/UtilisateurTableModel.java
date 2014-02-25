@@ -18,13 +18,16 @@ import javax.swing.table.AbstractTableModel;
 public class UtilisateurTableModel extends ConsultationTableModel {
 
     private UtilisateurDao utilisateurDao = new UtilisateurDao();
-    private String title[] = {"Nom", "Prénom", "login", "sexe", "Age"};
+    private String title1[] = {"Nom", "Prénom", "login", "sexe", "Age"};
+    private String title2[] = {"Nom", "Prénom", "login", "sexe", "Age", "Etablissement"};
+    private char type;
     private List<Utilisateur> listUtilisateur = new ArrayList<Utilisateur>();
     private List<Utilisateur> listResultSearch = new ArrayList<Utilisateur>();
     private boolean searching = false;
 
     public UtilisateurTableModel(char type) {
         this.listUtilisateur = utilisateurDao.selectUserByType(type);
+        this.type = type;
     }
 
     @Override
@@ -40,13 +43,18 @@ public class UtilisateurTableModel extends ConsultationTableModel {
 
     @Override
     public int getColumnCount() {
-        return title.length;
+        if (type == 'C') {
+            return title1.length;
+        } else {
+            return title2.length;
+        }
+
     }
 
     //bloc de methodes personalisées
     public void refresh() {
         listResultSearch = new ArrayList<Utilisateur>();
-        this.listUtilisateur = utilisateurDao.selectUsers();
+        this.listUtilisateur = utilisateurDao.selectUserByType(type);
     }
 
     public Utilisateur getUtilisateutAt(int row) {
@@ -88,15 +96,17 @@ public class UtilisateurTableModel extends ConsultationTableModel {
                     if ((utilisateur.getAge() + "").matches("(.*)" + searchString + "(.*)")) {
                         listResultSearch.add(utilisateur);
 
+                    } else if (searchIndex == 5 && type == 'R') {
+                        if ((utilisateur.getEtablissement().getNom()).matches("(.*)" + searchString + "(.*)")) {
+                            listResultSearch.add(utilisateur);
+                        }
                     }
-
-                } else {
-                    searching = false;
                 }
 
             }
+        } else {
+            searching = false;
         }
-
     }
 
     @Override
@@ -117,11 +127,19 @@ public class UtilisateurTableModel extends ConsultationTableModel {
             return utilisateur.getSexe();
         } else if (columnIndex == 4) {
             return utilisateur.getAge();
+        } else if (type == 'R') {
+            if (columnIndex == 5) {
+                return utilisateur.getEtablissement().getNom();
+            }
         }
         return null;
     }
 
     public String getColumnName(int col) {
-        return this.title[col];
+        if (type == 'C') {
+            return this.title1[col];
+        } else {
+            return this.title2[col];
+        }
     }
 }
