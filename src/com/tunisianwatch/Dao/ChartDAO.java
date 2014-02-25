@@ -43,7 +43,7 @@ public class ChartDAO {
         LieuDao lieu = new LieuDao();
         List<Lieu> listlieu = lieu.selectLieux();
         for (Lieu l : listlieu) {//parcours par lieu
-            List<Reclamation> listrec = rec.selectReclamationByIdDomaine(l.getId());
+            List<Reclamation> listrec = rec.selectReclamationsByIdLieu(l.getId());
             dataset.setValue(l.getNom(), listrec.size());
         }
         return dataset;
@@ -99,7 +99,7 @@ public class ChartDAO {
         LieuDao lieu = new LieuDao();
         List<Lieu> listlieu = lieu.selectLieux();
         for (Lieu l : listlieu) {//parcours par lieu
-            List<Reclamation> listrec = rec.selectReclamationByIdDomaine(l.getId());
+            List<Reclamation> listrec = rec.selectReclamationsByIdLieu(l.getId());
             dataset.setValue(listrec.size(), l.getNom(), "");
         }
         return dataset;
@@ -125,8 +125,8 @@ public class ChartDAO {
                 }
             }
         }
-        dataset.setValue(list0.size(),"Nouvelle", "");
-        dataset.setValue(list1.size(),"Réglée", "");
+        dataset.setValue(list0.size(),"Non Traitée", "");
+        dataset.setValue(list1.size(),"Traitée", "");
         dataset.setValue(list2.size(),"Fausse", "");
         return dataset;
 
