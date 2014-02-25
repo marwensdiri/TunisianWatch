@@ -260,7 +260,7 @@ public class UtilisateurDao {
 
     }
 
-    public Utilisateur Connect(String login, String password) {
+    public Utilisateur Authentification(String login, String password) {
         Utilisateur user = null;
         try {
             String requete = "select * from utilisateur where login=? and mdp=?";
