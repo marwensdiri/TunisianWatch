@@ -6,14 +6,7 @@
 
 package com.tunisianwatch.Main;
 
-import com.tunisianwatch.Gui.AcceuilPanel;
 import com.tunisianwatch.Gui.Authentification;
-import com.tunisianwatch.Gui.CitoyenFormPanel;
-import com.tunisianwatch.Gui.ConsultationPanel;
-import com.tunisianwatch.Gui.MainFrame;
-import com.tunisianwatch.Gui.StatistiquePanel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -21,7 +14,6 @@ import java.util.logging.Logger;
  * @author Marwen
  */
 public class Main {
-    private static java.util.Date date;
 
     /**
      * @param args the command line arguments
@@ -44,7 +36,6 @@ public class Main {
                try {
                    new Authentification().setVisible(true);
                } catch (Exception ex) {
-                   Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                }
            }
        });

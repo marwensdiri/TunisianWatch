@@ -5,7 +5,9 @@
  */
 package com.tunisianwatch.Entities;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -157,4 +159,18 @@ public class Utilisateur {
         this.adress = adress;
     }
 
+    public int getAge() {
+        
+        Calendar date_courante = new GregorianCalendar();
+        date_courante = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.dateNaissance);
+        int diff = date_courante.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
+        date_courante.add(Calendar.YEAR, -diff);
+        if (cal.after(date_courante)) {
+            diff = diff - 1;
+        }
+        return diff;
+
+    }
 }

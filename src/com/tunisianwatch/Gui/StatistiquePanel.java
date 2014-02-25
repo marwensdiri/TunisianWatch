@@ -132,6 +132,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
+        contentPanel.setBackground(new java.awt.Color(255, 255, 255));
         contentPanel.setLayout(new java.awt.CardLayout());
         jScrollPane1.setViewportView(contentPanel);
 
