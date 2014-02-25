@@ -226,32 +226,33 @@ public class UtilisateurDao {
 
     }
 
-    public Utilisateur selectUserByType(char type) {
-        Utilisateur user = new Utilisateur();
+    public List<Utilisateur> selectUserByType(char type) {
 
-        String requete = "select * from Utilisateur where id=?";
+        List<Utilisateur> utilisateurRespensable = new ArrayList<Utilisateur>() ;
+        String requete = "select * from Utilisateur where type=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, type + "");
             ResultSet resultat = ps.executeQuery();
 
             while (resultat.next()) {
-
-                user.setId(resultat.getInt(1));
-                user.setIdEtablissement(resultat.getInt(2));
-                user.setNom(resultat.getString(3));
-                user.setPrenom(resultat.getString(4));
-                user.setPhoto(resultat.getString(5));
-                user.setSexe(resultat.getString(6).charAt(0));
-                user.setAdress(resultat.getString(7));
-                user.setLogin(resultat.getString(8));
-                user.setMdp(resultat.getString(9));
-                user.setMail(resultat.getString(10));
-                user.setType(resultat.getString(11).charAt(0));
-                user.setDateNaissance(resultat.getDate(12));
+                Utilisateur user = new Utilisateur();
+                user.setId(resultat.getInt("id"));
+                user.setIdEtablissement(resultat.getInt("idetablissement"));
+                user.setNom(resultat.getString("nom"));
+                user.setPrenom(resultat.getString("prenom"));
+                user.setPhoto(resultat.getString("photo"));
+                user.setSexe(resultat.getString("sexe").charAt(0));
+                user.setAdress(resultat.getString("adress"));
+                user.setLogin(resultat.getString("login"));
+                user.setMdp(resultat.getString("mdp"));
+                user.setMail(resultat.getString("mail"));
+                user.setType(resultat.getString("type").charAt(0));
+                user.setDateNaissance(resultat.getDate("datenaissance"));
+                utilisateurRespensable.add(user);
 
             }
-            return user;
+            return utilisateurRespensable;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
@@ -277,8 +278,8 @@ public class UtilisateurDao {
             return user;
         }
     }
-    
-    public void deleteUserByEtablissement(int idetablissement){
+
+    public void deleteUserByEtablissement(int idetablissement) {
         String requete = "delete from utilisateur where idetablissement=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);

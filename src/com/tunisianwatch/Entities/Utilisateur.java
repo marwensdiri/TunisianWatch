@@ -5,6 +5,7 @@
  */
 package com.tunisianwatch.Entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -61,6 +62,13 @@ public class Utilisateur {
         this.mail = mail;
         this.type = type;
         this.idEtablissement = idEtablissement;
+    }
+
+    public Utilisateur(Date d) {
+        
+        this.dateNaissance = d;
+        
+        //System.out.println("nnnjhjgghghjghjgjghjgjhgh"+d);
     }
 
     public int getId() {
@@ -160,17 +168,15 @@ public class Utilisateur {
     }
 
     public int getAge() {
-        
-        Calendar date_courante = new GregorianCalendar();
-        date_courante = Calendar.getInstance();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.dateNaissance);
-        int diff = date_courante.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
-        date_courante.add(Calendar.YEAR, -diff);
-        if (cal.after(date_courante)) {
-            diff = diff - 1;
+        Date dateCourante = new Date();
+        int age;
+        age = dateCourante.getYear() - this.getDateNaissance().getYear();
+        if (getDateNaissance().after(dateCourante)) {
+            age = age - 1;
         }
-        return diff;
+        return age;
+        
 
     }
+
 }
