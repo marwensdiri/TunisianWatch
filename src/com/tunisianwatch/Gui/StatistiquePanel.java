@@ -87,10 +87,6 @@ public class StatistiquePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Statistiques des Réclamations"));
-
-        comboName.setBackground(new java.awt.Color(204, 0, 0));
-        comboName.setForeground(new java.awt.Color(255, 255, 255));
         comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Domaine", "Etat", "Lieu" }));
         comboName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,8 +94,6 @@ public class StatistiquePanel extends javax.swing.JPanel {
             }
         });
 
-        ComboType.setBackground(new java.awt.Color(204, 0, 0));
-        ComboType.setForeground(new java.awt.Color(255, 255, 255));
         ComboType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pie chart 3D", "Bar chart 3D" }));
         ComboType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +118,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(410, Short.MAX_VALUE))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +153,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
