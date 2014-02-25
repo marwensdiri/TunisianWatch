@@ -27,7 +27,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
     public void AjouterChartpanelBarDomaine(String titre, String axeX, String axeY) {
         contentPanel.removeAll();
-        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));
+        ChartPanel panel = new ChartPanel(ChartDAO.createBarchartDomaine(titre, axeX, axeY));
         panel.setBounds(10, 10, (int) contentPanel.getSize().getWidth()-20, (int)contentPanel.getSize().getHeight()-20);
         contentPanel.add(panel);
         contentPanel.repaint();
@@ -59,7 +59,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
     public void AjouterChartpanelBarEtat(String titre, String axeX, String axeY) {
         contentPanel.removeAll();
-        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));
+        ChartPanel panel = new ChartPanel(ChartDAO.createBarchartEtat(titre, axeX, axeY));
         panel.setBounds(10, 10, (int) contentPanel.getSize().getWidth()-20, (int)contentPanel.getSize().getHeight()-20);
         contentPanel.add(panel);
         contentPanel.repaint();
