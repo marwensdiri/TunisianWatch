@@ -7,8 +7,7 @@
 package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Gui.Authentification;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 /**
