@@ -98,7 +98,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
                 } else if (searchIndex == 7) {
                     String Etat = null;
                     if (reclamation.getEtat() == 0) {
-                        Etat = "Nouvelle";
+                        Etat = "Pas encore ";
                     } else if (reclamation.getEtat() == 1) {
                         Etat = "Réglée";
                     } else if (reclamation.getEtat() == 2) {

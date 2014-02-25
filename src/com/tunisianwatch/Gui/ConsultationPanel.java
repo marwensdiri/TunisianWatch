@@ -220,13 +220,25 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.setLayout(new java.awt.CardLayout());
-        if (type.equals("reclamation")){
-            contentPanel.add(new ReclamationApercuPanel());
+        if (lsm == null) {
+            JOptionPane.showMessageDialog(null, "Selectionner une ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int minIndex = lsm.getMinSelectionIndex();
+            int maxIndex = lsm.getMaxSelectionIndex();
+            if ((maxIndex - minIndex) == 0) {
+                Object element = tableModel.getElementAt(minIndex);
+                contentPanel.removeAll();
+                contentPanel.setLayout(new java.awt.CardLayout());
+                if (type.equals("reclamation")) {
+                    contentPanel.add(new ReclamationApercuPanel(element));
+                }
+                contentPanel.repaint();
+                contentPanel.revalidate();
+            }
+            else{
+                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        contentPanel.repaint();
-        contentPanel.revalidate();
     }//GEN-LAST:event_modifierButtonActionPerformed
 
     public class ReclamationTableListener implements ListSelectionListener {

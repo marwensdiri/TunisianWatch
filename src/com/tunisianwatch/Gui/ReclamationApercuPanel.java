@@ -6,6 +6,8 @@
 
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Entities.Reclamation;
+
 /**
  *
  * @author asd
@@ -15,8 +17,24 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReclamationApercuPanel
      */
-    public ReclamationApercuPanel() {
+    public ReclamationApercuPanel(Object o) {
         initComponents();
+        Reclamation r = (Reclamation) o;
+        titreTextField.setText(r.getTitre());
+        citoyenTextField.setText(r.getCitoyen().getPrenom()+" "+r.getCitoyen().getNom());
+        dateTextField.setText(r.getDate().toString()+" "+r.getHeure());
+        lieuTextField.setText(r.getLieu().getNom());
+        if(r.getEtat()==0){
+            etatTextField.setText("Pas encore Réglée");
+        }
+        else if(r.getEtat()==1){
+            etatTextField.setText("Réglée");
+        }
+        else if(r.getEtat()==2){
+            etatTextField.setText("Fausse");
+        }
+       domaineTextField.setText(r.getDomaine().getNom());
+       descriptionTextArea.setText(r.getDescription());
     }
 
     /**
@@ -28,17 +46,17 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TitreTextField = new javax.swing.JTextField();
+        titreTextField = new javax.swing.JTextField();
         titreLabel = new javax.swing.JLabel();
         lieuLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         domaineLabel = new javax.swing.JLabel();
         citoyenLabel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        LieuTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        etatLabel = new javax.swing.JLabel();
+        lieuTextField = new javax.swing.JTextField();
+        descriptionLabel = new javax.swing.JLabel();
+        ScrollPane = new javax.swing.JScrollPane();
+        descriptionTextArea = new javax.swing.JTextArea();
         dateTextField = new javax.swing.JTextField();
         domaineTextField = new javax.swing.JTextField();
         etatTextField = new javax.swing.JTextField();
@@ -48,8 +66,8 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(870, 500));
         setPreferredSize(new java.awt.Dimension(870, 500));
 
-        TitreTextField.setEditable(false);
-        TitreTextField.setBackground(new java.awt.Color(204, 204, 204));
+        titreTextField.setEditable(false);
+        titreTextField.setBackground(new java.awt.Color(204, 204, 204));
 
         titreLabel.setText("Titre");
 
@@ -61,23 +79,23 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
 
         citoyenLabel.setText("Citoyen");
 
-        jLabel6.setText("Etat");
+        etatLabel.setText("Etat");
 
-        LieuTextField.setEditable(false);
-        LieuTextField.setBackground(new java.awt.Color(204, 204, 204));
-        LieuTextField.addActionListener(new java.awt.event.ActionListener() {
+        lieuTextField.setEditable(false);
+        lieuTextField.setBackground(new java.awt.Color(204, 204, 204));
+        lieuTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LieuTextFieldActionPerformed(evt);
+                lieuTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Description");
+        descriptionLabel.setText("Description");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        descriptionTextArea.setEditable(false);
+        descriptionTextArea.setBackground(new java.awt.Color(204, 204, 204));
+        descriptionTextArea.setColumns(20);
+        descriptionTextArea.setRows(5);
+        ScrollPane.setViewportView(descriptionTextArea);
 
         dateTextField.setEditable(false);
         dateTextField.setBackground(new java.awt.Color(204, 204, 204));
@@ -132,37 +150,37 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
                             .addComponent(titreLabel))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TitreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LieuTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(titreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lieuTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(citoyenLabel)
-                            .addComponent(jLabel6))
+                            .addComponent(etatLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(citoyenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(etatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descriptionLabel)
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(descriptionLabel)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TitreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(titreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(titreLabel))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lieuLabel)
-                            .addComponent(LieuTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lieuTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dateLabel)
@@ -174,21 +192,21 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(etatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(etatLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(citoyenLabel)
                             .addComponent(citoyenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(189, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LieuTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LieuTextFieldActionPerformed
+    private void lieuTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lieuTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LieuTextFieldActionPerformed
+    }//GEN-LAST:event_lieuTextFieldActionPerformed
 
     private void dateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTextFieldActionPerformed
         // TODO add your handling code here:
@@ -208,20 +226,20 @@ public class ReclamationApercuPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField LieuTextField;
-    private javax.swing.JTextField TitreTextField;
+    private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JLabel citoyenLabel;
     private javax.swing.JTextField citoyenTextField;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dateTextField;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JLabel domaineLabel;
     private javax.swing.JTextField domaineTextField;
+    private javax.swing.JLabel etatLabel;
     private javax.swing.JTextField etatTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lieuLabel;
+    private javax.swing.JTextField lieuTextField;
     private javax.swing.JLabel titreLabel;
+    private javax.swing.JTextField titreTextField;
     // End of variables declaration//GEN-END:variables
 }
