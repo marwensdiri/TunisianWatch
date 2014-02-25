@@ -6,7 +6,14 @@
 
 package com.tunisianwatch.Main;
 
+import com.tunisianwatch.Gui.AcceuilPanel;
 import com.tunisianwatch.Gui.Authentification;
+import com.tunisianwatch.Gui.CitoyenFormPanel;
+import com.tunisianwatch.Gui.ConsultationPanel;
+import com.tunisianwatch.Gui.MainFrame;
+import com.tunisianwatch.Gui.StatistiquePanel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -27,6 +34,7 @@ public class Main {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
           

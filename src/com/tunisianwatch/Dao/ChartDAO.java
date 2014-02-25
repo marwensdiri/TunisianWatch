@@ -132,7 +132,7 @@ public class ChartDAO {
     }
 
     public static JFreeChart createChartLieu(String titre) {//ok
-        JFreeChart chart = ChartFactory.createPieChart3D(titre, getDatasetDomaine(), true, true, true);
+        JFreeChart chart = ChartFactory.createPieChart3D(titre, getDatasetLieu(), true, true, true);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setStartAngle(290);
         plot.setDirection(Rotation.CLOCKWISE);
