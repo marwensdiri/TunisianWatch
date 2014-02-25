@@ -8,7 +8,7 @@ package com.tunisianwatch.Main;
 
 import com.tunisianwatch.Gui.Authentification;
 import com.tunisianwatch.Gui.MainFrame;
-import com.tunisianwatch.Gui.StatistiquePanel;
+import com.tunisianwatch.Gui.Statistique;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +32,7 @@ public class Main {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StatistiquePanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
           
