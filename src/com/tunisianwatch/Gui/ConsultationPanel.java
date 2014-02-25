@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Entities.Etablissement;
-import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
@@ -23,22 +20,29 @@ import javax.swing.event.ListSelectionListener;
  * @author asd
  */
 public class ConsultationPanel extends javax.swing.JPanel {
+
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
+
     /**
      * Creates new form reclamationPanel
      */
     public ConsultationPanel(String type) {
-        this.type=type;
-        if(type.equals("etablissement")){
-            tableModel = new EtablissementTableModel();
-        }
-        else if(type.equals("reclamation")){
-            tableModel = new ReclamationTableModel();
-        }
+        this.type = type;
         initComponents();
-        ReclamationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
+        if (type.equals("etablissement")) {
+            tableModel = new EtablissementTableModel();
+            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Lieu", "Responsable", "Domaine"}));
+            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Etablissements"));
+        } else if (type.equals("reclamation")) {
+            ajoutButton.hide();
+            tableModel = new ReclamationTableModel();
+            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
+            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Réclamations"));
+        }
+        consultationTable.setModel(tableModel);
+        consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
     }
 
     /**
@@ -57,7 +61,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
         rechercheLabel = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        ReclamationTable = new javax.swing.JTable();
+        consultationTable = new javax.swing.JTable();
         ajoutButton = new javax.swing.JButton();
         modifierButton = new javax.swing.JButton();
         supprimerButton = new javax.swing.JButton();
@@ -66,9 +70,10 @@ public class ConsultationPanel extends javax.swing.JPanel {
 
         corePanel.setLayout(new java.awt.CardLayout());
 
+        contentPanel.setBackground(new java.awt.Color(255, 255, 255));
+
         CategComboBox.setBackground(new java.awt.Color(204, 0, 0));
         CategComboBox.setForeground(new java.awt.Color(255, 255, 255));
-        CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat" }));
         CategComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategComboBoxActionPerformed(evt);
@@ -81,7 +86,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
             }
         });
 
-        rechercheLabel.setText("Recherche par");
+        rechercheLabel.setText("Recherche");
 
         refreshButton.setBackground(new java.awt.Color(204, 0, 0));
         refreshButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,12 +97,12 @@ public class ConsultationPanel extends javax.swing.JPanel {
             }
         });
 
-        ReclamationTable.setModel(tableModel);
-        jScrollPane.setViewportView(ReclamationTable);
+        jScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane.setViewportView(consultationTable);
 
         ajoutButton.setBackground(new java.awt.Color(204, 0, 0));
         ajoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        ajoutButton.setText("ajouter");
+        ajoutButton.setText("Ajouter");
         ajoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ajoutButtonActionPerformed(evt);
@@ -106,11 +111,21 @@ public class ConsultationPanel extends javax.swing.JPanel {
 
         modifierButton.setBackground(new java.awt.Color(204, 0, 0));
         modifierButton.setForeground(new java.awt.Color(255, 255, 255));
-        modifierButton.setText("modifier");
+        if(type.equals("reclamation")){
+            modifierButton.setText("Apérçu");
+        }
+        else{
+            modifierButton.setText("Modifier");
+        }
+        modifierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifierButtonActionPerformed(evt);
+            }
+        });
 
         supprimerButton.setBackground(new java.awt.Color(204, 0, 0));
         supprimerButton.setForeground(new java.awt.Color(255, 255, 255));
-        supprimerButton.setText("supprimer");
+        supprimerButton.setText("Supprimer");
         supprimerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 supprimerButtonActionPerformed(evt);
@@ -124,25 +139,23 @@ public class ConsultationPanel extends javax.swing.JPanel {
             .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane)
                     .addGroup(contentPanelLayout.createSequentialGroup()
                         .addComponent(rechercheLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentPanelLayout.createSequentialGroup()
+                        .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane))
                 .addContainerGap())
-            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(contentPanelLayout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addComponent(ajoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(modifierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(supprimerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(179, Short.MAX_VALUE)))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,17 +166,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
                     .addComponent(rechercheLabel)
                     .addComponent(CategComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refreshButton))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(contentPanelLayout.createSequentialGroup()
-                    .addContainerGap(455, Short.MAX_VALUE)
-                    .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(supprimerButton)
-                        .addComponent(modifierButton)
-                        .addComponent(ajoutButton))
-                    .addGap(22, 22, 22)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supprimerButton)
+                    .addComponent(modifierButton)
+                    .addComponent(ajoutButton))
+                .addContainerGap())
         );
 
         corePanel.add(contentPanel, "card3");
@@ -209,6 +219,28 @@ public class ConsultationPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
+    private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
+        if (lsm == null) {
+            JOptionPane.showMessageDialog(null, "Selectionner une ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int minIndex = lsm.getMinSelectionIndex();
+            int maxIndex = lsm.getMaxSelectionIndex();
+            if ((maxIndex - minIndex) == 0) {
+                Object element = tableModel.getElementAt(minIndex);
+                contentPanel.removeAll();
+                contentPanel.setLayout(new java.awt.CardLayout());
+                if (type.equals("reclamation")) {
+                    contentPanel.add(new ReclamationApercuPanel(element));
+                }
+                contentPanel.repaint();
+                contentPanel.revalidate();
+            }
+            else{
+                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_modifierButtonActionPerformed
+
     public class ReclamationTableListener implements ListSelectionListener {
 
         @Override
@@ -217,10 +249,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
         }
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CategComboBox;
-    private javax.swing.JTable ReclamationTable;
     private javax.swing.JButton ajoutButton;
+    private javax.swing.JTable consultationTable;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel corePanel;
     private javax.swing.JScrollPane jScrollPane;

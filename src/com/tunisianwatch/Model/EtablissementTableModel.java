@@ -52,7 +52,7 @@ public class EtablissementTableModel extends ConsultationTableModel {
         this.listEtablissement = etablissementDao.selectEtablissements();
     }
 
-    public Etablissement getEtablissementAt(int row) {
+    public Etablissement getElementAt(int row) {
         return listEtablissement.get(row);
     }
 

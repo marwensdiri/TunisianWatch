@@ -35,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
         CorePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tunisianwatch");
         setMinimumSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
 
