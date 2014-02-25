@@ -26,7 +26,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
-    CitoyenForm citoyenform = new CitoyenForm();
     /**
      * Creates new form reclamationPanel
      */
@@ -246,7 +245,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
                     new ReclamationApercuFrame(element).show();
                 }
                 else if(type.equals("citoyen")){
-                    System.out.println("test");
+                    new CitoyenForm().show(); ;
                 }
                    else {
                 contentPanel.removeAll();
