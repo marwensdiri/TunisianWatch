@@ -14,13 +14,13 @@ import javax.swing.JPanel;
  *
  * @author Marwen
  */
-public class CitoyenPanel extends javax.swing.JPanel {
+public class AjoutCitoyenPanel extends javax.swing.JPanel {
 
     private String type;
     /**
      * Creates new form CitoyenPanel
      */
-    public CitoyenPanel() {
+    public AjoutCitoyenPanel() {
         initComponents();
 
 
