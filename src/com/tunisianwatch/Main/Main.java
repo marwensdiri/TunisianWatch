@@ -9,13 +9,11 @@ package com.tunisianwatch.Main;
 import com.tunisianwatch.Gui.Authentification;
 
 
-
 /**
  *
  * @author Marwen
  */
 public class Main {
-    private static java.util.Date date;
 
     /**
      * @param args the command line arguments
@@ -38,7 +36,6 @@ public class Main {
                try {
                    new Authentification().setVisible(true);
                } catch (Exception ex) {
-                   Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                }
            }
        });
