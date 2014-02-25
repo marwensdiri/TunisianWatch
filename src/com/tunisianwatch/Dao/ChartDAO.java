@@ -42,7 +42,7 @@ public class ChartDAO {
         ReclamationDao rec = new ReclamationDao();
         LieuDao lieu = new LieuDao();
         List<Lieu> listlieu = lieu.selectLieux();
-        for(Lieu l:listlieu) {//parcours par lieu
+        for (Lieu l : listlieu) {//parcours par lieu
             List<Reclamation> listrec = rec.selectReclamationByIdDomaine(l.getId());
             dataset.setValue(l.getNom(), listrec.size());
         }
@@ -51,7 +51,29 @@ public class ChartDAO {
     }
 
     private static PieDataset getDatasetEtat() {
-        return null;
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        ReclamationDao rec = new ReclamationDao();
+        List<Reclamation> listrec = rec.selectReclamations();
+
+        List<Reclamation> list0 = new ArrayList<Reclamation>();
+        List<Reclamation> list1 = new ArrayList<Reclamation>();
+        List<Reclamation> list2 = new ArrayList<Reclamation>();
+        
+        for (Reclamation l : listrec) {//parcours par reclamation pour voir l'etat
+            if (l.getEtat() == 0) {
+                list0.add(l);
+            } else {
+                if (l.getEtat() == 1) {
+                    list1.add(l);
+                }else{
+                    list2.add(l);
+                }
+            }
+        }
+        dataset.setValue("Pas encore Réglée",list0.size());
+        dataset.setValue("Réglée",list1.size());
+        dataset.setValue("Fausse",list2.size());
+        return dataset;
 
     }
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +86,7 @@ public class ChartDAO {
         List<Domaine> listdomaine = domaine.selectDomaines();
         for (Domaine d : listdomaine) {
             List<Reclamation> listrec = rec.selectReclamationByIdDomaine(d.getId());
-            dataset.setValue( listrec.size(),d.getNom(),"");
+            dataset.setValue(listrec.size(), d.getNom(), "");
         }
         return dataset;
 
@@ -76,7 +98,7 @@ public class ChartDAO {
         ReclamationDao rec = new ReclamationDao();
         LieuDao lieu = new LieuDao();
         List<Lieu> listlieu = lieu.selectLieux();
-        for(Lieu l:listlieu) {//parcours par lieu
+        for (Lieu l : listlieu) {//parcours par lieu
             List<Reclamation> listrec = rec.selectReclamationByIdDomaine(l.getId());
             dataset.setValue(listrec.size(), l.getNom(), "");
         }
@@ -84,12 +106,33 @@ public class ChartDAO {
     }
 
     public static DefaultCategoryDataset getCategoryEtat() {
-        return null;
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        ReclamationDao rec = new ReclamationDao();
+        List<Reclamation> listrec = rec.selectReclamations();
+
+        List<Reclamation> list0 = new ArrayList<Reclamation>();
+        List<Reclamation> list1 = new ArrayList<Reclamation>();
+        List<Reclamation> list2 = new ArrayList<Reclamation>();
+        
+        for (Reclamation l : listrec) {//parcours par reclamation pour voir l'etat
+            if (l.getEtat() == 0) {
+                list0.add(l);
+            } else {
+                if (l.getEtat() == 1) {
+                    list1.add(l);
+                }else{
+                    list2.add(l);
+                }
+            }
+        }
+        dataset.setValue(list0.size(),"Nouvelle", "");
+        dataset.setValue(list1.size(),"Réglée", "");
+        dataset.setValue(list2.size(),"Fausse", "");
+        return dataset;
 
     }
-    
-////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////////////
     public static JFreeChart Createbarchartlieu(String titre, String axeX, String axeY) {//ok
 
         JFreeChart chart = ChartFactory.createBarChart3D(titre, axeX, axeY, getCategoryLieu());
