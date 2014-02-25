@@ -7,7 +7,6 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.ChartDAO;
 import org.jfree.chart.ChartPanel;
 
-
 /**
  *
  * @author DELL
@@ -17,21 +16,54 @@ public class Statistique extends javax.swing.JFrame {
     /**
      * Creates new form Statistique
      */
-    public void AjouterChartpanelCercel(String titre){
+    public void AjouterChartpanelCercelDomaine(String titre) {
         jPanel1.removeAll();
         ChartPanel panel = new ChartPanel(ChartDAO.createChartdomaine(titre));
         panel.setBounds(10, 10, 750, 560);
         jPanel1.add(panel);
         jPanel1.repaint();
     }
-    public void AjouterChartpanelBar(String titre,String axeX,String axeY){
+
+    public void AjouterChartpanelBarDomaine(String titre, String axeX, String axeY) {
         jPanel1.removeAll();
-        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));      
+        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));
         panel.setBounds(10, 10, 750, 560);
         jPanel1.add(panel);
         jPanel1.repaint();
     }
-    
+
+    public void AjouterChartpanelCercelLieu(String titre) {
+        jPanel1.removeAll();
+        ChartPanel panel = new ChartPanel(ChartDAO.createChartLieu(titre));
+        panel.setBounds(10, 10, 750, 560);
+        jPanel1.add(panel);
+        jPanel1.repaint();
+    }
+
+    public void AjouterChartpanelBarLieu(String titre, String axeX, String axeY) {
+        jPanel1.removeAll();
+        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));
+        panel.setBounds(10, 10, 750, 560);
+        jPanel1.add(panel);
+        jPanel1.repaint();
+    }
+
+    public void AjouterChartpanelCercelEtat(String titre) {
+        jPanel1.removeAll();
+        ChartPanel panel = new ChartPanel(ChartDAO.createChartEtat(titre));
+        panel.setBounds(10, 10, 750, 560);
+        jPanel1.add(panel);
+        jPanel1.repaint();
+    }
+
+    public void AjouterChartpanelBarEtat(String titre, String axeX, String axeY) {
+        jPanel1.removeAll();
+        ChartPanel panel = new ChartPanel(ChartDAO.Createbarchartlieu(titre, axeX, axeY));
+        panel.setBounds(10, 10, 750, 560);
+        jPanel1.add(panel);
+        jPanel1.repaint();
+    }
+
     public Statistique() {
         initComponents();
     }
@@ -147,12 +179,12 @@ public class Statistique extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_domainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_domainActionPerformed
-        AjouterChartpanelCercel("Statistique par Domaines");
+        AjouterChartpanelCercelDomaine("Statistique par Domaines");
     }//GEN-LAST:event_btn_domainActionPerformed
 
     private void btn_regionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regionActionPerformed
         // TODO add your handling code here:
-        AjouterChartpanelBar("Statistique par Régions","Régions","Freqence des Reclamations");
+        AjouterChartpanelBarLieu("Statistique par Régions", "Régions", "Freqence des Reclamations");
     }//GEN-LAST:event_btn_regionActionPerformed
 
     private void btn_etatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_etatActionPerformed
