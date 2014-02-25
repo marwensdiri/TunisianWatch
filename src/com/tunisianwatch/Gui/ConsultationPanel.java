@@ -225,7 +225,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
         switch (type) {
             case "citoyen":
-                citoyenform.show();
+          new CitoyenForm().show();
                 break;
             case "responsable":
                 new   ResponsableForm().show();
