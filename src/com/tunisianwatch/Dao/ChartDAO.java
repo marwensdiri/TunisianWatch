@@ -87,6 +87,7 @@ public class ChartDAO {
         return null;
 
     }
+    
 ////////////////////////////////////////////////////////////////////////////////////////
 
     public static JFreeChart Createbarchartlieu(String titre, String axeX, String axeY) {//ok
