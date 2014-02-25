@@ -47,7 +47,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
 
         bodyPanel.setBackground(new java.awt.Color(204, 204, 204));
 
-        menuPanel.setBackground(new java.awt.Color(255, 255, 255));
+        menuPanel.setBackground(new java.awt.Color(204, 204, 204));
         menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         etablissementButton.setBackground(new java.awt.Color(204, 0, 0));
@@ -198,7 +198,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_citoyenButtonActionPerformed
 
     private void responsableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButtonActionPerformed
-        // TODO add your handling code here:
+        System.out.println("aa");
     }//GEN-LAST:event_responsableButtonActionPerformed
 
     private void responsableButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButton1ActionPerformed
