@@ -56,7 +56,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
     }
 
     public void removeRows(List elements) {
-        List<Reclamation> lRec =(List<Reclamation>) elements;
+        List<Reclamation> lRec = (List<Reclamation>) elements;
         for (int i = 0; i < lRec.size(); i++) {
             listReclamation.remove(lRec.get(i));
         }
@@ -98,7 +98,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
                 } else if (searchIndex == 7) {
                     String Etat = null;
                     if (reclamation.getEtat() == 0) {
-                        Etat = "Pas encore ";
+                        Etat = "Pas encore Réglée";
                     } else if (reclamation.getEtat() == 1) {
                         Etat = "Réglée";
                     } else if (reclamation.getEtat() == 2) {
@@ -136,10 +136,10 @@ public class ReclamationTableModel extends ConsultationTableModel {
         } else if (columnIndex == 5) {
             return reclamation.getDomaine().getNom();
         } else if (columnIndex == 6) {
-            return reclamation.getCitoyen().getPrenom()+" "+reclamation.getCitoyen().getNom();
+            return reclamation.getCitoyen().getPrenom() + " " + reclamation.getCitoyen().getNom();
         } else if (columnIndex == 7) {
             if (reclamation.getEtat() == 0) {
-                return "Nouvelle";
+                return "Pas encore Réglée";
             } else if (reclamation.getEtat() == 1) {
                 return "Réglée";
             } else if (reclamation.getEtat() == 2) {

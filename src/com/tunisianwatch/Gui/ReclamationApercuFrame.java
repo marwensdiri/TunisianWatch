@@ -66,7 +66,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        contentPanel.setBackground(new java.awt.Color(204, 204, 204));
+        contentPanel.setBackground(new java.awt.Color(255, 255, 255));
         contentPanel.setMinimumSize(new java.awt.Dimension(870, 500));
 
         titreTextField.setEditable(false);
