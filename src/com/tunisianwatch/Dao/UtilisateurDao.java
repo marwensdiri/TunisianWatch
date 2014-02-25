@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,9 +44,9 @@ public class UtilisateurDao {
             ps.setString(9, u.getType() + "");
             ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
-            System.out.println("Ajout effectuée avec succès");
+            JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
         } catch (SQLException ex) {
-
+            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion");
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
 
@@ -68,10 +69,10 @@ public class UtilisateurDao {
             ps.setString(10, u.getType() + "");
             ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
-            System.out.println("Ajout effectuée avec succès");
+            JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
         } catch (SQLException ex) {
-
-            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion");
+            System.out.println("erreur lors de l'insertion : " + ex.getMessage());
         }
 
     }
@@ -92,9 +93,9 @@ public class UtilisateurDao {
             ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.setInt(11, id);
             ps.executeUpdate();
-            System.out.println("Mise à jour effectuée avec succès");
+            JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
-
+            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ");
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
         }
     }
@@ -116,9 +117,9 @@ public class UtilisateurDao {
             ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.setInt(12, id);
             ps.executeUpdate();
-            System.out.println("Mise à jour effectuée avec succès");
+            JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
-
+            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ");
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
         }
     }
@@ -130,9 +131,10 @@ public class UtilisateurDao {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("Utilisateur supprimée");
+            JOptionPane.showMessageDialog(null, "Utilisateur supprimée");
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erreur lors de la suppression");
             System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
     }
@@ -169,7 +171,8 @@ public class UtilisateurDao {
             return listeUsers;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors du chargement des utilisateurs " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erreur lors du chargement ");
+            System.out.println("erreur lors du chargement : " + ex.getMessage());
             return null;
         }
 
@@ -206,7 +209,8 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche  ");
+            System.out.println("erreur lors de la recherche : " + ex.getMessage());
             return null;
         }
 
@@ -242,7 +246,8 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ");
+            System.out.println("erreur lors de la recherche  " + ex.getMessage());
             return null;
         }
 
@@ -279,7 +284,8 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ");
+            System.out.println("erreur lors de la recherche " + ex.getMessage());
             return null;
         }
     }
@@ -316,7 +322,8 @@ public class UtilisateurDao {
             return listUtilisateur;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur lors de la recherche d'utilisateurs " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche ");
+            System.out.println("erreur lors de la recherche " + ex.getMessage());
             return null;
         }
 
@@ -353,6 +360,7 @@ public class UtilisateurDao {
             System.out.println("Utilisateur supprimée");
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erreur lors de la suppression ");
             System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
     }
