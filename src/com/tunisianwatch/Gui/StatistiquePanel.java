@@ -5,6 +5,7 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.ChartDAO;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 
 /**
@@ -79,7 +80,6 @@ public class StatistiquePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         menu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         comboName = new javax.swing.JComboBox();
         ComboType = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -87,16 +87,25 @@ public class StatistiquePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
-        jButton1.setLabel("Générer");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Statistiques des Réclamations"));
+
+        comboName.setBackground(new java.awt.Color(204, 0, 0));
+        comboName.setForeground(new java.awt.Color(255, 255, 255));
+        comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Domaine", "Etat", "Lieu" }));
+        comboName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                comboNameActionPerformed(evt);
             }
         });
 
-        comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Domaine", "Etat", "Lieu" }));
-
+        ComboType.setBackground(new java.awt.Color(204, 0, 0));
+        ComboType.setForeground(new java.awt.Color(255, 255, 255));
         ComboType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pie chart 3D", "Bar chart 3D" }));
+        ComboType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboTypeActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Génération :");
 
@@ -115,21 +124,18 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addContainerGap(410, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         contentPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -153,12 +159,13 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void comboNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNameActionPerformed
+        // TODO add your handling code here:
         if (comboName.getSelectedIndex() == 0) {//domaine
             if (ComboType.getSelectedIndex() == 0) {
                 //piechart3D
@@ -185,14 +192,42 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 }
             }
         }
+    }//GEN-LAST:event_comboNameActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void ComboTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTypeActionPerformed
+        // TODO add your handling code here:
+        if (comboName.getSelectedIndex() == 0) {//domaine
+            if (ComboType.getSelectedIndex() == 0) {
+                //piechart3D
+                AjouterChartpanelCercelDomaine("Statistique par Domaines");
+            } else {
+                //barchar3D
+                AjouterChartpanelBarDomaine("Statistique par Domaines", "Domaines", "Frequence des Reclamations");
+            }
+
+        } else {
+            if (comboName.getSelectedIndex() == 1) {//etat
+                if (ComboType.getSelectedIndex() == 0) {
+                    //piechart3D
+                    AjouterChartpanelCercelEtat("Statistique par Etat");
+                } else {
+                    //barchar3D
+                    AjouterChartpanelBarEtat("Statistique par Etat", "Etat", "Frequence des Reclamation");
+                }
+            } else {//lieu
+                if (ComboType.getSelectedIndex() == 0) {//piechart3D
+                    AjouterChartpanelCercelLieu("Statistique par Lieu");
+                } else {//barchar3D
+                    AjouterChartpanelBarLieu("Statistique par Lieu", "Les lieus", "Frequence des Reclamtions");
+                }
+            }
+        }
+    }//GEN-LAST:event_ComboTypeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboType;
     private javax.swing.JComboBox comboName;
     private javax.swing.JPanel contentPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
