@@ -239,6 +239,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
         } else {
             int minIndex = lsm.getMinSelectionIndex();
             int maxIndex = lsm.getMaxSelectionIndex();
+            System.out.println(minIndex+" "+maxIndex);
             if ((maxIndex - minIndex) == 0) {
                 Object element = tableModel.getElementAt(minIndex); 
                 if (type.equals("reclamation")) {
