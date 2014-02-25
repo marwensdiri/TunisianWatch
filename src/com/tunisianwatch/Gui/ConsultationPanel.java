@@ -41,10 +41,10 @@ public class ConsultationPanel extends javax.swing.JPanel {
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Réclamations"));
         }else if (type.equals("citoyen")) {
-            //tableModel = new UtilisateurTableModel();
-            tableModel = new ReclamationTableModel();
-            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prenom", "Sexe", "Adresse"}));
-            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
+//            tableModel = new UtilisateurTableModel();
+//            tableModel = new ReclamationTableModel();
+//            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prenom", "Sexe", "Adresse"}));
+//            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
         }
         consultationTable.setModel(tableModel);
         consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
