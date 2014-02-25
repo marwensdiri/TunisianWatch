@@ -78,6 +78,12 @@ public class CitoyenFormPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Email :");
 
+        txt_mail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_mailActionPerformed(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Mot de passe :");
 
@@ -207,6 +213,10 @@ public class CitoyenFormPanel extends javax.swing.JPanel {
         String filename = f.getAbsolutePath();
         txt_path.setText(filename);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void txt_mailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_mailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_mailActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
