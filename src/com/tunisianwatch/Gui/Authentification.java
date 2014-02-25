@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.util.Locale;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Authentification extends javax.swing.JFrame {
      */
     public Authentification() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -39,11 +41,24 @@ public class Authentification extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Authentification - Tunisianwatch");
         getContentPane().setLayout(new java.awt.CardLayout());
 
         loginLabel.setText("Login");
 
         mdpLabel.setText("Mot de passe");
+
+        loginTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginTextFieldActionPerformed(evt);
+            }
+        });
+
+        mdpPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mdpPasswordFieldActionPerformed(evt);
+            }
+        });
 
         loginButton.setBackground(new java.awt.Color(204, 0, 0));
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -101,6 +116,24 @@ public class Authentification extends javax.swing.JFrame {
             new MainFrame().setVisible(true);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void loginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginTextFieldActionPerformed
+        // TODO add your handling code here:
+         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
+        if(user!=null){
+            this.dispose();
+            new MainFrame().setVisible(true);
+        }
+    }//GEN-LAST:event_loginTextFieldActionPerformed
+
+    private void mdpPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mdpPasswordFieldActionPerformed
+        // TODO add your handling code here:
+        Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
+        if(user!=null){
+            this.dispose();
+            new MainFrame().setVisible(true);
+        }
+    }//GEN-LAST:event_mdpPasswordFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

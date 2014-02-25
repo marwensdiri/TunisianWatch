@@ -64,6 +64,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
         citoyenTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
         contentPanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -71,6 +72,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
 
         titreTextField.setEditable(false);
         titreTextField.setBackground(new java.awt.Color(255, 255, 255));
+        titreTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
 
         titreLabel.setText("Titre");
 
@@ -86,6 +88,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
 
         lieuTextField.setEditable(false);
         lieuTextField.setBackground(new java.awt.Color(255, 255, 255));
+        lieuTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
         lieuTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lieuTextFieldActionPerformed(evt);
@@ -97,10 +100,12 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
         descriptionTextArea.setEditable(false);
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
+        descriptionTextArea.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ScrollPane.setViewportView(descriptionTextArea);
 
         dateTextField.setEditable(false);
         dateTextField.setBackground(new java.awt.Color(255, 255, 255));
+        dateTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
         dateTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateTextFieldActionPerformed(evt);
@@ -109,6 +114,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
 
         domaineTextField.setEditable(false);
         domaineTextField.setBackground(new java.awt.Color(255, 255, 255));
+        domaineTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
         domaineTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 domaineTextFieldActionPerformed(evt);
@@ -117,6 +123,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
 
         etatTextField.setEditable(false);
         etatTextField.setBackground(new java.awt.Color(255, 255, 255));
+        etatTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
         etatTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 etatTextFieldActionPerformed(evt);
@@ -125,6 +132,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
 
         citoyenTextField.setEditable(false);
         citoyenTextField.setBackground(new java.awt.Color(255, 255, 255));
+        citoyenTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
         citoyenTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 citoyenTextFieldActionPerformed(evt);
@@ -166,7 +174,7 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionLabel)
                     .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,19 +219,15 @@ public class ReclamationApercuFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 890, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createSequentialGroup()
                     .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGap(0, 10, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 387, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 387, Short.MAX_VALUE))
         );
 
         pack();
