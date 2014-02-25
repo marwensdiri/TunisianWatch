@@ -224,9 +224,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        if (type.equals("citoyen")) {            
-             citoyenform.show();
-                }
+        switch (type) {
+            case "citoyen":
+                citoyenform.show();
+                break;
+            case "responsable":
+                new   ResponsableForm().show();
+                break;
+        }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
