@@ -29,6 +29,30 @@ public class UtilisateurDao {
 
     public void insertUser(Utilisateur u) {
 
+        String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, u.getNom());
+            ps.setString(2, u.getPrenom());
+            ps.setString(3, u.getPhoto());
+            ps.setString(4, u.getSexe() + "");
+            ps.setString(5, u.getAdress() + "");
+            ps.setString(6, u.getLogin());
+            ps.setString(7, u.getMdp());
+            ps.setString(8, u.getMail());
+            ps.setString(9, u.getType() + "");
+            ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.executeUpdate();
+            System.out.println("Ajout effectuée avec succès");
+        } catch (SQLException ex) {
+
+            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+        }
+
+    }
+    
+    public void insertResponsable(Utilisateur u) {
+
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -53,6 +77,29 @@ public class UtilisateurDao {
     }
 
     public void updateUser(int id, Utilisateur u) {
+        String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, u.getNom());
+            ps.setString(2, u.getPrenom());
+            ps.setString(3, u.getPhoto());
+            ps.setString(4, u.getSexe() + "");
+            ps.setString(5, u.getAdress() + "");
+            ps.setString(6, u.getLogin());
+            ps.setString(7, u.getMdp());
+            ps.setString(8, u.getMail());
+            ps.setString(9, u.getType() + "");
+            ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.setInt(11, id);
+            ps.executeUpdate();
+            System.out.println("Mise à jour effectuée avec succès");
+        } catch (SQLException ex) {
+
+            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+        }
+    }
+    
+    public void updateResponsable(int id, Utilisateur u) {
         String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
