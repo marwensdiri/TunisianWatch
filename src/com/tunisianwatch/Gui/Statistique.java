@@ -178,15 +178,6 @@ public class Statistique extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_domainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_domainActionPerformed
-        AjouterChartpanelCercelDomaine("Statistique par Domaines");
-    }//GEN-LAST:event_btn_domainActionPerformed
-
-    private void btn_regionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regionActionPerformed
-        // TODO add your handling code here:
-        AjouterChartpanelBarLieu("Statistique par Régions", "Régions", "Freqence des Reclamations");
-    }//GEN-LAST:event_btn_regionActionPerformed
-
     private void btn_etatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_etatActionPerformed
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -195,6 +186,15 @@ public class Statistique extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btn_etatActionPerformed
+
+    private void btn_domainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_domainActionPerformed
+        AjouterChartpanelCercelDomaine("Statistique par Domaines");
+    }//GEN-LAST:event_btn_domainActionPerformed
+
+    private void btn_regionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regionActionPerformed
+        // TODO add your handling code here:
+        AjouterChartpanelBarLieu("Statistique par Régions", "Régions", "Freqence des Reclamations");
+    }//GEN-LAST:event_btn_regionActionPerformed
 
     /**
      * @param args the command line arguments

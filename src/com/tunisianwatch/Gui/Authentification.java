@@ -1,38 +1,25 @@
-package com.tunisianwatch.Gui;
-
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+package com.tunisianwatch.Gui;
+
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import com.tunisianwatch.Util.Animation;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 /**
  *
- * @author Dell
+ * @author asd
  */
-public class Authentification extends javax.swing.JFrame implements Animation.MyInterface{
-Connection conn= null;
-ResultSet rs =null;
-PreparedStatement pst=null;
-protected java.sql.Connection userConnection;
-Animation animation= new Animation("Tunisian Watch");
+public class Authentification extends javax.swing.JFrame {
+
     /**
      * Creates new form Authentification
      */
-    public Authentification() throws Exception {
-        super("Authentification");
+    public Authentification() {
         initComponents();
-        animation.addMyListener(this);
-        animation.setVitesse(300); // modifier la vitesse.
-        animation.start();         
     }
 
     /**
@@ -44,151 +31,84 @@ Animation animation= new Animation("Tunisian Watch");
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        txt_password = new javax.swing.JPasswordField();
-        txt_login = new javax.swing.JTextField();
-        cmd_login = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        corePanel = new javax.swing.JPanel();
+        loginLabel = new javax.swing.JLabel();
+        mdpLabel = new javax.swing.JLabel();
+        loginTextField = new javax.swing.JTextField();
+        mdpPasswordField = new javax.swing.JPasswordField();
+        loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loginLabel.setText("Login");
 
-        jLabel2.setText(" Login");
+        mdpLabel.setText("Mot de passe");
 
-        jLabel1.setText(" Mot de passe");
-
-        txt_password.setName(""); // NOI18N
-
-        cmd_login.setText("Connecter");
-        cmd_login.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setBackground(new java.awt.Color(204, 0, 0));
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmd_loginActionPerformed(evt);
+                loginButtonActionPerformed(evt);
             }
         });
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/img1.jpg"))); // NOI18N
+        javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
+        corePanel.setLayout(corePanelLayout);
+        corePanelLayout.setHorizontalGroup(
+            corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(corePanelLayout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                    .addGroup(corePanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mdpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(loginTextField)
+                    .addComponent(mdpPasswordField))
+                .addGap(247, 247, 247))
+        );
+        corePanelLayout.setVerticalGroup(
+            corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(corePanelLayout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginTextField)
+                    .addComponent(loginLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mdpPasswordField)
+                    .addComponent(mdpLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(loginButton)
+                .addGap(180, 180, 180))
+        );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(350, 350, 350)
-                .addComponent(cmd_login))
-            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(cmd_login))
-            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(corePanel, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmd_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmd_loginActionPerformed
-        try{
-        Utilisateur user;
-        user = new UtilisateurDao().Connect(txt_login.getText(), txt_password.getText());
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if(user!=null){
-            JOptionPane.showMessageDialog(null, "Connexion établie");
-            this.hide();
-           // EtablissementFrame A = new EtablissementFrame();
-          //  A.setVisible(true);
-        }else{
-        JOptionPane.showMessageDialog(null, "Erreur d'authentification","Message d'avertissement",JOptionPane.ERROR_MESSAGE);
-        
+            this.dispose();
+            new MainFrame().setVisible(true);
         }
-        
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(null, e);                                  
-        }
-    }//GEN-LAST:event_cmd_loginActionPerformed
+    }//GEN-LAST:event_loginButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Authentification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Authentification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Authentification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Authentification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {              
-                    new Authentification().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(Authentification.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmd_login;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txt_login;
-    private javax.swing.JPasswordField txt_password;
+    private javax.swing.JPanel corePanel;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JLabel loginLabel;
+    private javax.swing.JTextField loginTextField;
+    private javax.swing.JLabel mdpLabel;
+    private javax.swing.JPasswordField mdpPasswordField;
     // End of variables declaration//GEN-END:variables
-
-
-    public void afficherText(String text) {
-        jLabel3.setText(text);
-    }
-
-   
 }

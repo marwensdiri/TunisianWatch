@@ -5,6 +5,7 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
@@ -226,14 +227,16 @@ public class ConsultationPanel extends javax.swing.JPanel {
             int minIndex = lsm.getMinSelectionIndex();
             int maxIndex = lsm.getMaxSelectionIndex();
             if ((maxIndex - minIndex) == 0) {
-                Object element = tableModel.getElementAt(minIndex);
+                Object element = tableModel.getElementAt(minIndex); 
+                if (type.equals("reclamation")) {
+                    new ReclamationApercuFrame(element).show();
+                }
+                else{
                 contentPanel.removeAll();
                 contentPanel.setLayout(new java.awt.CardLayout());
-                if (type.equals("reclamation")) {
-                    contentPanel.add(new ReclamationApercuPanel(element));
-                }
                 contentPanel.repaint();
                 contentPanel.revalidate();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
             }
