@@ -321,7 +321,6 @@ public class ProfilPanel extends javax.swing.JPanel {
         user.setMdp(mdpTextfield.getText());
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
-        user.setIdEtablissement(-1);
         user.setType(new Character('C'));
         userDao.insertUser(user);
     }//GEN-LAST:event_jButton1ActionPerformed
