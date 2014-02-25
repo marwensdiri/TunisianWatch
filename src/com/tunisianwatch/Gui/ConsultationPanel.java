@@ -216,7 +216,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
@@ -234,9 +234,8 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 }
                 contentPanel.repaint();
                 contentPanel.revalidate();
-            }
-            else{
-                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_modifierButtonActionPerformed
