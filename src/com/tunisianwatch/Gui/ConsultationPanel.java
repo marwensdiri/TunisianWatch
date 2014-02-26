@@ -26,7 +26,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
-    CitoyenForm citoyenform = new CitoyenForm();
     /**
      * Creates new form reclamationPanel
      */
@@ -224,9 +223,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        if (type.equals("citoyen")) {            
-             citoyenform.show();
-                }
+        switch (type) {
+            case "citoyen":
+          new CitoyenForm().show();
+                break;
+            case "responsable":
+                new   ResponsableForm().show();
+                break;
+        }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
@@ -235,13 +239,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
         } else {
             int minIndex = lsm.getMinSelectionIndex();
             int maxIndex = lsm.getMaxSelectionIndex();
+            System.out.println(minIndex+" "+maxIndex);
             if ((maxIndex - minIndex) == 0) {
                 Object element = tableModel.getElementAt(minIndex); 
                 if (type.equals("reclamation")) {
                     new ReclamationApercuFrame(element).show();
                 }
                 else if(type.equals("citoyen")){
-                    System.out.println("test");
+                    new CitoyenForm().show(); ;
                 }
                    else {
                 contentPanel.removeAll();

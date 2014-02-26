@@ -57,7 +57,8 @@ public class UtilisateurTableModel extends ConsultationTableModel {
         this.listUtilisateur = utilisateurDao.selectUserByType(type);
     }
 
-    public Utilisateur getUtilisateutAt(int row) {
+    @Override
+    public Object getElementAt(int row) {
         return listUtilisateur.get(row);
     }
 
