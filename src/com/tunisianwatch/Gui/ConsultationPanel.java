@@ -5,8 +5,6 @@
  */
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Entities.Reclamation;
-import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
@@ -45,9 +43,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
         } else if(type.equals("citoyen")){
              tableModel = new UtilisateurTableModel('C');
              CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age"}));
+              contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
         } else if(type.equals("responsable")){
              tableModel = new UtilisateurTableModel('R');
              CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age","Etablissement"}));
+              contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Résponsables"));
         }
         consultationTable.setModel(tableModel);
         consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
