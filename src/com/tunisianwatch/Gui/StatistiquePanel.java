@@ -68,6 +68,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
     public StatistiquePanel() {
         initComponents();
+         AjouterChartpanelCercelDomaine("Statistique par Domaines");
     }
 
     /**
@@ -167,7 +168,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
     private void comboNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNameActionPerformed
         // TODO add your handling code here:
-        if (comboName.getSelectedIndex() == 1) {//domaine
+        if (comboName.getSelectedIndex() == 0) {//domaine
             if (ComboType.getSelectedIndex() == 0) {
                 //piechart3D
                 AjouterChartpanelCercelDomaine("Statistique par Domaines");
@@ -177,7 +178,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
             }
 
         } else {
-            if (comboName.getSelectedIndex() == 2) {//etat
+            if (comboName.getSelectedIndex() == 1) {//etat
                 if (ComboType.getSelectedIndex() == 0) {
                     //piechart3D
                     AjouterChartpanelCercelEtat("Statistique par Etat");

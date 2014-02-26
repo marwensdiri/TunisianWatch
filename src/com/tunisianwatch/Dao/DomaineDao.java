@@ -15,14 +15,21 @@ public class DomaineDao {
      *
      * @param d
      */
-    public void insertDomaine(Domaine d) {
+    public int insertDomaine(Domaine d) {
         String requete = "insert into domaine (nom) values (?)";
+        int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             
             ps.setString(1, d.getNom());
             
             ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
 
             //<tmp>
             System.out.println("Ajout effectuée avec succès");
@@ -32,6 +39,7 @@ public class DomaineDao {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
             //</tmp>
         }
+        return id;
     }
 
     /**

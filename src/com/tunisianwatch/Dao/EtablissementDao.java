@@ -19,8 +19,9 @@ public class EtablissementDao {
      *
      * @param E
      */
-    public void insertEtablissement(Etablissement E) {
+    public int insertEtablissement(Etablissement E) {
         String requete = "insert into etablissement (nom , description,image,idlieu,idresponsable) values (?,?,?,?,?)";
+        int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
@@ -29,10 +30,16 @@ public class EtablissementDao {
             ps.setInt(4, E.getLieu().getId());
             ps.setInt(5, E.getResponsable().getId());
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
+        return id;
     }
 
     /**
@@ -74,7 +81,7 @@ public class EtablissementDao {
                 Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
-                for (int i = 0; i < listEtabDomaine.size(); i++){
+                for (int i = 0; i < listEtabDomaine.size(); i++) {
                     listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
                 }
                 E.setListDomaine(listDomaine);
@@ -113,7 +120,6 @@ public class EtablissementDao {
                 E.setListDomaine(listDomaine);
             }
         } catch (SQLException ex) {
-
         }
         return E;
 
@@ -141,7 +147,6 @@ public class EtablissementDao {
                 }
             }
         } catch (SQLException ex) {
-
         }
         return E;
 
@@ -169,7 +174,6 @@ public class EtablissementDao {
                 }
             }
         } catch (SQLException ex) {
-
         }
         return E;
 
@@ -196,5 +200,4 @@ public class EtablissementDao {
         }
 
     }
-
 }

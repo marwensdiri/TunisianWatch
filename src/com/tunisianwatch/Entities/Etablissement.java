@@ -13,6 +13,11 @@ public class Etablissement {
         private Utilisateur responsable;
         private List<Domaine> listDomaine= new ArrayList<Domaine>();
 
+    public Etablissement() {
+    }
+
+        
+        
     public Etablissement(String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
         this.nom = nom;
         this.description = description;
