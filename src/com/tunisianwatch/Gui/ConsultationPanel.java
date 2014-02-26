@@ -6,9 +6,11 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
+import com.tunisianwatch.Model.UtilisateurTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,7 +27,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
-
     /**
      * Creates new form reclamationPanel
      */
@@ -41,6 +42,12 @@ public class ConsultationPanel extends javax.swing.JPanel {
             tableModel = new ReclamationTableModel();
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Réclamations"));
+        } else if(type.equals("citoyen")){
+             tableModel = new UtilisateurTableModel('C');
+             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age"}));
+        } else if(type.equals("responsable")){
+             tableModel = new UtilisateurTableModel('R');
+             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age","Etablissement"}));
         }
         consultationTable.setModel(tableModel);
         consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
@@ -217,7 +224,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-
+        switch (type) {
+            case "citoyen":
+          new CitoyenForm().show();
+                break;
+            case "responsable":
+                new   ResponsableForm().show();
+                break;
+        }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
@@ -231,11 +245,12 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 if (type.equals("reclamation")) {
                     new ReclamationApercuFrame(element).show();
                 }
-                else{
-                contentPanel.removeAll();
-                contentPanel.setLayout(new java.awt.CardLayout());
-                contentPanel.repaint();
-                contentPanel.revalidate();
+                else if(type.equals("citoyen")){
+                    new CitoyenForm(element).show(); ;
+                }
+                else if (type.equals("responsable") ) {
+                    new ResponsableForm(element).show(); ;
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);

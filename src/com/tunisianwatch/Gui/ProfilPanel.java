@@ -283,13 +283,12 @@ public class ProfilPanel extends javax.swing.JPanel {
         user.setPrenom(nomTextField.getText());
         user.setLogin(pseudoTextField.getText());
         user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        user.setAdress(adressTextField.getText());
-        user.setMail(mailTextField.getText());
-        user.setMdp(mdpTextField.getText());
-        user.setDateNaissance(DateChooser.getDate());
-        user.setPhoto(pathTextField.getText());
-        user.setIdEtablissement(-1);
-        user.setType(new Character('A'));
+        user.setAdress(adrTextfield.getText());
+        user.setMail(mailTextfield.getText());
+        user.setMdp(mdpTextfield.getText());
+        user.setDateNaissance(dateTextfield.getDate());
+        user.setPhoto(pathTextfield.getText());
+        user.setType(new Character('C'));
         userDao.insertUser(user);
     }//GEN-LAST:event_jButton1ActionPerformed
 

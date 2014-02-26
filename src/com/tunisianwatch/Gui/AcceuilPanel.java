@@ -198,7 +198,10 @@ public class AcceuilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_citoyenButtonActionPerformed
 
     private void responsableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButtonActionPerformed
-        // TODO add your handling code here:
+        contentPanel.removeAll();
+        contentPanel.add(new ConsultationPanel("responsable"));
+        contentPanel.repaint();
+        contentPanel.revalidate();
     }//GEN-LAST:event_responsableButtonActionPerformed
 
     private void responsableButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButton1ActionPerformed

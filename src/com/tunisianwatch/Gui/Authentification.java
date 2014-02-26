@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.util.Locale;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Authentification extends javax.swing.JFrame {
      */
     public Authentification() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -39,6 +41,7 @@ public class Authentification extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Authentification - Tunisianwatch");
         getContentPane().setLayout(new java.awt.CardLayout());
 
         loginLabel.setText("Login");

@@ -87,7 +87,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
-        comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Domaine", "Etat", "Lieu" }));
+        comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Domaine", "Etat", "Lieu" }));
         comboName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboNameActionPerformed(evt);
