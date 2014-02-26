@@ -9,6 +9,9 @@ import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -24,10 +27,12 @@ public class CitoyenForm extends javax.swing.JFrame {
      */
     public CitoyenForm() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public CitoyenForm(Object ob) {
         modif = true;
+        setLocationRelativeTo(null);
         this.user = (Utilisateur) ob;
         initComponents();
         setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
@@ -80,7 +85,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         submitButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajout Citoyen"));
         jPanel1.setPreferredSize(new java.awt.Dimension(870, 500));
@@ -276,11 +281,14 @@ public class CitoyenForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pathTextfieldActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+
         JFileChooser shooser = new JFileChooser();
-        shooser.showOpenDialog(null);
-        File f = shooser.getSelectedFile();
-        String filename = f.getAbsolutePath();
-        pathTextfield.setText(filename);
+        FileFilter  filtre = new  FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg") ;
+        shooser.setFileFilter(filtre);
+        int res = shooser.showOpenDialog(null);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            pathTextfield.setText(shooser.getSelectedFile().toString());            
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -288,25 +296,30 @@ public class CitoyenForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (!modif) {
-            user = new Utilisateur();
-        }
-        UtilisateurDao userDao = new UtilisateurDao();
+        if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
 
-        user.setNom(prenomTextfield.getText());
-        user.setPrenom(nomTextfield.getText());
-        user.setLogin(pseudoTextfield.getText());
-        user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        user.setAdress(adrTextfield.getText());
-        user.setMail(mailTextfield.getText());
-        user.setMdp(mdpTextfield.getText());
-        user.setDateNaissance(dateTextfield.getDate());
-        user.setPhoto(pathTextfield.getText());
-        user.setType('C');
-        if (modif) {
-            userDao.updateUser(user.getId(), user);
+            if (!modif) {
+                user = new Utilisateur();
+            }
+            UtilisateurDao userDao = new UtilisateurDao();
+
+            user.setNom(prenomTextfield.getText());
+            user.setPrenom(nomTextfield.getText());
+            user.setLogin(pseudoTextfield.getText());
+            user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
+            user.setAdress(adrTextfield.getText());
+            user.setMail(mailTextfield.getText());
+            user.setMdp(mdpTextfield.getText());
+            user.setDateNaissance(dateTextfield.getDate());
+            user.setPhoto(pathTextfield.getText());
+            user.setType('C');
+            if (modif) {
+                userDao.updateUser(user.getId(), user);
+            } else {
+                userDao.insertUser(user);
+            }
         } else {
-            userDao.insertUser(user);
+            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
