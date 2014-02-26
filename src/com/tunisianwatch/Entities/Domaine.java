@@ -8,6 +8,11 @@ public class Domaine {
     public Domaine() {
     }
 
+    public Domaine(Domaine d){
+        this.id=d.id;
+        this.nom=d.nom;
+    }
+    
     public Domaine(int id, String nom) {
         this.id = id;
         this.nom = nom;

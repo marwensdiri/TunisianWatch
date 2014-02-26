@@ -305,10 +305,10 @@ public class EtablissementFrame extends javax.swing.JFrame {
         if (domaines1.getSelectedIndices().length > 0) {
             domaines2Model.addElement(domaines1Model.getElementAt(domaines1.getSelectedIndex()));
             domaines1Model.remove(domaines1.getSelectedIndex());
-            listeDomainesAjouter.add(domaines1Model.getElementAt(domaines1.getSelectedIndex()));
+            
             
         }
-
+        
 
     }//GEN-LAST:event_to2ActionPerformed
 
@@ -316,8 +316,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
         if (domaines2.getSelectedIndices().length > 0) {
             domaines1Model.addElement(domaines2Model.getElementAt(domaines2.getSelectedIndex()));
             domaines2Model.remove(domaines2.getSelectedIndex());
-            listeDomainesAjouter.remove(domaines2Model.getElementAt(domaines2.getSelectedIndex()));
         }
+        
 
     }//GEN-LAST:event_to1ActionPerformed
 
@@ -336,7 +336,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-
+        Object[] arr = domaines1Model.toArray();
+        for(Object o : arr)
+            listeDomainesAjouter.add((Domaine)o);
         EtablissementDomaineDao etabdomDAO = new EtablissementDomaineDao();
         DomaineDao domDAO = new DomaineDao();
         int id = -1;
