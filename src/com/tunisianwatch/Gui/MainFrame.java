@@ -38,6 +38,8 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.CardLayout());
 
         CorePanel.add(new AcceuilPanel()); //LoginPanel()
+        CorePanel.setAlignmentX(1.0F);
+        CorePanel.setAlignmentY(1.0F);
         CorePanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(CorePanel, "card2");
 
