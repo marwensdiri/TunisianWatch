@@ -300,7 +300,6 @@ public class CitoyenForm extends javax.swing.JFrame {
         user.setPrenom(nomTextfield.getText());
         user.setLogin(pseudoTextfield.getText());
         user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        System.out.println(sexeCombox.getSelectedItem());
         user.setAdress(adrTextfield.getText());
         user.setMail(mailTextfield.getText());
         user.setMdp(mdpTextfield.getText());
