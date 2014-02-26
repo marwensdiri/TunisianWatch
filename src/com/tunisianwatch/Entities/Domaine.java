@@ -35,7 +35,7 @@ public class Domaine {
 
     @Override
     public String toString() {
-        return "Domaine{" + "id=" + id + ", nom=" + nom + '}';
+        return nom;
     }
 
     @Override
