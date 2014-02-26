@@ -6,6 +6,7 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
@@ -26,7 +27,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
-    CitoyenForm citoyenform = new CitoyenForm();
     /**
      * Creates new form reclamationPanel
      */
@@ -224,9 +224,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        if (type.equals("citoyen")) {            
-             citoyenform.show();
-                }
+        switch (type) {
+            case "citoyen":
+          new CitoyenForm().show();
+                break;
+            case "responsable":
+                new   ResponsableForm().show();
+                break;
+        }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
@@ -241,13 +246,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
                     new ReclamationApercuFrame(element).show();
                 }
                 else if(type.equals("citoyen")){
-                    System.out.println("test");
+                    new CitoyenForm(element).show(); ;
                 }
-                   else {
-                contentPanel.removeAll();
-                contentPanel.setLayout(new java.awt.CardLayout());
-                contentPanel.repaint();
-                contentPanel.revalidate();
+                else if (type.equals("responsable") ) {
+                    new ResponsableForm(element).show(); ;
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
