@@ -7,11 +7,8 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
 
 /**
  *
@@ -19,11 +16,36 @@ import javax.swing.JTextField;
  */
 public class CitoyenForm extends javax.swing.JFrame {
 
+    private boolean modif = false;
+    private Utilisateur user;
+
     /**
      * Creates new form CitoyenForm
      */
     public CitoyenForm() {
         initComponents();
+    }
+
+    public CitoyenForm(Object ob) {
+        modif = true;
+        this.user = (Utilisateur) ob;
+        initComponents();
+        setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
+        prenomTextfield.setText(user.getNom());
+        nomTextfield.setText(user.getPrenom());
+        pseudoTextfield.setText(user.getLogin());
+        if (user.getSexe() == 'H') {
+            sexeCombox.setSelectedIndex(0);
+        } else {
+            sexeCombox.setSelectedIndex(1);
+        }
+        adrTextfield.setText(user.getAdress());
+        mailTextfield.setText(user.getMail());
+        mdpTextfield.setText(user.getMdp());
+        dateTextfield.setDate(user.getDateNaissance());
+        pathTextfield.setText(user.getPhoto());
+        submitButton.setText("Modifier");
+
     }
 
     /**
@@ -55,7 +77,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         adrTextfield = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         pseudoTextfield = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        submitButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,10 +141,10 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Pseudo :");
 
-        jButton1.setText("Ajouter");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitButton.setText("Ajouter");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         });
 
@@ -160,7 +182,7 @@ public class CitoyenForm extends javax.swing.JFrame {
                                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -209,7 +231,7 @@ public class CitoyenForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -265,8 +287,10 @@ public class CitoyenForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Utilisateur user = new Utilisateur();
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        if (!modif) {
+            user = new Utilisateur();
+        }
         UtilisateurDao userDao = new UtilisateurDao();
 
         user.setNom(prenomTextfield.getText());
@@ -278,24 +302,16 @@ public class CitoyenForm extends javax.swing.JFrame {
         user.setMdp(mdpTextfield.getText());
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
-        user.setType(new Character('C'));
-        userDao.insertUser(user);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        user.setType('C');
+        if (modif) {
+            userDao.updateUser(user.getId(), user);
+        } else {
+            userDao.insertUser(user);
+        }
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     private void nomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomTextfieldMouseExited
-        final JTextField zone = new JTextField();
-        System.out.println("test");
-        zone.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                String command = zone.getText();
-                try {
-                    float fl = Float.parseFloat(command);
-                } catch (Exception ex) {
-                    //zone.setText(command.substring(0, command.length()-1));
-                    zone.setText("Erreur");
-                }
-            }
-        });
+
     }//GEN-LAST:event_nomTextfieldMouseExited
 
     /**
@@ -336,7 +352,6 @@ public class CitoyenForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adrTextfield;
     private com.toedter.calendar.JDateChooser dateTextfield;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -356,5 +371,6 @@ public class CitoyenForm extends javax.swing.JFrame {
     private javax.swing.JTextField prenomTextfield;
     private javax.swing.JTextField pseudoTextfield;
     private javax.swing.JComboBox sexeCombox;
+    private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
 }

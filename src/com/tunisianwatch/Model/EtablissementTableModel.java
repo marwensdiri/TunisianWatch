@@ -11,7 +11,6 @@ import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Etablissement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -57,7 +56,7 @@ public class EtablissementTableModel extends ConsultationTableModel {
     }
 
     public void removeRows(List elements) {
-        List<Etablissement> lEtab=(List<Etablissement>) elements;
+        List<Etablissement> lEtab = (List<Etablissement>) elements;
         for (int i = 0; i < lEtab.size(); i++) {
             listEtablissement.remove(lEtab.get(i));
         }
@@ -69,16 +68,22 @@ public class EtablissementTableModel extends ConsultationTableModel {
             searching = true;
             for (Etablissement etablissement : listEtablissement) {
                 if (searchIndex == 0) {
-                    if (etablissement.getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(etablissement);
+                    if (etablissement.getNom() != null) {
+                        if (etablissement.getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(etablissement);
+                        }
                     }
                 } else if (searchIndex == 1) {
-                    if (etablissement.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(etablissement);
+                    if (etablissement.getLieu() != null) {
+                        if (etablissement.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(etablissement);
+                        }
                     }
                 } else if (searchIndex == 2) {
-                    if (etablissement.getResponsable().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(etablissement);
+                    if (etablissement.getResponsable() != null) {
+                        if (etablissement.getResponsable().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(etablissement);
+                        }
                     }
                 } else if (searchIndex == 3) {
                     List<Domaine> listDomaine = etablissement.getListDomaine();
@@ -90,9 +95,8 @@ public class EtablissementTableModel extends ConsultationTableModel {
                     }
                 }
             }
-        }
-        else{
-            searching=false;
+        } else {
+            searching = false;
         }
     }
 
@@ -112,7 +116,7 @@ public class EtablissementTableModel extends ConsultationTableModel {
         } else if (columnIndex == 2) {
             return etablissement.getLieu();
         } else if (columnIndex == 3) {
-            return etablissement.getResponsable().getNom() + " " + etablissement.getResponsable().getPrenom();
+            return etablissement.getResponsable();
         } else if (columnIndex == 4) {
             String domaines = "";
             List<Domaine> listDomaine = etablissement.getListDomaine();

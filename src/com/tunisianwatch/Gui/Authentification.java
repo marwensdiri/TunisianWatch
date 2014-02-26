@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -111,16 +111,20 @@ public class Authentification extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
-        if(user!=null){
+        if (user != null) {
+            JOptionPane.showMessageDialog(null, "Connexion établie");
             this.dispose();
             new MainFrame().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erreur d'authentification", "Message d'avertissement", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void loginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginTextFieldActionPerformed
         // TODO add your handling code here:
-         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
-        if(user!=null){
+        Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
+        if (user != null) {
             this.dispose();
             new MainFrame().setVisible(true);
         }
@@ -129,7 +133,7 @@ public class Authentification extends javax.swing.JFrame {
     private void mdpPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mdpPasswordFieldActionPerformed
         // TODO add your handling code here:
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
-        if(user!=null){
+        if (user != null) {
             this.dispose();
             new MainFrame().setVisible(true);
         }

@@ -87,6 +87,11 @@ public class StatistiquePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Statistiques des Réclamations"));
+
+        comboName.setBackground(new java.awt.Color(204, 0, 0));
+        comboName.setForeground(new java.awt.Color(255, 255, 255));
         comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Domaine", "Etat", "Lieu" }));
         comboName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +99,8 @@ public class StatistiquePanel extends javax.swing.JPanel {
             }
         });
 
+        ComboType.setBackground(new java.awt.Color(204, 0, 0));
+        ComboType.setForeground(new java.awt.Color(255, 255, 255));
         ComboType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pie chart 3D", "Bar chart 3D" }));
         ComboType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +167,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
     private void comboNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNameActionPerformed
         // TODO add your handling code here:
-        if (comboName.getSelectedIndex() == 0) {//domaine
+        if (comboName.getSelectedIndex() == 1) {//domaine
             if (ComboType.getSelectedIndex() == 0) {
                 //piechart3D
                 AjouterChartpanelCercelDomaine("Statistique par Domaines");
@@ -170,13 +177,13 @@ public class StatistiquePanel extends javax.swing.JPanel {
             }
 
         } else {
-            if (comboName.getSelectedIndex() == 1) {//etat
+            if (comboName.getSelectedIndex() == 2) {//etat
                 if (ComboType.getSelectedIndex() == 0) {
                     //piechart3D
                     AjouterChartpanelCercelEtat("Statistique par Etat");
                 } else {
-                    //barchar3D
-                    AjouterChartpanelBarEtat("Statistique par Etat", "Etat", "Frequence des Reclamation");
+                    if (comboName.getSelectedIndex()==3)//barchar3D
+                        AjouterChartpanelBarEtat("Statistique par Etat", "Etat", "Frequence des Reclamation");
                 }
             } else {//lieu
                 if (ComboType.getSelectedIndex() == 0) {//piechart3D

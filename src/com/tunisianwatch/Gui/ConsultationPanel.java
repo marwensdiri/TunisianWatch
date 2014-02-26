@@ -5,7 +5,6 @@
  */
 package com.tunisianwatch.Gui;
 
-import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
@@ -44,9 +43,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
         } else if(type.equals("citoyen")){
              tableModel = new UtilisateurTableModel('C');
              CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age"}));
+              contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
         } else if(type.equals("responsable")){
              tableModel = new UtilisateurTableModel('R');
              CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age","Etablissement"}));
+              contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Résponsables"));
         }
         consultationTable.setModel(tableModel);
         consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
@@ -239,20 +240,17 @@ public class ConsultationPanel extends javax.swing.JPanel {
         } else {
             int minIndex = lsm.getMinSelectionIndex();
             int maxIndex = lsm.getMaxSelectionIndex();
-            System.out.println(minIndex+" "+maxIndex);
             if ((maxIndex - minIndex) == 0) {
-                Object element = tableModel.getElementAt(minIndex); 
+                Object element = tableModel.getElementAt(minIndex);
                 if (type.equals("reclamation")) {
                     new ReclamationApercuFrame(element).show();
                 }
                 else if(type.equals("citoyen")){
-                    new CitoyenForm().show(); ;
+                    new CitoyenForm(element).show(); ;
                 }
-                   else {
-                contentPanel.removeAll();
-                contentPanel.setLayout(new java.awt.CardLayout());
-                contentPanel.repaint();
-                contentPanel.revalidate();
+                else if (type.equals("responsable") ) {
+                    new ResponsableForm(element).show(); ;
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);

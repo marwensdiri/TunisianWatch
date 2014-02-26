@@ -131,7 +131,10 @@ public class Reclamation {
     }
     
     
-    
+    @Override
+    public String toString(){
+        return titre;
+    }
     
 
     @Override

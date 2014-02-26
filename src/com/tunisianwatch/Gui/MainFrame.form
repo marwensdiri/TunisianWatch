@@ -28,6 +28,10 @@
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="CorePanel">
+      <Properties>
+        <Property name="alignmentX" type="float" value="1.0"/>
+        <Property name="alignmentY" type="float" value="1.0"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="CorePanel.add(new AcceuilPanel()); //LoginPanel()"/>
