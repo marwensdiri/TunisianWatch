@@ -19,25 +19,29 @@ import javax.swing.JTextField;
  */
 public class CitoyenForm extends javax.swing.JFrame {
 
-    private boolean modif=false;
+    private boolean modif = false;
     private Utilisateur user;
-    
+
     /**
      * Creates new form CitoyenForm
      */
     public CitoyenForm() {
         initComponents();
     }
-    
+
     public CitoyenForm(Object ob) {
-        modif=true;
-        this.user = (Utilisateur) ob ;
+        modif = true;
+        this.user = (Utilisateur) ob;
         initComponents();
-        setTitle("Modification - "+user.getNom()+"  "+user.getPrenom());
+        setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
         prenomTextfield.setText(user.getNom());
         nomTextfield.setText(user.getPrenom());
         pseudoTextfield.setText(user.getLogin());
-        sexeCombox.setSelectedItem(user.getSexe());
+        if (user.getSexe() == 'H') {
+            sexeCombox.setSelectedIndex(0);
+        } else {
+            sexeCombox.setSelectedIndex(1);
+        }
         adrTextfield.setText(user.getAdress());
         mailTextfield.setText(user.getMail());
         mdpTextfield.setText(user.getMdp());
@@ -46,6 +50,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         submitButton.setText("Modifier");
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -286,7 +291,7 @@ public class CitoyenForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if(!modif){
+        if (!modif) {
             user = new Utilisateur();
         }
         UtilisateurDao userDao = new UtilisateurDao();
@@ -295,34 +300,21 @@ public class CitoyenForm extends javax.swing.JFrame {
         user.setPrenom(nomTextfield.getText());
         user.setLogin(pseudoTextfield.getText());
         user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
+        System.out.println(sexeCombox.getSelectedItem());
         user.setAdress(adrTextfield.getText());
         user.setMail(mailTextfield.getText());
         user.setMdp(mdpTextfield.getText());
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
-        user.setType(new Character('C'));
-        if(modif){
+        if (modif) {
             userDao.updateUser(user.getId(), user);
-        }
-        else{
-        userDao.insertUser(user);
+        } else {
+            userDao.insertUser(user);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void nomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomTextfieldMouseExited
-        final JTextField zone = new JTextField();
-        System.out.println("test");
-        zone.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                String command = zone.getText();
-                try {
-                    float fl = Float.parseFloat(command);
-                } catch (Exception ex) {
-                    //zone.setText(command.substring(0, command.length()-1));
-                    zone.setText("Erreur");
-                }
-            }
-        });
+
     }//GEN-LAST:event_nomTextfieldMouseExited
 
     /**
