@@ -11,6 +11,8 @@ import javax.swing.JFileChooser;
 
 public class EtablissementFrame extends javax.swing.JFrame {
 
+    private List<Domaine> listeDomainesAjouter = new ArrayList<Domaine>();
+    private List<Domaine> listeDomainesExistant = new ArrayList<Domaine>();
     private DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();
     private DefaultComboBoxModel<Utilisateur> utilisateurModel = new DefaultComboBoxModel();
     private DefaultListModel<Domaine> domaines1Model = new DefaultListModel<Domaine>();
@@ -303,7 +305,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
         if (domaines1.getSelectedIndices().length > 0) {
             domaines2Model.addElement(domaines1Model.getElementAt(domaines1.getSelectedIndex()));
             domaines1Model.remove(domaines1.getSelectedIndex());
+            listeDomainesAjouter.add(domaines1Model.getElementAt(domaines1.getSelectedIndex()));
         }
+
 
     }//GEN-LAST:event_to2ActionPerformed
 
@@ -311,6 +315,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         if (domaines2.getSelectedIndices().length > 0) {
             domaines1Model.addElement(domaines2Model.getElementAt(domaines2.getSelectedIndex()));
             domaines2Model.remove(domaines2.getSelectedIndex());
+            listeDomainesAjouter.remove(domaines2Model.getElementAt(domaines2.getSelectedIndex()));
         }
 
     }//GEN-LAST:event_to1ActionPerformed
@@ -318,16 +323,20 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private void addDomainTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainTxtFieldActionPerformed
         if (addDomainTxtField.getText() != "") {
             domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
+            listeDomainesAjouter.add(new Domaine(addDomainTxtField.getText()));
         }
     }//GEN-LAST:event_addDomainTxtFieldActionPerformed
 
     private void addDomainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainBtnActionPerformed
         if (addDomainTxtField.getText() != "") {
             domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
+            listeDomainesAjouter.add(new Domaine(addDomainTxtField.getText()));
         }
     }//GEN-LAST:event_addDomainBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+
+
         int id = -1;
         EtablissementDao EDAO = new EtablissementDao();
         etb.setLieu((Lieu) lieuCmboBox.getSelectedItem());
@@ -339,6 +348,16 @@ public class EtablissementFrame extends javax.swing.JFrame {
             EDAO.updateEtablissement(action, etb);
         } else {
             id = EDAO.insertEtablissement(etb);
+
+        }
+
+
+        listeDomainesExistant = new DomaineDao().selectDomaines();
+        for (Domaine d : listeDomainesAjouter) {
+            if (!listeDomainesExistant.contains(d)) {
+                new DomaineDao().insertDomaine(d);
+            }
+            new EtablissementDomaineDao().insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
@@ -407,8 +426,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
         imageTxtFeild.setEditable(false);
         descriptionTextArea.setLineWrap(true);
         setLocationRelativeTo(null);
-        
-        
+
+
         LieuDao LDAO = new LieuDao();
         List<Lieu> lL = new ArrayList<Lieu>();
         lL = LDAO.selectLieux();
