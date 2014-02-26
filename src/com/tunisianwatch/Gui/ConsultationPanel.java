@@ -26,7 +26,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
-
+    CitoyenForm citoyenform = new CitoyenForm();
     /**
      * Creates new form reclamationPanel
      */
@@ -224,9 +224,8 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CategComboBoxActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        if (type.equals("citoyen")) {
-             CitoyenForm c = new CitoyenForm();
-             c.show();
+        if (type.equals("citoyen")) {            
+             citoyenform.show();
                 }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
@@ -240,11 +239,15 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 Object element = tableModel.getElementAt(minIndex);
                 if (type.equals("reclamation")) {
                     new ReclamationApercuFrame(element).show();
-                } else {
-                    contentPanel.removeAll();
-                    contentPanel.setLayout(new java.awt.CardLayout());
-                    contentPanel.repaint();
-                    contentPanel.revalidate();
+                }
+                else if(type.equals("citoyen")){
+                    System.out.println("test");
+                }
+                   else {
+                contentPanel.removeAll();
+                contentPanel.setLayout(new java.awt.CardLayout());
+                contentPanel.repaint();
+                contentPanel.revalidate();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
