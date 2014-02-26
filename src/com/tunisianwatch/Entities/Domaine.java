@@ -40,9 +40,7 @@ public class Domaine {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + this.id;
-        return hash;
+        return id;
     }
 
     @Override

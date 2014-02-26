@@ -200,7 +200,28 @@ public class Utilisateur {
         }
         return age;
         
+    
 
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Utilisateur other = (Utilisateur) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -1,9 +1,7 @@
-
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.*;
 import com.tunisianwatch.Entities.*;
-import java.awt.GraphicsConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,27 +16,32 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private DefaultListModel<Domaine> domaines1Model = new DefaultListModel<Domaine>();
     private DefaultListModel<Domaine> domaines2Model = new DefaultListModel<Domaine>();
     private int action = 0;
+    private Etablissement etb;
 
     public EtablissementFrame() {
         initComponents();
         init();
+        etb = new Etablissement();
     }
 
-    public EtablissementFrame(Etablissement etb) {
-        action = 1;
+    public EtablissementFrame(Object obj) {
+        Etablissement etb = (Etablissement) obj;
+        action = etb.getId();
         initComponents();
         nomTxtFeild.setText(etb.getNom());
         descriptionTextArea.setText(etb.getDescription());
         imageTxtFeild.setText(etb.getImage());
-        for (Domaine d : etb.getListDomaine()){
+        for (Domaine d : etb.getListDomaine()) {
             domaines2Model.addElement(d);
             domaines1Model.removeElement(d);
         }
+        submitBtn.setText("Modifer");
         utilisateurModel.setSelectedItem(etb.getResponsable());
         lieuModel.setSelectedItem(etb.getLieu());
         init();
-        
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -226,8 +229,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(to1)
                         .addGap(55, 55, 55)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         submitBtn.setText("Envoyer");
@@ -250,25 +252,24 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(bodyPanelLayout.createSequentialGroup()
-                .addGap(340, 340, 340)
+                .addGap(343, 343, 343)
                 .addComponent(submitBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cancelBtn)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bodyPanelLayout.setVerticalGroup(
             bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bodyPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(submitBtn))
-                    .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(submitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -327,11 +328,22 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (action == 1){
-            
-        }else{
-            
+        int id = -1;
+        EtablissementDao EDAO = new EtablissementDao();
+        etb.setLieu((Lieu) lieuCmboBox.getSelectedItem());
+        etb.setResponsable((Utilisateur) responsableCmboBox.getSelectedItem());
+        etb.setDescription(descriptionTextArea.getText());
+        etb.setNom(nomTxtFeild.getText());
+        etb.setImage(imageTxtFeild.getText());
+        if (action != 0) {
+            EDAO.updateEtablissement(action, etb);
+        } else {
+            id = EDAO.insertEtablissement(etb);
         }
+//        List<Domaine> ll = new ArrayList<Domaine>();
+//        
+//        EtablissementDomaineDao EDDAO = new EtablissementDomaineDao();
+//        EDDAO.insertEtablissementDomaine(null);
 
     }//GEN-LAST:event_submitBtnActionPerformed
 
@@ -399,6 +411,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private void init() {
         imageTxtFeild.setEditable(false);
         descriptionTextArea.setLineWrap(true);
+        setLocationRelativeTo(null);
+        
+        
         LieuDao LDAO = new LieuDao();
         List<Lieu> lL = new ArrayList<Lieu>();
         lL = LDAO.selectLieux();
