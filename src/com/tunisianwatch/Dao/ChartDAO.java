@@ -66,6 +66,7 @@ public class ChartDAO {
                 if (l.getEtat() == 1) {
                     list1.add(l);
                 }else{
+                    if(l.getEtat()==2)
                     list2.add(l);
                 }
             }

@@ -59,8 +59,8 @@ public class ProfilPanel extends javax.swing.JPanel {
         mailTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        pathTextField = new javax.swing.JTextField();
-        DateChooser = new com.toedter.calendar.JDateChooser();
+        pathTextfield = new javax.swing.JTextField();
+        dateTextField = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -126,7 +126,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Photo ");
 
-        pathTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pathTextfield.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
         contentPanel.setLayout(contentPanelLayout);
@@ -173,8 +173,8 @@ public class ProfilPanel extends javax.swing.JPanel {
                             .addGroup(contentPanelLayout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(pathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                                    .addComponent(DateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(pathTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                    .addComponent(dateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -192,17 +192,17 @@ public class ProfilPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(mdpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentPanelLayout.createSequentialGroup()
@@ -283,10 +283,10 @@ public class ProfilPanel extends javax.swing.JPanel {
         user.setPrenom(nomTextField.getText());
         user.setLogin(pseudoTextField.getText());
         user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        user.setAdress(adrTextfield.getText());
-        user.setMail(mailTextfield.getText());
-        user.setMdp(mdpTextfield.getText());
-        user.setDateNaissance(dateTextfield.getDate());
+        user.setAdress(adressTextField.getText());
+        user.setMail(mailTextField.getText());
+        user.setMdp(mdpTextField.getText());
+        user.setDateNaissance(dateTextField.getDate());
         user.setPhoto(pathTextfield.getText());
         user.setType(new Character('C'));
         userDao.insertUser(user);
@@ -301,7 +301,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         shooser.showOpenDialog(null);
         File f = shooser.getSelectedFile();
         String filename = f.getAbsolutePath();
-        pathTextField.setText(filename);
+        pathTextfield.setText(filename);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void mailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailTextFieldActionPerformed
@@ -309,9 +309,9 @@ public class ProfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_mailTextFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JTextField adressTextField;
     private javax.swing.JPanel contentPanel;
+    private com.toedter.calendar.JDateChooser dateTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
@@ -328,7 +328,7 @@ public class ProfilPanel extends javax.swing.JPanel {
     private javax.swing.JTextField mailTextField;
     private javax.swing.JTextField mdpTextField;
     private javax.swing.JTextField nomTextField;
-    private javax.swing.JTextField pathTextField;
+    private javax.swing.JTextField pathTextfield;
     private javax.swing.JTextField prenomTextField;
     private javax.swing.JTextField pseudoTextField;
     private javax.swing.JComboBox sexeCombox;
