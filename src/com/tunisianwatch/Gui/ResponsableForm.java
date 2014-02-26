@@ -25,10 +25,29 @@ import javax.swing.JTextField;
  */
 public class ResponsableForm extends javax.swing.JFrame {
     
+    private boolean modif=false;
+    private Utilisateur user;
     EtablissementDao etabblissementDao = new EtablissementDao() ;
     DefaultComboBoxModel<Etablissement> etablissementModel = new DefaultComboBoxModel<Etablissement>() ;
     
-    
+    public ResponsableForm (Object obj){
+        
+        modif=true;
+        this.user = (Utilisateur) obj ;
+        initComponents();
+        setTitle("Modification - "+user.getNom()+"  "+user.getPrenom());
+        prenomTextfield.setText(user.getNom());
+        nomTextfield.setText(user.getPrenom());
+        pseudoTextfield.setText(user.getLogin());
+        sexeCombox.setSelectedItem(user.getSexe());
+        adrTextfield1.setText(user.getAdress());
+        mailTextfield.setText(user.getMail());
+        mdpTextfield.setText(user.getMdp());
+        dateTextfield.setDate(user.getDateNaissance());
+        pathTextfield.setText(user.getPhoto());
+        jButton1.setText("Modifier");
+
+    }
    
     public ResponsableForm() {
         initComponents();
@@ -277,21 +296,27 @@ public class ResponsableForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Utilisateur user = new Utilisateur();
+       if(!modif){
+            user = new Utilisateur();
+        }
         UtilisateurDao userDao = new UtilisateurDao();
 
         user.setNom(prenomTextfield.getText());
         user.setPrenom(nomTextfield.getText());
         user.setLogin(pseudoTextfield.getText());
         user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        user.setAdress(adrTextfield2.getText());
-        
+        user.setAdress(adrTextfield1.getText());
         user.setMail(mailTextfield.getText());
         user.setMdp(mdpTextfield.getText());
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
         user.setType(new Character('R'));
+        if(modif){
+            userDao.updateResponsable(user.getId(), user);
+        }
+        else{
         userDao.insertUser(user);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed

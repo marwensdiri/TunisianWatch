@@ -249,11 +249,9 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 else if(type.equals("citoyen")){
                     new CitoyenForm(element).show(); ;
                 }
-                   else {
-                contentPanel.removeAll();
-                contentPanel.setLayout(new java.awt.CardLayout());
-                contentPanel.repaint();
-                contentPanel.revalidate();
+                else if (type.equals("responsable") ) {
+                    new ResponsableForm(element).show(); ;
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
