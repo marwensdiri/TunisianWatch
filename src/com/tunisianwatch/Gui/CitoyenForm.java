@@ -302,6 +302,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         user.setMdp(mdpTextfield.getText());
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
+        user.setType('C');
         if (modif) {
             userDao.updateUser(user.getId(), user);
         } else {
