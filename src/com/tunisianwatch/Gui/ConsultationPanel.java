@@ -6,6 +6,7 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
@@ -246,7 +247,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
                     new ReclamationApercuFrame(element).show();
                 }
                 else if(type.equals("citoyen")){
-                    new CitoyenForm().show(); ;
+                    new CitoyenForm(element).show(); ;
                 }
                    else {
                 contentPanel.removeAll();
