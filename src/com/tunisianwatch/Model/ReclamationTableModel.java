@@ -10,7 +10,6 @@ import com.tunisianwatch.Dao.ReclamationDao;
 import com.tunisianwatch.Entities.Reclamation;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -68,32 +67,46 @@ public class ReclamationTableModel extends ConsultationTableModel {
             searching = true;
             for (Reclamation reclamation : listReclamation) {
                 if (searchIndex == 0) {
-                    if (reclamation.getTitre().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getTitre() != null) {
+                        if (reclamation.getTitre().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 1) {
-                    if (reclamation.getDescription().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getDescription() != null) {
+                        if (reclamation.getDescription().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 2) {
-                    if (reclamation.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getLieu() != null) {
+                        if (reclamation.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 3) {
-                    if (reclamation.getDate().toString().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getDate() != null) {
+                        if (reclamation.getDate().toString().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 4) {
-                    if (reclamation.getHeure().toString().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getHeure() != null) {
+                        if (reclamation.getHeure().toString().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 5) {
-                    if (reclamation.getDomaine().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getDomaine() != null) {
+                        if (reclamation.getDomaine().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 6) {
-                    if (reclamation.getCitoyen().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                        listResultSearch.add(reclamation);
+                    if (reclamation.getCitoyen() != null) {
+                        if (reclamation.getCitoyen().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
+                            listResultSearch.add(reclamation);
+                        }
                     }
                 } else if (searchIndex == 7) {
                     String Etat = null;
@@ -136,7 +149,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
         } else if (columnIndex == 5) {
             return reclamation.getDomaine().getNom();
         } else if (columnIndex == 6) {
-            return reclamation.getCitoyen().getPrenom() + " " + reclamation.getCitoyen().getNom();
+            return reclamation.getCitoyen();
         } else if (columnIndex == 7) {
             if (reclamation.getEtat() == 0) {
                 return "Pas encore Réglée";
