@@ -87,11 +87,12 @@ public class StatistiquePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder("Statistiques des Réclamations"));
 
         comboName.setBackground(new java.awt.Color(204, 0, 0));
         comboName.setForeground(new java.awt.Color(255, 255, 255));
-        comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Domaine", "Etat", "Lieu" }));
+        comboName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Domaine", "Etat", "Lieu" }));
         comboName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboNameActionPerformed(evt);
