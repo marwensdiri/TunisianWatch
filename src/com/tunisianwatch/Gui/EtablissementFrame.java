@@ -76,7 +76,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         submitBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         nomLabel.setText("Nom :");

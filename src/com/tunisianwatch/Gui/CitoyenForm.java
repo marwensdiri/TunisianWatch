@@ -85,7 +85,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         submitButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajout Citoyen"));
         jPanel1.setPreferredSize(new java.awt.Dimension(870, 500));
