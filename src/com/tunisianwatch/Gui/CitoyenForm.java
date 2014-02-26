@@ -10,6 +10,8 @@ import com.tunisianwatch.Entities.Utilisateur;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -25,10 +27,12 @@ public class CitoyenForm extends javax.swing.JFrame {
      */
     public CitoyenForm() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public CitoyenForm(Object ob) {
         modif = true;
+        setLocationRelativeTo(null);
         this.user = (Utilisateur) ob;
         initComponents();
         setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
@@ -277,11 +281,14 @@ public class CitoyenForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pathTextfieldActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+
         JFileChooser shooser = new JFileChooser();
-        shooser.showOpenDialog(null);
-        File f = shooser.getSelectedFile();
-        String filename = f.getAbsolutePath();
-        pathTextfield.setText(filename);
+        FileFilter  filtre = new  FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg") ;
+        shooser.setFileFilter(filtre);
+        int res = shooser.showOpenDialog(null);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            pathTextfield.setText(shooser.getSelectedFile().toString());            
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
