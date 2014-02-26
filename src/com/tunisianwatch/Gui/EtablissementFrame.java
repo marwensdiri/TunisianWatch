@@ -306,6 +306,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
             domaines2Model.addElement(domaines1Model.getElementAt(domaines1.getSelectedIndex()));
             domaines1Model.remove(domaines1.getSelectedIndex());
             listeDomainesAjouter.add(domaines1Model.getElementAt(domaines1.getSelectedIndex()));
+            
         }
 
 
