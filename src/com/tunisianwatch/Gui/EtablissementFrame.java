@@ -336,8 +336,10 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
 
-
+        EtablissementDomaineDao etabdomDAO = new EtablissementDomaineDao();
+        DomaineDao domDAO = new DomaineDao();
         int id = -1;
+        int idDomaineAjouter = -1;
         EtablissementDao EDAO = new EtablissementDao();
         etb.setLieu((Lieu) lieuCmboBox.getSelectedItem());
         etb.setResponsable((Utilisateur) responsableCmboBox.getSelectedItem());
@@ -350,14 +352,16 @@ public class EtablissementFrame extends javax.swing.JFrame {
             id = EDAO.insertEtablissement(etb);
 
         }
-
+        System.out.println(id);
 
         listeDomainesExistant = new DomaineDao().selectDomaines();
         for (Domaine d : listeDomainesAjouter) {
             if (!listeDomainesExistant.contains(d)) {
-                new DomaineDao().insertDomaine(d);
+                idDomaineAjouter = domDAO.insertDomaine(d);
+                etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, idDomaineAjouter));
+            } else {
+                etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
             }
-            new EtablissementDomaineDao().insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 

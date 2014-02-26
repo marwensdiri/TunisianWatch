@@ -29,7 +29,12 @@ public class EtablissementDao {
             ps.setString(3, E.getImage());
             ps.setInt(4, E.getLieu().getId());
             ps.setInt(5, E.getResponsable().getId());
-            id = ps.executeUpdate();
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
