@@ -9,6 +9,7 @@ import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -288,25 +289,30 @@ public class CitoyenForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (!modif) {
-            user = new Utilisateur();
-        }
-        UtilisateurDao userDao = new UtilisateurDao();
+        if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
 
-        user.setNom(prenomTextfield.getText());
-        user.setPrenom(nomTextfield.getText());
-        user.setLogin(pseudoTextfield.getText());
-        user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        user.setAdress(adrTextfield.getText());
-        user.setMail(mailTextfield.getText());
-        user.setMdp(mdpTextfield.getText());
-        user.setDateNaissance(dateTextfield.getDate());
-        user.setPhoto(pathTextfield.getText());
-        user.setType('C');
-        if (modif) {
-            userDao.updateUser(user.getId(), user);
+            if (!modif) {
+                user = new Utilisateur();
+            }
+            UtilisateurDao userDao = new UtilisateurDao();
+
+            user.setNom(prenomTextfield.getText());
+            user.setPrenom(nomTextfield.getText());
+            user.setLogin(pseudoTextfield.getText());
+            user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
+            user.setAdress(adrTextfield.getText());
+            user.setMail(mailTextfield.getText());
+            user.setMdp(mdpTextfield.getText());
+            user.setDateNaissance(dateTextfield.getDate());
+            user.setPhoto(pathTextfield.getText());
+            user.setType('C');
+            if (modif) {
+                userDao.updateUser(user.getId(), user);
+            } else {
+                userDao.insertUser(user);
+            }
         } else {
-            userDao.insertUser(user);
+            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
