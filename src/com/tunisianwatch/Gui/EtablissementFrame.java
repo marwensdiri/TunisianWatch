@@ -340,11 +340,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         } else {
             id = EDAO.insertEtablissement(etb);
         }
-//        List<Domaine> ll = new ArrayList<Domaine>();
-//        
-//        EtablissementDomaineDao EDDAO = new EtablissementDomaineDao();
-//        EDDAO.insertEtablissementDomaine(null);
-
     }//GEN-LAST:event_submitBtnActionPerformed
 
     public static void main(String args[]) {
