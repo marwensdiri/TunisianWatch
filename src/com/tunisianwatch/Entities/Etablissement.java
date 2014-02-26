@@ -48,7 +48,7 @@ public class Etablissement {
 
     @Override
     public String toString() {
-        return "Etablissement{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", image=" + image + ", Lieu=" + lieu + '}';
+        return  nom ;
     }
 
     
