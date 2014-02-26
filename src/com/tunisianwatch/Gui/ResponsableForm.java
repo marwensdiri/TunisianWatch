@@ -319,7 +319,7 @@ public class ResponsableForm extends javax.swing.JFrame {
             userDao.updateResponsable(user.getId(), user);
         }
         else{
-        userDao.insertUser(user);
+        userDao.insertResponsable(user);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
