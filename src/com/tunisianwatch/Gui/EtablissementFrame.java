@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 public class EtablissementFrame extends javax.swing.JFrame {
 
@@ -243,11 +242,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         });
 
         cancelBtn.setText("Annuler");
-        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelBtnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
         bodyPanel.setLayout(bodyPanelLayout);
@@ -342,46 +336,37 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        
-        if(verif()){
-            Object[] arr = domaines1Model.toArray();
-            for(Object o : arr)
-                listeDomainesAjouter.add((Domaine)o);
-            EtablissementDomaineDao etabdomDAO = new EtablissementDomaineDao();
-            DomaineDao domDAO = new DomaineDao();
-            int id = -1;
-            int idDomaineAjouter = -1;
-            EtablissementDao EDAO = new EtablissementDao();
-            etb.setLieu((Lieu) lieuCmboBox.getSelectedItem());
-            etb.setResponsable((Utilisateur) responsableCmboBox.getSelectedItem());
-            etb.setDescription(descriptionTextArea.getText());
-            etb.setNom(nomTxtFeild.getText());
-            etb.setImage(imageTxtFeild.getText());
-            if (action != 0) {
-                EDAO.updateEtablissement(action, etb);
+        Object[] arr = domaines1Model.toArray();
+        for(Object o : arr)
+            listeDomainesAjouter.add((Domaine)o);
+        EtablissementDomaineDao etabdomDAO = new EtablissementDomaineDao();
+        DomaineDao domDAO = new DomaineDao();
+        int id = -1;
+        int idDomaineAjouter = -1;
+        EtablissementDao EDAO = new EtablissementDao();
+        etb.setLieu((Lieu) lieuCmboBox.getSelectedItem());
+        etb.setResponsable((Utilisateur) responsableCmboBox.getSelectedItem());
+        etb.setDescription(descriptionTextArea.getText());
+        etb.setNom(nomTxtFeild.getText());
+        etb.setImage(imageTxtFeild.getText());
+        if (action != 0) {
+            EDAO.updateEtablissement(action, etb);
+        } else {
+            id = EDAO.insertEtablissement(etb);
+
+        }
+        System.out.println(id);
+
+        listeDomainesExistant = new DomaineDao().selectDomaines();
+        for (Domaine d : listeDomainesAjouter) {
+            if (!listeDomainesExistant.contains(d)) {
+                idDomaineAjouter = domDAO.insertDomaine(d);
+                etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, idDomaineAjouter));
             } else {
-                id = EDAO.insertEtablissement(etb);
-
+                etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
             }
-            System.out.println(id);
-
-            listeDomainesExistant = new DomaineDao().selectDomaines();
-            for (Domaine d : listeDomainesAjouter) {
-                if (!listeDomainesExistant.contains(d)) {
-                    idDomaineAjouter = domDAO.insertDomaine(d);
-                    etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, idDomaineAjouter));
-                } else {
-                    etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
-                }
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "err");
         }
     }//GEN-LAST:event_submitBtnActionPerformed
-
-    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        this.hide();
-    }//GEN-LAST:event_cancelBtnActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -480,11 +465,5 @@ public class EtablissementFrame extends javax.swing.JFrame {
         responsableCmboBox.setModel(utilisateurModel);
         lieuCmboBox.setModel(lieuModel);
 
-    }
-
-    private boolean verif() {
-        if (nomTxtFeild.getText().length()==0)
-            return false;
-        return true;
     }
 }
