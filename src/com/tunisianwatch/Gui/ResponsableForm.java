@@ -39,7 +39,11 @@ public class ResponsableForm extends javax.swing.JFrame {
         prenomTextfield.setText(user.getNom());
         nomTextfield.setText(user.getPrenom());
         pseudoTextfield.setText(user.getLogin());
-        sexeCombox.setSelectedItem(user.getSexe());
+      if (user.getSexe() == 'H') {
+            sexeCombox.setSelectedIndex(0);
+        } else {
+            sexeCombox.setSelectedIndex(1);
+        }
         adrTextfield1.setText(user.getAdress());
         mailTextfield.setText(user.getMail());
         mdpTextfield.setText(user.getMdp());
