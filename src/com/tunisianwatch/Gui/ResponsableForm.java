@@ -6,11 +6,16 @@
 
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.EtablissementDao;
 import com.tunisianwatch.Dao.UtilisateurDao;
+import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Entities.Utilisateur;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 
@@ -20,10 +25,20 @@ import javax.swing.JTextField;
  */
 public class ResponsableForm extends javax.swing.JFrame {
     
+    EtablissementDao etabblissementDao = new EtablissementDao() ;
+    DefaultComboBoxModel<Etablissement> etablissementModel = new DefaultComboBoxModel<Etablissement>() ;
+    
     
    
     public ResponsableForm() {
         initComponents();
+        List lE = new ArrayList();
+        lE = etabblissementDao.selectEtablissements();
+        for (Object e : lE) {
+            etablissementModel.addElement((Etablissement) e);
+            
+        }
+        jComboBox1.setModel(etablissementModel);
     }
 
     /**
