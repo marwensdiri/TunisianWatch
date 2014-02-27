@@ -39,6 +39,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
         responsableButton = new javax.swing.JButton();
         responsableButton1 = new javax.swing.JButton();
         statButton = new javax.swing.JButton();
+        logoLabel = new javax.swing.JLabel();
         contentPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -104,6 +105,8 @@ public class AcceuilPanel extends javax.swing.JPanel {
             }
         });
 
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/tw_logo_74x165.png"))); // NOI18N
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -116,13 +119,16 @@ public class AcceuilPanel extends javax.swing.JPanel {
                     .addComponent(responsableButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(responsableButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(statButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(citoyenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(citoyenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoLabel)
+                .addGap(29, 29, 29)
                 .addComponent(responsableButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,7 +140,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
                 .addComponent(citoyenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(responsableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addGap(62, 62, 62))
         );
 
         contentPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -226,6 +232,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
     private javax.swing.JButton citoyenButton;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JButton etablissementButton;
+    private javax.swing.JLabel logoLabel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton reclamationButton;
     private javax.swing.JButton responsableButton;
