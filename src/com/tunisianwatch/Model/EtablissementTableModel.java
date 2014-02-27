@@ -58,6 +58,7 @@ public class EtablissementTableModel extends ConsultationTableModel {
     public void removeRows(List elements) {
         List<Etablissement> lEtab = (List<Etablissement>) elements;
         for (int i = 0; i < lEtab.size(); i++) {
+            etablissementDao.deleteEtablissement(lEtab.get(i).getId());
             listEtablissement.remove(lEtab.get(i));
         }
     }

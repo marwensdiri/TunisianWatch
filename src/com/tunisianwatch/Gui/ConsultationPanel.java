@@ -53,7 +53,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
         }
         consultationTable.setModel(tableModel);
         consultationTable.setAutoCreateRowSorter(true);
-        consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
+        consultationTable.getSelectionModel().addListSelectionListener(new ConsultationTableListener());
     }
 
     /**
@@ -263,7 +263,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_modifierButtonActionPerformed
 
-    public class ReclamationTableListener implements ListSelectionListener {
+    public class ConsultationTableListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {

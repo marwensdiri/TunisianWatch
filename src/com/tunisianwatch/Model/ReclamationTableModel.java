@@ -57,6 +57,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
     public void removeRows(List elements) {
         List<Reclamation> lRec = (List<Reclamation>) elements;
         for (int i = 0; i < lRec.size(); i++) {
+            reclamationtDao.deleteReclamation(lRec.get(i).getId());
             listReclamation.remove(lRec.get(i));
         }
     }
