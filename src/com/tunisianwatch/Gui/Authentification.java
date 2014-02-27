@@ -39,9 +39,12 @@ public class Authentification extends javax.swing.JFrame {
         loginTextField = new javax.swing.JTextField();
         mdpPasswordField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
+        logoPanel = new javax.swing.JPanel();
+        logoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification - Tunisianwatch");
+        setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         loginLabel.setText("Login");
@@ -69,6 +72,19 @@ public class Authentification extends javax.swing.JFrame {
             }
         });
 
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/tw_logo_small.png"))); // NOI18N
+
+        javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
+        logoPanel.setLayout(logoPanelLayout);
+        logoPanelLayout.setHorizontalGroup(
+            logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+        );
+        logoPanelLayout.setVerticalGroup(
+            logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
         corePanel.setLayout(corePanelLayout);
         corePanelLayout.setHorizontalGroup(
@@ -87,11 +103,17 @@ public class Authentification extends javax.swing.JFrame {
                     .addComponent(loginTextField)
                     .addComponent(mdpPasswordField))
                 .addGap(247, 247, 247))
+            .addGroup(corePanelLayout.createSequentialGroup()
+                .addGap(213, 213, 213)
+                .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
-                .addGap(176, 176, 176)
+                .addGap(40, 40, 40)
+                .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginTextField)
                     .addComponent(loginLabel))
@@ -145,6 +167,8 @@ public class Authentification extends javax.swing.JFrame {
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JTextField loginTextField;
+    private javax.swing.JLabel logoLabel;
+    private javax.swing.JPanel logoPanel;
     private javax.swing.JLabel mdpLabel;
     private javax.swing.JPasswordField mdpPasswordField;
     // End of variables declaration//GEN-END:variables
