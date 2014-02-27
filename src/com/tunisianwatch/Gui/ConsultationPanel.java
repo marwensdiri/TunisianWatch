@@ -9,7 +9,6 @@ import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
 import com.tunisianwatch.Model.UtilisateurTableModel;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

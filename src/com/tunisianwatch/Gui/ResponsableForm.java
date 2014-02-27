@@ -31,10 +31,10 @@ public class ResponsableForm extends javax.swing.JFrame {
     DefaultComboBoxModel<Etablissement> etablissementModel = new DefaultComboBoxModel<Etablissement>() ;
     
     public ResponsableForm (Object obj){
-        
         modif=true;
         this.user = (Utilisateur) obj ;
         initComponents();
+        setLocationRelativeTo(null);
         setTitle("Modification - "+user.getNom()+"  "+user.getPrenom());
         prenomTextfield.setText(user.getNom());
         nomTextfield.setText(user.getPrenom());
@@ -49,19 +49,20 @@ public class ResponsableForm extends javax.swing.JFrame {
         mdpTextfield.setText(user.getMdp());
         dateTextfield.setDate(user.getDateNaissance());
         pathTextfield.setText(user.getPhoto());
-        jButton1.setText("Modifier");
+        submitButton.setText("Modifier");
 
     }
    
     public ResponsableForm() {
         initComponents();
+        setLocationRelativeTo(null);
         List lE = new ArrayList();
         lE = etabblissementDao.selectEtablissements();
         for (Object e : lE) {
             etablissementModel.addElement((Etablissement) e);
             
         }
-        jComboBox1.setModel(etablissementModel);
+        etablissementComboBox.setModel(etablissementModel);
     }
 
     /**
@@ -75,8 +76,8 @@ public class ResponsableForm extends javax.swing.JFrame {
 
         jLabel11 = new javax.swing.JLabel();
         adrTextfield1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
+        submitButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         pseudoTextfield = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -88,7 +89,7 @@ public class ResponsableForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         mdpTextfield = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        parcourirToggleButton = new javax.swing.JToggleButton();
         prenomTextfield = new javax.swing.JTextField();
         pathTextfield = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -97,24 +98,24 @@ public class ResponsableForm extends javax.swing.JFrame {
         dateTextfield = new com.toedter.calendar.JDateChooser();
         adrTextfield2 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        etablissementComboBox = new javax.swing.JComboBox();
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Adresse :");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton2.setText("Fermer");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        closeButton.setText("Fermer");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                closeButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Ajouter");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitButton.setText("Ajouter");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         });
 
@@ -141,10 +142,10 @@ public class ResponsableForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Nom :");
 
-        jToggleButton1.setText("Parcourir");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        parcourirToggleButton.setText("Parcourir");
+        parcourirToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                parcourirToggleButtonActionPerformed(evt);
             }
         });
 
@@ -183,10 +184,10 @@ public class ResponsableForm extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Etablissement :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        etablissementComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        etablissementComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                etablissementComboBoxActionPerformed(evt);
             }
         });
 
@@ -211,9 +212,9 @@ public class ResponsableForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -235,10 +236,10 @@ public class ResponsableForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(parcourirToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(etablissementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(prenomTextfield)
                                         .addComponent(mdpTextfield)
@@ -271,15 +272,15 @@ public class ResponsableForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(etablissementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,19 +289,19 @@ public class ResponsableForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(parcourirToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 54, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
        if(!modif){
             user = new Utilisateur();
         }
@@ -324,15 +325,15 @@ public class ResponsableForm extends javax.swing.JFrame {
         else{
         userDao.insertResponsable(user);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_submitButtonActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void parcourirToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirToggleButtonActionPerformed
         JFileChooser shooser = new JFileChooser();
         shooser.showOpenDialog(null);
         File f = shooser.getSelectedFile();
         String filename = f.getAbsolutePath();
         pathTextfield.setText(filename);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_parcourirToggleButtonActionPerformed
 
     private void prenomTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prenomTextfieldActionPerformed
         // TODO add your handling code here:
@@ -358,9 +359,9 @@ public class ResponsableForm extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_nomTextfieldMouseExited
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void etablissementComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementComboBoxActionPerformed
         
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_etablissementComboBoxActionPerformed
 
     private void adrTextfield2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adrTextfield2ActionPerformed
         // TODO add your handling code here:
@@ -404,10 +405,9 @@ public class ResponsableForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adrTextfield1;
     private javax.swing.JTextField adrTextfield2;
+    private javax.swing.JButton closeButton;
     private com.toedter.calendar.JDateChooser dateTextfield;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox etablissementComboBox;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -419,13 +419,14 @@ public class ResponsableForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField mailTextfield;
     private javax.swing.JTextField mdpTextfield;
     private javax.swing.JTextField nomTextfield;
+    private javax.swing.JToggleButton parcourirToggleButton;
     private javax.swing.JTextField pathTextfield;
     private javax.swing.JTextField prenomTextfield;
     private javax.swing.JTextField pseudoTextfield;
     private javax.swing.JComboBox sexeCombox;
+    private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
 }

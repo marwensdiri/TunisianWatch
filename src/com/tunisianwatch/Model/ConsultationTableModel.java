@@ -6,7 +6,6 @@
 
 package com.tunisianwatch.Model;
 
-import com.tunisianwatch.Entities.Reclamation;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
