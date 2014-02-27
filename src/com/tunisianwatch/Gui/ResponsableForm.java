@@ -315,6 +315,7 @@ public class ResponsableForm extends javax.swing.JFrame {
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
         user.setType(new Character('R'));
+        user.setEtablissement((Etablissement)etablissementModel.getSelectedItem());
         if(modif){
             userDao.updateResponsable(user.getId(), user);
         }

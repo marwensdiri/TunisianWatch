@@ -31,17 +31,18 @@ public class EtablissementFrame extends javax.swing.JFrame {
         Etablissement etb = (Etablissement) obj;
         action = etb.getId();
         initComponents();
+        init();
         nomTxtFeild.setText(etb.getNom());
         descriptionTextArea.setText(etb.getDescription());
         imageTxtFeild.setText(etb.getImage());
         for (Domaine d : etb.getListDomaine()) {
-            domaines2Model.addElement(d);
-            domaines1Model.removeElement(d);
+            domaines2Model.addElement((Domaine) d);
+            domaines1Model.removeElement((Domaine) d);
         }
         submitBtn.setText("Modifer");
         utilisateurModel.setSelectedItem(etb.getResponsable());
         lieuModel.setSelectedItem(etb.getLieu());
-        init();
+
 
     }
 
@@ -345,7 +346,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
 
         if (verif()) {
-            Object[] arr = domaines1Model.toArray();
+            Object[] arr = domaines2Model.toArray();
             for (Object o : arr) {
                 listeDomainesAjouter.add((Domaine) o);
             }
@@ -354,8 +355,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
             int id = -1;
             int idDomaineAjouter = -1;
             EtablissementDao EDAO = new EtablissementDao();
-            etb.setLieu((Lieu) lieuCmboBox.getSelectedItem());
-            etb.setResponsable((Utilisateur) responsableCmboBox.getSelectedItem());
+            etb.setLieu((Lieu) lieuModel.getElementAt(lieuCmboBox.getSelectedIndex()));
+            etb.setResponsable((Utilisateur) utilisateurModel.getElementAt(responsableCmboBox.getSelectedIndex()));
             etb.setDescription(descriptionTextArea.getText());
             etb.setNom(nomTxtFeild.getText());
             etb.setImage(imageTxtFeild.getText());
@@ -365,8 +366,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 id = EDAO.insertEtablissement(etb);
 
             }
-            System.out.println(id);
-
             listeDomainesExistant = new DomaineDao().selectDomaines();
             for (Domaine d : listeDomainesAjouter) {
                 if (!listeDomainesExistant.contains(d)) {
@@ -376,9 +375,10 @@ public class EtablissementFrame extends javax.swing.JFrame {
                     etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
                 }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "err");
         }
+        this.hide();
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -485,8 +485,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }
 
     private boolean verif() {
-        if (nomTxtFeild.getText()=="")
+        if (nomTxtFeild.getText() == "") {
             return false;
+        }
         return true;
     }
 }
