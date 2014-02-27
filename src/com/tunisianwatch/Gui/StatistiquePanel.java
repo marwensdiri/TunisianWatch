@@ -182,8 +182,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 if (ComboType.getSelectedIndex() == 0) {
                     //piechart3D
                     AjouterChartpanelCercelEtat("Statistique par Etat");
-                } else {
-                    if (comboName.getSelectedIndex()==3)//barchar3D
+                } else { //barchar3D
                         AjouterChartpanelBarEtat("Statistique par Etat", "Etat", "Frequence des Reclamation");
                 }
             } else {//lieu
