@@ -38,7 +38,7 @@ public class ConsultationTableModel extends AbstractTableModel{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void removeRows(List elements) {
+    public boolean removeRows(List elements) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
