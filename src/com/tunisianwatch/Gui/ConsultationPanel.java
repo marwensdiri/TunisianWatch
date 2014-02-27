@@ -26,6 +26,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
+
     /**
      * Creates new form reclamationPanel
      */
@@ -41,14 +42,14 @@ public class ConsultationPanel extends javax.swing.JPanel {
             tableModel = new ReclamationTableModel();
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Réclamations"));
-        } else if(type.equals("citoyen")){
-             tableModel = new UtilisateurTableModel('C');
-             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age"}));
-              contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
-        } else if(type.equals("responsable")){
-             tableModel = new UtilisateurTableModel('R');
-             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age","Etablissement"}));
-              contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Résponsables"));
+        } else if (type.equals("citoyen")) {
+            tableModel = new UtilisateurTableModel('C');
+            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age"}));
+            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Citoyens"));
+        } else if (type.equals("responsable")) {
+            tableModel = new UtilisateurTableModel('R');
+            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age", "Etablissement"}));
+            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Résponsables"));
         }
         consultationTable.setModel(tableModel);
         consultationTable.setAutoCreateRowSorter(true);
@@ -228,10 +229,13 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
         switch (type) {
             case "citoyen":
-          new CitoyenForm().show();
+                new CitoyenForm().show();
                 break;
             case "responsable":
-                new   ResponsableForm().show();
+                new ResponsableForm().show();
+                break;
+            case "etablissement":
+                new EtablissementFrame().show();
                 break;
         }
     }//GEN-LAST:event_ajoutButtonActionPerformed
@@ -246,14 +250,13 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 Object element = tableModel.getElementAt(minIndex);
                 if (type.equals("reclamation")) {
                     new ReclamationApercuFrame(element).show();
-                }
-                else if(type.equals("citoyen")){
-                    new CitoyenForm(element).show(); ;
-                }
-                else if (type.equals("responsable") ) {
-                    new ResponsableForm(element).show(); ;
-                    
-                }
+                } else if (type.equals("citoyen")) {
+                    new CitoyenForm(element).show();;
+                } else if (type.equals("responsable")) {
+                    new ResponsableForm(element).show(); 
+                } else if (type.equals("etablissement")) {
+                    new EtablissementFrame(element).show(); 
+                } 
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
             }
