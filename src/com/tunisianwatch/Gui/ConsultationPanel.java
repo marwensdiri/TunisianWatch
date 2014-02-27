@@ -9,6 +9,7 @@ import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
 import com.tunisianwatch.Model.UtilisateurTableModel;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -50,6 +51,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
               contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Résponsables"));
         }
         consultationTable.setModel(tableModel);
+        consultationTable.setAutoCreateRowSorter(true);
         consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
     }
 
