@@ -214,7 +214,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 if (lsm.isSelectedIndex(i)) {
                     Object element = tableModel.getElementAt(i);
                     elements.add(element);
-                    //new ReclamationDao().deleteReclamation(etabTmp.getId());
                 }
             }
             tableModel.removeRows(elements);
