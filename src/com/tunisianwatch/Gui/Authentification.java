@@ -44,7 +44,6 @@ public class Authentification extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification - Tunisianwatch");
-        setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         loginLabel.setText("Login");
@@ -72,17 +71,20 @@ public class Authentification extends javax.swing.JFrame {
             }
         });
 
-        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/tw_logo_small.png"))); // NOI18N
-
         javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
         logoPanel.setLayout(logoPanelLayout);
         logoPanelLayout.setHorizontalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+            .addGroup(logoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         logoPanelLayout.setVerticalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(logoPanelLayout.createSequentialGroup()
+                .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
@@ -172,4 +174,3 @@ public class Authentification extends javax.swing.JFrame {
     private javax.swing.JLabel mdpLabel;
     private javax.swing.JPasswordField mdpPasswordField;
     // End of variables declaration//GEN-END:variables
-}
