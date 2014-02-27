@@ -206,7 +206,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Selectionner au moin une ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
         } else {
             int p = JOptionPane.showConfirmDialog(null, "!voulez-vous vraiment supprimer  cet élément?", "Supprimer", JOptionPane.YES_NO_OPTION);
-            System.out.println(p);
             if (p == 0) {
                 int minIndex = lsm.getMinSelectionIndex();
                 int maxIndex = lsm.getMaxSelectionIndex();
@@ -217,9 +216,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
                         elements.add(element);
                     }
                 }
-                if(!tableModel.removeRows(elements))
+                if (!tableModel.removeRows(elements)) {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la suppression ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                tableModel.fireTableDataChanged();
+                } else {
+                    tableModel.fireTableDataChanged();
+                }
             }
         }
     }//GEN-LAST:event_supprimerButtonActionPerformed
