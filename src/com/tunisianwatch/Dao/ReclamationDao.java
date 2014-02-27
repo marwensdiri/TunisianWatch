@@ -365,16 +365,18 @@ public class ReclamationDao {
      *
      * @param id
      */
-    public void deleteReclamation(int id) {
+    public boolean deleteReclamation(int id) {
         String requete = "delete from reclamation where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("reclamation supprimée");
+            return true;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("erreur lors de la suppression " + ex.getMessage());
+            return false;
         }
     }
 }

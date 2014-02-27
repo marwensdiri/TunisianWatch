@@ -56,12 +56,14 @@ public class EtablissementTableModel extends ConsultationTableModel {
     }
 
     public boolean removeRows(List elements) {
-        boolean done=true;
+        boolean done = true;
         List<Etablissement> lEtab = (List<Etablissement>) elements;
         for (int i = 0; i < lEtab.size(); i++) {
-            etablissementDao.deleteEtablissement(lEtab.get(i).getId());
-            if(!listEtablissement.remove(lEtab.get(i)))
-                done=false;
+            if (!etablissementDao.deleteEtablissement(lEtab.get(i).getId())) {
+                done = false;
+            } else {
+                listEtablissement.remove(lEtab.get(i));
+            }
         }
         return done;
     }

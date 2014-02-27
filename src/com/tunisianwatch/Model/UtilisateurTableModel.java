@@ -62,12 +62,14 @@ public class UtilisateurTableModel extends ConsultationTableModel {
     }
 
     public boolean removeRows(List elements) {
-        boolean done=true;
+        boolean done = true;
         List<Utilisateur> utilisateurs = (List<Utilisateur>) elements;
         for (int i = 0; i < utilisateurs.size(); i++) {
-            utilisateurDao.deleteUser(utilisateurs.get(i).getId());
-            if(!listUtilisateur.remove(utilisateurs.get(i)))
-                done=false;
+            if (!utilisateurDao.deleteUser(utilisateurs.get(i).getId())) {
+                done = false;
+            } else {
+                listUtilisateur.remove(utilisateurs.get(i));
+            }
         }
         return done;
     }

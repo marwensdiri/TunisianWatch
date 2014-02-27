@@ -183,7 +183,7 @@ public class EtablissementDao {
      *
      * @param id
      */
-    public void deleteEtablissement(int id) {
+    public boolean deleteEtablissement(int id) {
         EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         utilisateurDao.deleteUserByEtablissement(id);
@@ -195,8 +195,10 @@ public class EtablissementDao {
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("Suppression effectuée avec succès");
+            return true;
         } catch (SQLException ex) {
             System.out.println("erreur lors de la suppression " + ex.getMessage());
+            return false;
         }
 
     }

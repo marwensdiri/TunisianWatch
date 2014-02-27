@@ -55,12 +55,14 @@ public class ReclamationTableModel extends ConsultationTableModel {
     }
 
     public boolean removeRows(List elements) {
-        boolean done=true;
+        boolean done = true;
         List<Reclamation> lRec = (List<Reclamation>) elements;
         for (int i = 0; i < lRec.size(); i++) {
-            reclamationtDao.deleteReclamation(lRec.get(i).getId());
-            if(!listReclamation.remove(lRec.get(i)))
-                done=false;
+            if (!reclamationtDao.deleteReclamation(lRec.get(i).getId())) {
+                done = false;
+            } else {
+                listReclamation.remove(lRec.get(i));
+            }
         }
         return done;
     }
