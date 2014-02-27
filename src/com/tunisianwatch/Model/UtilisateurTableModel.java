@@ -65,6 +65,7 @@ public class UtilisateurTableModel extends ConsultationTableModel {
 
         List<Utilisateur> utilisateurs = (List<Utilisateur>) elements;
         for (int i = 0; i < utilisateurs.size(); i++) {
+            utilisateurDao.deleteUser(utilisateurs.get(i).getId());
             listUtilisateur.remove(utilisateurs.get(i));
         }
     }
