@@ -338,18 +338,25 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_to1ActionPerformed
 
     private void addDomainTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainTxtFieldActionPerformed
-        if (addDomainTxtField.getText() != "") {
-            domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
-            listeDomainesAjouter.add(new Domaine(addDomainTxtField.getText()));
-        }
-        addDomainTxtField.setText("");
+        addDomainBtnActionPerformed(evt);
     }//GEN-LAST:event_addDomainTxtFieldActionPerformed
 
     private void addDomainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainBtnActionPerformed
-        if (addDomainTxtField.getText() != "") {
+        boolean existe = true;
+        for (Domaine d : listeDomainesExistant){
+            if (d.getNom()==addDomainTxtField.getText()){
+                existe = true;
+                break;
+            }else existe=false;
+        }
+        if (addDomainTxtField.getText() != "" && !existe){
             domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
             listeDomainesAjouter.add(new Domaine(addDomainTxtField.getText()));
-        }
+        }else if (addDomainTxtField.getText().equals(""))
+                JOptionPane.showMessageDialog(null, "entrer un nom d'etablissement");
+              else
+                JOptionPane.showMessageDialog(null, "domaine existe deja !!");
+        
         addDomainTxtField.setText("");
     }//GEN-LAST:event_addDomainBtnActionPerformed
 
@@ -471,7 +478,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }
 
     private boolean verif() {
-        if (nomTxtFeild.getText() == "") {
+        if (nomTxtFeild.getText().equals("")) {
             return false;
         }
         return true;
