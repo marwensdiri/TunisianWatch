@@ -7,6 +7,7 @@
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.Reclamation;
+import javax.swing.Icon;
 
 /**
  *
@@ -20,8 +21,9 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     public ReclamationAprecu(Object obj) {
         Reclamation reclamation = (Reclamation) obj;
         initComponents();
-        //if(reclamation)
-        docPanel.hide();
+        if(reclamation.getPhotos().size()==0)
+            docPanel.hide();
+        //imageLabel.setIcon();
     }
 
     /**
@@ -33,6 +35,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        coreScrollPane = new javax.swing.JScrollPane();
         corePanel = new javax.swing.JPanel();
         textScrollPane = new javax.swing.JScrollPane();
         descriptionTextArea = new javax.swing.JTextArea();
@@ -41,7 +44,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         CitoyenLabel = new javax.swing.JLabel();
         domaineLabel = new javax.swing.JLabel();
         lieuLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        titlePanel = new javax.swing.JPanel();
         contentTitreLabel = new javax.swing.JLabel();
         citoyenContentLabel = new javax.swing.JLabel();
         citoyendomaine = new javax.swing.JLabel();
@@ -51,6 +54,8 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.CardLayout());
 
         corePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Reclamation - Apércu"));
+        corePanel.setMinimumSize(new java.awt.Dimension(600, 600));
+        corePanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
@@ -70,12 +75,12 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         lieuLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lieuLabel.setText("Lieu:");
 
-        jPanel1.setLayout(new java.awt.CardLayout());
+        titlePanel.setLayout(new java.awt.CardLayout());
 
         contentTitreLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         contentTitreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         contentTitreLabel.setText("test");
-        jPanel1.add(contentTitreLabel, "card2");
+        titlePanel.add(contentTitreLabel, "card2");
 
         javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
         corePanel.setLayout(corePanelLayout);
@@ -88,13 +93,12 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                         .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(corePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE))
                             .addGroup(corePanelLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(citoyendomaine, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(citoyendomaine, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(corePanelLayout.createSequentialGroup()
                         .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(corePanelLayout.createSequentialGroup()
@@ -114,8 +118,8 @@ public class ReclamationAprecu extends javax.swing.JFrame {
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(corePanelLayout.createSequentialGroup()
                         .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -136,7 +140,9 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(corePanel, "card2");
+        coreScrollPane.setViewportView(corePanel);
+
+        getContentPane().add(coreScrollPane, "card3");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,14 +188,15 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     private javax.swing.JLabel citoyendomaine;
     private javax.swing.JLabel contentTitreLabel;
     private javax.swing.JPanel corePanel;
+    private javax.swing.JScrollPane coreScrollPane;
     private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JPanel docPanel;
     private javax.swing.JLabel domaineLabel;
     private javax.swing.JLabel imageLabel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lieuContentLabel;
     private javax.swing.JLabel lieuLabel;
     private javax.swing.JScrollPane textScrollPane;
+    private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 
     

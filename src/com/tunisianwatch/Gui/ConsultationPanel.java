@@ -253,9 +253,9 @@ public class ConsultationPanel extends javax.swing.JPanel {
             if ((maxIndex - minIndex) == 0) {
                 Object element = tableModel.getElementAt(minIndex);
                 if (type.equals("reclamation")) {
-                    new ReclamationAprecu(new Object()).show();
+                    new ReclamationAprecu(element).show();
                 } else if (type.equals("citoyen")) {
-                    new CitoyenForm(element).show();;
+                    new CitoyenForm(element).show();
                 } else if (type.equals("responsable")) {
                     new ResponsableForm(element).show();
                 } else if (type.equals("etablissement")) {

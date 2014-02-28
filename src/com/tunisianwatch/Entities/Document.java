@@ -31,6 +31,7 @@ public class Document {
         this.nom = nom;
         this.idReclamation=idReclamation;
     }
+    
 
     public void setIdReclamation(int idReclamation) {
         this.idReclamation = idReclamation;

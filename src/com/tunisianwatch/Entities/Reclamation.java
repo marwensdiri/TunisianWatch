@@ -47,6 +47,14 @@ public class Reclamation {
         this.listDocument = listDocument;
     }
 
+    public List<Document> getPhotos(){
+        List<Document> listPhoto = new ArrayList<Document>();
+        for(Document doc : listDocument){
+            if(doc.getType()==1)
+                listPhoto.add(doc);
+        }
+        return listPhoto;
+    }
     
     public void addEvaluation(Evaluation ev){
         listEvaluation.add(ev);
