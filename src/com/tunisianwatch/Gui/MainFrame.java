@@ -136,19 +136,15 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reclamationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(etablissementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(responsableButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(responsableButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(statButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(citoyenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
-                        .addComponent(DisconnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(responsableButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(statButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(responsableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(citoyenButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reclamationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etablissementButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DisconnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,19 +153,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(responsableButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(statButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(etablissementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(citoyenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(responsableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(74, 74, 74))
         );
 
         contentPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -183,8 +179,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(bodyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                 .addContainerGap())
         );
         bodyPanelLayout.setVerticalGroup(
@@ -213,33 +209,17 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void etablissementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("etablissement"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-    }//GEN-LAST:event_etablissementButtonActionPerformed
+    private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed
+        this.dispose();
+        new Authentification().show();
+    }//GEN-LAST:event_DisconnectButtonActionPerformed
 
-    private void reclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationButtonActionPerformed
+    private void statButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statButtonActionPerformed
         contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("reclamation"));
+        contentPanel.add(new StatistiquePanel());
         contentPanel.repaint();
         contentPanel.revalidate();
-    }//GEN-LAST:event_reclamationButtonActionPerformed
-
-    private void citoyenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citoyenButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("citoyen"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-    }//GEN-LAST:event_citoyenButtonActionPerformed
-
-    private void responsableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("responsable"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-    }//GEN-LAST:event_responsableButtonActionPerformed
+    }//GEN-LAST:event_statButtonActionPerformed
 
     private void responsableButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButton1ActionPerformed
         // TODO add your handling code here:
@@ -249,17 +229,33 @@ public class MainFrame extends javax.swing.JFrame {
         contentPanel.revalidate();
     }//GEN-LAST:event_responsableButton1ActionPerformed
 
-    private void statButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statButtonActionPerformed
+    private void responsableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButtonActionPerformed
         contentPanel.removeAll();
-        contentPanel.add(new StatistiquePanel());
+        contentPanel.add(new ConsultationPanel("responsable"));
         contentPanel.repaint();
         contentPanel.revalidate();
-    }//GEN-LAST:event_statButtonActionPerformed
+    }//GEN-LAST:event_responsableButtonActionPerformed
 
-    private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed
-            this.dispose();       
-            new Authentification().show();
-    }//GEN-LAST:event_DisconnectButtonActionPerformed
+    private void citoyenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citoyenButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new ConsultationPanel("citoyen"));
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_citoyenButtonActionPerformed
+
+    private void reclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new ConsultationPanel("reclamation"));
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_reclamationButtonActionPerformed
+
+    private void etablissementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new ConsultationPanel("etablissement"));
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_etablissementButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
