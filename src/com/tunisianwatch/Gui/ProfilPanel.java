@@ -294,11 +294,15 @@ public class ProfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_nomTextfieldMouseExited
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
+        if (nomTextfield.getText().length() != 0 
+                & prenomTextfield.getText().length() != 0 
+                & pseudoTextfield.getText().length() != 0 
+                & mdpTextfield.getText().length() != 0 
+                & dateTextfield.getDate() != null) {
 
-            if (!modif) {
+            
                 user = new Utilisateur();
-            }
+            
             UtilisateurDao userDao = new UtilisateurDao();
 
             user.setNom(prenomTextfield.getText());
@@ -309,9 +313,11 @@ public class ProfilPanel extends javax.swing.JPanel {
             user.setMail(mailTextfield.getText());
             user.setMdp(mdpTextfield.getText());
             user.setDateNaissance(dateTextfield.getDate());
-            user.setPhoto(Path);
+            /////////////////////////////////////////
+            //user.setPhoto(Path);
+            /////////////////////////////////////////
             user.setType('A');
-            if (modif) {
+            
                 if(userDao.updateUser(user.getId(), user)){
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     ConsultationPanel.tableModel.refresh();
@@ -320,7 +326,7 @@ public class ProfilPanel extends javax.swing.JPanel {
                 else{
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
+            
                 if(userDao.insertUser(user)>0){
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
                     
@@ -328,9 +334,9 @@ public class ProfilPanel extends javax.swing.JPanel {
                     ConsultationPanel.tableModel.fireTableDataChanged();
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ","Erreur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion ","Erreur", JOptionPane.ERROR_MESSAGE);
                 }
-            }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }

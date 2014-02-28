@@ -128,8 +128,8 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
     }
 
-    public Blob getPhoto() {
-        return photo;
+    public String getPhoto(int id) {
+        return photo.toString();
     }
 
     public void setPhoto(Blob photo) {
