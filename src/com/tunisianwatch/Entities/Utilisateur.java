@@ -5,6 +5,7 @@
  */
 package com.tunisianwatch.Entities;
 
+import com.mysql.jdbc.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
-    private String photo;
+    private  String photo;
     private String login;
     private String mdp;
     private String mail;
@@ -128,7 +129,7 @@ public class Utilisateur {
     }
 
     public String getPhoto() {
-        return photo;
+        return photo.toString();
     }
 
     public void setPhoto(String photo) {

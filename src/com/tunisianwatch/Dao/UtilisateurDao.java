@@ -35,7 +35,7 @@ public class UtilisateurDao {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
-            ps.setString(3, u.getPhoto());
+            //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
             ps.setString(6, u.getLogin());
@@ -66,7 +66,7 @@ public class UtilisateurDao {
             ps.setInt(1, u.getEtablissement().getId());
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
-            ps.setString(4, u.getPhoto());
+            //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
             ps.setString(6, u.getAdress() + "");
             ps.setString(7, u.getLogin());
@@ -94,7 +94,7 @@ public class UtilisateurDao {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
-            ps.setString(3, u.getPhoto());
+            //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
             ps.setString(6, u.getLogin());
@@ -118,7 +118,7 @@ public class UtilisateurDao {
             ps.setInt(1, u.getEtablissement().getId());
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
-            ps.setString(4, u.getPhoto());
+            //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
             ps.setString(6, u.getAdress() + "");
             ps.setString(7, u.getLogin());

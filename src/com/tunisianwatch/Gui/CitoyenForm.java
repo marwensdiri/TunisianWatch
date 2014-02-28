@@ -47,7 +47,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         mailTextfield.setText(user.getMail());
         mdpTextfield.setText(user.getMdp());
         dateTextfield.setDate(user.getDateNaissance());
-        pathTextfield.setText(user.getPhoto());
+        //pathTextfield.setText(user.getPhoto());
         submitButton.setText("Modifier");
 
     }
@@ -315,7 +315,7 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setMail(mailTextfield.getText());
             user.setMdp(mdpTextfield.getText());
             user.setDateNaissance(dateTextfield.getDate());
-            user.setPhoto(pathTextfield.getText());
+            //user.setPhoto(pathTextfield.getText());
             user.setType('C');
             if (modif) {
                 if(userDao.updateUser(user.getId(), user)){
