@@ -61,12 +61,17 @@ public class UtilisateurTableModel extends ConsultationTableModel {
         return listUtilisateur.get(row);
     }
 
-    public void removeRows(List elements) {
-
+    public boolean removeRows(List elements) {
+        boolean done = true;
         List<Utilisateur> utilisateurs = (List<Utilisateur>) elements;
         for (int i = 0; i < utilisateurs.size(); i++) {
-            listUtilisateur.remove(utilisateurs.get(i));
+            if (!utilisateurDao.deleteUser(utilisateurs.get(i).getId())) {
+                done = false;
+            } else {
+                listUtilisateur.remove(utilisateurs.get(i));
+            }
         }
+        return done;
     }
 
     public void initSearch(String searchString, int searchIndex) {

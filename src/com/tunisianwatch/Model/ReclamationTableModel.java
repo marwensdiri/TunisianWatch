@@ -54,11 +54,17 @@ public class ReclamationTableModel extends ConsultationTableModel {
         return listReclamation.get(row);
     }
 
-    public void removeRows(List elements) {
+    public boolean removeRows(List elements) {
+        boolean done = true;
         List<Reclamation> lRec = (List<Reclamation>) elements;
         for (int i = 0; i < lRec.size(); i++) {
-            listReclamation.remove(lRec.get(i));
+            if (!reclamationtDao.deleteReclamation(lRec.get(i).getId())) {
+                done = false;
+            } else {
+                listReclamation.remove(lRec.get(i));
+            }
         }
+        return done;
     }
 
     public void initSearch(String searchString, int searchIndex) {

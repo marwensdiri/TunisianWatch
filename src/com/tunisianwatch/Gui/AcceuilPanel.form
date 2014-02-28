@@ -52,7 +52,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="menuPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="contentPanel" pref="653" max="32767" attributes="0"/>
+                  <Component id="contentPanel" pref="651" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -89,15 +89,23 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="reclamationButton" max="32767" attributes="0"/>
-                          <Component id="etablissementButton" alignment="1" max="32767" attributes="0"/>
-                          <Component id="responsableButton" alignment="1" max="32767" attributes="0"/>
-                          <Component id="responsableButton1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="statButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="citoyenButton" alignment="1" max="32767" attributes="0"/>
-                          <Component id="logoLabel" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="reclamationButton" max="32767" attributes="0"/>
+                                  <Component id="etablissementButton" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="responsableButton" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="responsableButton1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="statButton" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="citoyenButton" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="logoLabel" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="DisconnectButton" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -105,8 +113,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="logoLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="logoLabel" min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="responsableButton1" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="reclamationButton" min="-2" pref="35" max="-2" attributes="0"/>
@@ -118,7 +126,9 @@
                       <Component id="citoyenButton" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="responsableButton" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="DisconnectButton" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -214,6 +224,20 @@
                   <Image iconType="3" name="/com/tunisianwatch/Images/tw_logo_74x165.png"/>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="DisconnectButton">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="cc" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="D&#xe9;connexion"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DisconnectButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

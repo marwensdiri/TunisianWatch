@@ -9,7 +9,6 @@ import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
 import com.tunisianwatch.Model.UtilisateurTableModel;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -53,7 +52,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
         }
         consultationTable.setModel(tableModel);
         consultationTable.setAutoCreateRowSorter(true);
-        consultationTable.getSelectionModel().addListSelectionListener(new ReclamationTableListener());
+        consultationTable.getSelectionModel().addListSelectionListener(new ConsultationTableListener());
     }
 
     /**
@@ -206,19 +205,23 @@ public class ConsultationPanel extends javax.swing.JPanel {
         if (lsm == null) {
             JOptionPane.showMessageDialog(null, "Selectionner au moin une ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Find out which indexes are selected.
-            int minIndex = lsm.getMinSelectionIndex();
-            int maxIndex = lsm.getMaxSelectionIndex();
-            List elements = new ArrayList();
-            for (int i = minIndex; i <= maxIndex; i++) {
-                if (lsm.isSelectedIndex(i)) {
-                    Object element = tableModel.getElementAt(i);
-                    elements.add(element);
-                    //new ReclamationDao().deleteReclamation(etabTmp.getId());
+            int p = JOptionPane.showConfirmDialog(null, "!voulez-vous vraiment supprimer  cet élément?", "Supprimer", JOptionPane.YES_NO_OPTION);
+            if (p == 0) {
+                int minIndex = lsm.getMinSelectionIndex();
+                int maxIndex = lsm.getMaxSelectionIndex();
+                List elements = new ArrayList();
+                for (int i = minIndex; i <= maxIndex; i++) {
+                    if (lsm.isSelectedIndex(i)) {
+                        Object element = tableModel.getElementAt(i);
+                        elements.add(element);
+                    }
+                }
+                if (!tableModel.removeRows(elements)) {
+                    JOptionPane.showMessageDialog(null, "Erreur lors de la suppression ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    tableModel.fireTableDataChanged();
                 }
             }
-            tableModel.removeRows(elements);
-            tableModel.fireTableDataChanged();
         }
     }//GEN-LAST:event_supprimerButtonActionPerformed
 
@@ -253,17 +256,17 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 } else if (type.equals("citoyen")) {
                     new CitoyenForm(element).show();;
                 } else if (type.equals("responsable")) {
-                    new ResponsableForm(element).show(); 
+                    new ResponsableForm(element).show();
                 } else if (type.equals("etablissement")) {
-                    new EtablissementFrame(element).show(); 
-                } 
+                    new EtablissementFrame(element).show();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_modifierButtonActionPerformed
 
-    public class ReclamationTableListener implements ListSelectionListener {
+    public class ConsultationTableListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {

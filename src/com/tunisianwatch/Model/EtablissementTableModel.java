@@ -55,11 +55,17 @@ public class EtablissementTableModel extends ConsultationTableModel {
         return listEtablissement.get(row);
     }
 
-    public void removeRows(List elements) {
+    public boolean removeRows(List elements) {
+        boolean done = true;
         List<Etablissement> lEtab = (List<Etablissement>) elements;
         for (int i = 0; i < lEtab.size(); i++) {
-            listEtablissement.remove(lEtab.get(i));
+            if (!etablissementDao.deleteEtablissement(lEtab.get(i).getId())) {
+                done = false;
+            } else {
+                listEtablissement.remove(lEtab.get(i));
+            }
         }
+        return done;
     }
 
     public void initSearch(String searchString, int searchIndex) {

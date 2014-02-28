@@ -124,22 +124,20 @@ public class UtilisateurDao {
         }
     }
 
-    public void deleteUser(int id) {
-        int p = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimé ?", "Supprimé", JOptionPane.YES_NO_OPTION);
-        if (p == 0) {
+    public boolean deleteUser(int id) {
             String requete = "delete from utilisateur where id=?";
             try {
                 PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
                 ps.setInt(1, id);
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Utilisateur supprimée");
+                System.out.println("Utilisateur supprimée");
+                return true;
             } catch (SQLException ex) {
                 //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Erreur lors de la suppression", "Erreur", JOptionPane.ERROR_MESSAGE);
                 System.out.println("erreur lors de la suppression " + ex.getMessage());
+                return false;
             }
         }
-    }
 
     public List<Utilisateur> selectUsers() {
         List<Utilisateur> listeUsers = new ArrayList<Utilisateur>();
@@ -352,21 +350,18 @@ public class UtilisateurDao {
         }
     }
 
-    public void deleteUserByEtablissement(int idetablissement) {
-        int p = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimé ?", "Supprimé", JOptionPane.YES_NO_OPTION);
-        if (p == 0) {
+    public boolean deleteUserByEtablissement(int idetablissement) {
             String requete = "delete from utilisateur where idetablissement=?";
             try {
                 PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
                 ps.setInt(1, idetablissement);
                 ps.executeUpdate();
                 System.out.println("Utilisateur supprimée");
+                return true;
             } catch (SQLException ex) {
                 //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Erreur lors de la suppression ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 System.out.println("erreur lors de la suppression " + ex.getMessage());
+                return false;
             }
-        }
     }
-
 }
