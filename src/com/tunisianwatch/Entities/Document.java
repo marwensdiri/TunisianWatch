@@ -9,16 +9,18 @@ public class Document {
     private int type;
     private String url;
     private Blob content;
+    private int idReclamation;
 
     public Document() {
 
     }
 
-    public Document(String nom, int type, String url, Blob content) {
+    public Document(String nom, int type, String url, Blob content,int idReclamation) {
         this.type = type;
         this.url = url;
         this.content = content;
         this.nom = nom;
+        this.idReclamation=idReclamation;
     }
 
     public Document(int id, int type, String url) {
@@ -27,8 +29,19 @@ public class Document {
         this.url = url;
         this.content = content;
         this.nom = nom;
+        this.idReclamation=idReclamation;
     }
 
+    public void setIdReclamation(int idReclamation) {
+        this.idReclamation = idReclamation;
+    }
+
+    public int getIdReclamation() {
+        return idReclamation;
+    }
+
+    
+    
     public String getUrl() {
         return url;
     }
