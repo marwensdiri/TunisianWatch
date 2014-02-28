@@ -13,7 +13,8 @@ public class ReclamationDao {
      *
      * @param R
      */
-    public void insertReclamation(Reclamation r) {
+    public int insertReclamation(Reclamation r) {
+        int id=0;
         String requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,etat) values (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -27,14 +28,20 @@ public class ReclamationDao {
             ps.setInt(7, r.getDomaine().getId());
             ps.setInt(8, r.getEtat());
             ps.executeUpdate();
-
+            ResultSet rs = ps.getGeneratedKeys();
+              if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
             //<tmp>
             System.out.println("Ajout effectuée avec succès");
-            //</tmp>        
+            //</tmp>
+            return id;
         } catch (SQLException ex) {
             //<tmp>
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
             //</tmp>
+            return id;
         }
     }
 
@@ -43,7 +50,7 @@ public class ReclamationDao {
      * @param id
      * @param R
      */
-    public void updateReclamation(int id, Reclamation r) {
+    public boolean updateReclamation(int id, Reclamation r) {
         String requete = "update reclamation set idlieu=?, date=?, heure=?,";
         requete += "description=?, titre=?, idcitoyen=?, iddomaine=?, etat=? where id=?";
         try {
@@ -63,10 +70,12 @@ public class ReclamationDao {
             //<tmp>
             System.out.println("update effectuée avec succès");
             //</tmp>        
+            return true;
         } catch (SQLException ex) {
             //<tmp>
             System.out.println("erreur lors de l'update " + ex.getMessage());
             //</tmp>
+            return false;
         }
 
     }
