@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.EtablissementDao;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -24,22 +24,22 @@ import javax.swing.JTextField;
  * @author Skan
  */
 public class ResponsableForm extends javax.swing.JFrame {
-    
-    private boolean modif=false;
+
+    private boolean modif = false;
     private Utilisateur user;
-    EtablissementDao etabblissementDao = new EtablissementDao() ;
-    DefaultComboBoxModel<Etablissement> etablissementModel = new DefaultComboBoxModel<Etablissement>() ;
-    
-    public ResponsableForm (Object obj){
-        modif=true;
-        this.user = (Utilisateur) obj ;
+    EtablissementDao etabblissementDao = new EtablissementDao();
+    DefaultComboBoxModel<Etablissement> etablissementModel = new DefaultComboBoxModel<Etablissement>();
+
+    public ResponsableForm(Object obj) {
+        modif = true;
+        this.user = (Utilisateur) obj;
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Modification - "+user.getNom()+"  "+user.getPrenom());
+        setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
         prenomTextfield.setText(user.getNom());
         nomTextfield.setText(user.getPrenom());
         pseudoTextfield.setText(user.getLogin());
-      if (user.getSexe() == 'H') {
+        if (user.getSexe() == 'H') {
             sexeCombox.setSelectedIndex(0);
         } else {
             sexeCombox.setSelectedIndex(1);
@@ -52,7 +52,7 @@ public class ResponsableForm extends javax.swing.JFrame {
         submitButton.setText("Modifier");
 
     }
-   
+
     public ResponsableForm() {
         initComponents();
         setLocationRelativeTo(null);
@@ -60,7 +60,7 @@ public class ResponsableForm extends javax.swing.JFrame {
         lE = etabblissementDao.selectEtablissements();
         for (Object e : lE) {
             etablissementModel.addElement((Etablissement) e);
-            
+
         }
         etablissementComboBox.setModel(etablissementModel);
     }
@@ -297,12 +297,12 @@ public class ResponsableForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        
+
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       if(!modif){
+        if (!modif) {
             user = new Utilisateur();
         }
         UtilisateurDao userDao = new UtilisateurDao();
@@ -317,13 +317,24 @@ public class ResponsableForm extends javax.swing.JFrame {
         user.setDateNaissance(dateTextfield.getDate());
         user.setPhoto(pathTextfield.getText());
         user.setType(new Character('R'));
-        user.setEtablissement((Etablissement)etablissementModel.getSelectedItem());
-        
-        if(modif){
-            userDao.updateResponsable(user.getId(), user);
-        }
-        else{
-        userDao.insertResponsable(user);
+        user.setEtablissement((Etablissement) etablissementModel.getSelectedItem());
+
+        if (modif) {
+            if (userDao.updateResponsable(user.getId(), user)) {
+                JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
+                this.dispose();
+                ConsultationPanel.tableModel.refresh();
+                ConsultationPanel.tableModel.fireTableDataChanged();
+            }
+        } else {
+            if (userDao.insertResponsable(user) > 0) {
+                JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+                this.dispose();
+                ConsultationPanel.tableModel.refresh();
+                ConsultationPanel.tableModel.fireTableDataChanged();
+            } else {
+                JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
@@ -360,14 +371,13 @@ public class ResponsableForm extends javax.swing.JFrame {
     }//GEN-LAST:event_nomTextfieldMouseExited
 
     private void etablissementComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementComboBoxActionPerformed
-        
+
     }//GEN-LAST:event_etablissementComboBoxActionPerformed
 
     private void adrTextfield2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adrTextfield2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adrTextfield2ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adrTextfield1;

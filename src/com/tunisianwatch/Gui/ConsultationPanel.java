@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class ConsultationPanel extends javax.swing.JPanel {
 
-    private ConsultationTableModel tableModel;
+    public static ConsultationTableModel tableModel;
     private ListSelectionModel lsm;
     private String type;
 
@@ -199,6 +199,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         tableModel.refresh();
         tableModel.fireTableDataChanged();
+        lsm =null;
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void supprimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerButtonActionPerformed

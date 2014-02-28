@@ -31,9 +31,9 @@ public class CitoyenForm extends javax.swing.JFrame {
 
     public CitoyenForm(Object ob) {
         modif = true;
-        setLocationRelativeTo(null);
         this.user = (Utilisateur) ob;
         initComponents();
+        setLocationRelativeTo(null);
         setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
         prenomTextfield.setText(user.getNom());
         nomTextfield.setText(user.getPrenom());
@@ -313,13 +313,30 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setPhoto(pathTextfield.getText());
             user.setType('C');
             if (modif) {
-                userDao.updateUser(user.getId(), user);
+                if(userDao.updateUser(user.getId(), user)){
+                    JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
+                    this.dispose();
+                    ConsultationPanel.tableModel.refresh();
+                    ConsultationPanel.tableModel.fireTableDataChanged();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                userDao.insertUser(user);
+               if(userDao.insertUser(user)>0){
+                    JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+                    this.dispose();
+                    ConsultationPanel.tableModel.refresh();
+                    ConsultationPanel.tableModel.fireTableDataChanged();
+               }
+               else{
+                   JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ","Erreur", JOptionPane.ERROR_MESSAGE);
+               }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void nomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomTextfieldMouseExited

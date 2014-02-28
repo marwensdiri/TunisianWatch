@@ -5,18 +5,27 @@
  */
 package com.tunisianwatch.Gui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author asd
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    
+    public static int id;
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    
+    
+    
+    public MainFrame(int id) {
         initComponents();
         setLocationRelativeTo(null);
+        MainFrame.id=id;
     }
 
     /**
@@ -175,7 +184,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                 .addContainerGap())
         );
         bodyPanelLayout.setVerticalGroup(
@@ -248,8 +257,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_statButtonActionPerformed
 
     private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed
-        this.dispose();;
-        new Authentification().show();
+            this.dispose();       
+            new Authentification().show();
     }//GEN-LAST:event_DisconnectButtonActionPerformed
 
 

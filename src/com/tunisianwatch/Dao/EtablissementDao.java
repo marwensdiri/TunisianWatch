@@ -36,6 +36,7 @@ public class EtablissementDao {
             }
             rs.close();
             System.out.println("Ajout effectuée avec succès");
+            return id;
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
@@ -47,7 +48,7 @@ public class EtablissementDao {
      * @param id
      * @param E
      */
-    public void updateEtablissement(int id, Etablissement E) {
+    public boolean updateEtablissement(int id, Etablissement E) {
         String requete = "update etablissement set nom=?, description=?, image=?,idlieu=?,idresponsable=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -59,8 +60,10 @@ public class EtablissementDao {
             ps.setInt(6, E.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
+            return true;
         } catch (SQLException ex) {
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            return false;
         }
     }
 

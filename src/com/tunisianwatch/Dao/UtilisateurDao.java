@@ -28,8 +28,8 @@ public class UtilisateurDao {
     ResultSet rs = null;
     PreparedStatement pst = null;
 
-    public void insertUser(Utilisateur u) {
-
+    public int insertUser(Utilisateur u) {
+        int id=0;
         String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -44,17 +44,23 @@ public class UtilisateurDao {
             ps.setString(9, u.getType() + "");
             ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            return id;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            return id;
         }
 
     }
 
-    public void insertResponsable(Utilisateur u) {
+    public int insertResponsable(Utilisateur u) {
 
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
+        int id = 0;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, u.getEtablissement().getId());
@@ -69,15 +75,20 @@ public class UtilisateurDao {
             ps.setString(10, u.getType() + "");
             ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+             ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            return id;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion", "Erreur", JOptionPane.ERROR_MESSAGE);
-            System.out.println("erreur lors de l'insertion : " + ex.getMessage());
+            System.out.println("erreur insertion : \" + ex.getMessagelors de l'insertion : " + ex.getMessage());
+            return id;
         }
 
     }
 
-    public void updateUser(int id, Utilisateur u) {
+    public boolean updateUser(int id, Utilisateur u) {
         String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -93,14 +104,14 @@ public class UtilisateurDao {
             ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.setInt(11, id);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
+            return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            return false;
         }
     }
 
-    public void updateResponsable(int id, Utilisateur u) {
+    public boolean updateResponsable(int id, Utilisateur u) {
         String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -117,10 +128,10 @@ public class UtilisateurDao {
             ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.setInt(12, id);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
+            return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            return false;
         }
     }
 
