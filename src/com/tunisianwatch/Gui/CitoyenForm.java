@@ -307,8 +307,8 @@ public class CitoyenForm extends javax.swing.JFrame {
             }
             UtilisateurDao userDao = new UtilisateurDao();
 
-            user.setNom(prenomTextfield.getText());
-            user.setPrenom(nomTextfield.getText());
+            user.setNom(nomTextfield.getText());
+            user.setPrenom(prenomTextfield.getText());
             user.setLogin(pseudoTextfield.getText());
             user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
             user.setAdress(adrTextfield.getText());
