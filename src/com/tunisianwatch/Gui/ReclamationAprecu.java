@@ -23,6 +23,10 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         initComponents();
         if(reclamation.getPhotos().size()==0)
             docPanel.hide();
+        else{
+            /* byte[reclamation.getPhotos().get(0)] image;
+            Image img = Toolkit.getDefaultToolkit().createImage(image);*/
+        }
         //imageLabel.setIcon();
     }
 
