@@ -47,7 +47,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="BoutonPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
                       </Group>
                       <Component id="inputPanel" max="32767" attributes="0"/>
                   </Group>
@@ -71,8 +71,8 @@
         <Container class="javax.swing.JPanel" name="inputPanel">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Etablissement - Form"/>
               </Border>
             </Property>
           </Properties>
@@ -111,9 +111,10 @@
                                       </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace type="separate" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="imagePanel" alignment="1" min="-2" pref="81" max="-2" attributes="0"/>
                                           <Component id="responsablePanel" alignment="1" min="-2" pref="81" max="-2" attributes="0"/>
@@ -136,10 +137,7 @@
                                           <Component id="jScrollPane3" min="-2" pref="145" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="addDomainBtn" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="addDomainBtn" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="descriptionPanel" min="-2" pref="145" max="-2" attributes="0"/>
@@ -153,19 +151,23 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="nomTxtFeild" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="nomLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="responsablePanel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="responsableCmboBox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="nomLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="responsablePanel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="responsableCmboBox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lieuPanel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lieuCmboBox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="imagePanel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="addFileBtn" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="imageTxtFeild" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lieuPanel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="lieuCmboBox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="imagePanel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="imageTxtFeild" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -181,10 +183,12 @@
                           <Component id="domainePanel" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="addDoaminLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="addDomainTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="addDomainBtn" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="addDoaminLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="addDomainTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="descriptionPanel" min="-2" pref="30" max="-2" attributes="0"/>
@@ -384,10 +388,10 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="458" max="32767" attributes="0"/>
-                      <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="454" max="32767" attributes="0"/>
                       <Component id="submitBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
