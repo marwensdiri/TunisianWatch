@@ -24,8 +24,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     Reclamation reclamation;
 
     public ReclamationAprecu(Object obj) {
-        setLocationRelativeTo(null);
-        Reclamation reclamation = (Reclamation) obj;
+        reclamation = (Reclamation) obj;
         initComponents();
         setLocationRelativeTo(null);
         titreLabel.setText(reclamation.getTitre());
