@@ -14,6 +14,7 @@ public class Reclamation {
     private Domaine domaine;
     private int etat;
     private List<Evaluation> listEvaluation = new ArrayList<Evaluation>();
+    private List<Document> listDocument = new ArrayList<Document>();
 
     public Reclamation(int id, Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, int etat) {
         this.id = id;
@@ -38,6 +39,23 @@ public class Reclamation {
         this.domaine = domaine;
     }
 
+    public List<Document> getListDocument() {
+        return listDocument;
+    }
+
+    public void setListDocument(List<Document> listDocument) {
+        this.listDocument = listDocument;
+    }
+
+    public List<Document> getPhotos(){
+        List<Document> listPhoto = new ArrayList<Document>();
+        for(Document doc : listDocument){
+            if(doc.getType()==1)
+                listPhoto.add(doc);
+        }
+        return listPhoto;
+    }
+    
     public void addEvaluation(Evaluation ev){
         listEvaluation.add(ev);
     }

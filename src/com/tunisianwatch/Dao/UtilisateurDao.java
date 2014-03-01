@@ -317,7 +317,6 @@ public class UtilisateurDao {
             return listeUsers;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors du chargement ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors du chargement : " + ex.getMessage());
             return null;
         }
@@ -363,7 +362,6 @@ public class UtilisateurDao {
             return user;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erreur lors de la recherche  ", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("erreur lors de la recherche : " + ex.getMessage());
             return null;
         }

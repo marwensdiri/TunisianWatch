@@ -1,6 +1,7 @@
 package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
+import com.tunisianwatch.Entities.Document;
 import com.tunisianwatch.Entities.Reclamation;
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ReclamationDao {
      * @param R
      */
     public int insertReclamation(Reclamation r) {
-        int id=0;
+        int id = 0;
         String requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,etat) values (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -29,7 +30,7 @@ public class ReclamationDao {
             ps.setInt(8, r.getEtat());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-              if (rs.next()) {
+            if (rs.next()) {
                 id = rs.getInt(1);
             }
             rs.close();
@@ -92,6 +93,7 @@ public class ReclamationDao {
             ResultSet resultat = statement.executeQuery(requete);
             while (resultat.next()) {
                 Reclamation r = new Reclamation();
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setId(resultat.getInt("id"));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
@@ -128,6 +130,7 @@ public class ReclamationDao {
             if (resultat.next()) {
                 r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -159,6 +162,7 @@ public class ReclamationDao {
             while (resultat.next()) {
                 Reclamation r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -191,6 +195,7 @@ public class ReclamationDao {
             while (resultat.next()) {
                 Reclamation r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -223,6 +228,7 @@ public class ReclamationDao {
             while (resultat.next()) {
                 Reclamation r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -254,8 +260,8 @@ public class ReclamationDao {
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 r = new Reclamation();
-                r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -287,6 +293,7 @@ public class ReclamationDao {
             while (resultat.next()) {
                 Reclamation r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -319,6 +326,7 @@ public class ReclamationDao {
             while (resultat.next()) {
                 Reclamation r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -349,8 +357,9 @@ public class ReclamationDao {
             ps.setInt(1, etat);
             ResultSet resultat = ps.executeQuery();
             while (resultat.next()) {
-               Reclamation r = new Reclamation();
+                Reclamation r = new Reclamation();
                 r.setId(resultat.getInt("id"));
+                r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
