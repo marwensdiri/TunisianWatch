@@ -7,6 +7,10 @@ package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.*;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,12 +33,45 @@ public class UtilisateurDao {
     PreparedStatement pst = null;
 
     public int insertUser(Utilisateur u) {
-        int id=0;
+        int id = 0;
         String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
+            //ps.setString(3, u.getPhoto());
+            ps.setString(4, u.getSexe() + "");
+            ps.setString(5, u.getAdress() + "");
+            ps.setString(6, u.getLogin());
+            ps.setString(7, u.getMdp());
+            ps.setString(8, u.getMail());
+            ps.setString(9, u.getType() + "");
+            ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            return id;
+        }
+
+    }
+
+    public int insertUser(Utilisateur u, String PathImage) throws FileNotFoundException {
+        int id = 0;
+        String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, u.getNom());
+            ps.setString(2, u.getPrenom());
+            //---------------------------------
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            //---------------------------------
             //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
@@ -75,7 +112,42 @@ public class UtilisateurDao {
             ps.setString(10, u.getType() + "");
             ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
             ps.executeUpdate();
-             ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("erreur insertion : \" + ex.getMessagelors de l'insertion : " + ex.getMessage());
+            return id;
+        }
+
+    }
+
+    public int insertResponsable(Utilisateur u, String PathImage) throws FileNotFoundException {
+
+        String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
+        int id = 0;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, u.getEtablissement().getId());
+            ps.setString(2, u.getNom());
+            ps.setString(3, u.getPrenom());
+            //---------------------------------
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            //---------------------------------
+            //ps.setString(4, u.getPhoto());
+            ps.setString(5, u.getSexe() + "");
+            ps.setString(6, u.getAdress() + "");
+            ps.setString(7, u.getLogin());
+            ps.setString(8, u.getMdp());
+            ps.setString(9, u.getMail());
+            ps.setString(10, u.getType() + "");
+            ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
@@ -94,6 +166,33 @@ public class UtilisateurDao {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
+            //ps.setString(3, u.getPhoto());
+            ps.setString(4, u.getSexe() + "");
+            ps.setString(5, u.getAdress() + "");
+            ps.setString(6, u.getLogin());
+            ps.setString(7, u.getMdp());
+            ps.setString(8, u.getMail());
+            ps.setString(9, u.getType() + "");
+            ps.setDate(10, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.setInt(11, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateUser(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
+        String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, u.getNom());
+            ps.setString(2, u.getPrenom());
+            //---------------------------------
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            //---------------------------------
             //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
@@ -135,24 +234,55 @@ public class UtilisateurDao {
         }
     }
 
-    public boolean deleteUser(int id) {
-            String requete = "delete from utilisateur where id=?";
-            try {
-                PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-                ps.setInt(1, id);
-                ps.executeUpdate();
-                System.out.println("Utilisateur supprimée");
-                return true;
-            } catch (SQLException ex) {
-                //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("erreur lors de la suppression " + ex.getMessage());
-                return false;
-            }
+    public boolean updateResponsable(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
+        String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, u.getEtablissement().getId());
+            ps.setString(2, u.getNom());
+            ps.setString(3, u.getPrenom());
+            //---------------------------------
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            //---------------------------------
+            //ps.setString(4, u.getPhoto());
+            ps.setString(5, u.getSexe() + "");
+            ps.setString(6, u.getAdress() + "");
+            ps.setString(7, u.getLogin());
+            ps.setString(8, u.getMdp());
+            ps.setString(9, u.getMail());
+            ps.setString(10, u.getType() + "");
+            ps.setDate(11, new java.sql.Date(u.getDateNaissance().getTime()));
+            ps.setInt(12, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            return false;
         }
+    }
+
+    public boolean deleteUser(int id) {
+        String requete = "delete from utilisateur where id=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Utilisateur supprimée");
+            return true;
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+            return false;
+        }
+    }
 
     public List<Utilisateur> selectUsers() {
         List<Utilisateur> listeUsers = new ArrayList<Utilisateur>();
-
+//------------------------------------------------------------------------------        
+        byte[] Imagebytes;
+        Image image;
+//------------------------------------------------------------------------------
         String requete = "select * from Utilisateur";
         try {
             Statement statement = ResourceManager.getInstance()
@@ -168,7 +298,12 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-                user.setPhoto(resultat.getString("photo"));
+//------------------------------------------------------------------------------
+                Imagebytes = resultat.getBytes(5);
+                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                user.setPhoto(image);
+//------------------------------------------------------------------------------
+                //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
                 user.setAdress(resultat.getString("adress"));
                 user.setLogin(resultat.getString("login"));
@@ -190,7 +325,10 @@ public class UtilisateurDao {
 
     public Utilisateur selectUserById(int id) {
         Utilisateur user = new Utilisateur();
-
+//------------------------------------------------------------------------------        
+        byte[] Imagebytes;
+        Image image;
+//------------------------------------------------------------------------------
         String requete = "select * from Utilisateur where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -206,7 +344,12 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-                user.setPhoto(resultat.getString("photo"));
+//------------------------------------------------------------------------------
+                Imagebytes = resultat.getBytes(5);
+                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                user.setPhoto(image);
+//------------------------------------------------------------------------------               
+                //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
                 user.setAdress(resultat.getString("adress"));
                 user.setLogin(resultat.getString("login"));
@@ -227,7 +370,10 @@ public class UtilisateurDao {
 
     public Utilisateur selectUserByLogin(String login) {
         Utilisateur user = new Utilisateur();
-
+//------------------------------------------------------------------------------        
+        byte[] Imagebytes;
+        Image image;
+//------------------------------------------------------------------------------
         String requete = "select * from Utilisateur where login=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -243,7 +389,12 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-                user.setPhoto(resultat.getString("photo"));
+//------------------------------------------------------------------------------
+                Imagebytes = resultat.getBytes(5);
+                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                user.setPhoto(image);
+//------------------------------------------------------------------------------                
+                //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
                 user.setAdress(resultat.getString("adress"));
                 user.setLogin(resultat.getString("login"));
@@ -264,7 +415,10 @@ public class UtilisateurDao {
 
     public Utilisateur selectUserByMail(String mail) {
         Utilisateur user = new Utilisateur();
-
+//------------------------------------------------------------------------------        
+        byte[] Imagebytes;
+        Image image;
+//------------------------------------------------------------------------------
         String requete = "select * from Utilisateur where mail=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -280,7 +434,12 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-                user.setPhoto(resultat.getString("photo"));
+//------------------------------------------------------------------------------
+                Imagebytes = resultat.getBytes(5);
+                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                user.setPhoto(image);
+//------------------------------------------------------------------------------                
+                //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
                 user.setAdress(resultat.getString("adress"));
                 user.setLogin(resultat.getString("login"));
@@ -301,6 +460,10 @@ public class UtilisateurDao {
     public List<Utilisateur> selectUserByType(char type) {
 
         List<Utilisateur> listUtilisateur = new ArrayList<Utilisateur>();
+//------------------------------------------------------------------------------        
+        byte[] Imagebytes;
+        Image image;
+//------------------------------------------------------------------------------        
         String requete = "select * from Utilisateur where type=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -316,7 +479,12 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-                user.setPhoto(resultat.getString("photo"));
+//------------------------------------------------------------------------------
+                Imagebytes = resultat.getBytes(5);
+                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                user.setPhoto(image);
+//------------------------------------------------------------------------------                  
+                //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
                 user.setAdress(resultat.getString("adress"));
                 user.setLogin(resultat.getString("login"));
@@ -339,6 +507,10 @@ public class UtilisateurDao {
 
     public Utilisateur Authentification(String login, String password) {
         Utilisateur user = null;
+//------------------------------------------------------------------------------        
+        byte[] Imagebytes;
+        Image image;
+//------------------------------------------------------------------------------ 
         try {
             String requete = "select * from utilisateur where login=? and mdp=?";
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -346,7 +518,13 @@ public class UtilisateurDao {
             ps.setString(2, password);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), resultat.getString("photo"), resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
+                user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), null, resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
+//------------------------------------------------------------------------------
+                Imagebytes = resultat.getBytes(5);
+                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                user.setPhoto(image);
+//------------------------------------------------------------------------------                       
+
                 if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
                     user.setEtablissement(etablissement);
@@ -360,17 +538,17 @@ public class UtilisateurDao {
     }
 
     public boolean deleteUserByEtablissement(int idetablissement) {
-            String requete = "delete from utilisateur where idetablissement=?";
-            try {
-                PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-                ps.setInt(1, idetablissement);
-                ps.executeUpdate();
-                System.out.println("Utilisateur supprimée");
-                return true;
-            } catch (SQLException ex) {
-                //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("erreur lors de la suppression " + ex.getMessage());
-                return false;
-            }
+        String requete = "delete from utilisateur where idetablissement=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idetablissement);
+            ps.executeUpdate();
+            System.out.println("Utilisateur supprimée");
+            return true;
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+            return false;
+        }
     }
 }

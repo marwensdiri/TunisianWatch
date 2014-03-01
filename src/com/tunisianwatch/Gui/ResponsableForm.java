@@ -12,8 +12,11 @@ import com.tunisianwatch.Entities.Utilisateur;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -48,7 +51,7 @@ public class ResponsableForm extends javax.swing.JFrame {
         mailTextfield.setText(user.getMail());
         mdpTextfield.setText(user.getMdp());
         dateTextfield.setDate(user.getDateNaissance());
-        pathTextfield.setText(user.getPhoto());
+        //pathTextfield.setText(user.getPhoto());             il faut le maitre l'image dans un label
         submitButton.setText("Modifier");
 
     }
@@ -337,25 +340,33 @@ public class ResponsableForm extends javax.swing.JFrame {
         user.setMail(mailTextfield.getText());
         user.setMdp(mdpTextfield.getText());
         user.setDateNaissance(dateTextfield.getDate());
-        user.setPhoto(pathTextfield.getText());
+        //user.setPhoto(pathTextfield.getText());
         user.setType(new Character('R'));
         user.setEtablissement((Etablissement) etablissementModel.getSelectedItem());
 
         if (modif) {
-            if (userDao.updateResponsable(user.getId(), user)) {
-                JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
-                this.dispose();
-                ConsultationPanel.tableModel.refresh();
-                ConsultationPanel.tableModel.fireTableDataChanged();
+            try {
+                if (userDao.updateResponsable(user.getId(), user, pathTextfield.getText())) {
+                    JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
+                    this.dispose();
+                    ConsultationPanel.tableModel.refresh();
+                    ConsultationPanel.tableModel.fireTableDataChanged();
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ResponsableForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            if (userDao.insertResponsable(user) > 0) {
-                JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
-                this.dispose();
-                ConsultationPanel.tableModel.refresh();
-                ConsultationPanel.tableModel.fireTableDataChanged();
-            } else {
-                JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+            try {
+                if (userDao.insertResponsable(user, pathTextfield.getText()) > 0) {
+                    JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+                    this.dispose();
+                    ConsultationPanel.tableModel.refresh();
+                    ConsultationPanel.tableModel.fireTableDataChanged();
+                } else {
+                    JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ResponsableForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -393,14 +404,11 @@ public class ResponsableForm extends javax.swing.JFrame {
     }//GEN-LAST:event_nomTextfieldMouseExited
 
     private void etablissementComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementComboBoxActionPerformed
-
     }//GEN-LAST:event_etablissementComboBoxActionPerformed
 
     private void adrTextfield2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adrTextfield2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adrTextfield2ActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adrTextfield1;
     private javax.swing.JTextField adrTextfield2;
