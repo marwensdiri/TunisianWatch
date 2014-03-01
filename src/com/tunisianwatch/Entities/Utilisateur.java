@@ -5,11 +5,10 @@
  */
 package com.tunisianwatch.Entities;
 
-import com.mysql.jdbc.Blob;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
+import java.awt.Image;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 /**
  *
@@ -23,7 +22,7 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
-    private  String photo;
+    private Image photo;
     private String login;
     private String mdp;
     private String mail;
@@ -38,7 +37,7 @@ public class Utilisateur {
         return nom+" "+prenom;
     }
 
-    public Utilisateur(Etablissement etablissement, String nom, String prenom, String photo, char sexe, String adress, String login, String mdp, String mail, char type, Date dateNaissance) {
+    public Utilisateur(Etablissement etablissement, String nom, String prenom, Image photo, char sexe, String adress, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.etablissement = etablissement;
         this.nom = nom;
         this.prenom = prenom;
@@ -52,7 +51,7 @@ public class Utilisateur {
         this.sexe = sexe;
     }
 
-    public Utilisateur(int id, Etablissement etablissement, String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
+    public Utilisateur(int id, Etablissement etablissement, String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -65,7 +64,7 @@ public class Utilisateur {
         this.etablissement = etablissement;
     }
     
-    public Utilisateur(int id,String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
+    public Utilisateur(int id,String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -77,7 +76,7 @@ public class Utilisateur {
         this.type = type;
     }
     
-       public Utilisateur(String nom, String prenom, String photo, String login, String mdp, String mail, char type, Date dateNaissance) {
+       public Utilisateur(String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -128,11 +127,11 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
     }
 
-    public String getPhoto() {
-        return photo.toString();
+    public Image getPhoto() {
+        return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Image photo) {
         this.photo = photo;
     }
 
