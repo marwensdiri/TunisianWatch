@@ -27,6 +27,10 @@ public class MainFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         MainFrame.id=id;
         
+        contentPanel.removeAll();
+        contentPanel.add(new ProfilPanel());
+        contentPanel.repaint();
+        contentPanel.revalidate();
         
     }
 
