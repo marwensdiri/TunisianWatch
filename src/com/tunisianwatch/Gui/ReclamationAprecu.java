@@ -5,14 +5,13 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.CommentaireDao;
+import com.tunisianwatch.Entities.Commentaire;
 import com.tunisianwatch.Entities.Reclamation;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
@@ -21,42 +20,11 @@ import javax.swing.JPanel;
 public class ReclamationAprecu extends javax.swing.JFrame {
 
     List<Image> listImage;
-    int indexImage = 1;
-
-    public ReclamationAprecu() {
-        initComponents();
-        setLocationRelativeTo(null);
-        List<CommentairePanel> comms = new ArrayList<CommentairePanel>();
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        comms.add(new CommentairePanel());
-        java.awt.GridLayout grid;
-        grid = new java.awt.GridLayout(comms.size(), 0, 0, 0);
-        grid.setHgap(18);
-        commentairePanel.setLayout(grid);
-        for (CommentairePanel t : comms) {
-            t.setSize(20, 20);
-            commentairePanel.add(t);
-        }
-        commentairePanel.revalidate();
-        commentairePanel.repaint();
-
-    }
+    int indexImage = 0;
+    Reclamation reclamation;
 
     public ReclamationAprecu(Object obj) {
-        Reclamation reclamation = (Reclamation) obj;
+        reclamation = (Reclamation) obj;
         initComponents();
         setLocationRelativeTo(null);
         titreLabel.setText(reclamation.getTitre());
@@ -75,6 +43,12 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         listImage = reclamation.getImages();
         if (listImage.size() > 0) {
             setImage();
+        }
+        List<Commentaire> commentaires = new CommentaireDao().selectCommentairesByIdReclamation(reclamation.getId());
+        java.awt.GridLayout grid = new java.awt.GridLayout(commentaires.size(), 0, 0, 0);
+        commentairePanel.setLayout(grid);
+        for (Commentaire commentaire : commentaires) {
+            commentairePanel.add(new CommentairePanel(commentaire));
         }
     }
 
@@ -109,12 +83,19 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         descriptionTextArea = new javax.swing.JTextArea();
         comsScrollPane = new javax.swing.JScrollPane();
         commentairePanel = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        nextButton = new javax.swing.JButton();
+        previousButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(619, 303));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(998, 478));
+        setPreferredSize(new java.awt.Dimension(998, 478));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         coreScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        coreScrollPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        coreScrollPane.setMinimumSize(new java.awt.Dimension(0, 0));
+        coreScrollPane.setPreferredSize(new java.awt.Dimension(898, 478));
 
         titreLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         titreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -151,7 +132,6 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         etatContentLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         descriptionTextArea.setEditable(false);
-        descriptionTextArea.setBackground(new java.awt.Color(204, 204, 204));
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
         descriptionTextArea.setDisabledTextColor(new java.awt.Color(204, 204, 204));
@@ -163,7 +143,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         commentairePanel.setLayout(commentairePanelLayout);
         commentairePanelLayout.setHorizontalGroup(
             commentairePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGap(0, 945, Short.MAX_VALUE)
         );
         commentairePanelLayout.setVerticalGroup(
             commentairePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,37 +152,58 @@ public class ReclamationAprecu extends javax.swing.JFrame {
 
         comsScrollPane.setViewportView(commentairePanel);
 
+        nextButton.setText(">");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+
+        previousButton.setText("<");
+        previousButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
         corePanel.setLayout(corePanelLayout);
         corePanelLayout.setHorizontalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comsScrollPane)
                     .addComponent(descriptionScrollPane)
-                    .addComponent(titreLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
-                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                    .addGroup(corePanelLayout.createSequentialGroup()
+                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(corePanelLayout.createSequentialGroup()
                                 .addComponent(etatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(etatContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
-                                .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                                .addComponent(etatContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(corePanelLayout.createSequentialGroup()
                                 .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                                .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(corePanelLayout.createSequentialGroup()
                                 .addComponent(citoyenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(corePanelLayout.createSequentialGroup()
+                                .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(comsScrollPane, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(titreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(previousButton)
+                        .addGap(45, 45, 45)
+                        .addComponent(nextButton)
+                        .addGap(416, 416, 416)))
+                .addContainerGap())
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +218,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lieuContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lieuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(etatContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(etatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
@@ -227,11 +228,17 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                     .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nextButton)
+                    .addComponent(previousButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(comsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         coreScrollPane.setViewportView(corePanel);
@@ -240,6 +247,20 @@ public class ReclamationAprecu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+        if (indexImage > 0) {
+            indexImage--;
+            setImage();
+        }
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        if (indexImage < listImage.size() - 1) {
+            indexImage++;
+            setImage();
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,7 +292,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReclamationAprecu().setVisible(true);
+                // new ReclamationAprecu().setVisible(true);
             }
         });
     }
@@ -290,81 +311,125 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     private javax.swing.JLabel etatContentLabel;
     private javax.swing.JLabel etatLabel;
     private javax.swing.JLabel imageLabel;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lieuContentLabel;
     private javax.swing.JLabel lieuLabel;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JButton previousButton;
     private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
 
+    public class CommentairePanel extends javax.swing.JPanel {
 
+        
+         private Commentaire commentaire;
+        /**
+         * Creates new form CommentairePanel
+         */
+        public CommentairePanel(Commentaire commentaire) {
+            this.commentaire=commentaire;
+            initComponents();
+            if (commentaire.getUser().getType() == 'R') {
+                auteurContentLabel.setText(commentaire.getUser() + " (Résponsable)");
+            } else {
+                auteurContentLabel.setText(commentaire.getUser() + "");
+            }
+            dateContentLabel.setText(commentaire.getDate() + "");
+            commentaireTextArea.setText(commentaire.getTexte());
+        }
 
-public class CommentairePanel extends javax.swing.JPanel {
+        private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+            new CommentaireDao().deleteCommentaire(commentaire.getId());
+            commentairePanel.remove(this);
+            commentairePanel.revalidate();
+            commentairePanel.repaint();
+        }
 
-    /**
-     * Creates new form CommentairePanel
-     */
-    public CommentairePanel() {
-        initComponents();
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+        /**
+         * This method is called from within the constructor to initialize the
+         * form. WARNING: Do NOT modify this code. The content of this method is
+         * always regenerated by the Form Editor.
+         */
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        citoyenLabel = new javax.swing.JLabel();
-        dateLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        comPanel = new javax.swing.JPanel();
+        auteurContentLabel = new javax.swing.JLabel();
+        dateContentLabel = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        commentaireTextArea = new javax.swing.JTextArea();
+        auteurLabel = new javax.swing.JLabel();
+        DateLabel = new javax.swing.JLabel();
+        jSeparator = new javax.swing.JSeparator();
 
-        setPreferredSize(new java.awt.Dimension(762, 100));
+        setPreferredSize(new java.awt.Dimension(762, 196));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        comPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        citoyenLabel.setText("pseudo");
+        auteurContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        auteurContentLabel.setText("pseudo");
 
-        dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dateLabel.setText("date");
+        dateContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dateContentLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        dateContentLabel.setText("date");
 
-        jLabel1.setText("commentaire ...");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        deleteButton.setBackground(new java.awt.Color(204, 0, 0));
+        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        deleteButton.setText("Supprimer");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(204, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Supprimer");
+        commentaireTextArea.setEditable(false);
+        commentaireTextArea.setColumns(20);
+        commentaireTextArea.setTabSize(0);
+        jScrollPane1.setViewportView(commentaireTextArea);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        auteurLabel.setText("Auteur:");
+
+        DateLabel.setText("Date:");
+
+        javax.swing.GroupLayout comPanelLayout = new javax.swing.GroupLayout(comPanel);
+        comPanel.setLayout(comPanelLayout);
+        comPanelLayout.setHorizontalGroup(
+            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(comPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(citoyenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
-                        .addGap(70, 70, 70)
-                        .addComponent(jButton1)))
+                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(comPanelLayout.createSequentialGroup()
+                        .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DateLabel)
+                            .addComponent(auteurLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(comPanelLayout.createSequentialGroup()
+                                .addComponent(auteurContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                                .addComponent(deleteButton))
+                            .addGroup(comPanelLayout.createSequentialGroup()
+                                .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        comPanelLayout.setVerticalGroup(
+            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(comPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(citoyenLabel)
-                    .addComponent(jButton1))
+                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(auteurContentLabel)
+                    .addComponent(deleteButton)
+                    .addComponent(auteurLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DateLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -374,34 +439,32 @@ public class CommentairePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(comPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-    }// </editor-fold>                        
+    }// </editor-fold>                    
 
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JLabel citoyenLabel;
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+        // Variables declaration - do not modify                     
+        private javax.swing.JLabel DateLabel;
+        private javax.swing.JLabel auteurContentLabel;
+        private javax.swing.JLabel auteurLabel;
+        private javax.swing.JPanel comPanel;
+        private javax.swing.JTextArea commentaireTextArea;
+        private javax.swing.JPanel contentPanel;
+        private javax.swing.JLabel dateContentLabel;
+        private javax.swing.JButton deleteButton;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JSeparator jSeparator;
     // End of variables declaration                   
-}
+    }
 
-
-
-
-
-
-
-
-    
 }
