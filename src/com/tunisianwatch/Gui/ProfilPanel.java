@@ -6,14 +6,20 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,8 +31,9 @@ import javax.swing.JTextField;
  */
 public class ProfilPanel extends javax.swing.JPanel {
 
-    String Path;
-    Utilisateur user = new Utilisateur();
+    //String PathImage = "C:\\Users\\DELL\\Documents\\NetBeansProjects\\TunisianWatch\\src\\com\\tunisianwatch\\Images\\avatar.png";
+    String PathImage = "C:\\..\\com\\tunisianwatch\\Images\\avatar.png";
+    Utilisateur logger = new UtilisateurDao().selectUserById(MainFrame.id);
     Boolean modif = null;
 
     /**
@@ -36,6 +43,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         initComponents();
         Utilisateur logger = new UtilisateurDao().selectUserById(MainFrame.id);
         lblUser.setText(logger.getNom() + " " + logger.getPrenom());
+        contentPanel.setName("Profil " + logger.getNom() + " " + logger.getPrenom());
         nomTextfield.setText(logger.getNom());
         prenomTextfield.setText(logger.getPrenom());
         pseudoTextfield.setText(logger.getLogin());
@@ -49,6 +57,11 @@ public class ProfilPanel extends javax.swing.JPanel {
         }
         adrTextfield.setText(logger.getAdress());
         dateTextfield.setDate(logger.getDateNaissance());
+        lblImage.setBounds(0, 0, 250, 250);                 //affecter la width,heigth
+        //JOptionPane.showConfirmDialog(null, lblImage.getWidth()+" "+ lblImage.getHeight());//test unitaire
+        lblImage.removeAll();
+        ImageIcon icon = new ImageIcon(logger.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
+        lblImage.setIcon(icon);
 
 
     }
@@ -65,12 +78,12 @@ public class ProfilPanel extends javax.swing.JPanel {
         contentPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         nomTextfield = new javax.swing.JTextField();
-        submitButton = new javax.swing.JButton();
-        submitButton1 = new javax.swing.JButton();
+        btnModifier = new javax.swing.JButton();
+        btnAnnuler = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         prenomTextfield = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        submitButton2 = new javax.swing.JButton();
+        lblImage = new javax.swing.JLabel();
+        btnModifphoto = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         pseudoTextfield = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -106,21 +119,21 @@ public class ProfilPanel extends javax.swing.JPanel {
             }
         });
 
-        submitButton.setBackground(new java.awt.Color(204, 0, 0));
-        submitButton.setForeground(new java.awt.Color(255, 255, 255));
-        submitButton.setText("Modifier");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
+        btnModifier.setBackground(new java.awt.Color(204, 0, 0));
+        btnModifier.setForeground(new java.awt.Color(255, 255, 255));
+        btnModifier.setText("Modifier");
+        btnModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                btnModifierActionPerformed(evt);
             }
         });
 
-        submitButton1.setBackground(new java.awt.Color(204, 0, 0));
-        submitButton1.setForeground(new java.awt.Color(255, 255, 255));
-        submitButton1.setText("Annuler");
-        submitButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAnnuler.setBackground(new java.awt.Color(204, 0, 0));
+        btnAnnuler.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnnuler.setText("Annuler");
+        btnAnnuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButton1ActionPerformed(evt);
+                btnAnnulerActionPerformed(evt);
             }
         });
 
@@ -134,16 +147,16 @@ public class ProfilPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Documents\\NetBeansProjects\\TunisianWatch\\src\\com\\tunisianwatch\\Images\\avatar.png")); // NOI18N
+        lblImage.setBackground(new java.awt.Color(0, 0, 0));
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Documents\\NetBeansProjects\\TunisianWatch\\src\\com\\tunisianwatch\\Images\\avatar.png")); // NOI18N
 
-        submitButton2.setBackground(new java.awt.Color(204, 0, 0));
-        submitButton2.setForeground(new java.awt.Color(255, 255, 255));
-        submitButton2.setText("Modif Photo");
-        submitButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModifphoto.setBackground(new java.awt.Color(204, 0, 0));
+        btnModifphoto.setForeground(new java.awt.Color(255, 255, 255));
+        btnModifphoto.setText("Modif Photo");
+        btnModifphoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButton2ActionPerformed(evt);
+                btnModifphotoActionPerformed(evt);
             }
         });
 
@@ -236,40 +249,31 @@ public class ProfilPanel extends javax.swing.JPanel {
                             .addComponent(mdp2Textfield, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                             .addComponent(prenomTextfield)
+                            .addComponent(pseudoTextfield)
+                            .addComponent(nomTextfield, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contentPanelLayout.createSequentialGroup()
                                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sexeCombox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(pseudoTextfield)
-                            .addComponent(nomTextfield, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(dateTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sexeCombox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(5, 5, 5)))
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(153, 153, 153)
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                                .addGap(117, 117, 117)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(50, 50, 50))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addComponent(submitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(submitButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(34, 34, 34))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(submitButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGap(87, 87, 87))))
+                        .addComponent(btnModifier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAnnuler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnModifphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -281,14 +285,11 @@ public class ProfilPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pseudoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7))
+                            .addComponent(pseudoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(submitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentPanelLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -311,13 +312,15 @@ public class ProfilPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)))
+                    .addGroup(contentPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModifphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(submitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                            .addComponent(btnAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         add(contentPanel, "card2");
@@ -327,7 +330,7 @@ public class ProfilPanel extends javax.swing.JPanel {
     private void nomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomTextfieldMouseExited
     }//GEN-LAST:event_nomTextfieldMouseExited
 
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         if (nomTextfield.getText().length() != 0
                 & prenomTextfield.getText().length() != 0
                 & pseudoTextfield.getText().length() != 0
@@ -335,62 +338,70 @@ public class ProfilPanel extends javax.swing.JPanel {
                 & dateTextfield.getDate() != null) {
 
 
-            user = new Utilisateur();
+
 
             UtilisateurDao userDao = new UtilisateurDao();
 
-            user.setNom(prenomTextfield.getText());
-            user.setPrenom(nomTextfield.getText());
-            user.setLogin(pseudoTextfield.getText());
-            user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-            user.setAdress(adrTextfield.getText());
-            user.setMail(mailTextfield.getText());
-            user.setMdp(mdpTextfield.getText());
-            user.setDateNaissance(dateTextfield.getDate());
+            logger.setNom(prenomTextfield.getText());
+            logger.setPrenom(nomTextfield.getText());
+            logger.setLogin(pseudoTextfield.getText());
+            logger.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
+            logger.setAdress(adrTextfield.getText());
+            logger.setMail(mailTextfield.getText());
+            logger.setMdp(mdpTextfield.getText());
+            logger.setDateNaissance(dateTextfield.getDate());
             /////////////////////////////////////////
             //user.setPhoto(Path);
             /////////////////////////////////////////
-            user.setType('A');
+            logger.setType('A');
+            try {
+                if (userDao.updateUser(logger.getId(), logger, PathImage)) {
+                    JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
 
-            if (userDao.updateUser(user.getId(), user)) {
-                JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
-                ConsultationPanel.tableModel.refresh();
-                ConsultationPanel.tableModel.fireTableDataChanged();
-            } else {
-                JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-
-            if (userDao.insertUser(user) > 0) {
-                JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
-
-                ConsultationPanel.tableModel.refresh();
-                ConsultationPanel.tableModel.fireTableDataChanged();
-            } else {
-                JOptionPane.showMessageDialog(null, "Erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ProfilPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }
 
-    }//GEN-LAST:event_submitButtonActionPerformed
+    }//GEN-LAST:event_btnModifierActionPerformed
 
-    private void submitButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButton1ActionPerformed
+    private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnulerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_submitButton1ActionPerformed
+    }//GEN-LAST:event_btnAnnulerActionPerformed
 
     private void prenomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prenomTextfieldMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_prenomTextfieldMouseExited
 
-    private void submitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButton2ActionPerformed
+    private void btnModifphotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifphotoActionPerformed
         // TODO add your handling code here:
-        JFileChooser shooser = new JFileChooser();
-        shooser.showOpenDialog(null);
-        File f = shooser.getSelectedFile();
-        Path = f.getAbsolutePath();
+        try {
+            JFileChooser shooser = new JFileChooser();
+            shooser.showOpenDialog(null);
+            File f = shooser.getSelectedFile();
+            PathImage = f.getAbsolutePath();
 
-    }//GEN-LAST:event_submitButton2ActionPerformed
+            
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
+            ImageIcon icon = new ImageIcon(Image1.getScaledInstance(250, 250, Image.SCALE_FAST));
+            lblImage.setIcon(icon);
+            lblImage.repaint();
+
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
+                    "Message d'information",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_btnModifphotoActionPerformed
 
     private void pseudoTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pseudoTextfieldMouseExited
         // TODO add your handling code here:
@@ -409,9 +420,11 @@ public class ProfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_mdp2TextfieldMouseExited
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adrTextfield;
+    private javax.swing.JButton btnAnnuler;
+    private javax.swing.JButton btnModifier;
+    private javax.swing.JButton btnModifphoto;
     private javax.swing.JPanel contentPanel;
     private com.toedter.calendar.JDateChooser dateTextfield;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -422,6 +435,7 @@ public class ProfilPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblUser;
     private javax.swing.JTextField mailTextfield;
     private javax.swing.JTextField mdp2Textfield;
@@ -430,8 +444,5 @@ public class ProfilPanel extends javax.swing.JPanel {
     private javax.swing.JTextField prenomTextfield;
     private javax.swing.JTextField pseudoTextfield;
     private javax.swing.JComboBox sexeCombox;
-    private javax.swing.JButton submitButton;
-    private javax.swing.JButton submitButton1;
-    private javax.swing.JButton submitButton2;
     // End of variables declaration//GEN-END:variables
 }
