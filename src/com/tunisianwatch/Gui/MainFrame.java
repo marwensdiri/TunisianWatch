@@ -26,6 +26,13 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         MainFrame.id=id;
+        
+        
+        contentPanel.removeAll();
+        contentPanel.add(new ProfilPanel());
+        contentPanel.repaint();
+        contentPanel.revalidate();
+        
     }
 
     /**
