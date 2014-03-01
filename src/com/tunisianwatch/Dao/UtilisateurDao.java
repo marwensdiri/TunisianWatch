@@ -136,7 +136,7 @@ public class UtilisateurDao {
             ps.setString(3, u.getPrenom());
             //---------------------------------
             FileInputStream fis = new FileInputStream(PathImage);
-            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            ps.setBinaryStream(4, fis, (int) PathImage.length());
             //---------------------------------
             //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
@@ -346,8 +346,10 @@ public class UtilisateurDao {
                 user.setPrenom(resultat.getString("prenom"));
 //------------------------------------------------------------------------------
                 Imagebytes = resultat.getBytes(5);
-                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                user.setPhoto(image);
+                if (Imagebytes != null) {
+                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    user.setPhoto(image);
+                }
 //------------------------------------------------------------------------------               
                 //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
@@ -481,8 +483,10 @@ public class UtilisateurDao {
                 user.setPrenom(resultat.getString("prenom"));
 //------------------------------------------------------------------------------
                 Imagebytes = resultat.getBytes(5);
-                image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                user.setPhoto(image);
+                if (Imagebytes != null) {
+                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    user.setPhoto(image);
+                }
 //------------------------------------------------------------------------------                  
                 //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
@@ -521,8 +525,10 @@ public class UtilisateurDao {
                 user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), null, resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
 //------------------------------------------------------------------------------
                 Imagebytes = resultat.getBytes(5);
+                if(Imagebytes!=null){
                 image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
                 user.setPhoto(image);
+                }
 //------------------------------------------------------------------------------                       
 
                 if (resultat.getString("type").charAt(0) == 'R') {

@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.Reclamation;
-import javax.swing.Icon;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,19 +20,64 @@ import javax.swing.Icon;
  */
 public class ReclamationAprecu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReclamationAprecu
-     */
+    List<Image> listImage;
+    int indexImage = 1;
+
+    public ReclamationAprecu() {
+        initComponents();
+        setLocationRelativeTo(null);
+        List<CommentairePanel> comms = new ArrayList<CommentairePanel>();
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        comms.add(new CommentairePanel());
+        commentairePanel.setLayout(new java.awt.GridLayout(comms.size(), 0, 0, 0));
+        for (CommentairePanel t : comms) {
+            commentairePanel.add(t);
+        }
+        commentairePanel.revalidate();
+        commentairePanel.repaint();
+
+    }
+
     public ReclamationAprecu(Object obj) {
         Reclamation reclamation = (Reclamation) obj;
         initComponents();
-        if(reclamation.getPhotos().size()==0)
-            docPanel.hide();
-        else{
-            /* byte[reclamation.getPhotos().get(0)] image;
-            Image img = Toolkit.getDefaultToolkit().createImage(image);*/
+        setLocationRelativeTo(null);
+        titreLabel.setText(reclamation.getTitre());
+        citoyenContentLabel.setText(reclamation.getCitoyen() + "");
+        lieuContentLabel.setText(reclamation.getLieu() + "");
+        domaineContentLabel.setText(reclamation.getDomaine() + "");
+        String etat = "";
+        if (reclamation.getEtat() == 0) {
+            etat = "Pas encore Réglée";
+        } else if (reclamation.getEtat() == 1) {
+            etat = "Réglée";
+        } else if (reclamation.getEtat() == 2) {
+            etat = "Fausse";
         }
-        //imageLabel.setIcon();
+        etatContentLabel.setText(etat);
+        listImage = reclamation.getImages();
+        if (listImage.size() > 0) {
+            setImage();
+        }
+    }
+
+    private void setImage() {
+        ImageIcon icon = new ImageIcon(listImage.get(indexImage));
+        imageLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        imageLabel.setIcon(icon);
     }
 
     /**
@@ -41,112 +91,148 @@ public class ReclamationAprecu extends javax.swing.JFrame {
 
         coreScrollPane = new javax.swing.JScrollPane();
         corePanel = new javax.swing.JPanel();
-        textScrollPane = new javax.swing.JScrollPane();
-        descriptionTextArea = new javax.swing.JTextArea();
-        docPanel = new javax.swing.JPanel();
+        titreLabel = new javax.swing.JLabel();
         imageLabel = new javax.swing.JLabel();
-        CitoyenLabel = new javax.swing.JLabel();
-        domaineLabel = new javax.swing.JLabel();
+        citoyenLabel = new javax.swing.JLabel();
         lieuLabel = new javax.swing.JLabel();
-        titlePanel = new javax.swing.JPanel();
-        contentTitreLabel = new javax.swing.JLabel();
+        etatLabel = new javax.swing.JLabel();
+        domaineLabel = new javax.swing.JLabel();
         citoyenContentLabel = new javax.swing.JLabel();
-        citoyendomaine = new javax.swing.JLabel();
         lieuContentLabel = new javax.swing.JLabel();
+        domaineContentLabel = new javax.swing.JLabel();
+        etatContentLabel = new javax.swing.JLabel();
+        descriptionScrollPane = new javax.swing.JScrollPane();
+        descriptionTextArea = new javax.swing.JTextArea();
+        comsScrollPane = new javax.swing.JScrollPane();
+        commentairePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(619, 303));
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        corePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Reclamation - Apércu"));
-        corePanel.setMinimumSize(new java.awt.Dimension(600, 600));
-        corePanel.setPreferredSize(new java.awt.Dimension(600, 600));
+        coreScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        descriptionTextArea.setColumns(20);
-        descriptionTextArea.setRows(5);
-        textScrollPane.setViewportView(descriptionTextArea);
+        titreLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        titreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titreLabel.setText("Titre de la Réclamation");
 
-        docPanel.setLayout(new java.awt.CardLayout());
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageLabel.setMinimumSize(new java.awt.Dimension(0, 0));
+        imageLabel.setPreferredSize(new java.awt.Dimension(0, 0));
 
-        imageLabel.setText("jLabel1");
-        docPanel.add(imageLabel, "card2");
-
-        CitoyenLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        CitoyenLabel.setText("Citoyen:");
-
-        domaineLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        domaineLabel.setText("Domaine:");
+        citoyenLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        citoyenLabel.setText("Citoyen:");
+        citoyenLabel.setMaximumSize(new java.awt.Dimension(45, 18));
+        citoyenLabel.setMinimumSize(new java.awt.Dimension(45, 18));
+        citoyenLabel.setPreferredSize(new java.awt.Dimension(45, 18));
 
         lieuLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lieuLabel.setText("Lieu:");
 
-        titlePanel.setLayout(new java.awt.CardLayout());
+        etatLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        etatLabel.setText("Etat:");
 
-        contentTitreLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        contentTitreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        contentTitreLabel.setText("test");
-        titlePanel.add(contentTitreLabel, "card2");
+        domaineLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        domaineLabel.setText("Domaine:");
+        domaineLabel.setMaximumSize(new java.awt.Dimension(51, 18));
+        domaineLabel.setMinimumSize(new java.awt.Dimension(51, 18));
+        domaineLabel.setPreferredSize(new java.awt.Dimension(51, 18));
+
+        citoyenContentLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        lieuContentLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        domaineContentLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        etatContentLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        descriptionTextArea.setEditable(false);
+        descriptionTextArea.setBackground(new java.awt.Color(204, 204, 204));
+        descriptionTextArea.setColumns(20);
+        descriptionTextArea.setRows(5);
+        descriptionTextArea.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        descriptionScrollPane.setViewportView(descriptionTextArea);
+
+        commentairePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Commentaires"));
+
+        javax.swing.GroupLayout commentairePanelLayout = new javax.swing.GroupLayout(commentairePanel);
+        commentairePanel.setLayout(commentairePanelLayout);
+        commentairePanelLayout.setHorizontalGroup(
+            commentairePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        commentairePanelLayout.setVerticalGroup(
+            commentairePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
+        );
+
+        comsScrollPane.setViewportView(commentairePanel);
 
         javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
         corePanel.setLayout(corePanelLayout);
         corePanelLayout.setHorizontalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(corePanelLayout.createSequentialGroup()
-                        .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
-                                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE))
-                            .addGroup(corePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(descriptionScrollPane)
+                    .addComponent(titreLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                                .addComponent(etatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(citoyendomaine, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(corePanelLayout.createSequentialGroup()
-                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(etatContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                                .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addComponent(CitoyenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                                .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(textScrollPane)
-                    .addComponent(docPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                                .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, corePanelLayout.createSequentialGroup()
+                                .addComponent(citoyenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 18, Short.MAX_VALUE))
+                    .addComponent(comsScrollPane, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
-                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(corePanelLayout.createSequentialGroup()
-                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(CitoyenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(11, 11, 11)
-                                .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(citoyendomaine, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(citoyenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(citoyenContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(docPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lieuContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lieuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(etatContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         coreScrollPane.setViewportView(corePanel);
 
-        getContentPane().add(coreScrollPane, "card3");
+        getContentPane().add(coreScrollPane, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -181,27 +267,99 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               // new ReclamationAprecu().setVisible(true);
+                new ReclamationAprecu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CitoyenLabel;
     private javax.swing.JLabel citoyenContentLabel;
-    private javax.swing.JLabel citoyendomaine;
-    private javax.swing.JLabel contentTitreLabel;
+    private javax.swing.JLabel citoyenLabel;
+    private javax.swing.JPanel commentairePanel;
+    private javax.swing.JScrollPane comsScrollPane;
     private javax.swing.JPanel corePanel;
     private javax.swing.JScrollPane coreScrollPane;
+    private javax.swing.JScrollPane descriptionScrollPane;
     private javax.swing.JTextArea descriptionTextArea;
-    private javax.swing.JPanel docPanel;
+    private javax.swing.JLabel domaineContentLabel;
     private javax.swing.JLabel domaineLabel;
+    private javax.swing.JLabel etatContentLabel;
+    private javax.swing.JLabel etatLabel;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JLabel lieuContentLabel;
     private javax.swing.JLabel lieuLabel;
-    private javax.swing.JScrollPane textScrollPane;
-    private javax.swing.JPanel titlePanel;
+    private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
+
+
+public class CommentairePanel extends javax.swing.JPanel {
+
+    /**
+     * Creates new form CommentairePanel
+     */
+    public CommentairePanel() {
+        initComponents();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        citoyenLabel = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setPreferredSize(new java.awt.Dimension(762, 100));
+
+        citoyenLabel.setText("pseudo");
+
+        dateLabel.setText("date");
+
+        jLabel1.setText("commentaire ...");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(citoyenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(citoyenLabel)
+                    .addComponent(dateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addGap(16, 16, 16))
+        );
+    }// </editor-fold>                        
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JLabel citoyenLabel;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel jLabel1;
+    // End of variables declaration                   
+}
+
 
     
 }
