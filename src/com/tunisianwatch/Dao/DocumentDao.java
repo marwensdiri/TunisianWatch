@@ -2,6 +2,10 @@ package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.*;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,14 +22,20 @@ public class DocumentDao {
      *
      * @param d
      */
-    public int insertDocument(Document d) {
+    public int insertDocument(Document d, String PathImage) {
         int id = 0;
         String requete = "insert into document (type,urlvideo,content,nom,idreclamation) values (?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, d.getType());
             ps.setString(2, d.getUrl());
-            ps.setBlob(3, d.getContent());
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(PathImage);
+                ps.setBinaryStream(3, fis, (int) PathImage.length());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ps.setString(4, d.getNom());
             ps.setInt(5, d.getIdReclamation());
             ps.executeUpdate();
@@ -48,13 +58,12 @@ public class DocumentDao {
      */
     public List<Document> selectDocuments() {
         List<Document> listeDocuments = new ArrayList<Document>();
-        
         String requete = "select * from document";
         try {
             Statement statement = ResourceManager.getInstance()
                     .createStatement();
             ResultSet resultat = statement.executeQuery(requete);
-            
+
             while (resultat.next()) {
                 Document doc = new Document();
                 doc.setId(resultat.getInt("id"));
@@ -62,7 +71,11 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    doc.setContent(resultat.getBlob("content"));
+                    byte[] Imagebytes;
+                    Image image;
+                    Imagebytes = resultat.getBytes("content");
+                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    doc.setImage(image);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -82,53 +95,61 @@ public class DocumentDao {
      */
     public Document selectDocumentById(int id) {
         Document doc = null;
-         String requete = "select * from document where id=?";
+        String requete = "select * from document where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
-            if(resultat.next()){
+            if (resultat.next()) {
                 doc = new Document();
                 doc.setId(resultat.getInt("id"));
                 doc.setNom(resultat.getString("nom"));
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    doc.setContent(resultat.getBlob("content"));
+                    byte[] Imagebytes;
+                    Image image;
+                    Imagebytes = resultat.getBytes("content");
+                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    doc.setImage(image);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("erreur lors de la recherche " + ex.getMessage());
-        }finally{
+        } finally {
             return doc;
         }
     }
-    
+
     public List<Document> selectDocumentByIdReclamation(int idreclamation) {
         List<Document> listeDocuments = new ArrayList<Document>();
-         String requete = "select * from document where id=?";
+        String requete = "select * from document where idreclamation=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, idreclamation);
             ResultSet resultat = ps.executeQuery();
-            while(resultat.next()){
+            while (resultat.next()) {
                 Document doc = new Document();
                 doc = new Document();
                 doc.setId(resultat.getInt("id"));
                 doc.setNom(resultat.getString("nom"));
                 doc.setType(resultat.getInt("type"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    doc.setContent(resultat.getBlob("content"));
+                    byte[] Imagebytes;
+                    Image image;
+                    Imagebytes = resultat.getBytes("content");
+                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    doc.setImage(image);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
                 listeDocuments.add(doc);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("erreur lors de la recherche " + ex.getMessage());
-        }finally{
+        } finally {
             return listeDocuments;
         }
     }
@@ -151,5 +172,5 @@ public class DocumentDao {
             return false;
         }
     }
-    
+
 }

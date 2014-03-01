@@ -346,7 +346,14 @@ public class ResponsableForm extends javax.swing.JFrame {
 
         if (modif) {
             try {
-                if (userDao.updateResponsable(user.getId(), user, pathTextfield.getText())) {
+                boolean result=false;
+                if(pathTextfield.getText()!=null || !pathTextfield.getText().equals("")){
+                    result=userDao.updateResponsable(user.getId(), user, pathTextfield.getText());
+                }
+                else{
+                    result=userDao.updateResponsable(user.getId(), user);
+                }
+                if (result) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
@@ -357,7 +364,14 @@ public class ResponsableForm extends javax.swing.JFrame {
             }
         } else {
             try {
-                if (userDao.insertResponsable(user, pathTextfield.getText()) > 0) {
+                int id;
+                if(pathTextfield.getText()!=null || !pathTextfield.getText().equals("")){
+                    id=userDao.insertResponsable(user, pathTextfield.getText());
+                }
+                else{
+                    id=userDao.insertResponsable(user);
+                }
+                if (id > 0) {
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();

@@ -1,5 +1,6 @@
 package com.tunisianwatch.Entities;
 
+import java.awt.Image;
 import java.util.*;
 
 public class Reclamation {
@@ -47,11 +48,11 @@ public class Reclamation {
         this.listDocument = listDocument;
     }
 
-    public List<Document> getPhotos(){
-        List<Document> listPhoto = new ArrayList<Document>();
+    public List<Image> getImages(){
+        List<Image> listPhoto = new ArrayList<Image>();
         for(Document doc : listDocument){
             if(doc.getType()==1)
-                listPhoto.add(doc);
+                listPhoto.add(doc.getImage());
         }
         return listPhoto;
     }

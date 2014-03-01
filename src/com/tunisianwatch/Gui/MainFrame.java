@@ -28,11 +28,6 @@ public class MainFrame extends javax.swing.JFrame {
         MainFrame.id=id;
         
         
-        contentPanel.removeAll();
-        contentPanel.add(new ProfilPanel());
-        contentPanel.repaint();
-        contentPanel.revalidate();
-        
     }
 
     /**

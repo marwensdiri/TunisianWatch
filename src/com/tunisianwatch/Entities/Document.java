@@ -1,6 +1,7 @@
 package com.tunisianwatch.Entities;
 
-import java.sql.Blob;
+import java.awt.Image;
+import java.io.FileInputStream;
 
 public class Document {
 
@@ -8,17 +9,17 @@ public class Document {
     private String nom;
     private int type;
     private String url;
-    private Blob content;
+    private Image image;
     private int idReclamation;
 
     public Document() {
 
     }
 
-    public Document(String nom, int type, String url, Blob content,int idReclamation) {
+    public Document(String nom, int type, String url, Image image,int idReclamation) {
         this.type = type;
         this.url = url;
-        this.content = content;
+        this.image = image;
         this.nom = nom;
         this.idReclamation=idReclamation;
     }
@@ -27,7 +28,7 @@ public class Document {
         this.id = id;
         this.type = type;
         this.url = url;
-        this.content = content;
+        this.image = image;
         this.nom = nom;
         this.idReclamation=idReclamation;
     }
@@ -55,22 +56,22 @@ public class Document {
         this.nom = nom;
     }
 
-    public Blob getContent() {
-        return content;
+    public Image getImage() {
+        return image;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-    
+   
     
 
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public void setContent(Blob content) {
-        this.content = content;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public int getId() {
