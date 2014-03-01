@@ -19,6 +19,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
      * Creates new form ReclamationAprecu
      */
     public ReclamationAprecu(Object obj) {
+        setLocationRelativeTo(null);
         Reclamation reclamation = (Reclamation) obj;
         initComponents();
         if(reclamation.getPhotos().size()==0)
@@ -50,10 +51,11 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         citoyendomaine = new javax.swing.JLabel();
         lieuContentLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         corePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Reclamation - Apércu"));
+        corePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         corePanel.setMinimumSize(new java.awt.Dimension(600, 600));
         corePanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
@@ -93,7 +95,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                         .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(corePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
                                 .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE))
                             .addGroup(corePanelLayout.createSequentialGroup()
