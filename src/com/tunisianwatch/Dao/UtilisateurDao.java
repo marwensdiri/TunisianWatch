@@ -69,8 +69,10 @@ public class UtilisateurDao {
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
             //---------------------------------
+            if (PathImage!=null){
             FileInputStream fis = new FileInputStream(PathImage);
             ps.setBinaryStream(3, fis, (int) PathImage.length());
+            }
             //---------------------------------
             //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
@@ -135,8 +137,10 @@ public class UtilisateurDao {
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
             //---------------------------------
+            if (PathImage!=null){
             FileInputStream fis = new FileInputStream(PathImage);
             ps.setBinaryStream(4, fis, (int) PathImage.length());
+            }
             //---------------------------------
             //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
@@ -190,8 +194,10 @@ public class UtilisateurDao {
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
             //---------------------------------
+            if (PathImage!=null){
             FileInputStream fis = new FileInputStream(PathImage);
             ps.setBinaryStream(3, fis, (int) PathImage.length());
+            }
             //---------------------------------
             //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
@@ -205,7 +211,7 @@ public class UtilisateurDao {
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            System.out.println("1- erreur lors de la mise à jour " + ex.getMessage());
             return false;
         }
     }
@@ -242,8 +248,12 @@ public class UtilisateurDao {
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
             //---------------------------------
+            System.out.println(PathImage.getClass());
+            
+            if (PathImage!=null){
             FileInputStream fis = new FileInputStream(PathImage);
             ps.setBinaryStream(3, fis, (int) PathImage.length());
+            }
             //---------------------------------
             //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
@@ -257,7 +267,7 @@ public class UtilisateurDao {
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            System.out.println("2- erreur lors de la mise à jour " + ex.getMessage());
             return false;
         }
     }
