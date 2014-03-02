@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.CommentaireDao;
 import com.tunisianwatch.Entities.Commentaire;
 import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Util.ScallerImage;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.util.List;
@@ -26,7 +27,6 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     public ReclamationAprecu(Object obj) {
         reclamation = (Reclamation) obj;
         initComponents();
-        this.setTitle(reclamation.getTitre()+" - Apérçu");
         setLocationRelativeTo(null);
         titreLabel.setText(reclamation.getTitre());
         citoyenContentLabel.setText(reclamation.getCitoyen() + "");
@@ -54,8 +54,11 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     }
 
     private void setImage() {
+       // Image image=ScallerImage.scaleImage(listImage.get(indexImage), 670, 400);
         ImageIcon icon = new ImageIcon(listImage.get(indexImage));
-        imageLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        if(icon.getIconWidth()>670 && icon.getIconHeight()>400){
+            icon.setImage(ScallerImage.scaleImage(listImage.get(indexImage), 670, 400));
+        }        imageLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         imageLabel.setIcon(icon);
     }
 
@@ -89,8 +92,6 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         previousButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(998, 478));
-        setPreferredSize(new java.awt.Dimension(998, 478));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         coreScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -103,8 +104,6 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         titreLabel.setText("Titre de la Réclamation");
 
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageLabel.setMinimumSize(new java.awt.Dimension(0, 0));
-        imageLabel.setPreferredSize(new java.awt.Dimension(0, 0));
 
         citoyenLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         citoyenLabel.setText("Citoyen:");
@@ -144,7 +143,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         commentairePanel.setLayout(commentairePanelLayout);
         commentairePanelLayout.setHorizontalGroup(
             commentairePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 945, Short.MAX_VALUE)
+            .addGap(0, 1003, Short.MAX_VALUE)
         );
         commentairePanelLayout.setVerticalGroup(
             commentairePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,9 +171,9 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         corePanelLayout.setHorizontalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comsScrollPane)
+                    .addComponent(comsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(descriptionScrollPane)
                     .addGroup(corePanelLayout.createSequentialGroup()
                         .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,12 +198,12 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                     .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 367, Short.MAX_VALUE)
                         .addComponent(previousButton)
-                        .addGap(45, 45, 45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(nextButton)
-                        .addGap(416, 416, 416)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)))
+                .addGap(18, 18, 18))
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +227,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                     .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imageLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextButton)

@@ -60,9 +60,10 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblImage.setBounds(0, 0, 250, 250);                 //affecter la width,heigth
         //JOptionPane.showConfirmDialog(null, lblImage.getWidth()+" "+ lblImage.getHeight());//test unitaire
         lblImage.removeAll();
-        ImageIcon icon = new ImageIcon(logger.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
-        lblImage.setIcon(icon);
-
+        if (logger.getPhoto() != null) { //tester si getPhoto ne retourne pas null 5ater si c le cas béch tsir exception
+            ImageIcon icon = new ImageIcon(logger.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
+            lblImage.setIcon(icon);
+        }
 
     }
 
@@ -337,9 +338,6 @@ public class ProfilPanel extends javax.swing.JPanel {
                 & mdpTextfield.getText().length() != 0
                 & dateTextfield.getDate() != null) {
 
-
-
-
             UtilisateurDao userDao = new UtilisateurDao();
 
             logger.setNom(prenomTextfield.getText());
@@ -387,13 +385,11 @@ public class ProfilPanel extends javax.swing.JPanel {
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
 
-            
             Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(250, 250, Image.SCALE_FAST));
             lblImage.setIcon(icon);
             lblImage.repaint();
 
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
                     "Message d'information",
