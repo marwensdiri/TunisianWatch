@@ -344,6 +344,8 @@ public class ProfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_nomTextfieldMouseExited
 
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+        int var = JOptionPane.showConfirmDialog(null, "Voulez-vous Enregister Tes Modifications ?", "Confimation d'Enregistrement ", JOptionPane.YES_NO_OPTION);
+        if(var==0){
         if (nomTextfield.getText().length() != 0
                 & prenomTextfield.getText().length() != 0
                 & pseudoTextfield.getText().length() != 0
@@ -354,6 +356,7 @@ public class ProfilPanel extends javax.swing.JPanel {
 
             UtilisateurDao userDao = new UtilisateurDao();
 
+            
             logger.setNom(nomTextfield.getText());
             logger.setPrenom(prenomTextfield.getText());
             logger.setLogin(pseudoTextfield.getText());
@@ -369,17 +372,18 @@ public class ProfilPanel extends javax.swing.JPanel {
             try {
                 if (PathImage == null) {
                     if (userDao.updateUser(logger.getId(), logger)) {
-                        JOptionPane.showMessageDialog(null, "1- Mise à jour effectuée avec succès");
+                        JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
+                        lblUser.setText(logger.getNom() + " " + logger.getPrenom());
                     } else {
-                        JOptionPane.showMessageDialog(null, "1- Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
 
 
                     if (userDao.updateUser(logger.getId(), logger, PathImage)) {
-                        JOptionPane.showMessageDialog(null, "2- Mise à jour effectuée avec succès");
+                        JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     } else {
-                        JOptionPane.showMessageDialog(null, "2- Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } catch (FileNotFoundException ex) {
@@ -389,11 +393,15 @@ public class ProfilPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }
+        this.repaint();
+        }
 
     }//GEN-LAST:event_btnModifierActionPerformed
 
     private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnulerActionPerformed
         // TODO add your handling code here:
+        int var = JOptionPane.showConfirmDialog(null, "Voulez-vous Annuler Tes Modification ?", "Confimation", JOptionPane.YES_NO_OPTION);
+        if (var==0){
          Utilisateur logger = new UtilisateurDao().selectUserById(MainFrame.id);
         lblUser.setText(logger.getNom() + " " + logger.getPrenom());
         contentPanel.setName("Profil " + logger.getNom() + " " + logger.getPrenom());
@@ -418,6 +426,8 @@ public class ProfilPanel extends javax.swing.JPanel {
             ImageIcon icon = new ImageIcon(logger.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
             lblImage.setIcon(icon);
         }
+        }
+        this.repaint();
         
     }//GEN-LAST:event_btnAnnulerActionPerformed
 
