@@ -470,41 +470,56 @@ public class EtablissementFrame extends javax.swing.JFrame {
      * methode pour intialiser les combobox et les liste en récupairant les valeurs de la base de donnée
      */
     private void init() {
+        String errMsg = "";
         imageTxtFeild.setEditable(false);
         descriptionTextArea.setLineWrap(true);
         setLocationRelativeTo(null);
         
         //remplissage du combobox des lieux
-        LieuDao LDAO = new LieuDao();
-        List<Lieu> lL = new ArrayList<Lieu>();
-        lL = LDAO.selectLieux();
-        for (Lieu lieu : lL) {
-            lieuModel.addElement(lieu);
+        try{
+            LieuDao LDAO = new LieuDao();
+            List<Lieu> lL = new ArrayList<Lieu>();
+            lL = LDAO.selectLieux();
+            for (Lieu lieu : lL) {
+                lieuModel.addElement(lieu);
+            }
+        }catch (Exception e){
+            errMsg+="-recupairation des lieux\n";
         }
         //remplissage du combobox des responsables
-        UtilisateurDao UDAO = new UtilisateurDao();
-        List<Utilisateur> lU = new ArrayList<Utilisateur>();
-        lU = UDAO.selectUserByType('R');
-        for (Utilisateur utilisateur : lU) {
-            utilisateurModel.addElement(utilisateur);
+        try{
+            UtilisateurDao UDAO = new UtilisateurDao();
+            List<Utilisateur> lU = new ArrayList<Utilisateur>();
+            lU = UDAO.selectUserByType('R');
+            for (Utilisateur utilisateur : lU) {
+                utilisateurModel.addElement(utilisateur);
+            }
+        }catch (Exception e){
+            errMsg+="-recupairation des responsables\n";
         }
         
-        
         //remplissage des listes de domaines
+        
         DomaineDao DDAO = new DomaineDao();
         List<Domaine> listDomaines1 = new ArrayList<Domaine>();
         List<Domaine> listDomaines2 = new ArrayList<Domaine>();
 
-        domaines1Model.addElement(new Domaine("domaine1"));
-        listDomaines1 = DDAO.selectDomaines();
-        for (Domaine d : listDomaines1) {
-            domaines1Model.addElement(d);
+        try{
+            domaines1Model.addElement(new Domaine("domaine1"));
+            listDomaines1 = DDAO.selectDomaines();
+            for (Domaine d : listDomaines1) {
+                domaines1Model.addElement(d);
+            }
+        }catch (Exception e){
+            errMsg+="-recupairation des domaines\n";
         }
-
         domaines1.setModel(domaines1Model);
         domaines2.setModel(domaines2Model);
         responsableCmboBox.setModel(utilisateurModel);
         lieuCmboBox.setModel(lieuModel);
+        if (!errMsg.equals("")){
+            JOptionPane.showMessageDialog(null, "erreur lors de la recupairation de : \n" + errMsg);
+        }
 
     }
 
