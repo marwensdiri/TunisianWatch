@@ -27,7 +27,13 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
+/**
+ *
+ * @author MekniAymen
+ */
+//////////////////////////////////////////
     private Image photo;
+//////////////////////////////////////////
     private String login;
     private String mdp;
     private String mail;

@@ -64,7 +64,10 @@ public class UtilisateurDao {
         }
 
     }
-
+/**
+ *
+ * @author MekniAymen
+ */
     public int insertUser(Utilisateur u, String PathImage) throws FileNotFoundException {
         int id = 0;
         String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
@@ -130,7 +133,10 @@ public class UtilisateurDao {
         }
 
     }
-
+/**
+ *
+ * @author MekniAymen
+ */
     public int insertResponsable(Utilisateur u, String PathImage) throws FileNotFoundException {
 
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -167,7 +173,10 @@ public class UtilisateurDao {
         }
 
     }
-
+/**
+ *
+ * @author MekniAymen
+ */
     public boolean updateUser(int id, Utilisateur u) {
         String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -190,7 +199,10 @@ public class UtilisateurDao {
             return false;
         }
     }
-
+/**
+ *
+ * @author MekniAymen
+ */
     public boolean updateUser(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
         String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -243,7 +255,10 @@ public class UtilisateurDao {
             return false;
         }
     }
-
+/**
+ *
+ * @author MekniAymen
+ */
     public boolean updateResponsable(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
         String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -307,6 +322,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
+/**
+ *
+ * @author MekniAymen
+ */
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -352,6 +371,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
+/**
+ *
+ * @author MekniAymen
+ */                
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -397,6 +420,10 @@ public class UtilisateurDao {
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
 //------------------------------------------------------------------------------
+/**
+ *
+ * @author MekniAymen
+ */                
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
                     Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
@@ -440,6 +467,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
+/**
+ *
+ * @author MekniAymen
+ */                
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -484,6 +515,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
+/**
+ *
+ * @author MekniAymen
+ */                
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -523,6 +558,10 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), null, resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
+/**
+ *
+ * @author MekniAymen
+ */                
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
