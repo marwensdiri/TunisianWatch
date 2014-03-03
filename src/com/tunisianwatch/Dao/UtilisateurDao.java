@@ -203,7 +203,7 @@ public class UtilisateurDao {
                 ps.setBinaryStream(3, fis, (int) PathImage.length());
            
             //---------------------------------
-            //ps.setString(3, u.getPhoto());
+            
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
             ps.setString(6, u.getLogin());
