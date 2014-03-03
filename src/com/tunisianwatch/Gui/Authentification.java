@@ -160,7 +160,7 @@ public class Authentification extends javax.swing.JFrame {
         if (user != null) {
             JOptionPane.showMessageDialog(null, "Connexion établie");
             this.dispose();
-            new MainFrame(user.getId()).setVisible(true);
+            MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Erreur d'authentification", "Message d'avertissement", JOptionPane.ERROR_MESSAGE);
 
@@ -172,7 +172,7 @@ public class Authentification extends javax.swing.JFrame {
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if (user != null) {
             this.dispose();
-            new MainFrame(user.getId()).setVisible(true);
+            MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         }
     }//GEN-LAST:event_loginTextFieldActionPerformed
 
@@ -181,7 +181,7 @@ public class Authentification extends javax.swing.JFrame {
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if (user != null) {
             this.dispose();
-            new MainFrame(user.getId()).setVisible(true);
+            MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         }
     }//GEN-LAST:event_mdpPasswordFieldActionPerformed
 
