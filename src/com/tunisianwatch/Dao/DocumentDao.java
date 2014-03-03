@@ -4,8 +4,13 @@ import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,19 +27,21 @@ public class DocumentDao {
      *
      * @param d
      */
-    public int insertDocument(Document d, String PathImage) {
+    public int insertDocument(Document d) {
         int id = 0;
         String requete = "insert into document (type,urlvideo,content,nom,idreclamation) values (?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, d.getType());
             ps.setString(2, d.getUrl());
-            FileInputStream fis;
-            try {
-                fis = new FileInputStream(PathImage);
-                ps.setBinaryStream(3, fis, (int) PathImage.length());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
+            if (d.getFile() != null) {
+                FileInputStream fis;
+                try {
+                    fis = new FileInputStream(d.getFile());
+                    ps.setBinaryStream(3, fis, d.getFile().length());
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             ps.setString(4, d.getNom());
             ps.setInt(5, d.getIdReclamation());
@@ -56,7 +63,7 @@ public class DocumentDao {
      * @param id
      * @param d
      */
-    public List<Document> selectDocuments() {
+    public List<Document> selectDocuments() throws IOException {
         List<Document> listeDocuments = new ArrayList<Document>();
         String requete = "select * from document";
         try {
@@ -71,11 +78,21 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes;
-                    Image image;
-                    Imagebytes = resultat.getBytes("content");
-                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    doc.setImage(image);
+                    File file = null;
+                    Blob blob = resultat.getBlob("content");
+                    BufferedInputStream is = new BufferedInputStream(blob.getBinaryStream());
+                    FileOutputStream fos = new FileOutputStream(file);
+                    // you can set the size of the buffer
+                    byte[] buffer = new byte[2048];
+                    int r = 0;
+                    while ((r = is.read(buffer)) != -1) {
+                        fos.write(buffer, 0, r);
+                    }
+                    fos.flush();
+                    fos.close();
+                    is.close();
+                    blob.free();
+                    doc.setFile(file);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -107,11 +124,21 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes;
-                    Image image;
-                    Imagebytes = resultat.getBytes("content");
-                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    doc.setImage(image);
+                    File file = null;
+                    Blob blob = resultat.getBlob("content");
+                    BufferedInputStream is = new BufferedInputStream(blob.getBinaryStream());
+                    FileOutputStream fos = new FileOutputStream(file);
+                    // you can set the size of the buffer
+                    byte[] buffer = new byte[2048];
+                    int r = 0;
+                    while ((r = is.read(buffer)) != -1) {
+                        fos.write(buffer, 0, r);
+                    }
+                    fos.flush();
+                    fos.close();
+                    is.close();
+                    blob.free();
+                    doc.setFile(file);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -137,11 +164,21 @@ public class DocumentDao {
                 doc.setNom(resultat.getString("nom"));
                 doc.setType(resultat.getInt("type"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes;
-                    Image image;
-                    Imagebytes = resultat.getBytes("content");
-                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    doc.setImage(image);
+                    File file = null;
+                    Blob blob = resultat.getBlob("content");
+                    BufferedInputStream is = new BufferedInputStream(blob.getBinaryStream());
+                    FileOutputStream fos = new FileOutputStream(file);
+                    // you can set the size of the buffer
+                    byte[] buffer = new byte[2048];
+                    int r = 0;
+                    while ((r = is.read(buffer)) != -1) {
+                        fos.write(buffer, 0, r);
+                    }
+                    fos.flush();
+                    fos.close();
+                    is.close();
+                    blob.free();
+                    doc.setFile(file);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }

@@ -22,14 +22,14 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public static MainFrame getInstance(int id, char type) {
+        setType(type);
+        setId(id);
         if (mainFrameInstance == null) {
             mainFrameInstance = new MainFrame();
         }
-        setType(type);
-        setId(id);
         return mainFrameInstance;
     }
-    
+
     public static MainFrame getInstance() {
         if (mainFrameInstance == null) {
             mainFrameInstance = new MainFrame();
@@ -41,8 +41,6 @@ public class MainFrame extends javax.swing.JFrame {
         return id;
     }
 
-  
-
     public static void setId(int id) {
         MainFrame.id = id;
     }
@@ -50,14 +48,10 @@ public class MainFrame extends javax.swing.JFrame {
     public static void setType(char type) {
         MainFrame.type = type;
     }
-    
-    
 
     private MainFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        MainFrame.id = id;
-        this.type = type;
         if (type == 'A') {
             this.add(new AcceuilPanel());
         } else {

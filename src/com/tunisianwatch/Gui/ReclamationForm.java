@@ -252,11 +252,7 @@ public class ReclamationForm extends javax.swing.JPanel {
             if (listFile.size() > 0) {
                 FileInputStream fis;
                 for (File f : listFile) {
-                    try {
-                        fis = new FileInputStream(f);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(ReclamationForm.class.getName()).log(Level.SEVERE, null, ex);
-                    }              
+                            
                 }
             }
         }
