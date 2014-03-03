@@ -1,7 +1,6 @@
 package com.tunisianwatch.Entities;
 
-import java.awt.Image;
-import java.io.FileInputStream;
+import java.io.File;
 
 public class Document {
 
@@ -9,14 +8,14 @@ public class Document {
     private String nom;
     private int type;
     private String url;
-    private Image image;
+    private File image;
     private int idReclamation;
 
     public Document() {
 
     }
 
-    public Document(String nom, int type, String url, Image image,int idReclamation) {
+    public Document(String nom, int type, String url, File image,int idReclamation) {
         this.type = type;
         this.url = url;
         this.image = image;
@@ -56,7 +55,7 @@ public class Document {
         this.nom = nom;
     }
 
-    public Image getImage() {
+    public File getFile() {
         return image;
     }
 
@@ -70,7 +69,7 @@ public class Document {
         this.url = url;
     }
 
-    public void setImage(Image image) {
+    public void setFile(File image) {
         this.image = image;
     }
 

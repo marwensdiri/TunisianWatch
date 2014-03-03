@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import java.util.Locale;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +43,7 @@ public class Authentification extends javax.swing.JFrame {
         loginTextField = new javax.swing.JTextField();
         mdpPasswordField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification - Tunisianwatch");
@@ -126,6 +128,15 @@ public class Authentification extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton1.setBackground(new java.awt.Color(204, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("S'inscrire");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout corePanelLayout = new javax.swing.GroupLayout(corePanel);
         corePanel.setLayout(corePanelLayout);
         corePanelLayout.setHorizontalGroup(
@@ -139,6 +150,9 @@ public class Authentification extends javax.swing.JFrame {
                         .addGap(206, 206, 206)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(175, 175, 175))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addGap(91, 91, 91))
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +161,9 @@ public class Authentification extends javax.swing.JFrame {
                 .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         getContentPane().add(corePanel, "card2");
@@ -160,7 +176,7 @@ public class Authentification extends javax.swing.JFrame {
         if (user != null) {
             JOptionPane.showMessageDialog(null, "Connexion établie");
             this.dispose();
-            new MainFrame(user.getId()).setVisible(true);
+            MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Erreur d'authentification", "Message d'avertissement", JOptionPane.ERROR_MESSAGE);
 
@@ -172,7 +188,7 @@ public class Authentification extends javax.swing.JFrame {
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if (user != null) {
             this.dispose();
-            new MainFrame(user.getId()).setVisible(true);
+            MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         }
     }//GEN-LAST:event_loginTextFieldActionPerformed
 
@@ -181,13 +197,22 @@ public class Authentification extends javax.swing.JFrame {
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if (user != null) {
             this.dispose();
-            new MainFrame(user.getId()).setVisible(true);
+            MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         }
     }//GEN-LAST:event_mdpPasswordFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(new InscriPanel());
+        frame.setBounds(0, 0, 1324, 760);
+        frame.show();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel corePanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;

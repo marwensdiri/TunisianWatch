@@ -12,27 +12,43 @@ import javax.swing.JOptionPane;
 
 public class EtablissementFrame extends javax.swing.JFrame {
 
-    private List<Domaine> listeDomainesAjouter = new ArrayList<Domaine>();
-    private List<Domaine> listeDomainesExistant = new ArrayList<Domaine>();
-    private DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();
-    private DefaultComboBoxModel<Utilisateur> utilisateurModel = new DefaultComboBoxModel();
+    private List<Domaine> listeDomainesAjouter = new ArrayList<Domaine>();//liste des domaines a ajouter a l'etab
+    private List<Domaine> listeDomainesExistant = new ArrayList<Domaine>();//liste des domaines dans la base de données
+    private DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();//model pour le combobox lieu
+    private DefaultComboBoxModel<Utilisateur> utilisateurModel = new DefaultComboBoxModel();//model pour le combobox responsable
+    /*
+     * modeles pour les liste de domaines
+     */
+    
     private DefaultListModel<Domaine> domaines1Model = new DefaultListModel<Domaine>();
     private DefaultListModel<Domaine> domaines2Model = new DefaultListModel<Domaine>();
-    private int action = -1;
-    private Etablissement etb;
+    
+    /*
+     * fin des modeles
+     */
+    private int action = -1;//parametre de l'action a traiter, 0 si un ajout, dans le cas de modification, il contiendra l'id de l'etablissement a mdifier
+    private Etablissement etb;//objet a traiter : "modifier ou ajouter"
 
+    
+    //constructeur a appeler lors d'un ajout
     public EtablissementFrame() {
         initComponents();
         init();
         etb = new Etablissement();
     }
 
+    
+    
+    //constructeur appeler en cas de modification
     public EtablissementFrame(Object obj) {
-        etb = (Etablissement) obj;
-        System.out.println(etb.getId());
-        action = etb.getId();
+        etb = (Etablissement) obj;//récupairation de l'objet a modifier
+        action = etb.getId();//récupairation de l'id de l'obj a modifier
         initComponents();
-        init();
+        init();//intialisations
+        
+        /*
+         * intialisation des different champs du formulaire avec les valeurs a modifier
+         */
         nomTxtFeild.setText(etb.getNom());
         descriptionTextArea.setText(etb.getDescription());
         imageTxtFeild.setText(etb.getImage());
@@ -43,6 +59,10 @@ public class EtablissementFrame extends javax.swing.JFrame {
         submitBtn.setText("Modifer");
         utilisateurModel.setSelectedItem((Utilisateur) etb.getResponsable());
         lieuModel.setSelectedItem((Lieu) etb.getLieu());
+        
+        /*
+         * fin des initialisations
+         */
 
     }
 
@@ -318,10 +338,13 @@ public class EtablissementFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     * action pour le btn d'ajout de fichier
+     */
     private void addFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileBtnActionPerformed
-        JFileChooser shooser = new JFileChooser();
-        shooser.showOpenDialog(null);
-        File f = shooser.getSelectedFile();
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
         imageTxtFeild.setText(filename);
     }//GEN-LAST:event_addFileBtnActionPerformed
@@ -443,39 +466,60 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private javax.swing.JButton to2;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     * methode pour intialiser les combobox et les liste en récupairant les valeurs de la base de donnée
+     */
     private void init() {
+        String errMsg = "";
         imageTxtFeild.setEditable(false);
         descriptionTextArea.setLineWrap(true);
         setLocationRelativeTo(null);
-
-        LieuDao LDAO = new LieuDao();
-        List<Lieu> lL = new ArrayList<Lieu>();
-        lL = LDAO.selectLieux();
-        for (Lieu lieu : lL) {
-            lieuModel.addElement(lieu);
+        
+        //remplissage du combobox des lieux
+        try{
+            LieuDao LDAO = new LieuDao();
+            List<Lieu> lL = new ArrayList<Lieu>();
+            lL = LDAO.selectLieux();
+            for (Lieu lieu : lL) {
+                lieuModel.addElement(lieu);
+            }
+        }catch (Exception e){
+            errMsg+="-recupairation des lieux\n";
         }
-
-        UtilisateurDao UDAO = new UtilisateurDao();
-        List<Utilisateur> lU = new ArrayList<Utilisateur>();
-        lU = UDAO.selectUserByType('R');
-        for (Utilisateur utilisateur : lU) {
-            utilisateurModel.addElement(utilisateur);
+        //remplissage du combobox des responsables
+        try{
+            UtilisateurDao UDAO = new UtilisateurDao();
+            List<Utilisateur> lU = new ArrayList<Utilisateur>();
+            lU = UDAO.selectUserByType('R');
+            for (Utilisateur utilisateur : lU) {
+                utilisateurModel.addElement(utilisateur);
+            }
+        }catch (Exception e){
+            errMsg+="-recupairation des responsables\n";
         }
-
+        
+        //remplissage des listes de domaines
+        
         DomaineDao DDAO = new DomaineDao();
         List<Domaine> listDomaines1 = new ArrayList<Domaine>();
         List<Domaine> listDomaines2 = new ArrayList<Domaine>();
 
-        domaines1Model.addElement(new Domaine("domaine1"));
-        listDomaines1 = DDAO.selectDomaines();
-        for (Domaine d : listDomaines1) {
-            domaines1Model.addElement(d);
+        try{
+            domaines1Model.addElement(new Domaine("domaine1"));
+            listDomaines1 = DDAO.selectDomaines();
+            for (Domaine d : listDomaines1) {
+                domaines1Model.addElement(d);
+            }
+        }catch (Exception e){
+            errMsg+="-recupairation des domaines\n";
         }
-
         domaines1.setModel(domaines1Model);
         domaines2.setModel(domaines2Model);
         responsableCmboBox.setModel(utilisateurModel);
         lieuCmboBox.setModel(lieuModel);
+        if (!errMsg.equals("")){
+            JOptionPane.showMessageDialog(null, "erreur lors de la recupairation de : \n" + errMsg);
+        }
 
     }
 
