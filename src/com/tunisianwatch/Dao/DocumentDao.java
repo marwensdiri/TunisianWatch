@@ -96,7 +96,7 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes = resultat.getBytes("photo");
+                    byte[] Imagebytes = resultat.getBytes("content");
                     if (Imagebytes != null) {
                         Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
                         doc.setImage(image);
@@ -132,7 +132,7 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes = resultat.getBytes("photo");
+                    byte[] Imagebytes = resultat.getBytes("content");
                     if (Imagebytes != null) {
                         Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
                         doc.setImage(image);
@@ -162,7 +162,7 @@ public class DocumentDao {
                 doc.setNom(resultat.getString("nom"));
                 doc.setType(resultat.getInt("type"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes = resultat.getBytes("photo");
+                    byte[] Imagebytes = resultat.getBytes("content");
                     if (Imagebytes != null) {
                         Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
                         doc.setImage(image);

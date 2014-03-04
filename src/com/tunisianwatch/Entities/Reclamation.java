@@ -51,10 +51,9 @@ public class Reclamation {
     public List<Image> getImages(){
         System.out.println(listDocument.size());
         List<Image> listPhoto = new ArrayList<Image>();
-        Image image;
         for(Document doc : listDocument){
             if(doc.getType()==1)
-                System.out.println("");
+               listPhoto.add(doc.getImage());
         }
         return listPhoto;
     }
