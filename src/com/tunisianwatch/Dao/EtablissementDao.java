@@ -6,6 +6,10 @@ import com.tunisianwatch.Entities.Etablissement;
 import com.tunisianwatch.Entities.EtablissementDomaine;
 import com.tunisianwatch.Entities.Lieu;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,13 +24,38 @@ public class EtablissementDao {
      * @param E
      */
     public int insertEtablissement(Etablissement E) {
+        String requete = "insert into etablissement (nom , description,idlieu,idresponsable) values (?,?,?,?)";
+        int id = -1;
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, E.getNom());
+            ps.setString(2, E.getDescription());
+            ps.setInt(3, E.getLieu().getId());
+            ps.setInt(4, E.getResponsable().getId());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            System.out.println("Ajout effectuée avec succès");
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+        }
+        return id;
+    }
+    
+    
+    public int insertEtablissement(Etablissement E, String path) throws FileNotFoundException {
         String requete = "insert into etablissement (nom , description,image,idlieu,idresponsable) values (?,?,?,?,?)";
         int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
-            ps.setString(3, E.getImage());
+            FileInputStream fis = new FileInputStream(path);
+            ps.setBinaryStream(3, fis, (int) path.length());
             ps.setInt(4, E.getLieu().getId());
             ps.setInt(5, E.getResponsable().getId());
             ps.executeUpdate();
@@ -49,12 +78,31 @@ public class EtablissementDao {
      * @param E
      */
     public boolean updateEtablissement(int id, Etablissement E) {
+        String requete = "update etablissement set nom=?, description=?,idlieu=?,idresponsable=? where id=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setString(1, E.getNom());
+            ps.setString(2, E.getDescription());
+            ps.setInt(3, E.getLieu().getId());
+            ps.setInt(4, E.getResponsable().getId());
+            ps.setInt(5, E.getId());
+            ps.executeUpdate();
+            System.out.println("Mise à jour effectuée avec succès");
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean updateEtablissement(int id, Etablissement E, String path) throws FileNotFoundException {
         String requete = "update etablissement set nom=?, description=?, image=?,idlieu=?,idresponsable=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
-            ps.setString(3, E.getImage());
+            FileInputStream fis = new FileInputStream(path);
+            ps.setBinaryStream(3, fis, (int) path.length());
             ps.setInt(4, E.getLieu().getId());
             ps.setInt(5, E.getResponsable().getId());
             ps.setInt(6, E.getId());
@@ -81,7 +129,13 @@ public class EtablissementDao {
             while (resultat.next()) {
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
                 Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                
+                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
+                byte[] Imagebytes = resultat.getBytes("image");
+                if (Imagebytes != null) {
+                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    E.setImage(image);
+                }
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
                 for (int i = 0; i < listEtabDomaine.size(); i++) {
@@ -114,7 +168,12 @@ public class EtablissementDao {
             if (resultat.next()) {
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
                 Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
+                byte[] Imagebytes = resultat.getBytes("image");
+                if (Imagebytes != null) {
+                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    E.setImage(image);
+                }
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
                 for (int i = 0; i < listDomaine.size(); i++) {
@@ -142,7 +201,12 @@ public class EtablissementDao {
             if (resultat.next()) {
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
                 Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
+                byte[] Imagebytes = resultat.getBytes("image");
+                if (Imagebytes != null) {
+                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    E.setImage(image);
+                }
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
                 for (int i = 0; i < listDomaine.size(); i++) {
@@ -169,7 +233,12 @@ public class EtablissementDao {
             if (resultat.next()) {
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
                 Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), resultat.getString("image"), lieu, responsable);
+                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
+                byte[] Imagebytes = resultat.getBytes("image");
+                if (Imagebytes != null) {
+                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                    E.setImage(image);
+                }
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
                 for (int i = 0; i < listDomaine.size(); i++) {

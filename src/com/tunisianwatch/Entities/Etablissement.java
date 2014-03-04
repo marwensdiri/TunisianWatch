@@ -1,5 +1,6 @@
 package com.tunisianwatch.Entities;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class Etablissement {
 	private int id;
 	private String nom;
 	private String description;
-	private String image;
+	private Image image;
 	private Lieu lieu;
         private Utilisateur responsable;
         private List<Domaine> listDomaine= new ArrayList<Domaine>();
@@ -18,7 +19,7 @@ public class Etablissement {
 
         
         
-    public Etablissement(String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
+    public Etablissement(String nom, String description, Image image, Lieu lieu,Utilisateur responsable) {
         this.nom = nom;
         this.description = description;
         this.image = image;
@@ -26,7 +27,7 @@ public class Etablissement {
         this.responsable=responsable;
     }
 
-    public Etablissement(int id, String nom, String description, String image, Lieu lieu,Utilisateur responsable) {
+    public Etablissement(int id, String nom, String description, Image image, Lieu lieu,Utilisateur responsable) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -70,7 +71,7 @@ public class Etablissement {
         return description;
     }
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 
@@ -100,7 +101,7 @@ public class Etablissement {
         this.description = description;
     }
 
-    public void setImage(String image) {
+    public void setImage(Image image) {
         this.image = image;
     }
 
