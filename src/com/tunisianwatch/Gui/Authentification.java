@@ -237,7 +237,7 @@ public class Authentification extends javax.swing.JFrame {
     
 public  void notifyFbConnection(String email){
     UtilisateurDao uDao=new UtilisateurDao();
-    new MainFrame(uDao.selectUserByMail(email).getId()).setVisible(true);
+    MainFrame.getInstance(uDao.selectUserByMail(email)).setVisible(true);
     this.setVisible(false);
 };
     // Variables declaration - do not modify//GEN-BEGIN:variables
