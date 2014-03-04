@@ -111,7 +111,7 @@
                                   <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="addDomainBtn" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -129,6 +129,7 @@
                                           <Component id="responsableCmboBox" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="errLbl" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -148,7 +149,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nomTxtFeild" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="nomTxtFeild" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="errLbl" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="nomLabel" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" pref="24" max="32767" attributes="0"/>
@@ -360,6 +364,11 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="imageLabel">
+            </Component>
+            <Component class="javax.swing.JLabel" name="errLbl">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="*Champ Nom est obligatoire"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

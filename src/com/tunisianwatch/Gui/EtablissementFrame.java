@@ -99,6 +99,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         domaines1 = new javax.swing.JList();
         imageLabel = new javax.swing.JLabel();
+        errLbl = new javax.swing.JLabel();
         BoutonPanel = new javax.swing.JPanel();
         cancelBtn = new javax.swing.JButton();
         submitBtn = new javax.swing.JButton();
@@ -186,6 +187,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(domaines1);
 
+        errLbl.setText("*Champ Nom est obligatoire");
+
         javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
         inputPanelLayout.setHorizontalGroup(
@@ -209,7 +212,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
                             .addComponent(lieuCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(addDomainBtn)
                             .addGroup(inputPanelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -222,7 +225,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(responsableCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(responsableCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(errLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(30, 30, 30)
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,7 +240,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inputPanelLayout.createSequentialGroup()
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomTxtFeild, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nomTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(errLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(nomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 24, Short.MAX_VALUE)
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -474,6 +480,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private javax.swing.JLabel domainePanel;
     private javax.swing.JList domaines1;
     private javax.swing.JList domaines2;
+    private javax.swing.JLabel errLbl;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel inputPanel;
     private javax.swing.JScrollPane jScrollPane1;
@@ -498,6 +505,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
         errMsg = "";
         errMsg2 = "";
 
+        errLbl.setVisible(false);
+        
         descriptionTextArea.setLineWrap(true);
         setLocationRelativeTo(null);
 
