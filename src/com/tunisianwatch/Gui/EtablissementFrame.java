@@ -368,12 +368,12 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainTxtFieldActionPerformed
 
     private void addDomainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainBtnActionPerformed
-        boolean existe = true;
+        boolean existe = false;
         for (Domaine d : listeDomainesExistant){
-            if (d.getNom()==addDomainTxtField.getText()){
+            if (d.getNom().equalsIgnoreCase(addDomainTxtField.getText())){
                 existe = true;
                 break;
-            }else existe=false;
+            }
         }
         if (addDomainTxtField.getText() != "" && !existe){
             domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
@@ -505,7 +505,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         List<Domaine> listDomaines2 = new ArrayList<Domaine>();
 
         try{
-            domaines1Model.addElement(new Domaine("domaine1"));
             listDomaines1 = DDAO.selectDomaines();
             for (Domaine d : listDomaines1) {
                 domaines1Model.addElement(d);
