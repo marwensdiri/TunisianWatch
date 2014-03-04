@@ -345,7 +345,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Vous devez saisir le domaine"/>
+                <Property name="text" type="java.lang.String" value="Vous devez s&#xe9;l&#xe9;ctionnez le domaine"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dateErrorLabel">

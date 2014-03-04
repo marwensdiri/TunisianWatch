@@ -76,10 +76,10 @@ public class UtilisateurDao {
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
             //---------------------------------
-            
+                
                 FileInputStream fis = new FileInputStream(PathImage);
                 ps.setBinaryStream(3, fis, (int) PathImage.length());
-           
+                
             //---------------------------------
             //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
