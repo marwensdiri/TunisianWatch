@@ -12,13 +12,13 @@ import java.awt.Dimension;
  *
  * @author asd
  */
-public class AcceuilPanel extends javax.swing.JPanel {
+public class AdminAcceuilPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Acceul
      */
     
-    public AcceuilPanel() {
+    public AdminAcceuilPanel() {
         initComponents();
     }
 

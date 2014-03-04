@@ -38,10 +38,8 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println(me);
         corePanel.removeAll();
         if (me.getType() == 'A') {
-            System.out.println("ff");
-            corePanel.add(new AcceuilPanel());
+            corePanel.add(new AdminAcceuilPanel());
         } else if (me.getType() == 'C') {
-            System.out.println("gg");
             corePanel.add(new ClientAcceuilPanel());
         } else {
 
