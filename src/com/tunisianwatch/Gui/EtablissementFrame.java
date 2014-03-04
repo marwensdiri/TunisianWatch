@@ -368,14 +368,16 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainTxtFieldActionPerformed
 
     private void addDomainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainBtnActionPerformed
-        boolean existe = false;
-        for (Domaine d : listeDomainesExistant){
-            if (d.getNom().equalsIgnoreCase(addDomainTxtField.getText())){
-                existe = true;
-                break;
+        /*boolean existe = false;
+        if (listeDomainesExistant.size()!=0){
+            for (Domaine d : listeDomainesExistant){
+                if (d.getNom().equalsIgnoreCase(addDomainTxtField.getText())){
+                    existe = true;
+                    break;
+                }
             }
-        }
-        if (addDomainTxtField.getText() != "" && !existe){
+        }*/
+        if (addDomainTxtField.getText() != ""/* && !existe*/){
             domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
             listeDomainesAjouter.add(new Domaine(addDomainTxtField.getText()));
         }else if (addDomainTxtField.getText().equals(""))
