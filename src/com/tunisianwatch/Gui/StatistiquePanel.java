@@ -10,7 +10,7 @@ import org.jfree.chart.ChartPanel;
 
 /**
  *
- * @author DELL
+ * @author MekniAymen
  */
 public class StatistiquePanel extends javax.swing.JPanel {
 

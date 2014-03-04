@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author DELL
+ * @author MekniAymen
  */
 public class ProfilPanel extends javax.swing.JPanel {
 

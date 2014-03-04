@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
 import java.awt.Dimension;
@@ -12,13 +11,12 @@ import java.awt.Dimension;
  *
  * @author asd
  */
-public class AcceuilPanel extends javax.swing.JPanel {
+public class ClientAcceuilPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Acceul
      */
-    
-    public AcceuilPanel() {
+    public ClientAcceuilPanel() {
         initComponents();
     }
 
@@ -33,14 +31,10 @@ public class AcceuilPanel extends javax.swing.JPanel {
 
         bodyPanel = new javax.swing.JPanel();
         menuPanel = new javax.swing.JPanel();
-        etablissementButton = new javax.swing.JButton();
-        reclamationButton = new javax.swing.JButton();
-        citoyenButton = new javax.swing.JButton();
-        responsableButton = new javax.swing.JButton();
         profilButton = new javax.swing.JButton();
-        statButton = new javax.swing.JButton();
         logoLabel = new javax.swing.JLabel();
         DisconnectButton = new javax.swing.JButton();
+        reclamationAddButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -52,57 +46,12 @@ public class AcceuilPanel extends javax.swing.JPanel {
         menuPanel.setBackground(new java.awt.Color(204, 204, 204));
         menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etablissementButton.setBackground(new java.awt.Color(204, 0, 0));
-        etablissementButton.setForeground(new java.awt.Color(255, 255, 255));
-        etablissementButton.setText("Gestion des Etablissements");
-        etablissementButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                etablissementButtonActionPerformed(evt);
-            }
-        });
-
-        reclamationButton.setBackground(new java.awt.Color(204, 0, 0));
-        reclamationButton.setForeground(new java.awt.Color(255, 255, 255));
-        reclamationButton.setText("Gestion des Reclamations");
-        reclamationButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reclamationButtonActionPerformed(evt);
-            }
-        });
-
-        citoyenButton.setBackground(new java.awt.Color(204, 0, 0));
-        citoyenButton.setForeground(new java.awt.Color(255, 255, 255));
-        citoyenButton.setLabel("Gestion des Citoyens");
-        citoyenButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                citoyenButtonActionPerformed(evt);
-            }
-        });
-
-        responsableButton.setBackground(new java.awt.Color(204, 0, 0));
-        responsableButton.setForeground(new java.awt.Color(255, 255, 255));
-        responsableButton.setText("Gestion des Résponsables");
-        responsableButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                responsableButtonActionPerformed(evt);
-            }
-        });
-
         profilButton.setBackground(new java.awt.Color(204, 0, 0));
         profilButton.setForeground(new java.awt.Color(255, 255, 255));
         profilButton.setText("Profil");
         profilButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profilButtonActionPerformed(evt);
-            }
-        });
-
-        statButton.setBackground(new java.awt.Color(204, 0, 0));
-        statButton.setForeground(new java.awt.Color(255, 255, 255));
-        statButton.setText("Génération des Statistiques");
-        statButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statButtonActionPerformed(evt);
             }
         });
 
@@ -117,6 +66,15 @@ public class AcceuilPanel extends javax.swing.JPanel {
             }
         });
 
+        reclamationAddButton.setBackground(new java.awt.Color(204, 0, 0));
+        reclamationAddButton.setForeground(new java.awt.Color(255, 255, 255));
+        reclamationAddButton.setText("Ajouter une Reclamation");
+        reclamationAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reclamationAddButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -124,19 +82,15 @@ public class AcceuilPanel extends javax.swing.JPanel {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reclamationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(etablissementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(responsableButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(profilButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(statButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(citoyenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addComponent(DisconnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(reclamationAddButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(profilButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                        .addGap(12, 12, 12))))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,16 +100,8 @@ public class AcceuilPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(profilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(statButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(etablissementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(citoyenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(responsableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(reclamationAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(230, 230, 230)
                 .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -199,67 +145,34 @@ public class AcceuilPanel extends javax.swing.JPanel {
         getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void etablissementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etablissementButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("etablissement"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-    }//GEN-LAST:event_etablissementButtonActionPerformed
-
-    private void reclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("reclamation"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-    }//GEN-LAST:event_reclamationButtonActionPerformed
-
-    private void citoyenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citoyenButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("citoyen"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-    }//GEN-LAST:event_citoyenButtonActionPerformed
-
-    private void responsableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ConsultationPanel("responsable"));
-        contentPanel.repaint();
-        contentPanel.revalidate();
-
-    }//GEN-LAST:event_responsableButtonActionPerformed
-
     private void profilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilButtonActionPerformed
         // TODO add your handling code here:
         contentPanel.removeAll();
-      contentPanel.add(new ProfilPanel());
-       contentPanel.repaint();
-       contentPanel.revalidate();
+        contentPanel.add(new ProfilPanel());
+        contentPanel.repaint();
+        contentPanel.revalidate();
     }//GEN-LAST:event_profilButtonActionPerformed
-
-    private void statButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statButtonActionPerformed
-       contentPanel.removeAll();
-       contentPanel.add(new StatistiquePanel());
-       contentPanel.repaint();
-       contentPanel.revalidate();
-    }//GEN-LAST:event_statButtonActionPerformed
 
     private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed
         MainFrame.getInstance().dispose();
         new Authentification().setVisible(true);
     }//GEN-LAST:event_DisconnectButtonActionPerformed
 
+    private void reclamationAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationAddButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new ReclamationForm());
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_reclamationAddButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DisconnectButton;
     private javax.swing.JPanel bodyPanel;
-    private javax.swing.JButton citoyenButton;
     private javax.swing.JPanel contentPanel;
-    private javax.swing.JButton etablissementButton;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton profilButton;
-    private javax.swing.JButton reclamationButton;
-    private javax.swing.JButton responsableButton;
-    private javax.swing.JButton statButton;
+    private javax.swing.JButton reclamationAddButton;
     // End of variables declaration//GEN-END:variables
 }
