@@ -56,6 +56,9 @@ public class ProfilPanel extends javax.swing.JPanel {
             ImageIcon icon = new ImageIcon(logger.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
             lblImage.setIcon(icon);
         }
+        else{
+           lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
+        }
 
     }
 
