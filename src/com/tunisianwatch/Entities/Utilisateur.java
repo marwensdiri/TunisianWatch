@@ -7,13 +7,10 @@
  *
  * @author Mekni Aymen
  */
-
 package com.tunisianwatch.Entities;
-
 
 import java.awt.Image;
 import java.util.Date;
-
 
 /**
  *
@@ -27,10 +24,10 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
-/**
- *
- * @author MekniAymen
- */
+    /**
+     *
+     * @author MekniAymen
+     */
 //////////////////////////////////////////
     private Image photo;
 //////////////////////////////////////////
@@ -45,7 +42,7 @@ public class Utilisateur {
 
     @Override
     public String toString() {
-        return nom+" "+prenom;
+        return nom + " " + prenom;
     }
 
     public Utilisateur(Etablissement etablissement, String nom, String prenom, Image photo, char sexe, String adress, String login, String mdp, String mail, char type, Date dateNaissance) {
@@ -74,8 +71,8 @@ public class Utilisateur {
         this.type = type;
         this.etablissement = etablissement;
     }
-    
-    public Utilisateur(int id,String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
+
+    public Utilisateur(int id, String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -86,8 +83,8 @@ public class Utilisateur {
         this.mail = mail;
         this.type = type;
     }
-    
-       public Utilisateur(String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
+
+    public Utilisateur(String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -100,9 +97,9 @@ public class Utilisateur {
     }
 
     public Utilisateur(Date d) {
-        
+
         this.dateNaissance = d;
-        
+
         //System.out.println("nnnjhjgghghjghjgjghjgjhgh"+d);
     }
 
@@ -210,9 +207,6 @@ public class Utilisateur {
             age = age - 1;
         }
         return age;
-        
-    
-
     }
 
     @Override
@@ -234,5 +228,4 @@ public class Utilisateur {
         }
         return true;
     }
-
 }

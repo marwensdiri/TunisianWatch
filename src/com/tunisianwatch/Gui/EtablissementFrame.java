@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -17,6 +15,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class EtablissementFrame extends javax.swing.JFrame {
+
+    private String errMsg;
+    private String errMsg2;
     private String imageTxt = "";
     private List<Domaine> listeDomainesAjouter = new ArrayList<Domaine>();//liste des domaines a ajouter a l'etab
     private List<Domaine> listeDomainesExistant = new ArrayList<Domaine>();//liste des domaines dans la base de données
@@ -52,7 +53,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
          */
         nomTxtFeild.setText(etb.getNom());
         descriptionTextArea.setText(etb.getDescription());
-        if (etb.getImage()!=null){
+        if (etb.getImage() != null) {
             ImageIcon icon = new ImageIcon(etb.getImage().getScaledInstance(250, 250, Image.SCALE_FAST));
             imageLabel.setIcon(icon);
             imageLabel.repaint();
@@ -98,6 +99,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         domaines1 = new javax.swing.JList();
         imageLabel = new javax.swing.JLabel();
+        errLbl = new javax.swing.JLabel();
         BoutonPanel = new javax.swing.JPanel();
         cancelBtn = new javax.swing.JButton();
         submitBtn = new javax.swing.JButton();
@@ -185,6 +187,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(domaines1);
 
+        errLbl.setText("*Champ Nom est obligatoire");
+
         javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
         inputPanelLayout.setHorizontalGroup(
@@ -192,11 +196,8 @@ public class EtablissementFrame extends javax.swing.JFrame {
             .addGroup(inputPanelLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(inputPanelLayout.createSequentialGroup()
-                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(338, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(inputPanelLayout.createSequentialGroup()
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -211,27 +212,26 @@ public class EtablissementFrame extends javax.swing.JFrame {
                             .addComponent(lieuCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(addDomainBtn)
                             .addGroup(inputPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, inputPanelLayout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addComponent(responsablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, inputPanelLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
+                                    .addComponent(responsablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(inputPanelLayout.createSequentialGroup()
                                         .addComponent(to1)
                                         .addGap(18, 18, 18)
                                         .addComponent(to2)))
                                 .addGap(18, 18, 18)
                                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(responsableCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addFileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59))))
+                                    .addComponent(responsableCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(errLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addFileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         inputPanelLayout.setVerticalGroup(
             inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,16 +240,17 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inputPanelLayout.createSequentialGroup()
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomTxtFeild, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(nomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(responsablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(responsableCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nomTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(errLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 24, Short.MAX_VALUE)
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lieuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lieuCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                            .addComponent(lieuCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(responsablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(responsableCmboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 24, Short.MAX_VALUE)
                         .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane3)
                             .addGroup(inputPanelLayout.createSequentialGroup()
@@ -282,22 +283,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout BoutonPanelLayout = new javax.swing.GroupLayout(BoutonPanel);
-        BoutonPanel.setLayout(BoutonPanelLayout);
-        BoutonPanelLayout.setHorizontalGroup(
-            BoutonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BoutonPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelBtn)
-                .addGap(66, 66, 66))
-        );
-        BoutonPanelLayout.setVerticalGroup(
-            BoutonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BoutonPanelLayout.createSequentialGroup()
-                .addComponent(cancelBtn)
-                .addGap(0, 22, Short.MAX_VALUE))
-        );
-
         submitBtn.setBackground(new java.awt.Color(204, 0, 0));
         submitBtn.setForeground(new java.awt.Color(255, 255, 255));
         submitBtn.setText("Envoyer");
@@ -307,32 +292,43 @@ public class EtablissementFrame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout BoutonPanelLayout = new javax.swing.GroupLayout(BoutonPanel);
+        BoutonPanel.setLayout(BoutonPanelLayout);
+        BoutonPanelLayout.setHorizontalGroup(
+            BoutonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BoutonPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cancelBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(submitBtn))
+        );
+        BoutonPanelLayout.setVerticalGroup(
+            BoutonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BoutonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(cancelBtn)
+                .addComponent(submitBtn))
+        );
+
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
         bodyPanel.setLayout(bodyPanelLayout);
         bodyPanelLayout.setHorizontalGroup(
             bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyPanelLayout.createSequentialGroup()
-                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bodyPanelLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(BoutonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(submitBtn)
-                        .addGap(56, 56, 56))
-                    .addGroup(bodyPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(bodyPanelLayout.createSequentialGroup()
+                .addGap(228, 228, 228)
+                .addComponent(BoutonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         bodyPanelLayout.setVerticalGroup(
             bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyPanelLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BoutonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(submitBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BoutonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -350,7 +346,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         File f = chooser.getSelectedFile();
         if (f != null) {
             String filename = f.getAbsolutePath();
-            imageTxt=filename;
+            imageTxt = filename;
             Image Image1 = Toolkit.getDefaultToolkit().getImage(filename);
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(250, 250, Image.SCALE_FAST));
             imageLabel.setIcon(icon);
@@ -377,18 +373,21 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainTxtFieldActionPerformed
 
     private void addDomainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDomainBtnActionPerformed
-        /*boolean existe = false;
-         if (listeDomainesExistant.size()!=0){
-         for (Domaine d : listeDomainesExistant){
-         if (d.getNom().equalsIgnoreCase(addDomainTxtField.getText())){
-         existe = true;
-         break;
-         }
-         }
-         }*/
-        if (addDomainTxtField.getText() != ""/* && !existe*/) {
-            domaines2Model.addElement(new Domaine(addDomainTxtField.getText()));
-            
+        boolean existe = false;
+        if (listeDomainesExistant.size() != 0) {
+            System.out.println("yod5el fi if loula");
+            for (Domaine d : listeDomainesExistant) {
+                System.out.println("yod5ol fi for");
+                if (d.getNom().equalsIgnoreCase(addDomainTxtField.getText())) {
+                    System.out.println("yod5el fi if");
+                    existe = true;
+                    break;
+                }
+            }
+        }
+        if (!addDomainTxtField.getText().isEmpty() && !existe) {
+            domaines2Model.addElement(new Domaine(0,addDomainTxtField.getText()));
+
         } else if (addDomainTxtField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "entrer un nom d'etablissement");
         } else {
@@ -399,7 +398,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addDomainBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (verif()) {
+        if (verif() && errMsg2 == "") {
             Object[] arr = domaines2Model.toArray();
             EtablissementDomaineDao etabdomDAO = new EtablissementDomaineDao();
             DomaineDao domDAO = new DomaineDao();
@@ -419,34 +418,38 @@ public class EtablissementFrame extends javax.swing.JFrame {
             etb.setResponsable((Utilisateur) utilisateurModel.getElementAt(responsableCmboBox.getSelectedIndex()));
             etb.setDescription(descriptionTextArea.getText());
             etb.setNom(nomTxtFeild.getText());
-            
-            
-            if (imageTxt!="")
+
+
+            if (imageTxt != "") {
                 etb.setImage(Toolkit.getDefaultToolkit().getImage(imageTxt));
-            else etb.setImage(null);
+            } else {
+                etb.setImage(null);
+            }
 
 
             if (action == -1) {
-                if (imageTxt=="")
+                if (imageTxt == "") {
                     id = EDAO.insertEtablissement(etb);
-                else try {
-                    id = EDAO.insertEtablissement(etb, imageTxt);
-                } catch (FileNotFoundException ex) {
-                    
+                } else {
+                    try {
+                        id = EDAO.insertEtablissement(etb, imageTxt);
+                    } catch (FileNotFoundException ex) {
+                    }
                 }
             } else {
                 id = action;
-                if (imageTxt=="")
+                if (imageTxt == "") {
                     EDAO.updateEtablissement(action, etb);
-                else try {
-                    EDAO.updateEtablissement(action, etb, imageTxt);
-                } catch (FileNotFoundException ex) {
-                    
+                } else {
+                    try {
+                        EDAO.updateEtablissement(action, etb, imageTxt);
+                    } catch (FileNotFoundException ex) {
+                    }
                 }
             }
 
 
-            listeDomainesExistant = new DomaineDao().selectDomaines();
+            
             for (Domaine d : listeDomainesAjouter) {
                 if (!listeDomainesExistant.contains(d)) {
                     idDomaineAjouter = domDAO.insertDomaine(d);
@@ -477,6 +480,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private javax.swing.JLabel domainePanel;
     private javax.swing.JList domaines1;
     private javax.swing.JList domaines2;
+    private javax.swing.JLabel errLbl;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel inputPanel;
     private javax.swing.JScrollPane jScrollPane1;
@@ -497,32 +501,45 @@ public class EtablissementFrame extends javax.swing.JFrame {
      * methode pour intialiser les combobox et les liste en récupairant les valeurs de la base de donnée
      */
     private void init() {
-        String errMsg = "";
+
+        errMsg = "";
+        errMsg2 = "";
+
+        errLbl.setVisible(false);
         
         descriptionTextArea.setLineWrap(true);
         setLocationRelativeTo(null);
 
         //remplissage du combobox des lieux
+        LieuDao LDAO = new LieuDao();
+        List<Lieu> lL = new ArrayList<Lieu>();
+
+        UtilisateurDao UDAO = new UtilisateurDao();
+        List<Utilisateur> lU = new ArrayList<Utilisateur>();
         try {
-            LieuDao LDAO = new LieuDao();
-            List<Lieu> lL = new ArrayList<Lieu>();
+
             lL = LDAO.selectLieux();
             for (Lieu lieu : lL) {
                 lieuModel.addElement(lieu);
             }
         } catch (Exception e) {
             errMsg += "-recupairation des lieux\n";
+            if (lL.size() == 0) {
+                errMsg2 += "-Lieux\n";
+            }
         }
         //remplissage du combobox des responsables
         try {
-            UtilisateurDao UDAO = new UtilisateurDao();
-            List<Utilisateur> lU = new ArrayList<Utilisateur>();
+
             lU = UDAO.selectUserByType('R');
             for (Utilisateur utilisateur : lU) {
                 utilisateurModel.addElement(utilisateur);
             }
         } catch (Exception e) {
             errMsg += "-recupairation des responsables\n";
+            if (lU.size() == 0) {
+                errMsg2 += "-Responsables\n";
+            }
         }
 
         //remplissage des listes de domaines
@@ -538,15 +555,21 @@ public class EtablissementFrame extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             errMsg += "-recupairation des domaines\n";
+            if (listDomaines1.size() == 0) {
+                errMsg2 += "-Domaines\n";
+            }
         }
         domaines1.setModel(domaines1Model);
         domaines2.setModel(domaines2Model);
         responsableCmboBox.setModel(utilisateurModel);
         lieuCmboBox.setModel(lieuModel);
-        if (errMsg!="") {
+        listeDomainesExistant = new DomaineDao().selectDomaines();
+        if (errMsg != "") {
             JOptionPane.showMessageDialog(null, "erreur lors de la recupairation de : \n" + errMsg);
         }
-
+        if (errMsg2 != "") {
+            JOptionPane.showMessageDialog(null, "les données suivants sont manquant : \n" + errMsg2);
+        }
     }
 
     private boolean verif() {
