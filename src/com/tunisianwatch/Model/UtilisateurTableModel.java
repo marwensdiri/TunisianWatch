@@ -103,8 +103,10 @@ public class UtilisateurTableModel extends ConsultationTableModel {
                     }
 
                 } else if (searchIndex == 4) {
-                    if ((utilisateur.getAge() + "").matches("(.*)" + searchString + "(.*)")) {
-                        listResultSearch.add(utilisateur);
+                    if (utilisateur.getDateNaissance() != null) {
+                        if ((utilisateur.getAge() + "").matches("(.*)" + searchString + "(.*)")) {
+                            listResultSearch.add(utilisateur);
+                        }
 
                     } else if (searchIndex == 5 && type == 'R') {
                         if (utilisateur.getEtablissement() != null) {
@@ -138,7 +140,11 @@ public class UtilisateurTableModel extends ConsultationTableModel {
         } else if (columnIndex == 3) {
             return utilisateur.getSexe();
         } else if (columnIndex == 4) {
-            return utilisateur.getAge();
+            if (utilisateur.getDateNaissance() != null) {
+                return utilisateur.getAge();
+            } else {
+                return null;
+            }
         } else if (type == 'R') {
             if (columnIndex == 5) {
                 return utilisateur.getEtablissement();
