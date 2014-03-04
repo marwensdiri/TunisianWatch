@@ -14,7 +14,6 @@ import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
 import com.tunisianwatch.Entities.Reclamation;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
