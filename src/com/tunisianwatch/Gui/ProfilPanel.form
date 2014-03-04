@@ -11,7 +11,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-12,0,0,3,102"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,39,0,0,3,102"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
@@ -20,11 +20,12 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Profils"/>
+            <TitledBorder title="Profils">
+              <Color PropertyName="color" blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
+            </TitledBorder>
           </Border>
         </Property>
         <Property name="autoscrolls" type="boolean" value="true"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
@@ -44,74 +45,78 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
+                  <Component id="btnModifier" min="-2" pref="89" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAnnuler" min="-2" pref="89" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
               <Group type="102" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel2" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="jLabel11" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="jLabel12" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="jLabel17" alignment="1" pref="134" max="32767" attributes="0"/>
+                              <Component id="jLabel15" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="jLabel14" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
+                              <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel13" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="nomTextfield" alignment="0" pref="213" max="32767" attributes="0"/>
+                              <Component id="prenomTextfield" alignment="0" pref="213" max="32767" attributes="0"/>
+                              <Component id="pseudoTextfield" alignment="0" pref="213" max="32767" attributes="0"/>
+                              <Component id="mdpTextfield" alignment="0" pref="213" max="32767" attributes="0"/>
+                              <Component id="mdp2Textfield" alignment="0" pref="213" max="32767" attributes="0"/>
+                              <Component id="sexeCombox" alignment="0" max="32767" attributes="0"/>
+                              <Component id="mailTextfield" alignment="0" pref="213" max="32767" attributes="0"/>
+                              <Component id="dateTextfield" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" pref="213" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                          <Component id="lblImage" min="-2" pref="250" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnModifphoto" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" pref="838" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel13" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                                      <Component id="jLabel17" alignment="1" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <Component id="jLabel15" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
-                                      <Component id="jLabel14" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="sexeCombox" alignment="0" min="-2" pref="155" max="-2" attributes="0"/>
-                              <Component id="dateTextfield" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" pref="213" max="32767" attributes="0"/>
-                                  <Component id="mailTextfield" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="mdp2Textfield" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="mdpTextfield" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="pseudoTextfield" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="prenomTextfield" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nomTextfield" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="102" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField1" min="-2" pref="184" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="142" max="32767" attributes="0"/>
-                          <Component id="lblUser" min="-2" pref="269" max="-2" attributes="0"/>
-                          <EmptySpace pref="74" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel19" min="-2" pref="517" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="lblImage" alignment="2" min="-2" pref="300" max="-2" attributes="0"/>
-                      <Component id="btnModifphoto" alignment="2" min="-2" pref="214" max="-2" attributes="0"/>
-                      <Component id="btnAnnuler" alignment="2" min="-2" pref="214" max="-2" attributes="0"/>
-                      <Component id="btnModifier" alignment="2" min="-2" pref="214" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="76" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lblImage" min="-2" pref="227" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="btnModifphoto" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="lblImage" min="-2" pref="250" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnModifphoto" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lblUser" min="-2" pref="79" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="nomTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -141,38 +146,38 @@
                               <Component id="sexeCombox" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="mailTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jLabel14" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="dateTextfield" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel16" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="dateTextfield" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel18" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                              <Component id="jLabel18" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="59" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-                          <Component id="btnModifier" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnAnnuler" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel19" min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTextField1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jLabel20" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnModifier" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAnnuler" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -240,9 +245,6 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\DELL\Documents\NetBeansProjects\TunisianWatch\src\com\tunisianwatch\Images\avatar.png"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnModifphoto">
@@ -279,7 +281,7 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Mot de Passe"/>
+            <Property name="text" type="java.lang.String" value="Nouveau Mot de Passe"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="mdpTextfield">
@@ -320,23 +322,22 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="sexeCombox">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
                 <StringItem index="0" value="Homme"/>
                 <StringItem index="1" value="Femme"/>
               </StringArray>
             </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateTextfield">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblUser">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tempus Sans ITC" size="36" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
@@ -378,6 +379,28 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JSeparator" name="jSeparator1">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextField1">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel19">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Vous devez saisir votre mot de passe avant de pouvoir enregistrer ces param&#xe8;tres."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel20">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Mot de passe"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

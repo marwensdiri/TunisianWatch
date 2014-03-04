@@ -94,7 +94,7 @@
                                   <Component id="reclamationButton" max="32767" attributes="0"/>
                                   <Component id="etablissementButton" alignment="1" max="32767" attributes="0"/>
                                   <Component id="responsableButton" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="responsableButton1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="profilButton" alignment="0" max="32767" attributes="0"/>
                                   <Component id="statButton" alignment="0" max="32767" attributes="0"/>
                                   <Component id="citoyenButton" alignment="1" max="32767" attributes="0"/>
                                   <Component id="logoLabel" alignment="0" max="32767" attributes="0"/>
@@ -115,7 +115,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="logoLabel" min="-2" pref="74" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="responsableButton1" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="profilButton" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="reclamationButton" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -190,7 +190,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="responsableButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="responsableButton1">
+            <Component class="javax.swing.JButton" name="profilButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="cc" type="rgb"/>
@@ -201,7 +201,7 @@
                 <Property name="text" type="java.lang.String" value="Profil"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="responsableButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="profilButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="statButton">

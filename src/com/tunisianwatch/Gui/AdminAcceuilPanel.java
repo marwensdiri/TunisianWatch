@@ -12,13 +12,13 @@ import java.awt.Dimension;
  *
  * @author asd
  */
-public class AcceuilPanel extends javax.swing.JPanel {
+public class AdminAcceuilPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Acceul
      */
     
-    public AcceuilPanel() {
+    public AdminAcceuilPanel() {
         initComponents();
     }
 
@@ -37,7 +37,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
         reclamationButton = new javax.swing.JButton();
         citoyenButton = new javax.swing.JButton();
         responsableButton = new javax.swing.JButton();
-        responsableButton1 = new javax.swing.JButton();
+        profilButton = new javax.swing.JButton();
         statButton = new javax.swing.JButton();
         logoLabel = new javax.swing.JLabel();
         DisconnectButton = new javax.swing.JButton();
@@ -88,12 +88,12 @@ public class AcceuilPanel extends javax.swing.JPanel {
             }
         });
 
-        responsableButton1.setBackground(new java.awt.Color(204, 0, 0));
-        responsableButton1.setForeground(new java.awt.Color(255, 255, 255));
-        responsableButton1.setText("Profil");
-        responsableButton1.addActionListener(new java.awt.event.ActionListener() {
+        profilButton.setBackground(new java.awt.Color(204, 0, 0));
+        profilButton.setForeground(new java.awt.Color(255, 255, 255));
+        profilButton.setText("Profil");
+        profilButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                responsableButton1ActionPerformed(evt);
+                profilButtonActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
                             .addComponent(reclamationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(etablissementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(responsableButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(responsableButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(profilButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(statButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(citoyenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -144,7 +144,7 @@ public class AcceuilPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(responsableButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -228,13 +228,13 @@ public class AcceuilPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_responsableButtonActionPerformed
 
-    private void responsableButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableButton1ActionPerformed
+    private void profilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilButtonActionPerformed
         // TODO add your handling code here:
         contentPanel.removeAll();
-      // contentPanel.add(new ProfilPanel());
+      contentPanel.add(new ProfilPanel());
        contentPanel.repaint();
        contentPanel.revalidate();
-    }//GEN-LAST:event_responsableButton1ActionPerformed
+    }//GEN-LAST:event_profilButtonActionPerformed
 
     private void statButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statButtonActionPerformed
        contentPanel.removeAll();
@@ -244,7 +244,8 @@ public class AcceuilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_statButtonActionPerformed
 
     private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed
-        
+        MainFrame.getInstance().dispose();
+        new Authentification().setVisible(true);
     }//GEN-LAST:event_DisconnectButtonActionPerformed
 
 
@@ -256,9 +257,9 @@ public class AcceuilPanel extends javax.swing.JPanel {
     private javax.swing.JButton etablissementButton;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JButton profilButton;
     private javax.swing.JButton reclamationButton;
     private javax.swing.JButton responsableButton;
-    private javax.swing.JButton responsableButton1;
     private javax.swing.JButton statButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class DocumentDao {
 
@@ -22,22 +22,15 @@ public class DocumentDao {
      *
      * @param d
      */
-    public int insertDocument(Document d, String PathImage) {
+    public int insertDocument(Document d) {
         int id = 0;
-        String requete = "insert into document (type,urlvideo,content,nom,idreclamation) values (?,?,?,?,?)";
+        String requete = "insert into document (type,urlvideo,nom,idreclamation) values (?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, d.getType());
             ps.setString(2, d.getUrl());
-            FileInputStream fis;
-            try {
-                fis = new FileInputStream(PathImage);
-                ps.setBinaryStream(3, fis, (int) PathImage.length());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            ps.setString(4, d.getNom());
-            ps.setInt(5, d.getIdReclamation());
+            ps.setString(3, d.getNom());
+            ps.setInt(4, d.getIdReclamation());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -51,12 +44,38 @@ public class DocumentDao {
         }
     }
 
+    public int insertDocument(Document d, String PathImage) {
+        int id = 0;
+        String requete = "insert into document (type,nom,idreclamation,content) values (?,?,?,?)";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, d.getType());
+            ps.setString(2, d.getNom());
+            ps.setInt(3, d.getIdReclamation());
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(4, fis, (int) PathImage.length());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            return id;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+
     /**
      *
      * @param id
      * @param d
      */
-    public List<Document> selectDocuments() {
+    public List<Document> selectDocuments() throws IOException {
         List<Document> listeDocuments = new ArrayList<Document>();
         String requete = "select * from document";
         try {
@@ -71,11 +90,11 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes;
-                    Image image;
-                    Imagebytes = resultat.getBytes("content");
-                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    doc.setImage(image);
+                    byte[] Imagebytes = resultat.getBytes("content");
+                    if (Imagebytes != null) {
+                        Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                        doc.setImage(image);
+                    }
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -107,11 +126,11 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes;
-                    Image image;
-                    Imagebytes = resultat.getBytes("content");
-                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    doc.setImage(image);
+                    byte[] Imagebytes = resultat.getBytes("content");
+                    if (Imagebytes != null) {
+                        Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                        doc.setImage(image);
+                    }
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -137,11 +156,11 @@ public class DocumentDao {
                 doc.setNom(resultat.getString("nom"));
                 doc.setType(resultat.getInt("type"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    byte[] Imagebytes;
-                    Image image;
-                    Imagebytes = resultat.getBytes("content");
-                    image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    doc.setImage(image);
+                    byte[] Imagebytes = resultat.getBytes("content");
+                    if (Imagebytes != null) {
+                        Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                        doc.setImage(image);
+                    }
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -165,6 +184,21 @@ public class DocumentDao {
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("Utilisateur supprimée");
+            return true;
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+            return false;
+        }
+    }
+    
+        public boolean deleteDocumentByReclamation(int idreclamation) {
+        String requete = "delete from document where idreclamation=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idreclamation);
+            ps.executeUpdate();
+            System.out.println("document supprimée");
             return true;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);

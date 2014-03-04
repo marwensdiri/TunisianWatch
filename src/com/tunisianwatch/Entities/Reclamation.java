@@ -1,7 +1,11 @@
 package com.tunisianwatch.Entities;
 
 import java.awt.Image;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Reclamation {
 
@@ -48,23 +52,25 @@ public class Reclamation {
         this.listDocument = listDocument;
     }
 
-    public List<Image> getImages(){
+    public List<Image> getImages() {
+        System.out.println(listDocument.size());
         List<Image> listPhoto = new ArrayList<Image>();
-        for(Document doc : listDocument){
-            if(doc.getType()==1)
+        for (Document doc : listDocument) {
+            if (doc.getType() == 1) {
                 listPhoto.add(doc.getImage());
+            }
         }
         return listPhoto;
     }
-    
-    public void addEvaluation(Evaluation ev){
+
+    public void addEvaluation(Evaluation ev) {
         listEvaluation.add(ev);
     }
-    
-    public void removeEvaluation(Evaluation ev){
+
+    public void removeEvaluation(Evaluation ev) {
         listEvaluation.remove(ev);
     }
-    
+
     public Reclamation() {
     }
 
@@ -116,10 +122,23 @@ public class Reclamation {
         this.date = date;
     }
 
-    public void setHeure(Date heure) {
-        this.heure = heure;
+    public void setHeure(String heure) {
+        SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
+
+        try {
+            Date d = ft.parse(heure);
+            this.heure = d;
+        } catch (ParseException ex) {
+            Logger.getLogger(Reclamation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
+    public void setHeure(Date heure) {
+       this.heure=heure;
+    }
+
+    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -140,7 +159,6 @@ public class Reclamation {
         this.etat = etat;
     }
 
-
     public List<Evaluation> getListEvaluation() {
         return listEvaluation;
     }
@@ -148,13 +166,11 @@ public class Reclamation {
     public void setListEvaluation(List<Evaluation> listEvaluation) {
         this.listEvaluation = listEvaluation;
     }
-    
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return titre;
     }
-    
 
     @Override
     public int hashCode() {
