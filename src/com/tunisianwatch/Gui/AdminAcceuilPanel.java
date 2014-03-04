@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Gui;
 
 import java.awt.Dimension;
@@ -17,7 +16,6 @@ public class AdminAcceuilPanel extends javax.swing.JPanel {
     /**
      * Creates new form Acceul
      */
-    
     public AdminAcceuilPanel() {
         initComponents();
     }
@@ -231,16 +229,16 @@ public class AdminAcceuilPanel extends javax.swing.JPanel {
     private void profilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilButtonActionPerformed
         // TODO add your handling code here:
         contentPanel.removeAll();
-      contentPanel.add(new ProfilPanel());
-       contentPanel.repaint();
-       contentPanel.revalidate();
+        contentPanel.add(new ProfilPanel());
+        contentPanel.repaint();
+        contentPanel.revalidate();
     }//GEN-LAST:event_profilButtonActionPerformed
 
     private void statButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statButtonActionPerformed
-       contentPanel.removeAll();
-       contentPanel.add(new StatistiquePanel());
-       contentPanel.repaint();
-       contentPanel.revalidate();
+        contentPanel.removeAll();
+        contentPanel.add(new StatistiquePanel());
+        contentPanel.repaint();
+        contentPanel.revalidate();
     }//GEN-LAST:event_statButtonActionPerformed
 
     private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed

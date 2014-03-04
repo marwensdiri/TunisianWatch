@@ -30,7 +30,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Profils">
+            <TitledBorder title="Inscription">
               <Color PropertyName="color" blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
             </TitledBorder>
           </Border>
@@ -81,23 +81,27 @@
                               <Component id="confirmMdpPasswordField" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="nameErrorLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prenomErrorLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="loginErrorLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="mdpErrorLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="confirmMdpErrorLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="sexeErrorLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="nameErrorLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="prenomErrorLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="loginErrorLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="mdpErrorLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="confirmMdpErrorLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="sexeErrorLabel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="lblImage" min="-2" pref="250" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="lblImage" min="-2" pref="250" max="-2" attributes="0"/>
+                                  <Component id="dateErrorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="mailErrorLabel1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="mailErrorLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnModifphoto" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -114,62 +118,67 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblImage" min="-2" pref="250" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnModifphoto" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="nomTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="nameErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="prenomTextfield" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Component id="prenomErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel11" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel12" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="pseudoTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="loginErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel13" min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="mdpPasswordField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="mdpErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="nomTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="nameErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="prenomTextfield" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <Component id="prenomErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel11" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel12" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="pseudoTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="loginErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel13" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="mdpPasswordField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Component id="mdpErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel17" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="confirmMdpPasswordField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="confirmMdpErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="sexeCombox" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jLabel15" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="sexeErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="mailTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="mailErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel16" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="dateTextfield" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel17" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="confirmMdpPasswordField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="confirmMdpErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="sexeCombox" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="jLabel15" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="sexeErrorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="mailTextfield" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jLabel14" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="mailErrorLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel16" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="dateTextfield" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="dateErrorLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -236,6 +245,9 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/tunisianwatch/Images/avatar.png"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnModifphoto">
@@ -432,7 +444,18 @@
             <Property name="text" type="java.lang.String" value="Vous devez s&#xe9;l&#xe9;ctionnez votre sexe"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="mailErrorLabel1">
+        <Component class="javax.swing.JLabel" name="mailErrorLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Ce champ est obligatoire"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="dateErrorLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
