@@ -46,7 +46,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
             setImage();
         }
         List<Commentaire> commentaires = new CommentaireDao().selectCommentairesByIdReclamation(reclamation.getId());
-        java.awt.GridLayout grid = new java.awt.GridLayout(commentaires.size(), 0, 0, 0);
+        java.awt.GridLayout grid = new java.awt.GridLayout(commentaires.size()+1, 0, 0, 0);
         commentairePanel.setLayout(grid);
         for (Commentaire commentaire : commentaires) {
             commentairePanel.add(new CommentairePanel(commentaire));
@@ -198,15 +198,15 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                     .addComponent(titreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
                 .addGap(18, 18, 18))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
+            .addGroup(corePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(previousButton)
+                .addGap(134, 134, 134)
+                .addComponent(nextButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(corePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(255, 255, 255))
-            .addGroup(corePanelLayout.createSequentialGroup()
-                .addGap(313, 313, 313)
-                .addComponent(previousButton)
-                .addGap(109, 109, 109)
-                .addComponent(nextButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         corePanelLayout.setVerticalGroup(
@@ -230,9 +230,9 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(previousButton)
                     .addComponent(nextButton))

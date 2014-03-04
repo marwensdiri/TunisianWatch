@@ -558,6 +558,8 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), null, resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
+                user.setSexe(resultat.getString("sexe").charAt(0));
+                
 /**
  *
  * @author MekniAymen

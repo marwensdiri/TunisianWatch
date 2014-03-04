@@ -6,29 +6,15 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -38,7 +24,7 @@ public class ProfilPanel extends javax.swing.JPanel {
 
     //String PathImage = "C:\\Users\\DELL\\Documents\\NetBeansProjects\\TunisianWatch\\src\\com\\tunisianwatch\\Images\\avatar.png";
     String PathImage = null;
-    Utilisateur logger = new UtilisateurDao().selectUserById(MainFrame.id);
+    Utilisateur logger = MainFrame.getMe();
     Boolean modif = null;
 
     /**
@@ -46,7 +32,6 @@ public class ProfilPanel extends javax.swing.JPanel {
      */
     public ProfilPanel() {
         initComponents();
-        Utilisateur logger = new UtilisateurDao().selectUserById(MainFrame.id);
         //lblUser.setText(logger.getNom() + " " + logger.getPrenom());
         contentPanel.setName("Profil " + logger.getNom() + " " + logger.getPrenom());
         nomTextfield.setText(logger.getNom());
@@ -60,6 +45,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         } else {
             sexeCombox.setSelectedIndex(1);
         }
+        
         adrTextfield.setText(logger.getAdress());
         dateTextfield.setDate(logger.getDateNaissance());
 
@@ -208,6 +194,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         sexeCombox.setBackground(new java.awt.Color(204, 0, 0));
         sexeCombox.setForeground(new java.awt.Color(255, 255, 255));
         sexeCombox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Homme", "Femme" }));
+        sexeCombox.setSelectedIndex(-1);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -294,14 +281,13 @@ public class ProfilPanel extends javax.swing.JPanel {
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModifphoto))
                     .addGroup(contentPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -417,7 +403,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int var = JOptionPane.showConfirmDialog(null, "Voulez-vous Annuler Tes Modification ?", "Confimation", JOptionPane.YES_NO_OPTION);
         if (var == 0) {
-            Utilisateur logger = new UtilisateurDao().selectUserById(MainFrame.id);
+            logger = MainFrame.getMe();
             //   lblUser.setText(logger.getNom() + " " + logger.getPrenom());
             contentPanel.setName("Profil " + logger.getNom() + " " + logger.getPrenom());
             nomTextfield.setText(logger.getNom());

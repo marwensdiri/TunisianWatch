@@ -4,13 +4,9 @@ import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.*;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class DocumentDao {
 
@@ -51,15 +46,14 @@ public class DocumentDao {
 
     public int insertDocument(Document d, String PathImage) {
         int id = 0;
-        String requete = "insert into document (type,urlvideo,nom,idreclamation,content) values (?,?,?,?,?)";
+        String requete = "insert into document (type,nom,idreclamation,content) values (?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, d.getType());
-            ps.setString(2, d.getUrl());
-            ps.setString(3, d.getNom());
-            ps.setInt(4, d.getIdReclamation());
+            ps.setString(2, d.getNom());
+            ps.setInt(3, d.getIdReclamation());
             FileInputStream fis = new FileInputStream(PathImage);
-            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            ps.setBinaryStream(4, fis, (int) PathImage.length());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -190,6 +184,21 @@ public class DocumentDao {
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("Utilisateur supprimée");
+            return true;
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+            return false;
+        }
+    }
+    
+        public boolean deleteDocumentByReclamation(int idreclamation) {
+        String requete = "delete from document where idreclamation=?";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idreclamation);
+            ps.executeUpdate();
+            System.out.println("document supprimée");
             return true;
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);

@@ -16,7 +16,7 @@ public class ReclamationDao {
      */
     public int insertReclamation(Reclamation r) {
         int id = 0;
-        String requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,etat) values (?,?,?,?,?,?,?,?)";
+        String requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,iddomaine,etat) values (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
 
@@ -40,7 +40,7 @@ public class ReclamationDao {
             return id;
         } catch (SQLException ex) {
             //<tmp>
-            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            System.out.println("erreur lors de l'insertion de la reclamation " + ex.getMessage());
             //</tmp>
             return id;
         }
@@ -386,6 +386,7 @@ public class ReclamationDao {
     public boolean deleteReclamation(int id) {
         String requete = "delete from reclamation where id=?";
         try {
+            new DocumentDao().deleteDocumentByReclamation(id);
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
             ps.executeUpdate();

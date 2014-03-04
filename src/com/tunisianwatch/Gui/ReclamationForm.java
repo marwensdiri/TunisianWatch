@@ -5,10 +5,14 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.Dao.DocumentDao;
 import com.tunisianwatch.Dao.DomaineDao;
 import com.tunisianwatch.Dao.LieuDao;
+import com.tunisianwatch.Dao.ReclamationDao;
+import com.tunisianwatch.Entities.Document;
 import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
+import com.tunisianwatch.Entities.Reclamation;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -101,8 +105,14 @@ public class ReclamationForm extends javax.swing.JPanel {
         lieuLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lieuLabel.setText("Lieu par liste:");
 
+        lieuComboBox.setBackground(new java.awt.Color(204, 0, 0));
+        lieuComboBox.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Domaine:");
+
+        domaineComboBox.setBackground(new java.awt.Color(204, 0, 0));
+        domaineComboBox.setForeground(new java.awt.Color(255, 255, 255));
 
         fileToggleButton.setBackground(new java.awt.Color(204, 0, 0));
         fileToggleButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,14 +211,15 @@ public class ReclamationForm extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lieuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(mapButton))
-                                    .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(fileToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(fileToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(lieuComboBox, 0, 155, Short.MAX_VALUE)
+                                            .addComponent(domaineComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(16, 16, 16)
+                                        .addComponent(mapButton)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(domaineErrorLabel)
@@ -229,7 +240,7 @@ public class ReclamationForm extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2))
-                        .addGap(161, 161, 161)))
+                        .addGap(127, 127, 127)))
                 .addGap(88, 88, 88))
         );
         jPanel1Layout.setVerticalGroup(
@@ -313,35 +324,53 @@ public class ReclamationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_mapButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       // if (titreTextfield.getText().length() > 0 && lieuComboBox.getSelectedIndex() != -1 && domaineComboBox.getSelectedIndex() != -1 && dateTextfield.getDate() != null) {
+        // if (titreTextfield.getText().length() > 0 && lieuComboBox.getSelectedIndex() != -1 && domaineComboBox.getSelectedIndex() != -1 && dateTextfield.getDate() != null) {
         boolean ok = true;
-        if(titreTextfield.getText().length() == 0){
+        if (titreTextfield.getText().length() == 0) {
             titreErrorLabel.setVisible(true);
             ok = false;
         }
-        if(lieuComboBox.getSelectedIndex() == -1){
+        if (lieuComboBox.getSelectedIndex() == -1) {
             lieuErrorLabel.setVisible(true);
             ok = false;
         }
-        if(domaineComboBox.getSelectedIndex() == -1){
+        if (domaineComboBox.getSelectedIndex() == -1) {
             domaineErrorLabel.setVisible(true);
             ok = false;
         }
-        if(dateTextfield.getDate() == null){
+        if (dateTextfield.getDate() == null) {
             dateErrorLabel.setVisible(true);
             ok = false;
         }
-        if(timeTimeChooser.getTimeField().getText()=="00:00:00"){
-           
+        if (timeTimeChooser.getTimeField().getText() == "") {
+            heureErrorLabel.setVisible(true);
+            ok = false;
         }
-         System.out.println(timeTimeChooser.getTimeField().getText());
-        if (listFile.size() > 0) {
-                FileInputStream fis;
-                for (File f : listFile) {
-                            
+        if (ok) {
+            Lieu L = (Lieu) lieuComboBox.getSelectedItem();
+            Domaine D = (Domaine) domaineComboBox.getSelectedItem();
+            Reclamation reclamation = new Reclamation();
+            reclamation.setLieu(L);
+            reclamation.setDomaine(D);
+            reclamation.setCitoyen(MainFrame.me);
+            reclamation.setDate(dateTextfield.getDate());
+            reclamation.setHeure(timeTimeChooser.getTimeField().getText());
+            reclamation.setEtat(0);
+            reclamation.setTitre(titreTextfield.getText());
+            int idreclamation = new ReclamationDao().insertReclamation(reclamation);
+            if (idreclamation > 0) {
+                if (listFile.size() > 0){
+                    DocumentDao docDao = new DocumentDao();
+                    for(File file : listFile){
+                        Document document = new Document();
+                        document.setIdReclamation(idreclamation);
+                        document.setNom(file.getName());
+                        document.setType(1);
+                        docDao.insertDocument(document,file.getAbsolutePath());
+                    }
                 }
             }
-       // }
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
 

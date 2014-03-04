@@ -5,8 +5,7 @@
  */
 package com.tunisianwatch.Gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.tunisianwatch.Entities.Utilisateur;
 
 /**
  *
@@ -14,53 +13,55 @@ import java.util.logging.Logger;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    public static int id;
+    public static Utilisateur me;
     private static MainFrame mainFrameInstance;
-    private static char type;
 
     /**
      * Creates new form MainFrame
      */
-    public static MainFrame getInstance(int id, char type) {
-        setType(type);
-        setId(id);
+    public static MainFrame getInstance(Utilisateur me) {
         if (mainFrameInstance == null) {
-            mainFrameInstance = new MainFrame();
+            mainFrameInstance = new MainFrame(me);
+
+        } else {
+            mainFrameInstance.setMe(me);
         }
+        mainFrameInstance.chargement();
         return mainFrameInstance;
     }
 
     public static MainFrame getInstance() {
-        if (mainFrameInstance == null) {
-            mainFrameInstance = new MainFrame();
-        }
         return mainFrameInstance;
     }
 
-    public static int getId() {
-        return id;
+    private void chargement() {
+        System.out.println(me);
+        corePanel.removeAll();
+        if (me.getType() == 'A') {
+            System.out.println("ff");
+            corePanel.add(new AcceuilPanel());
+        } else if (me.getType() == 'C') {
+            System.out.println("gg");
+            corePanel.add(new ClientAcceuilPanel());
+        } else {
+
+        }
+        corePanel.repaint();
+        corePanel.revalidate();
     }
 
-    public static void setId(int id) {
-        MainFrame.id = id;
+    public static Utilisateur getMe() {
+        return me;
     }
 
-    public static void setType(char type) {
-        MainFrame.type = type;
+    public static void setMe(Utilisateur me) {
+        MainFrame.me = me;
     }
 
-    private MainFrame() {
+    private MainFrame(Utilisateur me) {
+        this.me = me;
         initComponents();
         setLocationRelativeTo(null);
-        if (type == 'A') {
-            this.add(new AcceuilPanel());
-        } else {
-            this.add(new ClientAcceuilPanel());
-        }
-        /* contentPanel.removeAll();
-         contentPanel.add(new ProfilPanel());
-         contentPanel.repaint();
-         contentPanel.revalidate();*/
 
     }
 
@@ -73,16 +74,22 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        corePanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tunisianwatch");
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        corePanel.setLayout(new java.awt.CardLayout());
+        getContentPane().add(corePanel, "card2");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel corePanel;
     // End of variables declaration//GEN-END:variables
 }
