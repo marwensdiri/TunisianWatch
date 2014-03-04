@@ -4,6 +4,8 @@ import com.tunisianwatch.Dao.*;
 import com.tunisianwatch.Entities.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -386,7 +388,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
             }
         }
         if (!addDomainTxtField.getText().isEmpty() && !existe) {
-            domaines2Model.addElement(new Domaine(0,addDomainTxtField.getText()));
+            domaines2Model.addElement(new Domaine(0, addDomainTxtField.getText()));
 
         } else if (addDomainTxtField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "entrer un nom d'etablissement");
@@ -439,17 +441,17 @@ public class EtablissementFrame extends javax.swing.JFrame {
             } else {
                 id = action;
                 if (imageTxt == "") {
-                    EDAO.updateEtablissement(action, etb);
+                    EDAO.updateEtablissement(id, etb);
                 } else {
                     try {
-                        EDAO.updateEtablissement(action, etb, imageTxt);
+                        EDAO.updateEtablissement(id, etb, imageTxt);
                     } catch (FileNotFoundException ex) {
                     }
                 }
             }
 
 
-            
+
             for (Domaine d : listeDomainesAjouter) {
                 if (!listeDomainesExistant.contains(d)) {
                     idDomaineAjouter = domDAO.insertDomaine(d);
@@ -458,10 +460,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
                     etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
                 }
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "err");
+            this.dispose();
         }
-        this.dispose();
+
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -506,7 +507,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         errMsg2 = "";
 
         errLbl.setVisible(false);
-        
+
         descriptionTextArea.setLineWrap(true);
         setLocationRelativeTo(null);
 
@@ -570,10 +571,26 @@ public class EtablissementFrame extends javax.swing.JFrame {
         if (errMsg2 != "") {
             JOptionPane.showMessageDialog(null, "les données suivants sont manquant : \n" + errMsg2);
         }
+
+        nomTxtFeild.addFocusListener(new java.awt.event.FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                errLbl.setVisible(false);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+            }
+        });
+
+
     }
 
     private boolean verif() {
         if (nomTxtFeild.getText().equals("")) {
+            errLbl.setVisible(true);
             return false;
         }
         return true;
