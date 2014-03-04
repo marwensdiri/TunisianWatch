@@ -174,7 +174,6 @@ public class Authentification extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if (user != null) {
-            JOptionPane.showMessageDialog(null, "Connexion établie");
             this.dispose();
             MainFrame.getInstance(user.getId(),user.getType()).setVisible(true);
         } else {

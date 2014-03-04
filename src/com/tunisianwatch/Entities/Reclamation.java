@@ -1,14 +1,7 @@
 package com.tunisianwatch.Entities;
 
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 public class Reclamation {
 
@@ -56,21 +49,12 @@ public class Reclamation {
     }
 
     public List<Image> getImages(){
+        System.out.println(listDocument.size());
         List<Image> listPhoto = new ArrayList<Image>();
         Image image;
         for(Document doc : listDocument){
             if(doc.getType()==1)
-              try {
-                  System.out.println(doc.getFile().length());
-                 image = ImageIO.read(doc.getFile());
-                  // image = Toolkit.getDefaultToolkit().createImage(doc.getFile())();
-                  listPhoto.add(image);
-            } catch (IOException ex) {
-                Logger.getLogger(Reclamation.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-                // image = Toolkit.getDefaultToolkit().createImage(doc.getFile())();
-               // listPhoto.add();
+                System.out.println("");
         }
         return listPhoto;
     }
