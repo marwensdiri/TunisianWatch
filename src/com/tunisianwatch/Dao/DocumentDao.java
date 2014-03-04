@@ -29,22 +29,13 @@ public class DocumentDao {
      */
     public int insertDocument(Document d) {
         int id = 0;
-        String requete = "insert into document (type,urlvideo,content,nom,idreclamation) values (?,?,?,?,?)";
+        String requete = "insert into document (type,urlvideo,nom,idreclamation) values (?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, d.getType());
             ps.setString(2, d.getUrl());
-            if (d.getFile() != null) {
-                FileInputStream fis;
-                try {
-                    fis = new FileInputStream(d.getFile());
-                    ps.setBinaryStream(3, fis, d.getFile().length());
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            ps.setString(4, d.getNom());
-            ps.setInt(5, d.getIdReclamation());
+            ps.setString(3, d.getNom());
+            ps.setInt(4, d.getIdReclamation());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -56,6 +47,33 @@ public class DocumentDao {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
             return id;
         }
+    }
+
+    public int insertDocument(Document d, String PathImage) {
+        int id = 0;
+        String requete = "insert into document (type,urlvideo,nom,idreclamation,content) values (?,?,?,?,?)";
+        try {
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, d.getType());
+            ps.setString(2, d.getUrl());
+            ps.setString(3, d.getNom());
+            ps.setInt(4, d.getIdReclamation());
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de l'insertion " + ex.getMessage());
+            return id;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DocumentDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
     }
 
     /**
@@ -78,21 +96,11 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    File file = null;
-                    Blob blob = resultat.getBlob("content");
-                    BufferedInputStream is = new BufferedInputStream(blob.getBinaryStream());
-                    FileOutputStream fos = new FileOutputStream(file);
-                    // you can set the size of the buffer
-                    byte[] buffer = new byte[2048];
-                    int r = 0;
-                    while ((r = is.read(buffer)) != -1) {
-                        fos.write(buffer, 0, r);
+                    byte[] Imagebytes = resultat.getBytes("content");
+                    if (Imagebytes != null) {
+                        Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                        doc.setImage(image);
                     }
-                    fos.flush();
-                    fos.close();
-                    is.close();
-                    blob.free();
-                    doc.setFile(file);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -124,21 +132,11 @@ public class DocumentDao {
                 doc.setType(resultat.getInt("type"));
                 doc.setIdReclamation(resultat.getInt("idreclamation"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    File file = null;
-                    Blob blob = resultat.getBlob("content");
-                    BufferedInputStream is = new BufferedInputStream(blob.getBinaryStream());
-                    FileOutputStream fos = new FileOutputStream(file);
-                    // you can set the size of the buffer
-                    byte[] buffer = new byte[2048];
-                    int r = 0;
-                    while ((r = is.read(buffer)) != -1) {
-                        fos.write(buffer, 0, r);
+                    byte[] Imagebytes = resultat.getBytes("content");
+                    if (Imagebytes != null) {
+                        Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                        doc.setImage(image);
                     }
-                    fos.flush();
-                    fos.close();
-                    is.close();
-                    blob.free();
-                    doc.setFile(file);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }
@@ -164,21 +162,11 @@ public class DocumentDao {
                 doc.setNom(resultat.getString("nom"));
                 doc.setType(resultat.getInt("type"));
                 if (doc.getType() == 1) { //si le document est une photo
-                    File file = null;
-                    Blob blob = resultat.getBlob("content");
-                    BufferedInputStream is = new BufferedInputStream(blob.getBinaryStream());
-                    FileOutputStream fos = new FileOutputStream(file);
-                    // you can set the size of the buffer
-                    byte[] buffer = new byte[2048];
-                    int r = 0;
-                    while ((r = is.read(buffer)) != -1) {
-                        fos.write(buffer, 0, r);
+                    byte[] Imagebytes = resultat.getBytes("content");
+                    if (Imagebytes != null) {
+                        Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
+                        doc.setImage(image);
                     }
-                    fos.flush();
-                    fos.close();
-                    is.close();
-                    blob.free();
-                    doc.setFile(file);
                 } else { //sinon
                     doc.setUrl(resultat.getString("url"));
                 }

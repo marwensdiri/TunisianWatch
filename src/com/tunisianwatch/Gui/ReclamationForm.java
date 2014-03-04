@@ -9,15 +9,10 @@ import com.tunisianwatch.Dao.DomaineDao;
 import com.tunisianwatch.Dao.LieuDao;
 import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -36,6 +31,11 @@ public class ReclamationForm extends javax.swing.JPanel {
 
     public ReclamationForm() {
         initComponents();
+        titreErrorLabel.setVisible(false);
+        lieuErrorLabel.setVisible(false);
+        domaineErrorLabel.setVisible(false);
+        dateErrorLabel.setVisible(false);
+        heureErrorLabel.setVisible(false);
         DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();
         DefaultComboBoxModel<Domaine> domaineModel = new DefaultComboBoxModel();
         List<Lieu> listLieu = new LieuDao().selectLieux();
@@ -79,6 +79,13 @@ public class ReclamationForm extends javax.swing.JPanel {
         dateLabel = new javax.swing.JLabel();
         dateTextfield = new com.toedter.calendar.JDateChooser();
         submitButton = new javax.swing.JButton();
+        titreErrorLabel = new javax.swing.JLabel();
+        lieuErrorLabel = new javax.swing.JLabel();
+        domaineErrorLabel = new javax.swing.JLabel();
+        dateErrorLabel = new javax.swing.JLabel();
+        timeTimeChooser = new lu.tudor.santec.jtimechooser.JTimeChooser();
+        heureErrorLabel = new javax.swing.JLabel();
+        heureLabel = new javax.swing.JLabel();
 
         setLayout(new java.awt.CardLayout());
 
@@ -145,39 +152,85 @@ public class ReclamationForm extends javax.swing.JPanel {
             }
         });
 
+        titreErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        titreErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        titreErrorLabel.setText("Ce champ est obligatoire");
+
+        lieuErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lieuErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        lieuErrorLabel.setText("Vous devez saisir le lieu");
+
+        domaineErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        domaineErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        domaineErrorLabel.setText("Vous devez saisir le domaine");
+
+        dateErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dateErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        dateErrorLabel.setText("Vous devez saisir la date");
+
+        timeTimeChooser.setBackground(new java.awt.Color(255, 255, 255));
+
+        heureErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        heureErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        heureErrorLabel.setText("Vous devez saisir l'heure");
+
+        heureLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        heureLabel.setText("Heure de l'incident");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addGap(71, 71, 71)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(photoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lieuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(titreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(dateLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                        .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(heureLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lieuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lieuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(mapButton))
+                                    .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(fileToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(mapButton))
-                            .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(domaineErrorLabel)
+                                    .addComponent(lieuErrorLabel)
+                                    .addComponent(titreErrorLabel)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(fileToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(titreTextfield)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(timeTimeChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dateTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                                .addGap(133, 133, 133)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dateErrorLabel)
+                                    .addComponent(heureErrorLabel))))
+                        .addGap(0, 105, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2))
+                        .addGap(161, 161, 161)))
+                .addGap(88, 88, 88))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,37 +238,49 @@ public class ReclamationForm extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titreErrorLabel))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lieuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mapButton))
+                    .addComponent(mapButton)
+                    .addComponent(lieuErrorLabel))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(domaineErrorLabel))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fileToggleButton))
                 .addGap(0, 0, 0)
                 .addComponent(fileLabel)
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(dateErrorLabel)
+                                .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(heureLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(timeTimeChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(heureErrorLabel))
                 .addGap(18, 18, 18)
-                .addComponent(submitButton)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(submitButton)
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -248,35 +313,63 @@ public class ReclamationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_mapButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (titreTextfield.getText().length() > 0 && lieuComboBox.getSelectedIndex() != -1 && domaineComboBox.getSelectedIndex() != -1 && dateTextfield.getDate() != null) {
-            if (listFile.size() > 0) {
+       // if (titreTextfield.getText().length() > 0 && lieuComboBox.getSelectedIndex() != -1 && domaineComboBox.getSelectedIndex() != -1 && dateTextfield.getDate() != null) {
+        boolean ok = true;
+        if(titreTextfield.getText().length() == 0){
+            titreErrorLabel.setVisible(true);
+            ok = false;
+        }
+        if(lieuComboBox.getSelectedIndex() == -1){
+            lieuErrorLabel.setVisible(true);
+            ok = false;
+        }
+        if(domaineComboBox.getSelectedIndex() == -1){
+            domaineErrorLabel.setVisible(true);
+            ok = false;
+        }
+        if(dateTextfield.getDate() == null){
+            dateErrorLabel.setVisible(true);
+            ok = false;
+        }
+        if(timeTimeChooser.getTimeField().getText()=="00:00:00"){
+           
+        }
+         System.out.println(timeTimeChooser.getTimeField().getText());
+        if (listFile.size() > 0) {
                 FileInputStream fis;
                 for (File f : listFile) {
                             
                 }
             }
-        }
+       // }
     }//GEN-LAST:event_submitButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dateErrorLabel;
     private javax.swing.JLabel dateLabel;
     private com.toedter.calendar.JDateChooser dateTextfield;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JComboBox domaineComboBox;
+    private javax.swing.JLabel domaineErrorLabel;
     private javax.swing.JLabel fileLabel;
     private javax.swing.JToggleButton fileToggleButton;
+    private javax.swing.JLabel heureErrorLabel;
+    private javax.swing.JLabel heureLabel;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox lieuComboBox;
+    private javax.swing.JLabel lieuErrorLabel;
     private javax.swing.JLabel lieuLabel;
     private javax.swing.JButton mapButton;
     private javax.swing.JTextField pathTextfield;
     private javax.swing.JLabel photoLabel;
     private javax.swing.JButton submitButton;
+    private lu.tudor.santec.jtimechooser.JTimeChooser timeTimeChooser;
+    private javax.swing.JLabel titreErrorLabel;
     private javax.swing.JLabel titreLabel;
     private javax.swing.JTextField titreTextfield;
     // End of variables declaration//GEN-END:variables
