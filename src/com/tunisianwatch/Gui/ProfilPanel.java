@@ -189,7 +189,7 @@ public class ProfilPanel extends javax.swing.JPanel {
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel15.setText("Sex");
+        jLabel15.setText("Sexe");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel16.setText("Date de Naissance");

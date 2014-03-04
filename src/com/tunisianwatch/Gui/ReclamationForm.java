@@ -172,7 +172,7 @@ public class ReclamationForm extends javax.swing.JPanel {
 
         domaineErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         domaineErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
-        domaineErrorLabel.setText("Vous devez saisir le domaine");
+        domaineErrorLabel.setText("Vous devez séléctionnez le domaine");
 
         dateErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         dateErrorLabel.setForeground(new java.awt.Color(204, 0, 0));

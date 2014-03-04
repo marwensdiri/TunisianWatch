@@ -66,8 +66,13 @@ public class InscriForm extends javax.swing.JFrame {
         nameErrorLabel = new javax.swing.JLabel();
         prenomErrorLabel = new javax.swing.JLabel();
         loginErrorLabel = new javax.swing.JLabel();
+        mdpErrorLabel = new javax.swing.JLabel();
+        confirmMdpErrorLabel = new javax.swing.JLabel();
+        sexeErrorLabel = new javax.swing.JLabel();
+        mailErrorLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(997, 500));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Profils", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
@@ -142,7 +147,7 @@ public class InscriForm extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel15.setText("Sex");
+        jLabel15.setText("Sexe");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel16.setText("Date de Naissance");
@@ -178,14 +183,31 @@ public class InscriForm extends javax.swing.JFrame {
         loginErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
         loginErrorLabel.setText("Ce champ est obligatoire");
 
+        mdpErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mdpErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        mdpErrorLabel.setText("Ce champ est obligatoire");
+
+        confirmMdpErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        confirmMdpErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        confirmMdpErrorLabel.setText("Ce champ est obligatoire");
+
+        sexeErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        sexeErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        sexeErrorLabel.setText("Vous devez séléctionnez votre sexe");
+
+        mailErrorLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mailErrorLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        mailErrorLabel1.setText("Ce champ est obligatoire");
+
         javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
         contentPanel.setLayout(contentPanelLayout);
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentPanelLayout.createSequentialGroup()
-                .addContainerGap(128, Short.MAX_VALUE)
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contentPanelLayout.createSequentialGroup()
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,16 +230,23 @@ public class InscriForm extends javax.swing.JFrame {
                             .addComponent(mdpPasswordField)
                             .addComponent(confirmMdpPasswordField))
                         .addGap(18, 18, 18)
-                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameErrorLabel)
-                            .addComponent(prenomErrorLabel)
-                            .addComponent(loginErrorLabel))
-                        .addGap(39, 39, 39)
-                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnModifphoto, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(contentPanelLayout.createSequentialGroup()
+                                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameErrorLabel)
+                                    .addComponent(prenomErrorLabel)
+                                    .addComponent(loginErrorLabel)
+                                    .addComponent(mdpErrorLabel)
+                                    .addComponent(confirmMdpErrorLabel)
+                                    .addComponent(sexeErrorLabel))
+                                .addGap(34, 34, 34)
+                                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contentPanelLayout.createSequentialGroup()
+                                .addComponent(mailErrorLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnModifphoto))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,20 +277,25 @@ public class InscriForm extends javax.swing.JFrame {
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(contentPanelLayout.createSequentialGroup()
-                                .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mdpErrorLabel))
                                 .addGap(3, 3, 3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(confirmMdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(confirmMdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmMdpErrorLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sexeCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sexeErrorLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mailErrorLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,6 +438,7 @@ public class InscriForm extends javax.swing.JFrame {
     private javax.swing.JTextArea adrTextfield;
     private javax.swing.JButton btnModifphoto;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JLabel confirmMdpErrorLabel;
     private javax.swing.JPasswordField confirmMdpPasswordField;
     private javax.swing.JPanel contentPanel;
     private com.toedter.calendar.JDateChooser dateTextfield;
@@ -420,7 +455,9 @@ public class InscriForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel loginErrorLabel;
+    private javax.swing.JLabel mailErrorLabel1;
     private javax.swing.JTextField mailTextfield;
+    private javax.swing.JLabel mdpErrorLabel;
     private javax.swing.JPasswordField mdpPasswordField;
     private javax.swing.JLabel nameErrorLabel;
     private javax.swing.JTextField nomTextfield;
@@ -428,5 +465,6 @@ public class InscriForm extends javax.swing.JFrame {
     private javax.swing.JTextField prenomTextfield;
     private javax.swing.JTextField pseudoTextfield;
     private javax.swing.JComboBox sexeCombox;
+    private javax.swing.JLabel sexeErrorLabel;
     // End of variables declaration//GEN-END:variables
 }
