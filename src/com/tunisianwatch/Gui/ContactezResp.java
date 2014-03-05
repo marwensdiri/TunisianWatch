@@ -6,8 +6,11 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -149,7 +152,11 @@ public class ContactezResp extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        new com.tunisianwatch.Util.SendEmail().send("youssef.farouk91@gmail.tn", "youssef.farouk91@gmail.tn", sujetTextFeild.getText(), msgTxtArea.getText());
+        try {
+            new com.tunisianwatch.Util.SendEmail().send();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ContactezResp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
