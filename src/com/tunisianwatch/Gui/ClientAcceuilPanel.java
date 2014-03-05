@@ -35,6 +35,7 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         logoLabel = new javax.swing.JLabel();
         DisconnectButton = new javax.swing.JButton();
         reclamationAddButton = new javax.swing.JButton();
+        mailButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -75,6 +76,15 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
             }
         });
 
+        mailButton.setBackground(new java.awt.Color(204, 0, 0));
+        mailButton.setForeground(new java.awt.Color(255, 255, 255));
+        mailButton.setText("Ajouter une Reclamation");
+        mailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mailButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -85,8 +95,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addComponent(DisconnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(menuPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mailButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(reclamationAddButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
@@ -101,7 +112,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                 .addComponent(profilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(reclamationAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(230, 230, 230)
+                .addGap(18, 18, 18)
+                .addComponent(mailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(177, 177, 177)
                 .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -165,12 +178,17 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         contentPanel.revalidate();
     }//GEN-LAST:event_reclamationAddButtonActionPerformed
 
+    private void mailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mailButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DisconnectButton;
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JLabel logoLabel;
+    private javax.swing.JButton mailButton;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton profilButton;
     private javax.swing.JButton reclamationAddButton;
