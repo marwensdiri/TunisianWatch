@@ -1,4 +1,3 @@
-
 package com.tunisianwatch.Util;
 
 import java.util.*;
@@ -6,51 +5,42 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
+public class SendEmail {
 
-public class SendEmail
-{
-   public static void main(String [] args)
-   {    
-      // Recipient's email ID needs to be mentioned.
-      String to = "abcd@gmail.com";
+    public void send(String to, String from, String sujet, String msg) {
 
-      // Sender's email ID needs to be mentioned
-      String from = "web@gmail.com";
+        String host = "localhost";
+        // Get system properties
+        Properties properties = System.getProperties();
 
-      // Assuming you are sending email from localhost
-      String host = "localhost";
+        // Setup mail server
+        properties.setProperty("smtp.gmail.com", host);
 
-      // Get system properties
-      Properties properties = System.getProperties();
+        // Get the default Session object.
+        Session session = Session.getDefaultInstance(properties);
 
-      // Setup mail server
-      properties.setProperty("mail.smtp.host", host);
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
 
-      // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
 
-      try{
-         // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(to));
 
-         // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
+            // Set Subject: header field
+            message.setSubject(sujet);
 
-         // Set To: header field of the header.
-         message.addRecipient(Message.RecipientType.TO,
-                                  new InternetAddress(to));
+            // Now set the actual message
+            message.setText(msg);
 
-         // Set Subject: header field
-         message.setSubject("This is the Subject Line!");
-
-         // Now set the actual message
-         message.setText("This is actual message");
-
-         // Send message
-         Transport.send(message);
-         System.out.println("Sent message successfully....");
-      }catch (MessagingException mex) {
-         mex.printStackTrace();
-      }
-   }
+            // Send message
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
 }

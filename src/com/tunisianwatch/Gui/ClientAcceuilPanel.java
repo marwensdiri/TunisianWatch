@@ -78,7 +78,7 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
 
         mailButton.setBackground(new java.awt.Color(204, 0, 0));
         mailButton.setForeground(new java.awt.Color(255, 255, 255));
-        mailButton.setText("Ajouter une Reclamation");
+        mailButton.setText("Contacter un responsable");
         mailButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mailButtonActionPerformed(evt);
@@ -179,7 +179,10 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_reclamationAddButtonActionPerformed
 
     private void mailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailButtonActionPerformed
-        // TODO add your handling code here:
+        contentPanel.removeAll();
+        contentPanel.add(new ContactezResp());
+        contentPanel.repaint();
+        contentPanel.revalidate();
     }//GEN-LAST:event_mailButtonActionPerformed
 
 

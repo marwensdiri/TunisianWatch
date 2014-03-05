@@ -63,6 +63,11 @@ public class ContactezResp extends javax.swing.JPanel {
         jScrollPane1.setViewportView(msgTxtArea);
 
         submitBtn.setText("Envoyer");
+        submitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitBtnActionPerformed(evt);
+            }
+        });
 
         cancelBtn.setText("Annuler");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +148,10 @@ public class ContactezResp extends javax.swing.JPanel {
         msgTxtArea.setText("");
     }//GEN-LAST:event_cancelBtnActionPerformed
 
+    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+        new com.tunisianwatch.Util.SendEmail().send("youssef.farouk91@gmail.tn", "youssef.farouk91@gmail.tn", sujetTextFeild.getText(), msgTxtArea.getText());
+    }//GEN-LAST:event_submitBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JComboBox destComboBox;
@@ -173,6 +182,8 @@ public class ContactezResp extends javax.swing.JPanel {
                 errMsg2 += "-Responsables\n";
             }
         }
+        
+        destComboBox.setModel(utilisateurModel);
         
     }
 }
