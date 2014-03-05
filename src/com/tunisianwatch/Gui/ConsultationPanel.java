@@ -49,7 +49,27 @@ public class ConsultationPanel extends javax.swing.JPanel {
             tableModel = new UtilisateurTableModel('R');
             CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Nom", "Prénom", "login", "sexe", "Age", "Etablissement"}));
             contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Résponsables"));
+        } else if (type.equals("mes reclamations")) {
+            ajoutButton.hide();
+            tableModel = new ReclamationTableModel(MainFrame.getMe().getId());
+            CategComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Titre", "Description", "Lieu", "Date", "Heure", "Domaines", "Citoyen", "Etat"}));
+            contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Liste des Réclamations"));
         }
+
+        if (type.equals("reclamation")) {
+            if (MainFrame.getMe().getType() == 'A') {
+                modifierButton.setText("Apérçu");
+            }
+            else{
+                modifierButton.setText("Ouvrir");
+                supprimerButton.hide();
+            }
+        } else if (type.equals("mes reclamations")) {
+            modifierButton.setText("Ouvrir");
+        } else {
+            modifierButton.setText("Modifier");
+        }
+
         consultationTable.setModel(tableModel);
         consultationTable.setAutoCreateRowSorter(true);
         consultationTable.getSelectionModel().addListSelectionListener(new ConsultationTableListener());
@@ -128,7 +148,6 @@ public class ConsultationPanel extends javax.swing.JPanel {
         modifierButton.setBackground(new java.awt.Color(204, 0, 0));
         modifierButton.setForeground(new java.awt.Color(255, 255, 255));
         if(type.equals("reclamation")){
-            modifierButton.setText("Apérçu");
         }
         else{
             modifierButton.setText("Modifier");
@@ -185,10 +204,11 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supprimerButton)
-                    .addComponent(modifierButton)
-                    .addComponent(ajoutButton))
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(modifierButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(supprimerButton)
+                        .addComponent(ajoutButton)))
                 .addContainerGap())
         );
 
@@ -205,7 +225,7 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         tableModel.refresh();
         tableModel.fireTableDataChanged();
-        lsm =null;
+        lsm = null;
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void supprimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerButtonActionPerformed
@@ -247,6 +267,9 @@ public class ConsultationPanel extends javax.swing.JPanel {
             case "etablissement":
                 new EtablissementFrame().show();
                 break;
+            case "mes reclamations":
+                new ReclamationForm().show();
+                break;
         }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
@@ -266,6 +289,8 @@ public class ConsultationPanel extends javax.swing.JPanel {
                     new ResponsableForm(element).show();
                 } else if (type.equals("etablissement")) {
                     new EtablissementFrame(element).show();
+                } else if (type.equals("mes reclamations")) {
+                    new ReclamationAprecu(element).show();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
@@ -274,8 +299,27 @@ public class ConsultationPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_modifierButtonActionPerformed
 
     private void consultationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultationTableMouseClicked
-        if(evt.getClickCount()==2){
-            System.out.println("aa");
+        if (evt.getClickCount() == 2) {
+            if (lsm == null) {
+                JOptionPane.showMessageDialog(null, "Selectionner une ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int minIndex = lsm.getMinSelectionIndex();
+                int maxIndex = lsm.getMaxSelectionIndex();
+                if ((maxIndex - minIndex) == 0) {
+                    Object element = tableModel.getElementAt(minIndex);
+                    if (type.equals("reclamation") || type.equals("mes reclamations")) {
+                        new ReclamationAprecu(element).show();
+                    } else if (type.equals("citoyen")) {
+                        new CitoyenForm(element).show();
+                    } else if (type.equals("responsable")) {
+                        new ResponsableForm(element).show();
+                    } else if (type.equals("etablissement")) {
+                        new EtablissementFrame(element).show();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selectionner une seul ligne", "Erreur de Selection", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }//GEN-LAST:event_consultationTableMouseClicked
 

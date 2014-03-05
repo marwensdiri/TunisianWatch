@@ -6,8 +6,6 @@
 
 package com.tunisianwatch.Gui;
 
-import java.awt.Dimension;
-
 /**
  *
  * @author asd
@@ -15,11 +13,10 @@ import java.awt.Dimension;
 public class CommentairePanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form CommentairePanel
+     * Creates new form test
      */
     public CommentairePanel() {
         initComponents();
-        System.out.println(commentaireTextArea.getText());
     }
 
     /**
@@ -31,82 +28,82 @@ public class CommentairePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comPanel = new javax.swing.JPanel();
-        auteurContentLabel = new javax.swing.JLabel();
-        dateContentLabel = new javax.swing.JLabel();
-        deleteButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        commentaireTextArea = new javax.swing.JTextArea();
-        auteurLabel = new javax.swing.JLabel();
-        DateLabel = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
+        auteurContentLabel5 = new javax.swing.JLabel();
+        dateContentLabel5 = new javax.swing.JLabel();
+        deleteButton5 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        commentaireTextArea5 = new javax.swing.JTextArea();
+        auteurLabel5 = new javax.swing.JLabel();
+        DateLabel5 = new javax.swing.JLabel();
         jSeparator = new javax.swing.JSeparator();
 
-        setPreferredSize(new java.awt.Dimension(762, 196));
+        contentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        comPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        auteurContentLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        auteurContentLabel5.setText("pseudo");
 
-        auteurContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        auteurContentLabel.setText("pseudo");
+        dateContentLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dateContentLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        dateContentLabel5.setText("date");
 
-        dateContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        dateContentLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dateContentLabel.setText("date");
-
-        deleteButton.setBackground(new java.awt.Color(204, 0, 0));
-        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        deleteButton.setText("Supprimer");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton5.setBackground(new java.awt.Color(204, 0, 0));
+        deleteButton5.setForeground(new java.awt.Color(255, 255, 255));
+        deleteButton5.setText("Supprimer");
+        deleteButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
+                deleteButton5ActionPerformed(evt);
             }
         });
 
-        commentaireTextArea.setEditable(false);
-        commentaireTextArea.setColumns(20);
-        commentaireTextArea.setTabSize(0);
-        jScrollPane1.setViewportView(commentaireTextArea);
+        commentaireTextArea5.setEditable(false);
+        commentaireTextArea5.setColumns(20);
+        commentaireTextArea5.setTabSize(0);
+        commentaireTextArea5.setMinimumSize(new java.awt.Dimension(180, 22));
+        commentaireTextArea5.setPreferredSize(new java.awt.Dimension(180, 22));
+        jScrollPane6.setViewportView(commentaireTextArea5);
 
-        auteurLabel.setText("Auteur:");
+        auteurLabel5.setText("Auteur:");
 
-        DateLabel.setText("Date:");
+        DateLabel5.setText("Date:");
 
-        javax.swing.GroupLayout comPanelLayout = new javax.swing.GroupLayout(comPanel);
-        comPanel.setLayout(comPanelLayout);
-        comPanelLayout.setHorizontalGroup(
-            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(comPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(comPanelLayout.createSequentialGroup()
-                        .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DateLabel)
-                            .addComponent(auteurLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(comPanelLayout.createSequentialGroup()
-                                .addComponent(auteurContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                                .addComponent(deleteButton))
-                            .addGroup(comPanelLayout.createSequentialGroup()
-                                .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        comPanelLayout.setVerticalGroup(
-            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(comPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
+        contentPanel.setLayout(contentPanelLayout);
+        contentPanelLayout.setHorizontalGroup(
+            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(auteurContentLabel)
-                    .addComponent(deleteButton)
-                    .addComponent(auteurLabel))
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane6)
+                    .addGroup(contentPanelLayout.createSequentialGroup()
+                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DateLabel5)
+                            .addComponent(auteurLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contentPanelLayout.createSequentialGroup()
+                                .addComponent(auteurContentLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                                .addComponent(deleteButton5))
+                            .addGroup(contentPanelLayout.createSequentialGroup()
+                                .addComponent(dateContentLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        contentPanelLayout.setVerticalGroup(
+            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(auteurContentLabel5)
+                    .addComponent(deleteButton5)
+                    .addComponent(auteurLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DateLabel))
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateContentLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DateLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -115,35 +112,75 @@ public class CommentairePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addComponent(jSeparator)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+    private void deleteButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton5ActionPerformed
         this.hide();
-    }//GEN-LAST:event_deleteButtonActionPerformed
+    }//GEN-LAST:event_deleteButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DateLabel;
+    private javax.swing.JLabel DateLabel1;
+    private javax.swing.JLabel DateLabel2;
+    private javax.swing.JLabel DateLabel3;
+    private javax.swing.JLabel DateLabel4;
+    private javax.swing.JLabel DateLabel5;
     private javax.swing.JLabel auteurContentLabel;
+    private javax.swing.JLabel auteurContentLabel1;
+    private javax.swing.JLabel auteurContentLabel2;
+    private javax.swing.JLabel auteurContentLabel3;
+    private javax.swing.JLabel auteurContentLabel4;
+    private javax.swing.JLabel auteurContentLabel5;
     private javax.swing.JLabel auteurLabel;
+    private javax.swing.JLabel auteurLabel1;
+    private javax.swing.JLabel auteurLabel2;
+    private javax.swing.JLabel auteurLabel3;
+    private javax.swing.JLabel auteurLabel4;
+    private javax.swing.JLabel auteurLabel5;
     private javax.swing.JPanel comPanel;
+    private javax.swing.JPanel comPanel1;
+    private javax.swing.JPanel comPanel2;
+    private javax.swing.JPanel comPanel3;
+    private javax.swing.JPanel comPanel4;
     private javax.swing.JTextArea commentaireTextArea;
+    private javax.swing.JTextArea commentaireTextArea1;
+    private javax.swing.JTextArea commentaireTextArea2;
+    private javax.swing.JTextArea commentaireTextArea3;
+    private javax.swing.JTextArea commentaireTextArea4;
+    private javax.swing.JTextArea commentaireTextArea5;
+    private javax.swing.JPanel contentPanel;
     private javax.swing.JLabel dateContentLabel;
+    private javax.swing.JLabel dateContentLabel1;
+    private javax.swing.JLabel dateContentLabel2;
+    private javax.swing.JLabel dateContentLabel3;
+    private javax.swing.JLabel dateContentLabel4;
+    private javax.swing.JLabel dateContentLabel5;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton deleteButton1;
+    private javax.swing.JButton deleteButton2;
+    private javax.swing.JButton deleteButton3;
+    private javax.swing.JButton deleteButton4;
+    private javax.swing.JButton deleteButton5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator;
     // End of variables declaration//GEN-END:variables
 }

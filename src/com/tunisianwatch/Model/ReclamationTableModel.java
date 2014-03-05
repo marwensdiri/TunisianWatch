@@ -23,9 +23,23 @@ public class ReclamationTableModel extends ConsultationTableModel {
     private List<Reclamation> listReclamation = new ArrayList<Reclamation>();
     private List<Reclamation> listResultSearch = new ArrayList<Reclamation>();
     private boolean searching = false;
+    private int me;
+
+    private void selectReclamation() {
+        if (me == 0) {
+            this.listReclamation = reclamationtDao.selectReclamations();
+        } else {
+            this.listReclamation = reclamationtDao.selectReclamationByIdCitoyen(me);
+        }
+    }
 
     public ReclamationTableModel() {
-        this.listReclamation = reclamationtDao.selectReclamations();
+        selectReclamation();
+    }
+
+    public ReclamationTableModel(int me) {
+        this.me = me;
+        selectReclamation();
     }
 
     @Override
@@ -47,7 +61,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
     //bloc de methodes personalisées
     public void refresh() {
         listResultSearch = new ArrayList<Reclamation>();
-        this.listReclamation = reclamationtDao.selectReclamations();
+        selectReclamation();
     }
 
     public Reclamation getElementAt(int row) {

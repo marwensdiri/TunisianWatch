@@ -174,7 +174,10 @@ public class FbConnect {
             uDAO.insertUser(curU);
         }
         auth.notifyFbConnection(uDAO.selectUserByMail(curU.getMail()).getMail());
-
+    }
+    
+    public static String getAccessToken(){
+        return access_token;
     }
 
 }
