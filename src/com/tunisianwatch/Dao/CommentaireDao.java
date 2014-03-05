@@ -19,19 +19,27 @@ public class CommentaireDao {
      *
      * @param C
      */
-    public void insertCommentaire(Commentaire c) {
+    public int insertCommentaire(Commentaire c) {
         String requete = "insert into commentaire (idreclamation,texte,idutilisateur,date) value(?,?,?,?)";
+        int id = 0;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, c.getIdReclamation());
             ps.setString(2, c.getTexte());
-            ps.setDate(3, new java.sql.Date(c.getDate().getTime()));
-            ps.setInt(4, c.getUser().getId());
+            ps.setInt(3, c.getUser().getId());
+            ps.setDate(4, new java.sql.Date(c.getDate().getTime()));
             ps.executeUpdate();
+             ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close(); 
             System.out.println("Ajout effectuée avec succès");
+            return id;
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
+        return id;
     }
 
     /**

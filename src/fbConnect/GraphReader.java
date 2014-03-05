@@ -29,7 +29,7 @@ import com.tunisianwatch.Entities.Utilisateur;
 
 
 @SuppressWarnings("deprecation")
-public class GraphReaderExample {
+public class GraphReader {
   /**
    * RestFB Graph API client.
    */
@@ -47,7 +47,7 @@ public class GraphReaderExample {
     
   }
 
-  GraphReaderExample(String accessToken) {
+  GraphReader(String accessToken) {
       
     facebookClient = new DefaultFacebookClient(accessToken);
    

@@ -168,13 +168,16 @@ public class FbConnect {
     }
 
     public static void retriveUser() {
-        Utilisateur curU = new GraphReaderExample(access_token).fetchObject();
+        Utilisateur curU = new GraphReader(access_token).fetchObject();
         UtilisateurDao uDAO = new UtilisateurDao();
         if (uDAO.selectUserByMail(curU.getMail()) == null) {
             uDAO.insertUser(curU);
         }
         auth.notifyFbConnection(uDAO.selectUserByMail(curU.getMail()).getMail());
-
+    }
+    
+    public static String getAccessToken(){
+        return access_token;
     }
 
 }

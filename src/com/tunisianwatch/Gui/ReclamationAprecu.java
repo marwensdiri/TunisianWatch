@@ -11,6 +11,7 @@ import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Util.ScallerImage;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 
@@ -23,6 +24,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     List<Image> listImage;
     int indexImage = 0;
     Reclamation reclamation;
+    List<Commentaire> commentaires;
 
     public ReclamationAprecu(Object obj) {
         reclamation = (Reclamation) obj;
@@ -44,21 +46,29 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         listImage = reclamation.getImages();
         if (listImage.size() > 0) {
             setImage();
+        } else {
+            previousButton.hide();
+            nextButton.hide();
         }
-        List<Commentaire> commentaires = new CommentaireDao().selectCommentairesByIdReclamation(reclamation.getId());
-        java.awt.GridLayout grid = new java.awt.GridLayout(commentaires.size()+1, 0, 0, 0);
+        commentaires = new CommentaireDao().selectCommentairesByIdReclamation(reclamation.getId());
+        java.awt.GridLayout grid = new java.awt.GridLayout(commentaires.size() + 1, 0, 0, 0);
         commentairePanel.setLayout(grid);
+
+        if (MainFrame.getMe().getType() == 'C' || MainFrame.getMe().getType() == 'R') {
+            commentairePanel.add(new AddCommentairePanel());
+        }
+
         for (Commentaire commentaire : commentaires) {
             commentairePanel.add(new CommentairePanel(commentaire));
         }
     }
 
     private void setImage() {
-              // Image image=ScallerImage.scaleImage(listImage.get(indexImage), 670, 400);
+        // Image image=ScallerImage.scaleImage(listImage.get(indexImage), 670, 400);
         ImageIcon icon = new ImageIcon(listImage.get(indexImage).getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_FAST));
        // if(icon.getIconWidth()>670 && icon.getIconHeight()>400){
-            
-            //icon.setImage(ScallerImage.scaleImage(listImage.get(indexImage), imageLabel.getWidth(), imageLabel.getHeight()));
+
+        //icon.setImage(ScallerImage.scaleImage(listImage.get(indexImage), imageLabel.getWidth(), imageLabel.getHeight()));
         //}        imageLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         imageLabel.setIcon(icon);
     }
@@ -200,13 +210,13 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
             .addGroup(corePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(previousButton)
-                .addGap(134, 134, 134)
-                .addComponent(nextButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(corePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(corePanelLayout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(previousButton)
+                        .addGap(74, 74, 74)
+                        .addComponent(nextButton))
+                    .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         corePanelLayout.setVerticalGroup(
@@ -266,40 +276,6 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReclamationAprecu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReclamationAprecu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReclamationAprecu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReclamationAprecu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReclamationAprecu(this).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel citoyenContentLabel;
@@ -325,14 +301,17 @@ public class ReclamationAprecu extends javax.swing.JFrame {
 
     public class CommentairePanel extends javax.swing.JPanel {
 
-        
-         private Commentaire commentaire;
+        private Commentaire commentaire;
+
         /**
          * Creates new form CommentairePanel
          */
         public CommentairePanel(Commentaire commentaire) {
-            this.commentaire=commentaire;
+            this.commentaire = commentaire;
             initComponents();
+            if (MainFrame.getMe().getType() == 'C' || MainFrame.getMe().getType() == 'R') {
+                deleteButton.hide();
+            }
             if (commentaire.getUser().getType() == 'R') {
                 auteurContentLabel.setText(commentaire.getUser() + " (Résponsable)");
             } else {
@@ -355,107 +334,108 @@ public class ReclamationAprecu extends javax.swing.JFrame {
          * always regenerated by the Form Editor.
          */
         @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        private void initComponents() {
 
-        comPanel = new javax.swing.JPanel();
-        auteurContentLabel = new javax.swing.JLabel();
-        dateContentLabel = new javax.swing.JLabel();
-        deleteButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        commentaireTextArea = new javax.swing.JTextArea();
-        auteurLabel = new javax.swing.JLabel();
-        DateLabel = new javax.swing.JLabel();
-        jSeparator = new javax.swing.JSeparator();
+            contentPanel = new javax.swing.JPanel();
+            auteurContentLabel = new javax.swing.JLabel();
+            dateContentLabel = new javax.swing.JLabel();
+            deleteButton = new javax.swing.JButton();
+            jScrollPane1 = new javax.swing.JScrollPane();
+            commentaireTextArea = new javax.swing.JTextArea();
+            auteurLabel = new javax.swing.JLabel();
+            DateLabel = new javax.swing.JLabel();
+            jSeparator = new javax.swing.JSeparator();
 
-        setPreferredSize(new java.awt.Dimension(762, 196));
+            contentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        comPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            auteurContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+            auteurContentLabel.setText("pseudo");
 
-        auteurContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        auteurContentLabel.setText("pseudo");
+            dateContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+            dateContentLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            dateContentLabel.setText("date");
 
-        dateContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        dateContentLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dateContentLabel.setText("date");
+            deleteButton.setBackground(new java.awt.Color(204, 0, 0));
+            deleteButton.setForeground(new java.awt.Color(255, 255, 255));
+            deleteButton.setText("Supprimer");
+            deleteButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    deleteButtonActionPerformed(evt);
+                }
+            });
 
-        deleteButton.setBackground(new java.awt.Color(204, 0, 0));
-        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        deleteButton.setText("Supprimer");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-        });
+            commentaireTextArea.setEditable(false);
+            commentaireTextArea.setColumns(20);
+            commentaireTextArea.setTabSize(0);
+            commentaireTextArea.setMinimumSize(new java.awt.Dimension(180, 22));
+            commentaireTextArea.setPreferredSize(new java.awt.Dimension(180, 22));
+            jScrollPane1.setViewportView(commentaireTextArea);
 
-        commentaireTextArea.setEditable(false);
-        commentaireTextArea.setColumns(20);
-        commentaireTextArea.setTabSize(0);
-        jScrollPane1.setViewportView(commentaireTextArea);
+            auteurLabel.setText("Auteur:");
 
-        auteurLabel.setText("Auteur:");
+            DateLabel.setText("Date:");
 
-        DateLabel.setText("Date:");
+            javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
+            contentPanel.setLayout(contentPanelLayout);
+            contentPanelLayout.setHorizontalGroup(
+                    contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane1)
+                                    .addGroup(contentPanelLayout.createSequentialGroup()
+                                            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(DateLabel)
+                                                    .addComponent(auteurLabel))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(contentPanelLayout.createSequentialGroup()
+                                                            .addComponent(auteurContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                                                            .addComponent(deleteButton))
+                                                    .addGroup(contentPanelLayout.createSequentialGroup()
+                                                            .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addContainerGap())
+            );
+            contentPanelLayout.setVerticalGroup(
+                    contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(auteurContentLabel)
+                                    .addComponent(deleteButton)
+                                    .addComponent(auteurLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(DateLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        javax.swing.GroupLayout comPanelLayout = new javax.swing.GroupLayout(comPanel);
-        comPanel.setLayout(comPanelLayout);
-        comPanelLayout.setHorizontalGroup(
-            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(comPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(comPanelLayout.createSequentialGroup()
-                        .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DateLabel)
-                            .addComponent(auteurLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(comPanelLayout.createSequentialGroup()
-                                .addComponent(auteurContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                                .addComponent(deleteButton))
-                            .addGroup(comPanelLayout.createSequentialGroup()
-                                .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        comPanelLayout.setVerticalGroup(
-            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(comPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(auteurContentLabel)
-                    .addComponent(deleteButton)
-                    .addComponent(auteurLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DateLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-    }// </editor-fold>                    
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+            this.setLayout(layout);
+            layout.setHorizontalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
+                    .addComponent(jSeparator)
+            );
+            layout.setVerticalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+        }// </editor-fold>               
 
         // Variables declaration - do not modify                     
         private javax.swing.JLabel DateLabel;
@@ -468,7 +448,142 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         private javax.swing.JButton deleteButton;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JSeparator jSeparator;
-    // End of variables declaration                   
+        // End of variables declaration                   
+    }
+
+    public class AddCommentairePanel extends javax.swing.JPanel {
+
+        /**
+         * Creates new form AddCommentairePanel
+         */
+        public AddCommentairePanel() {
+            initComponents();
+        }
+
+        /**
+         * This method is called from within the constructor to initialize the
+         * form. WARNING: Do NOT modify this code. The content of this method is
+         * always regenerated by the Form Editor.
+         */
+        @SuppressWarnings("unchecked")
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        private void initComponents() {
+
+            comPanel = new javax.swing.JPanel();
+            jScrollPane1 = new javax.swing.JScrollPane();
+            commentaireTextArea = new javax.swing.JTextArea();
+            jSeparator1 = new javax.swing.JSeparator();
+            addButton = new javax.swing.JButton();
+
+            setPreferredSize(new java.awt.Dimension(762, 196));
+
+            comPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+            commentaireTextArea.setEditable(false);
+            commentaireTextArea.setColumns(20);
+            commentaireTextArea.setForeground(new java.awt.Color(102, 102, 102));
+            commentaireTextArea.setTabSize(0);
+            commentaireTextArea.setText("Ajouter un Commentaire");
+            commentaireTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    commentaireTextAreaMouseClicked(evt);
+                }
+            });
+            commentaireTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyReleased(java.awt.event.KeyEvent evt) {
+                    commentaireTextAreaKeyReleased(evt);
+                }
+            });
+            jScrollPane1.setViewportView(commentaireTextArea);
+
+            javax.swing.GroupLayout comPanelLayout = new javax.swing.GroupLayout(comPanel);
+            comPanel.setLayout(comPanelLayout);
+            comPanelLayout.setHorizontalGroup(
+                    comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(comPanelLayout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            comPanelLayout.setVerticalGroup(
+                    comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(comPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addContainerGap())
+            );
+
+            addButton.setBackground(new java.awt.Color(204, 0, 0));
+            addButton.setForeground(new java.awt.Color(255, 255, 255));
+            addButton.setText("Commenter");
+            addButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    addButtonActionPerformed(evt);
+                }
+            });
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+            this.setLayout(layout);
+            layout.setHorizontalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSeparator1)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGap(0, 0, Short.MAX_VALUE)
+                                            .addComponent(addButton)))
+                            .addContainerGap())
+            );
+            layout.setVerticalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(comPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(addButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(32, 32, 32))
+            );
+        }// </editor-fold>                        
+
+        private void commentaireTextAreaMouseClicked(java.awt.event.MouseEvent evt) {
+            commentaireTextArea.setForeground(new java.awt.Color(0, 0, 0));
+            commentaireTextArea.setText("");
+            commentaireTextArea.setEditable(true);
+        }
+
+        private void commentaireTextAreaKeyReleased(java.awt.event.KeyEvent evt) {
+
+        }
+
+        private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {
+            if (commentaireTextArea.getText().length() > 0) {
+                Commentaire commentaire = new Commentaire();
+                commentaire.setDate(new Date());
+                commentaire.setIdReclamation(reclamation.getId());
+                commentaire.setUser(MainFrame.getMe());
+                commentaire.setTexte(commentaireTextArea.getText());
+                int id = new CommentaireDao().insertCommentaire(commentaire);
+                if (id > 0) {
+                    commentaire.setId(id);
+                    commentaires.add(commentaire);
+                    java.awt.GridLayout grid = new java.awt.GridLayout(commentaires.size() + 1, 0, 0, 0);
+                    commentairePanel.setLayout(grid);
+                    commentairePanel.add(new CommentairePanel(commentaire));
+                }
+            }
+        }
+
+        // Variables declaration - do not modify                     
+        private javax.swing.JButton addButton;
+        private javax.swing.JPanel comPanel;
+        private javax.swing.JTextArea commentaireTextArea;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JSeparator jSeparator1;
+        // End of variables declaration                   
     }
 
 }

@@ -402,7 +402,7 @@ public class UtilisateurDao {
     }
 
     public Utilisateur selectUserByLogin(String login) {
-        Utilisateur user = new Utilisateur();
+        Utilisateur user = null;
 
         String requete = "select * from Utilisateur where login=?";
         try {
@@ -411,7 +411,7 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
 
             while (resultat.next()) {
-
+               user= new Utilisateur();
                 user.setId(resultat.getInt("id"));
                 if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
@@ -450,7 +450,7 @@ public class UtilisateurDao {
     }
 
     public Utilisateur selectUserByMail(String mail) {
-        Utilisateur user = new Utilisateur();
+        Utilisateur user = null;
 
         String requete = "select * from Utilisateur where mail=?";
         try {
@@ -459,7 +459,7 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
 
             if (resultat.next()) {
-
+                user =new Utilisateur();
                 user.setId(resultat.getInt("id"));
                 if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));

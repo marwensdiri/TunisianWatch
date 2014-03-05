@@ -36,6 +36,8 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         DisconnectButton = new javax.swing.JButton();
         reclamationAddButton = new javax.swing.JButton();
         mailButton = new javax.swing.JButton();
+        myReclamationButton = new javax.swing.JButton();
+        reclamationButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -85,6 +87,24 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
             }
         });
 
+        myReclamationButton.setBackground(new java.awt.Color(204, 0, 0));
+        myReclamationButton.setForeground(new java.awt.Color(255, 255, 255));
+        myReclamationButton.setText("Mes Reclamations");
+        myReclamationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myReclamationButtonActionPerformed(evt);
+            }
+        });
+
+        reclamationButton.setBackground(new java.awt.Color(204, 0, 0));
+        reclamationButton.setForeground(new java.awt.Color(255, 255, 255));
+        reclamationButton.setText("Reclamations");
+        reclamationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reclamationButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -97,11 +117,15 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(mailButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(reclamationButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(myReclamationButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(reclamationAddButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
-                        .addGap(12, 12, 12))))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                        .addComponent(mailButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +137,12 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(reclamationAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(myReclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(mailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(177, 177, 177)
+                .addGap(81, 81, 81)
                 .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -185,6 +213,21 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         contentPanel.revalidate();
     }//GEN-LAST:event_mailButtonActionPerformed
 
+    private void myReclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myReclamationButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new ConsultationPanel("mes reclamations"));
+        contentPanel.repaint();
+        contentPanel.revalidate();
+
+    }//GEN-LAST:event_myReclamationButtonActionPerformed
+
+    private void reclamationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new ConsultationPanel("reclamation"));
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_reclamationButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DisconnectButton;
@@ -193,7 +236,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton mailButton;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JButton myReclamationButton;
     private javax.swing.JButton profilButton;
     private javax.swing.JButton reclamationAddButton;
+    private javax.swing.JButton reclamationButton;
     // End of variables declaration//GEN-END:variables
 }
