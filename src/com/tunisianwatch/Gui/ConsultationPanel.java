@@ -108,6 +108,12 @@ public class ConsultationPanel extends javax.swing.JPanel {
         });
 
         jScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+
+        consultationTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consultationTableMouseClicked(evt);
+            }
+        });
         jScrollPane.setViewportView(consultationTable);
 
         ajoutButton.setBackground(new java.awt.Color(204, 0, 0));
@@ -266,6 +272,12 @@ public class ConsultationPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_modifierButtonActionPerformed
+
+    private void consultationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultationTableMouseClicked
+        if(evt.getClickCount()==2){
+            System.out.println("aa");
+        }
+    }//GEN-LAST:event_consultationTableMouseClicked
 
     public class ConsultationTableListener implements ListSelectionListener {
 

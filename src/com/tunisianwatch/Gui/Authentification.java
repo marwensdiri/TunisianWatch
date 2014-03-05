@@ -219,9 +219,8 @@ public class Authentification extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fbButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fbButtonActionPerformed
-     
           FbConnect.conFb(this);
-    
+          System.out.println(FbConnect.getAccessToken());
     }//GEN-LAST:event_fbButtonActionPerformed
     
 public  void notifyFbConnection(String email){
