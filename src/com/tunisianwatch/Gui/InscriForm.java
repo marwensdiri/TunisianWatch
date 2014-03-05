@@ -28,6 +28,7 @@ public class InscriForm extends javax.swing.JFrame {
      */
     public InscriForm() {
         initComponents();
+        setLocationRelativeTo(null);
         nameErrorLabel.setVisible(false);
         mailErrorLabel.setVisible(false);
         prenomErrorLabel.setVisible(false);
@@ -82,13 +83,14 @@ public class InscriForm extends javax.swing.JFrame {
         dateErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(997, 500));
+        setPreferredSize(new java.awt.Dimension(954, 550));
+        setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         contentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inscription", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         contentPanel.setAutoscrolls(true);
         contentPanel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        contentPanel.setPreferredSize(new java.awt.Dimension(870, 500));
+        contentPanel.setPreferredSize(new java.awt.Dimension(954, 481));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -97,6 +99,16 @@ public class InscriForm extends javax.swing.JFrame {
         nomTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 nomTextfieldMouseExited(evt);
+            }
+        });
+        nomTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomTextfieldActionPerformed(evt);
+            }
+        });
+        nomTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomTextfieldKeyReleased(evt);
             }
         });
 
@@ -116,6 +128,16 @@ public class InscriForm extends javax.swing.JFrame {
         prenomTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 prenomTextfieldMouseExited(evt);
+            }
+        });
+        prenomTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prenomTextfieldActionPerformed(evt);
+            }
+        });
+        prenomTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                prenomTextfieldKeyReleased(evt);
             }
         });
 
@@ -141,6 +163,16 @@ public class InscriForm extends javax.swing.JFrame {
                 pseudoTextfieldMouseExited(evt);
             }
         });
+        pseudoTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pseudoTextfieldActionPerformed(evt);
+            }
+        });
+        pseudoTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pseudoTextfieldKeyReleased(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -149,6 +181,16 @@ public class InscriForm extends javax.swing.JFrame {
         mailTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 mailTextfieldMouseExited(evt);
+            }
+        });
+        mailTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mailTextfieldActionPerformed(evt);
+            }
+        });
+        mailTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mailTextfieldKeyReleased(evt);
             }
         });
 
@@ -166,7 +208,22 @@ public class InscriForm extends javax.swing.JFrame {
         sexeCombox.setBackground(new java.awt.Color(204, 0, 0));
         sexeCombox.setForeground(new java.awt.Color(255, 255, 255));
         sexeCombox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Homme", "Femme" }));
-        sexeCombox.setSelectedIndex(-1);
+        sexeCombox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sexeComboxMouseClicked(evt);
+            }
+        });
+        sexeCombox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexeComboxActionPerformed(evt);
+            }
+        });
+
+        dateTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dateTextfieldMouseClicked(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -181,6 +238,28 @@ public class InscriForm extends javax.swing.JFrame {
         adrTextfield.setRows(5);
         adrTextfield.setAutoscrolls(false);
         jScrollPane1.setViewportView(adrTextfield);
+
+        mdpPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mdpPasswordFieldActionPerformed(evt);
+            }
+        });
+        mdpPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mdpPasswordFieldKeyReleased(evt);
+            }
+        });
+
+        confirmMdpPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmMdpPasswordFieldActionPerformed(evt);
+            }
+        });
+        confirmMdpPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                confirmMdpPasswordFieldKeyReleased(evt);
+            }
+        });
 
         nameErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         nameErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
@@ -219,7 +298,7 @@ public class InscriForm extends javax.swing.JFrame {
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(contentPanelLayout.createSequentialGroup()
@@ -244,27 +323,26 @@ public class InscriForm extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                             .addComponent(mdpPasswordField)
                             .addComponent(confirmMdpPasswordField))
-                        .addGap(18, 18, 18)
-                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(contentPanelLayout.createSequentialGroup()
-                                    .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nameErrorLabel)
-                                        .addComponent(prenomErrorLabel)
-                                        .addComponent(loginErrorLabel)
-                                        .addComponent(mdpErrorLabel)
-                                        .addComponent(confirmMdpErrorLabel)
-                                        .addComponent(sexeErrorLabel))
-                                    .addGap(34, 34, 34)
-                                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(dateErrorLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(sexeErrorLabel)
+                            .addComponent(confirmMdpErrorLabel)
+                            .addComponent(mdpErrorLabel)
+                            .addComponent(loginErrorLabel)
+                            .addComponent(prenomErrorLabel)
+                            .addComponent(nameErrorLabel)
+                            .addComponent(mailErrorLabel)
+                            .addComponent(dateErrorLabel))
+                        .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(contentPanelLayout.createSequentialGroup()
-                                .addComponent(mailErrorLabel)
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contentPanelLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnModifphoto)
                                 .addGap(81, 81, 81))))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +407,7 @@ public class InscriForm extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSubmit)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         getContentPane().add(contentPanel, "card2");
@@ -375,105 +453,224 @@ public class InscriForm extends javax.swing.JFrame {
     }//GEN-LAST:event_mailTextfieldMouseExited
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        /* if (nomTextfield.getText().length() != 0
-         & prenomTextfield.getText().length() != 0
-         & pseudoTextfield.getText().length() != 0
-         & mdpPasswordField.getText().length() != 0
-         & confirmMdpPasswordField.getText().length() != 0
-         & dateTextfield.getDate() != null) {*/
-        boolean ok = true;
-        if (nomTextfield.getText().length() == 0) {
-            nameErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (prenomTextfield.getText().length() == 0) {
-            prenomErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (pseudoTextfield.getText().length() == 0) {
-            loginErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (mdpPasswordField.getText().length() == 0) {
-            mdpErrorLabel.setVisible(true);
-        }
-        if (confirmMdpPasswordField.getText().length() == 0) {
-            confirmMdpErrorLabel.setText("Ce champ est obligatoire");
-            confirmMdpErrorLabel.setVisible(true);
-            ok = false;
-        } else if (mdpPasswordField.getText().equals(confirmMdpPasswordField.getText())) {
-            confirmMdpErrorLabel.setText("Le mot de passe ne corréspond pas");
-            confirmMdpErrorLabel.setVisible(true);
-            ok = false;
-        }
-        
-        
-        UtilisateurDao userDao = new UtilisateurDao();
-        Utilisateur user = new Utilisateur();
-        // UtilisateurDao userDao = new UtilisateurDao();
 
-        user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
-        user.setNom(nomTextfield.getText());
-        user.setPrenom(prenomTextfield.getText());
-        user.setLogin(pseudoTextfield.getText());
-        user.setAdress(adrTextfield.getText());
-        user.setMail(mailTextfield.getText());
-        user.setMdp(mdpPasswordField.getText());
-        user.setDateNaissance(dateTextfield.getDate());
+        if(isValidNom() & isValidPrenom() & isValidMail() & isValidPass() & isValidPassConfirm() & isValidDate() & isValidPseudo()){
+            UtilisateurDao userDao = new UtilisateurDao();
+            Utilisateur user = new Utilisateur();
 
-        user.setType('C');
-        try {
-            if (PathImage == null) {
-                if (userDao.insertUser(user) <= 0) {
-                    JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                if (userDao.insertResponsable(user, PathImage) <= 0) {
-                    JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
+            user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
+            user.setNom(nomTextfield.getText());
+            user.setPrenom(prenomTextfield.getText());
+            user.setLogin(pseudoTextfield.getText());
+            user.setAdress(adrTextfield.getText());
+            user.setMail(mailTextfield.getText());
+            user.setMdp(mdpPasswordField.getText());
+            user.setDateNaissance(dateTextfield.getDate());
+
+            user.setType('C');
+            try {
+                if (PathImage == null) {
+                    if (userDao.insertUser(user) <= 0) {
+                        JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-
+                    if (userDao.insertResponsable(user, PathImage) <= 0) {
+                        JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                       JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-            }
-        } catch (FileNotFoundException ex) {
+            } catch (FileNotFoundException ex) {
 
+            }
+            this.repaint();
         }
-        this.repaint();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InscriForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InscriForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InscriForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InscriForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void nomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomTextfieldKeyReleased
+        isValidNom();
+    }//GEN-LAST:event_nomTextfieldKeyReleased
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InscriForm().setVisible(true);
-            }
-        });
+    private void nomTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomTextfieldActionPerformed
+
+    }//GEN-LAST:event_nomTextfieldActionPerformed
+
+    private void prenomTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prenomTextfieldActionPerformed
+
+    }//GEN-LAST:event_prenomTextfieldActionPerformed
+
+    private void pseudoTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pseudoTextfieldActionPerformed
+
+    }//GEN-LAST:event_pseudoTextfieldActionPerformed
+
+    private void mdpPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mdpPasswordFieldActionPerformed
+
+    }//GEN-LAST:event_mdpPasswordFieldActionPerformed
+
+    private void confirmMdpPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmMdpPasswordFieldActionPerformed
+
+    }//GEN-LAST:event_confirmMdpPasswordFieldActionPerformed
+
+    private void sexeComboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexeComboxActionPerformed
+
+    }//GEN-LAST:event_sexeComboxActionPerformed
+
+    private void mailTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailTextfieldActionPerformed
+
+    }//GEN-LAST:event_mailTextfieldActionPerformed
+
+    private boolean isValidDate(){
+        if (dateTextfield.getDate() != null && dateErrorLabel.isVisible()) {
+            dateErrorLabel.setVisible(false);
+            return true;
+        } else if (dateTextfield.getDate() == null && !dateErrorLabel.isVisible()) {
+            dateErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
     }
+    
+    private boolean isValidPrenom(){
+         if (prenomTextfield.getText().length() > 0 && prenomErrorLabel.isVisible()) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else if (prenomTextfield.getText().length() == 0 && !prenomErrorLabel.isVisible()) {
+            prenomErrorLabel.setVisible(true);
+            return false;
+        }
+         return true;
+    }
+    
+    private boolean isValidPseudo(){
+        if (pseudoTextfield.getText().length() > 0) {
+            if (!existeLogin(pseudoTextfield.getText())) {
+                loginErrorLabel.setVisible(false);
+                return true;
+            } else {
+                loginErrorLabel.setText("Ce Pseudo est déjà utilisé");
+                loginErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (pseudoTextfield.getText().length() == 0) {
+            loginErrorLabel.setText("Ce champ est obligatoire");
+            loginErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean isValidNom(){
+        if (nomTextfield.getText().length() > 0 && nameErrorLabel.isVisible()) {
+            nameErrorLabel.setVisible(false);
+            return true;
+        } else if (nomTextfield.getText().length() == 0 && !nameErrorLabel.isVisible()) {
+            nameErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+    private boolean isValidPass(){
+        if (mdpPasswordField.getText().length() > 0 && mdpErrorLabel.isVisible()) {
+            mdpErrorLabel.setVisible(false);
+            return true;
+        } else if (mdpPasswordField.getText().length() == 0 && !mdpErrorLabel.isVisible()) {
+            mdpErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean isValidPassConfirm(){
+         if (mdpPasswordField.getText().length() > 0 && confirmMdpPasswordField.getText().length() > 0) {
+            if (!mdpPasswordField.getText().equals(confirmMdpPasswordField.getText())) {
+                confirmMdpErrorLabel.setText("Le mot de passe ne corréspond pas");
+                confirmMdpErrorLabel.setVisible(true);
+                return false;
+            } else {
+                confirmMdpErrorLabel.setVisible(false);
+                return true;
+            }
+        } else if (confirmMdpPasswordField.getText().length() == 0) {
+            confirmMdpErrorLabel.setText("Ce champ est obligatoire");
+            confirmMdpErrorLabel.setVisible(true);
+            return false;
+        }
+         return true;
+    }
+    
+    private boolean isValidMail(){
+         if (mailTextfield.getText().length() > 0) {
+            if (mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                if (!existeMail(mailTextfield.getText())) {
+                    mailErrorLabel.setVisible(false);
+                    return true;
+                } else {
+                    mailErrorLabel.setText("Ce Mail existe déjà");
+                    mailErrorLabel.setVisible(true);
+                    return false;
+                }
+            } else if (!mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                mailErrorLabel.setText("Mail invalide");
+                mailErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (mailTextfield.getText().length() == 0) {
+            mailErrorLabel.setText("Ce champ est obligatoire");
+            mailErrorLabel.setVisible(true);
+            return false;
+        }
+         return true;
+    }
+    
+    private void dateTextfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseClicked
+        isValidDate();
+    }//GEN-LAST:event_dateTextfieldMouseClicked
+
+    private void prenomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prenomTextfieldKeyReleased
+       isValidPrenom();
+    }//GEN-LAST:event_prenomTextfieldKeyReleased
+
+    private void pseudoTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pseudoTextfieldKeyReleased
+        isValidPseudo();
+    }//GEN-LAST:event_pseudoTextfieldKeyReleased
+
+    private void mdpPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mdpPasswordFieldKeyReleased
+        isValidPass();
+    }//GEN-LAST:event_mdpPasswordFieldKeyReleased
+
+    private void confirmMdpPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmMdpPasswordFieldKeyReleased
+       isValidPassConfirm();
+    }//GEN-LAST:event_confirmMdpPasswordFieldKeyReleased
+
+    private void sexeComboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sexeComboxMouseClicked
+        
+    }//GEN-LAST:event_sexeComboxMouseClicked
+
+    private void mailTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailTextfieldKeyReleased
+       isValidMail();
+    }//GEN-LAST:event_mailTextfieldKeyReleased
+
+    private boolean existeMail(String mail) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByMail(mail) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean existeLogin(String login) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByLogin(login) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adrTextfield;

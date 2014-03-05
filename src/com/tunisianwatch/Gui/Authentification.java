@@ -8,11 +8,6 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import fbConnect.FbConnect;
-import java.util.Locale;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -220,10 +215,7 @@ public class Authentification extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(new InscriPanel());
-        frame.setBounds(0, 50, 850, 670);
-        frame.show();
+       new InscriForm().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
