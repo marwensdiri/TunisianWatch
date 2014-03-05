@@ -33,10 +33,9 @@ public class Main {
           
             @Override
            public void run() {
-               try {
+               
                    new Authentification().setVisible(true);
-               } catch (Exception ex) {
-               }
+               
            }
        });
         
