@@ -92,6 +92,8 @@ public class ReclamationForm extends javax.swing.JPanel {
 
         setLayout(new java.awt.CardLayout());
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nouvelle Reclamation"));
+
         titreTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 titreTextfieldMouseExited(evt);
