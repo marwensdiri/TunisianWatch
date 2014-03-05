@@ -6,12 +6,11 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import java.io.UnsupportedEncodingException;
+import java.awt.TextArea;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +26,7 @@ public class ContactezResp extends javax.swing.JPanel {
     List<Utilisateur> lU = new ArrayList<Utilisateur>();
     UtilisateurDao UDAO = new UtilisateurDao();
     private DefaultComboBoxModel<Utilisateur> utilisateurModel = new DefaultComboBoxModel();//model pour le combobox responsable
-    
+
     public ContactezResp() {
         errMsg = "";
         errMsg2 = "";
@@ -152,13 +151,26 @@ public class ContactezResp extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        try {
-            new com.tunisianwatch.Util.SendEmail().send();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ContactezResp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_submitBtnActionPerformed
 
+        if (verif()){
+
+            Utilisateur resp = new UtilisateurDao().selectUserById(((Utilisateur) (destComboBox.getSelectedItem())).getId());
+
+            Utilisateur logger = MainFrame.getMe(); // l'utilisateur actuellement "logger" ou connecté, PS : dédicace a #Tiger
+
+            String msg = "message de la part de "+logger.getLogin()+" : \n"+msgTxtArea.getText();
+
+            new com.tunisianwatch.Util.SendEmail().send(resp.getMail(),
+                    sujetTextFeild.getText(),
+                    msg,
+                    "dev.gear.test@gmail.com",
+                    "aqwzsxedc741852963");
+        }else{
+            JOptionPane.showMessageDialog(null, "ekteb 7aja");
+        }
+        sujetTextFeild.setText("");
+        msgTxtArea.setText("");
+    }//GEN-LAST:event_submitBtnActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JComboBox destComboBox;
@@ -173,10 +185,10 @@ public class ContactezResp extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-        
+
         msgTxtArea.setLineWrap(true);
-        
-        
+
+
         try {
 
             lU = UDAO.selectUserByType('R');
@@ -189,8 +201,14 @@ public class ContactezResp extends javax.swing.JPanel {
                 errMsg2 += "-Responsables\n";
             }
         }
-        
+
         destComboBox.setModel(utilisateurModel);
-        
+
+    }
+
+    private boolean verif() {
+        if (sujetTextFeild.getText().length()!=0 && msgTxtArea.getText().length()!=0)
+            return true;
+        return false;
     }
 }
