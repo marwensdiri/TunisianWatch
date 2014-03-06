@@ -27,6 +27,7 @@ public class CitoyenForm extends javax.swing.JFrame {
     public CitoyenForm() {
         initComponents();
         setLocationRelativeTo(null);
+        //this.setLocale();
     }
 
     public CitoyenForm(Object ob) {
@@ -301,7 +302,7 @@ public class CitoyenForm extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
-
+//    commentaire
             if (!modif) {
                 user = new Utilisateur();
             }
