@@ -6,9 +6,12 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +22,13 @@ public class ContactezResp extends javax.swing.JPanel {
     /**
      * Creates new form ContactezResp
      */
+    String filename = null;
     private String errMsg;
     private String errMsg2;
     List<Utilisateur> lU = new ArrayList<Utilisateur>();
     UtilisateurDao UDAO = new UtilisateurDao();
     private DefaultComboBoxModel<Utilisateur> utilisateurModel = new DefaultComboBoxModel();//model pour le combobox responsable
-    
+
     public ContactezResp() {
         errMsg = "";
         errMsg2 = "";
@@ -51,6 +55,7 @@ public class ContactezResp extends javax.swing.JPanel {
         msgTxtArea = new javax.swing.JTextArea();
         submitBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        addFileBtn = new javax.swing.JButton();
 
         jLabel1.setText("Contactez : ");
 
@@ -76,6 +81,13 @@ public class ContactezResp extends javax.swing.JPanel {
             }
         });
 
+        addFileBtn.setText("Joindre un document");
+        addFileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFileBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,11 +108,13 @@ public class ContactezResp extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(submitBtn)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cancelBtn))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(addFileBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(submitBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cancelBtn)))))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,11 +132,13 @@ public class ContactezResp extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addFileBtn)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -149,10 +165,39 @@ public class ContactezResp extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        new com.tunisianwatch.Util.SendEmail().send("youssef.farouk91@gmail.tn", "youssef.farouk91@gmail.tn", sujetTextFeild.getText(), msgTxtArea.getText());
+
+        if (verif()) {
+
+            Utilisateur resp = new UtilisateurDao().selectUserById(((Utilisateur) (destComboBox.getSelectedItem())).getId());
+
+            Utilisateur logger = MainFrame.getMe(); // l'utilisateur actuellement "logger" ou connecté, PS : dédicace a #Tiger
+
+            String msg = "message de la part de " + logger.getLogin() + " : \n" + msgTxtArea.getText();
+
+            new com.tunisianwatch.Util.SendEmail().send(/*resp.getMail()*/"farouk.youssef@esprit.tn",
+                    sujetTextFeild.getText(),
+                    msg,
+                    filename,
+                    "dev.gear.test@gmail.com",
+                    "aqwzsxedc741852963");
+        } else {
+            JOptionPane.showMessageDialog(null, "ekteb 7aja");
+        }
+        sujetTextFeild.setText("");
+        msgTxtArea.setText("");
     }//GEN-LAST:event_submitBtnActionPerformed
 
+    private void addFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileBtnActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        if (f != null) {
+            filename = f.getAbsolutePath();
+        }
+        System.out.println(filename);
+    }//GEN-LAST:event_addFileBtnActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addFileBtn;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JComboBox destComboBox;
     private javax.swing.JLabel jLabel1;
@@ -166,10 +211,10 @@ public class ContactezResp extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-        
+
         msgTxtArea.setLineWrap(true);
-        
-        
+
+
         try {
 
             lU = UDAO.selectUserByType('R');
@@ -182,8 +227,15 @@ public class ContactezResp extends javax.swing.JPanel {
                 errMsg2 += "-Responsables\n";
             }
         }
-        
+
         destComboBox.setModel(utilisateurModel);
-        
+
+    }
+
+    private boolean verif() {
+        if (sujetTextFeild.getText().length() != 0 && msgTxtArea.getText().length() != 0) {
+            return true;
+        }
+        return false;
     }
 }
