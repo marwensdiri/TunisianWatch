@@ -31,7 +31,7 @@ public static void main(String[] args) {
             // - Connexion à la base
             connection= ResourceManager.getInstance();
             // - Chargement et compilation du rapport
-            JasperDesign jasperDesign = JRXmlLoader.load("C:\\Users\\Farouk\\Desktop\\classic.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load("C:\\Users\\Skan\\Desktop\\classic.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
             // - Paramètres à envoyer au rapport
             Map  parameters = new HashMap();
@@ -39,7 +39,7 @@ public static void main(String[] args) {
             // - Execution du rapport
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
             // - Création du rapport au format PDF
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\Farouk\\Desktop\\classic.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\Skan\\Desktop\\classic.pdf");
         }
 
         catch (JRException e) {
