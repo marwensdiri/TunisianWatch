@@ -96,7 +96,7 @@ public class GraphReader {
                     status.setMessage(post.getMessage());
                     status.setDate(post.getCreatedTime());
                     status.setId(post.getId());
-                    if (post.getLikesCount() != null) {
+                    if (post.getLikesCount() != null){
                         status.setNblike(post.getLikesCount());
                     }
                     if (post.getComments() != null) {
