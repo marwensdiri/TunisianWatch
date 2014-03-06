@@ -1,12 +1,15 @@
 package com.tunisianwatch.Util;
 
 import java.util.*;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 public class SendEmail {
 
-    public void send(String to, String subject, String msg, final String from, final String password) {
+    public void send(String to, String subject, String msg, String file, final String from, final String password) {
         try {
             Properties props = new Properties();
             props.setProperty("mail.transport.protocol", "smtp");
@@ -31,9 +34,26 @@ public class SendEmail {
             MimeMessage message = new MimeMessage(session);
             message.setSender(addressFrom);
             message.setSubject(subject);
-            message.setContent(msg, "text/plain");
-            
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            //message.setContent(msg, "text/plain");
+
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(msg);
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+
+
+            if (file != null) {
+
+                DataSource source = new FileDataSource(file);
+                messageBodyPart.setDataHandler(new DataHandler(source));
+                messageBodyPart.setFileName("joint");
+                multipart.addBodyPart(messageBodyPart);
+            }
+
+
+
+            message.setContent(multipart);
 
             transport.connect();
             Transport.send(message);
