@@ -27,7 +27,14 @@ public class CitoyenForm extends javax.swing.JFrame {
     public CitoyenForm() {
         initComponents();
         setLocationRelativeTo(null);
-        //this.setLocale();
+        nameErrorLabel.setVisible(false);
+        mailErrorLabel.setVisible(false);
+        prenomErrorLabel.setVisible(false);
+        loginErrorLabel.setVisible(false);
+        mdpErrorLabel.setVisible(false);
+        mailErrorLabel.setVisible(false);
+        dateErrorLabel.setVisible(false);
+        
     }
 
     public CitoyenForm(Object ob) {
