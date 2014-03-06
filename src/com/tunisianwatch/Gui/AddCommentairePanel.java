@@ -28,21 +28,30 @@ public class AddCommentairePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comPanel = new javax.swing.JPanel();
+        addButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         commentaireTextArea = new javax.swing.JTextArea();
-        jSeparator1 = new javax.swing.JSeparator();
-        addButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(762, 196));
 
-        comPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        addButton.setBackground(new java.awt.Color(204, 0, 0));
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
+        addButton.setText("Commenter");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(166, 96));
 
         commentaireTextArea.setEditable(false);
         commentaireTextArea.setColumns(20);
         commentaireTextArea.setForeground(new java.awt.Color(102, 102, 102));
         commentaireTextArea.setTabSize(0);
         commentaireTextArea.setText("Ajouter un Commentaire");
+        commentaireTextArea.setMinimumSize(new java.awt.Dimension(164, 94));
+        commentaireTextArea.setPreferredSize(new java.awt.Dimension(164, 94));
         commentaireTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 commentaireTextAreaMouseClicked(evt);
@@ -55,80 +64,48 @@ public class AddCommentairePanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(commentaireTextArea);
 
-        javax.swing.GroupLayout comPanelLayout = new javax.swing.GroupLayout(comPanel);
-        comPanel.setLayout(comPanelLayout);
-        comPanelLayout.setHorizontalGroup(
-            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(comPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        comPanelLayout.setVerticalGroup(
-            comPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(comPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        addButton.setBackground(new java.awt.Color(204, 0, 0));
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("Commenter");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(addButton)
-                        .addGap(12, 12, 12)))
-                .addContainerGap())
+                        .addComponent(addButton)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void commentaireTextAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentaireTextAreaMouseClicked
-         commentaireTextArea.setForeground(new java.awt.Color(0,0,0));
-         commentaireTextArea.setText("");
-         commentaireTextArea.setEditable(true);
-    }//GEN-LAST:event_commentaireTextAreaMouseClicked
 
     private void commentaireTextAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_commentaireTextAreaKeyReleased
 
     }//GEN-LAST:event_commentaireTextAreaKeyReleased
 
+    private void commentaireTextAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentaireTextAreaMouseClicked
+        commentaireTextArea.setForeground(new java.awt.Color(0,0,0));
+        commentaireTextArea.setText("");
+        commentaireTextArea.setEditable(true);
+    }//GEN-LAST:event_commentaireTextAreaMouseClicked
+
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
+
     }//GEN-LAST:event_addButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
-    private javax.swing.JPanel comPanel;
     private javax.swing.JTextArea commentaireTextArea;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

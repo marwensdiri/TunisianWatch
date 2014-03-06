@@ -26,8 +26,8 @@ import javax.swing.text.html.parser.ParserDelegator;
  */
 public class FbConnect {
 
-    public static String API_KEY = "230388273830300";
-    public static String SECRET = "0fb1320107f9a2aaf989251e8eeb8b99";
+    public static String API_KEY = "674205222622822";
+    public static String SECRET = "d62ca0c99dc04a83b1bb1767d793f370";
     static Authentification auth;
     public static String firstRequest = "https://graph.facebook.com/oauth/authorize?"
             + "client_id="
@@ -41,7 +41,7 @@ public class FbConnect {
             + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
             + "client_secret=" + SECRET + "&code=";
 
-    public static String access_token = "18866f342fd968af1f83dbe9a15dd9fc";
+    public static String access_token = ""; //18866f342fd968af1f83dbe9a15dd9fc
     public static boolean firstRequestDone = false;
     public static boolean secondRequestDone = false;
 
@@ -144,7 +144,6 @@ public class FbConnect {
                                         String[] temp2 = temp1[0].split("=");
                                         System.out.println("access tocken=" + temp2);
                                         access_token = temp2[1];
-                                        authFrame.dispose();
                                         retriveUser();
                                     }
                                 };
@@ -173,7 +172,8 @@ public class FbConnect {
         if (uDAO.selectUserByMail(curU.getMail()) == null) {
             uDAO.insertUser(curU);
         }
-        auth.notifyFbConnection(uDAO.selectUserByMail(curU.getMail()).getMail());
+        System.out.println(curU);
+        auth.notifyFbConnection(curU);
     }
     
     public static String getAccessToken(){

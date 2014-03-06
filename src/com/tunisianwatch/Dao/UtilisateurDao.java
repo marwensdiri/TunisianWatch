@@ -43,14 +43,16 @@ public class UtilisateurDao {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
-            
+
             ps.setString(3, u.getSexe() + "");
             ps.setString(4, u.getAdress() + "");
             ps.setString(5, u.getLogin());
             ps.setString(6, u.getMdp());
             ps.setString(7, u.getMail());
             ps.setString(8, u.getType() + "");
-            ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
+            if (u.getDateNaissance() != null) {
+                ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
+            }
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -64,10 +66,11 @@ public class UtilisateurDao {
         }
 
     }
-/**
- *
- * @author MekniAymen
- */
+
+    /**
+     *
+     * @author MekniAymen
+     */
     public int insertUser(Utilisateur u, String PathImage) throws FileNotFoundException {
         int id = 0;
         String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
@@ -76,10 +79,10 @@ public class UtilisateurDao {
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
             //---------------------------------
-                
-                FileInputStream fis = new FileInputStream(PathImage);
-                ps.setBinaryStream(3, fis, (int) PathImage.length());
-                
+
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+
             //---------------------------------
             //ps.setString(3, u.getPhoto());
             ps.setString(4, u.getSexe() + "");
@@ -112,7 +115,7 @@ public class UtilisateurDao {
             ps.setInt(1, u.getEtablissement().getId());
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
-            
+
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
             ps.setString(6, u.getLogin());
@@ -133,10 +136,11 @@ public class UtilisateurDao {
         }
 
     }
-/**
- *
- * @author MekniAymen
- */
+
+    /**
+     *
+     * @author MekniAymen
+     */
     public int insertResponsable(Utilisateur u, String PathImage) throws FileNotFoundException {
 
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -147,10 +151,10 @@ public class UtilisateurDao {
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
             //---------------------------------
-            
-                FileInputStream fis = new FileInputStream(PathImage);
-                ps.setBinaryStream(4, fis, (int) PathImage.length());
-           
+
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(4, fis, (int) PathImage.length());
+
             //---------------------------------
             //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
@@ -173,10 +177,11 @@ public class UtilisateurDao {
         }
 
     }
-/**
- *
- * @author MekniAymen
- */
+
+    /**
+     *
+     * @author MekniAymen
+     */
     public boolean updateUser(int id, Utilisateur u) {
         String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -199,10 +204,11 @@ public class UtilisateurDao {
             return false;
         }
     }
-/**
- *
- * @author MekniAymen
- */
+
+    /**
+     *
+     * @author MekniAymen
+     */
     public boolean updateUser(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
         String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -210,12 +216,11 @@ public class UtilisateurDao {
             ps.setString(1, u.getNom());
             ps.setString(2, u.getPrenom());
             //---------------------------------
-            
-                FileInputStream fis = new FileInputStream(PathImage);
-                ps.setBinaryStream(3, fis, (int) PathImage.length());
-           
+
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(3, fis, (int) PathImage.length());
+
             //---------------------------------
-            
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
             ps.setString(6, u.getLogin());
@@ -255,10 +260,11 @@ public class UtilisateurDao {
             return false;
         }
     }
-/**
- *
- * @author MekniAymen
- */
+
+    /**
+     *
+     * @author MekniAymen
+     */
     public boolean updateResponsable(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
         String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
@@ -268,9 +274,9 @@ public class UtilisateurDao {
             ps.setString(3, u.getPrenom());
             //---------------------------------
 
-                FileInputStream fis = new FileInputStream(PathImage);
-                ps.setBinaryStream(4, fis, (int) PathImage.length());
-          
+            FileInputStream fis = new FileInputStream(PathImage);
+            ps.setBinaryStream(4, fis, (int) PathImage.length());
+
             //---------------------------------
             //ps.setString(4, u.getPhoto());
             ps.setString(5, u.getSexe() + "");
@@ -322,10 +328,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-/**
- *
- * @author MekniAymen
- */
+                /**
+                 *
+                 * @author MekniAymen
+                 */
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -371,10 +377,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-/**
- *
- * @author MekniAymen
- */                
+                /**
+                 *
+                 * @author MekniAymen
+                 */
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -411,7 +417,7 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
 
             while (resultat.next()) {
-               user= new Utilisateur();
+                user = new Utilisateur();
                 user.setId(resultat.getInt("id"));
                 if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
@@ -420,10 +426,10 @@ public class UtilisateurDao {
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
 //------------------------------------------------------------------------------
-/**
- *
- * @author MekniAymen
- */                
+                /**
+                 *
+                 * @author MekniAymen
+                 */
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
                     Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
@@ -459,7 +465,7 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
 
             if (resultat.next()) {
-                user =new Utilisateur();
+                user = new Utilisateur();
                 user.setId(resultat.getInt("id"));
                 if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
@@ -467,10 +473,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-/**
- *
- * @author MekniAymen
- */                
+                /**
+                 *
+                 * @author MekniAymen
+                 */
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -515,10 +521,10 @@ public class UtilisateurDao {
                 }
                 user.setNom(resultat.getString("nom"));
                 user.setPrenom(resultat.getString("prenom"));
-/**
- *
- * @author MekniAymen
- */                
+                /**
+                 *
+                 * @author MekniAymen
+                 */
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -559,11 +565,11 @@ public class UtilisateurDao {
             if (resultat.next()) {
                 user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), null, resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
-                
-/**
- *
- * @author MekniAymen
- */                
+
+                /**
+                 *
+                 * @author MekniAymen
+                 */
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
@@ -598,6 +604,5 @@ public class UtilisateurDao {
             return false;
         }
     }
-    
-    
+
 }
