@@ -3,10 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/**
- *
- * @author Mekni Aymen
- */
+
 package com.tunisianwatch.Entities;
 
 import java.awt.Image;
@@ -24,13 +21,7 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
-    /**
-     *
-     * @author MekniAymen
-     */
-//////////////////////////////////////////
     private Image photo;
-//////////////////////////////////////////
     private String login;
     private String mdp;
     private String mail;
