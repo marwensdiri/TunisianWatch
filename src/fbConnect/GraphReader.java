@@ -102,9 +102,11 @@ public class GraphReader {
                     if (post.getComments() != null) {
                         for (Comment C : post.getComments().getData()) {
                             CommentFaceBook comment = new CommentFaceBook();
+                            comment.setId(C.getId());
                             comment.setNom(C.getFrom().getName());
                             comment.setDate(C.getCreatedTime());
                             comment.setMessage(C.getMessage());
+                            comment.setCanRemove(C.getCanRemove());
                             status.addComment(comment);
                         }
                     }
@@ -121,8 +123,9 @@ public class GraphReader {
         return publishMessageResponse.getId();
     }
 
-    public static void deleteComment(String idComment) {
-
+    public static boolean deleteComment(String idComment) {
+        Boolean deleted = facebookClient.deleteObject(idComment);
+        return deleted.booleanValue();
     }
 
 }

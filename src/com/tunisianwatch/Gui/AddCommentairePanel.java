@@ -43,6 +43,7 @@ public class AddCommentairePanel extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(166, 96));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(166, 96));
 
         commentaireTextArea.setEditable(false);
@@ -50,6 +51,7 @@ public class AddCommentairePanel extends javax.swing.JPanel {
         commentaireTextArea.setForeground(new java.awt.Color(102, 102, 102));
         commentaireTextArea.setTabSize(0);
         commentaireTextArea.setText("Ajouter un Commentaire");
+        commentaireTextArea.setMaximumSize(new java.awt.Dimension(164, 94));
         commentaireTextArea.setMinimumSize(new java.awt.Dimension(164, 94));
         commentaireTextArea.setPreferredSize(new java.awt.Dimension(164, 94));
         commentaireTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -71,9 +73,9 @@ public class AddCommentairePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addComponent(addButton)))
                 .addGap(20, 20, 20))
         );
@@ -81,10 +83,10 @@ public class AddCommentairePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

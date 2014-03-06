@@ -84,7 +84,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
                 .addGap(6, 6, 6)
                 .addComponent(refreshButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -108,6 +108,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
     public void run() {
         listStatut = GraphReader.getStatus();
         java.awt.GridLayout grid = new java.awt.GridLayout(listStatut.size() + 1, 0, 0, 0);
+        statusListPanel.removeAll();
         statusListPanel.setLayout(grid);
         for (StatusFaceBook status : listStatut) {
             statusListPanel.add(new StatusPanel(status));
@@ -118,6 +119,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
 
         //List<CommentFaceBook> listComment;
         StatusFaceBook status;
+
         /**
          * Creates new form StatusPanel
          */
@@ -128,10 +130,10 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
             daeContentLabel.setText(status.getDate().toString());
             List<CommentFaceBook> listComment = status.getListComment();
             likeLabel.setText(status.getNblike() + " personnes aimes ça");
-            commentsPanel.add(new AddCommentairePanel(status.getId()));
-
             java.awt.GridLayout grid = new java.awt.GridLayout(listComment.size() + 1, 0, 0, 0);
             commentsPanel.setLayout(grid);
+            commentsPanel.add(new AddCommentairePanel(status.getId()));
+            
             for (CommentFaceBook comment : listComment) {
                 commentsPanel.add(new CommentPanel(status.getId(), comment));
             }
@@ -144,7 +146,8 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
          */
         @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-       // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         statusScrollPane = new javax.swing.JScrollPane();
@@ -167,7 +170,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
         );
         commentsPanelLayout.setVerticalGroup(
             commentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 267, Short.MAX_VALUE)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
 
         commentsScrollPane.setViewportView(commentsPanel);
@@ -184,7 +187,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(likeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -194,7 +197,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(daeContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(commentsScrollPane)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,18 +211,16 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(likeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(commentsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(commentsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold> 
-
+    }// </editor-fold>      
 
         // Variables declaration - do not modify                     
         private javax.swing.JPanel commentsPanel;
         private javax.swing.JScrollPane commentsScrollPane;
         private javax.swing.JLabel daeContentLabel;
         private javax.swing.JLabel dateLabel;
-        private javax.swing.JButton likeButton;
         private javax.swing.JScrollPane statusScrollPane;
         private javax.swing.JTextArea statusTextArea;
         private javax.swing.JLabel likeLabel;
@@ -228,16 +229,21 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
         public class CommentPanel extends javax.swing.JPanel {
 
             public String idPost;
+            public CommentFaceBook comment;
 
             /**
              * Creates new form statusPanel
              */
             public CommentPanel(String idPost, CommentFaceBook comment) {
                 initComponents();
+                this.comment = comment;
                 commentTextArea.setText(comment.getMessage());
                 dateContentLabel.setText(comment.getDate().toString());
                 nomContentLabel.setText(comment.getNom());
                 this.idPost = idPost;
+                if (!comment.isCanRemove()) {
+                    deleteButton.hide();
+                }
             }
 
             /**
@@ -255,6 +261,7 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
                 dateLabel = new javax.swing.JLabel();
                 nomContentLabel = new javax.swing.JLabel();
                 dateContentLabel = new javax.swing.JLabel();
+                deleteButton = new javax.swing.JButton();
 
                 commentTextArea.setColumns(20);
                 commentTextArea.setRows(5);
@@ -270,40 +277,56 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
 
                 dateContentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+                deleteButton.setBackground(new java.awt.Color(204, 0, 0));
+                deleteButton.setForeground(new java.awt.Color(255, 255, 255));
+                deleteButton.setText("supprimer");
+                deleteButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        deleteButtonActionPerformed(evt);
+                    }
+                });
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(commentScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
+                                                .addGap(15, 15, 15)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(nomLabel)
-                                                        .addComponent(dateLabel))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(dateContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-                                                        .addComponent(nomContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addGap(20, 20, 20))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(nomLabel)
+                                                                        .addComponent(dateLabel))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(nomContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(dateContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addComponent(commentScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(deleteButton)))
+                                .addContainerGap())
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nomLabel)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(nomLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(nomContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(dateContentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(7, 7, 7)
-                                .addComponent(commentScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(commentScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteButton)
+                                .addGap(15, 15, 15))
                 );
-            }// </editor-fold>                                        
+            }// </editor-fold>                      
 
             // Variables declaration - do not modify                     
             private javax.swing.JScrollPane commentScrollPane;
@@ -312,7 +335,19 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
             private javax.swing.JLabel dateLabel;
             private javax.swing.JLabel nomContentLabel;
             private javax.swing.JLabel nomLabel;
-            // End of variables declaration                   
+            private javax.swing.JButton deleteButton;
+            // End of variables declaration
+
+            private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+                if (GraphReader.deleteComment(comment.getId())) {
+                    List<CommentFaceBook> listComment = status.getListComment();
+                    listComment.remove(comment);
+                    java.awt.GridLayout grid = new java.awt.GridLayout(listComment.size() + 1, 0, 0, 0);
+                    commentsPanel.setLayout(grid);
+                    commentsPanel.remove(this);
+                }
+            }
+
         }
 
         public class AddCommentairePanel extends javax.swing.JPanel {
@@ -333,68 +368,70 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
              * method is always regenerated by the Form Editor.
              */
             @SuppressWarnings("unchecked")
-            // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-            private void initComponents() {
+              // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
 
-                addButton = new javax.swing.JButton();
-                jScrollPane1 = new javax.swing.JScrollPane();
-                commentaireTextArea = new javax.swing.JTextArea();
+        addButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        commentaireTextArea = new javax.swing.JTextArea();
 
-                setPreferredSize(new java.awt.Dimension(762, 196));
+        setPreferredSize(new java.awt.Dimension(762, 196));
 
-                addButton.setBackground(new java.awt.Color(204, 0, 0));
-                addButton.setForeground(new java.awt.Color(255, 255, 255));
-                addButton.setText("Commenter");
-                addButton.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        addButtonActionPerformed(evt);
-                    }
-                });
+        addButton.setBackground(new java.awt.Color(204, 0, 0));
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
+        addButton.setText("Commenter");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
-                jScrollPane1.setPreferredSize(new java.awt.Dimension(166, 96));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(166, 96));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(166, 96));
 
-                commentaireTextArea.setEditable(false);
-                commentaireTextArea.setColumns(20);
-                commentaireTextArea.setForeground(new java.awt.Color(102, 102, 102));
-                commentaireTextArea.setTabSize(0);
-                commentaireTextArea.setText("Ajouter un Commentaire");
-                commentaireTextArea.setMinimumSize(new java.awt.Dimension(164, 94));
-                commentaireTextArea.setPreferredSize(new java.awt.Dimension(164, 94));
-                commentaireTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        commentaireTextAreaMouseClicked(evt);
-                    }
-                });
-                commentaireTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
-                    public void keyReleased(java.awt.event.KeyEvent evt) {
-                        commentaireTextAreaKeyReleased(evt);
-                    }
-                });
-                jScrollPane1.setViewportView(commentaireTextArea);
+        commentaireTextArea.setEditable(false);
+        commentaireTextArea.setColumns(20);
+        commentaireTextArea.setForeground(new java.awt.Color(102, 102, 102));
+        commentaireTextArea.setTabSize(0);
+        commentaireTextArea.setText("Ajouter un Commentaire");
+        commentaireTextArea.setMaximumSize(new java.awt.Dimension(164, 94));
+        commentaireTextArea.setMinimumSize(new java.awt.Dimension(164, 94));
+        commentaireTextArea.setPreferredSize(new java.awt.Dimension(164, 94));
+        commentaireTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                commentaireTextAreaMouseClicked(evt);
+            }
+        });
+        commentaireTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                commentaireTextAreaKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(commentaireTextArea);
 
-                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-                this.setLayout(layout);
-                layout.setHorizontalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(addButton)))
-                                .addGap(20, 20, 20))
-                );
-                layout.setVerticalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addButton)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-            }// </editor-fold>                                                        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(addButton)))
+                .addGap(20, 20, 20))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addButton)
+                .addContainerGap())
+        );
+    }// </editor-fold>                                                     
 
             private void commentaireTextAreaMouseClicked(java.awt.event.MouseEvent evt) {
                 commentaireTextArea.setForeground(new java.awt.Color(0, 0, 0));
