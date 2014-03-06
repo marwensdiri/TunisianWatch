@@ -82,6 +82,12 @@ public class CitoyenForm extends javax.swing.JFrame {
         adrTextfield = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         pseudoTextfield = new javax.swing.JTextField();
+        nameErrorLabel = new javax.swing.JLabel();
+        prenomErrorLabel = new javax.swing.JLabel();
+        loginErrorLabel = new javax.swing.JLabel();
+        mdpErrorLabel = new javax.swing.JLabel();
+        mailErrorLabel = new javax.swing.JLabel();
+        dateErrorLabel = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -98,6 +104,11 @@ public class CitoyenForm extends javax.swing.JFrame {
                 prenomTextfieldActionPerformed(evt);
             }
         });
+        prenomTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                prenomTextfieldKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Prénom :");
@@ -105,6 +116,11 @@ public class CitoyenForm extends javax.swing.JFrame {
         nomTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 nomTextfieldMouseExited(evt);
+            }
+        });
+        nomTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomTextfieldKeyReleased(evt);
             }
         });
 
@@ -118,13 +134,30 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Email :");
 
+        mailTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mailTextfieldKeyReleased(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Mot de passe :");
+
+        mdpTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mdpTextfieldKeyReleased(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Date de naissance :");
 
         dateTextfield.setDateFormatString("yyyy-MM-d");
+        dateTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dateTextfieldMouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Joindre photo :");
@@ -150,6 +183,36 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Pseudo :");
 
+        pseudoTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pseudoTextfieldKeyReleased(evt);
+            }
+        });
+
+        nameErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nameErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        nameErrorLabel.setText("Ce champ est obligatoire");
+
+        prenomErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        prenomErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        prenomErrorLabel.setText("Ce champ est obligatoire");
+
+        loginErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loginErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        loginErrorLabel.setText("Ce champ est obligatoire");
+
+        mdpErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mdpErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        mdpErrorLabel.setText("Ce champ est obligatoire");
+
+        mailErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mailErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        mailErrorLabel.setText("Ce champ est obligatoire");
+
+        dateErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dateErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        dateErrorLabel.setText("Ce champ est obligatoire");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,6 +228,8 @@ public class CitoyenForm extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateErrorLabel)
+                    .addComponent(mailErrorLabel)
                     .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,13 +250,17 @@ public class CitoyenForm extends javax.swing.JFrame {
                                 .addGap(34, 34, 34)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nameErrorLabel)
+                            .addComponent(loginErrorLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mdpErrorLabel)
+                            .addComponent(prenomErrorLabel)
                             .addComponent(prenomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adrTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,13 +271,21 @@ public class CitoyenForm extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prenomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameErrorLabel)
+                    .addComponent(prenomErrorLabel))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pseudoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginErrorLabel)
+                    .addComponent(mdpErrorLabel))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sexeCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,11 +295,15 @@ public class CitoyenForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mailErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateErrorLabel)
+                .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,11 +369,11 @@ public class CitoyenForm extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
         JFileChooser shooser = new JFileChooser();
-        FileFilter  filtre = new  FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg") ;
+        FileFilter filtre = new FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg");
         shooser.setFileFilter(filtre);
         int res = shooser.showOpenDialog(null);
         if (res == JFileChooser.APPROVE_OPTION) {
-            pathTextfield.setText(shooser.getSelectedFile().toString());            
+            pathTextfield.setText(shooser.getSelectedFile().toString());
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -301,8 +382,9 @@ public class CitoyenForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
-//    commentaire
+        //   if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
+        if (isValidNom() & isValidPrenom() & isValidMail() & isValidPass() & isValidDate() & isValidPseudo()) {
+
             if (!modif) {
                 user = new Utilisateur();
             }
@@ -319,40 +401,166 @@ public class CitoyenForm extends javax.swing.JFrame {
             //user.setPhoto(pathTextfield.getText());
             user.setType('C');
             if (modif) {
-                if(userDao.updateUser(user.getId(), user)){
+                if (userDao.updateUser(user.getId(), user)) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
                     ConsultationPanel.tableModel.fireTableDataChanged();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-               if(userDao.insertUser(user)>0){
+                if (userDao.insertUser(user) > 0) {
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
                     ConsultationPanel.tableModel.fireTableDataChanged();
-               }
-               else{
-                   JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ","Erreur", JOptionPane.ERROR_MESSAGE);
-               }
+                } else {
+                    JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
         }
-        
+//        else {
+//            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
+//        }
+
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void nomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomTextfieldMouseExited
 
     }//GEN-LAST:event_nomTextfieldMouseExited
 
-    
+    private void nomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomTextfieldKeyReleased
+        isValidNom();
+    }//GEN-LAST:event_nomTextfieldKeyReleased
+
+    private void dateTextfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseClicked
+        isValidDate();
+    }//GEN-LAST:event_dateTextfieldMouseClicked
+
+    private void prenomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prenomTextfieldKeyReleased
+        isValidPrenom();
+    }//GEN-LAST:event_prenomTextfieldKeyReleased
+
+    private void pseudoTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pseudoTextfieldKeyReleased
+        isValidPseudo();
+    }//GEN-LAST:event_pseudoTextfieldKeyReleased
+
+    private void mdpTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mdpTextfieldKeyReleased
+        isValidPass();
+    }//GEN-LAST:event_mdpTextfieldKeyReleased
+
+    private void mailTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailTextfieldKeyReleased
+        isValidMail();
+    }//GEN-LAST:event_mailTextfieldKeyReleased
+
+    private boolean isValidDate() {
+        if (dateTextfield.getDate() != null && dateErrorLabel.isVisible()) {
+            dateErrorLabel.setVisible(false);
+            return true;
+        } else if (dateTextfield.getDate() == null && !dateErrorLabel.isVisible()) {
+            dateErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPrenom() {
+        if (prenomTextfield.getText().length() > 0 && prenomErrorLabel.isVisible()) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else if (prenomTextfield.getText().length() == 0 && !prenomErrorLabel.isVisible()) {
+            prenomErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPseudo() {
+        if (pseudoTextfield.getText().length() > 0) {
+            if (!existeLogin(pseudoTextfield.getText())) {
+                loginErrorLabel.setVisible(false);
+                return true;
+            } else {
+                loginErrorLabel.setText("Ce Pseudo est déjà utilisé");
+                loginErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (pseudoTextfield.getText().length() == 0) {
+            loginErrorLabel.setText("Ce champ est obligatoire");
+            loginErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidNom() {
+        if (nomTextfield.getText().length() > 0 && nameErrorLabel.isVisible()) {
+            nameErrorLabel.setVisible(false);
+            return true;
+        } else if (nomTextfield.getText().length() == 0 && !nameErrorLabel.isVisible()) {
+            nameErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPass() {
+        if (mdpTextfield.getText().length() > 0 && mdpErrorLabel.isVisible()) {
+            mdpErrorLabel.setVisible(false);
+            return true;
+        } else if (mdpTextfield.getText().length() == 0 && !mdpErrorLabel.isVisible()) {
+            mdpErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidMail() {
+        if (mailTextfield.getText().length() > 0) {
+            if (mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                if (!existeMail(mailTextfield.getText())) {
+                    mailErrorLabel.setVisible(false);
+                    return true;
+                } else {
+                    mailErrorLabel.setText("Ce Mail existe déjà");
+                    mailErrorLabel.setVisible(true);
+                    return false;
+                }
+            } else if (!mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                mailErrorLabel.setText("Mail invalide");
+                mailErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (mailTextfield.getText().length() == 0) {
+            mailErrorLabel.setText("Ce champ est obligatoire");
+            mailErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean existeMail(String mail) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByMail(mail) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean existeLogin(String login) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByLogin(login) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adrTextfield;
+    private javax.swing.JLabel dateErrorLabel;
     private com.toedter.calendar.JDateChooser dateTextfield;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
@@ -366,10 +574,15 @@ public class CitoyenForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel loginErrorLabel;
+    private javax.swing.JLabel mailErrorLabel;
     private javax.swing.JTextField mailTextfield;
+    private javax.swing.JLabel mdpErrorLabel;
     private javax.swing.JTextField mdpTextfield;
+    private javax.swing.JLabel nameErrorLabel;
     private javax.swing.JTextField nomTextfield;
     private javax.swing.JTextField pathTextfield;
+    private javax.swing.JLabel prenomErrorLabel;
     private javax.swing.JTextField prenomTextfield;
     private javax.swing.JTextField pseudoTextfield;
     private javax.swing.JComboBox sexeCombox;
