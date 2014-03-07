@@ -165,7 +165,8 @@ public class ContactezResp extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-
+        int state = 0;
+        String errMessage = "";
         if (verif()) {
 
             Utilisateur resp = new UtilisateurDao().selectUserById(((Utilisateur) (destComboBox.getSelectedItem())).getId());
@@ -174,7 +175,7 @@ public class ContactezResp extends javax.swing.JPanel {
 
             String msg = "message de la part de " + logger.getLogin() + " : \n" + msgTxtArea.getText();
 
-            new com.tunisianwatch.Util.SendEmail().send(/*resp.getMail()*/"farouk.youssef@esprit.tn",
+            state = new com.tunisianwatch.Util.SendEmail().send(/*resp.getMail()*/"farouk.youssef@esprit.tn",
                     sujetTextFeild.getText(),
                     msg,
                     filename,
@@ -183,6 +184,23 @@ public class ContactezResp extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "ekteb 7aja");
         }
+        
+        if (state / 1000 == 1){
+            errMessage += "du message\n";
+        }
+        if (state / 100 == 11){
+            errMessage += "de l'adresse mail du correspendant\n";
+        }
+        if (state / 10 == 1){
+            errMessage += "du fournisseur de service MAIL\n";
+        }
+        if (state % 10 == 1){
+            JOptionPane.showMessageDialog(null, "success");
+        }
+        if (errMessage != ""){
+            JOptionPane.showMessageDialog(null, "erreur au niveau : \n" + errMessage,"erreur d'envoi", JOptionPane.ERROR_MESSAGE);
+        }
+        
         sujetTextFeild.setText("");
         msgTxtArea.setText("");
     }//GEN-LAST:event_submitBtnActionPerformed
