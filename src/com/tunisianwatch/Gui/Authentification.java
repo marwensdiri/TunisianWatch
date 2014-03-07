@@ -210,15 +210,10 @@ public class Authentification extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fbButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fbButtonActionPerformed
-          FbConnect.conFb(this);
-          System.out.println(FbConnect.getAccessToken());
+          FbConnect.conFb();
     }//GEN-LAST:event_fbButtonActionPerformed
     
-public  void notifyFbConnection(Utilisateur user){
-   // UtilisateurDao uDao=new UtilisateurDao();
-    MainFrame.getInstance(user).setVisible(true);
-    this.setVisible(false);
-};
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel connectPanel;
     private javax.swing.JPanel corePanel;

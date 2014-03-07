@@ -6,7 +6,7 @@ import chrriis.dj.nativeswing.swtimpl.components.WebBrowserAdapter;
 import chrriis.dj.nativeswing.swtimpl.components.WebBrowserNavigationEvent;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import com.tunisianwatch.Gui.Authentification;
+import com.tunisianwatch.Gui.MainFrame;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.StringReader;
@@ -26,9 +26,9 @@ import javax.swing.text.html.parser.ParserDelegator;
  */
 public class FbConnect {
 
-    public static String API_KEY = "674205222622822";
-    public static String SECRET = "d62ca0c99dc04a83b1bb1767d793f370";
-    static Authentification auth;
+    public static String API_KEY = "230388273830300";
+    public static String SECRET = "0fb1320107f9a2aaf989251e8eeb8b99";
+
     public static String firstRequest = "https://graph.facebook.com/oauth/authorize?"
             + "client_id="
             + API_KEY
@@ -48,8 +48,7 @@ public class FbConnect {
     /**
      * @param args
      */
-    public static void conFb(Authentification a) {
-        auth = a;
+    public static void conFb() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -68,26 +67,56 @@ public class FbConnect {
                 webBrowser.setLocationBarVisible(false);
                 final String fb_url = "http://www.facebook.com/";
                 webBrowser.navigate(fb_url);
-
-                        // Here we add to our JWebBrowser an Adapter and override the 
-                // locationChanging() method. Here we can check, if we are 
-                // changing the location
-                // in our case the String fb_url, then this JWebBrowser can be 
-                // disposed.
-                // The Timer is set for 2 seconds, so we can still see if the 
-                // login was successfull or not.
+                webBrowser.navigate(firstRequest);
                 webBrowser.addWebBrowserListener(new WebBrowserAdapter() {
                     @Override
-                    public void locationChanging(WebBrowserNavigationEvent e) {
-                        super.locationChanging(e);
-                        System.out.println(e.getNewResourceLocation());
+                    public void locationChanged(WebBrowserNavigationEvent e) {
+                        super.locationChanged(e);
+                        // Check if first request was not done
+                        if (!firstRequestDone) {
+                            // Check if you left the location and were redirected to the next 
+                            // location
+                            if (e.getNewResourceLocation().contains("http://www.facebook.com/connect/login_success.html?code=")) {
+                                // If it successfully redirects you, get the verification code
+                                // and go for a second request
+                                String[] splits = e.getNewResourceLocation().split("=");
+                                String stage2temp = secondRequest + splits[1];
+                                System.out.println("First =" + splits[1]);
+                                webBrowser.navigate(stage2temp);
+                                firstRequestDone = true;
+                            }
+                        } else {
+                            // If secondRequest is not done yet, you perform this and get the 
+                            // access_token
+                            if (!secondRequestDone) {
+                                System.out.println(webBrowser.getHTMLContent());
+                                // Create reader with the html content
+                                StringReader readerSTR = new StringReader(webBrowser.getHTMLContent());
+                                // Create a callback for html parser
+                                HTMLEditorKit.ParserCallback callback
+                                        = new HTMLEditorKit.ParserCallback() {
+                                            @Override
+                                            public void handleText(char[] data, int pos) {
+                                                System.out.println(data);
+                                                // because there is only one line with the access_token 
+                                                // in the html content you can parse it.
+                                                String string = new String(data);
+                                                String[] temp1 = string.split("&");
+                                                String[] temp2 = temp1[0].split("=");
+                                                System.out.println("access tocken=" + temp2);
+                                                access_token = temp2[1];
+                                                retriveUser();
+                                            }
+                                        };
+                                try {
+                                    // Call the parse method 
+                                    new ParserDelegator().parse(readerSTR, callback, false);
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
 
-                        if (!e.getNewResourceLocation().equals(fb_url)) {
-                            loginFrame.dispose();
-                            getPermissions();
-
+                            }
                         }
-
                     }
                 });
 
@@ -100,83 +129,21 @@ public class FbConnect {
         });
     }
 
-    public static void getPermissions() {
-
-        final JFrame authFrame = new JFrame();
-        // Create the JWebBrowser and add the WebBrowserAdapter
-        final JPanel webBrowserPanel = new JPanel(new BorderLayout());
-        final JWebBrowser webBrowser = new JWebBrowser();
-        webBrowser.navigate(firstRequest);
-        webBrowser.addWebBrowserListener(new WebBrowserAdapter() {
-            @Override
-            public void locationChanged(WebBrowserNavigationEvent e) {
-                super.locationChanged(e);
-                // Check if first request was not done
-                if (!firstRequestDone) {
-                                    // Check if you left the location and were redirected to the next 
-                    // location
-                    if (e.getNewResourceLocation().contains("http://www.facebook.com/connect/login_success.html?code=")) {
-                                        // If it successfully redirects you, get the verification code
-                        // and go for a second request
-                        String[] splits = e.getNewResourceLocation().split("=");
-                        String stage2temp = secondRequest + splits[1];
-                        System.out.println("First =" + splits[1]);
-                        webBrowser.navigate(stage2temp);
-                        firstRequestDone = true;
-                    }
-                } else {
-                                    // If secondRequest is not done yet, you perform this and get the 
-                    // access_token
-                    if (!secondRequestDone) {
-                        System.out.println(webBrowser.getHTMLContent());
-                        // Create reader with the html content
-                        StringReader readerSTR = new StringReader(webBrowser.getHTMLContent());
-                        // Create a callback for html parser
-                        HTMLEditorKit.ParserCallback callback
-                                = new HTMLEditorKit.ParserCallback() {
-                                    @Override
-                                    public void handleText(char[] data, int pos) {
-                                        System.out.println(data);
-                                                        // because there is only one line with the access_token 
-                                        // in the html content you can parse it.
-                                        String string = new String(data);
-                                        String[] temp1 = string.split("&");
-                                        String[] temp2 = temp1[0].split("=");
-                                        System.out.println("access tocken=" + temp2);
-                                        access_token = temp2[1];
-                                        retriveUser();
-                                    }
-                                };
-                        try {
-                            // Call the parse method 
-                            new ParserDelegator().parse(readerSTR, callback, false);
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                                        // After everything is done, you can dispose the jframe
-                        //authFrame.dispose();      
-                    }
-                }
-            }
-        });
-
-        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
-        authFrame.add(webBrowserPanel);
-        authFrame.setSize(500, 500);
-        authFrame.setVisible(true);
-    }
-
     public static void retriveUser() {
         Utilisateur curU = new GraphReader(access_token).fetchObject();
         UtilisateurDao uDAO = new UtilisateurDao();
-        if (uDAO.selectUserByMail(curU.getMail()) == null) {
-            uDAO.insertUser(curU);
+        Utilisateur user = uDAO.selectUserByMail(curU.getMail());
+        if (user == null) {
+            int id = uDAO.insertUser(curU);
+            curU.setId(id);
+            MainFrame.getInstance(curU).setVisible(true);
         }
-        System.out.println(curU);
-        auth.notifyFbConnection(curU);
+        else{
+            MainFrame.getInstance(user).setVisible(true);
+        }
     }
-    
-    public static String getAccessToken(){
+
+    public static String getAccessToken() {
         return access_token;
     }
 
