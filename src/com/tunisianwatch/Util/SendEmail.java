@@ -1,5 +1,6 @@
 package com.tunisianwatch.Util;
 
+import com.sun.mail.smtp.SMTPAddressFailedException;
 import java.util.*;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -9,7 +10,8 @@ import javax.mail.internet.*;
 
 public class SendEmail {
 
-    public void send(String to, String subject, String msg, String file, final String from, final String password) {
+    public int send(String to, String subject, String msg, String file, final String from, final String password) {
+        int rep = 0;
         try {
             Properties props = new Properties();
             props.setProperty("mail.transport.protocol", "smtp");
@@ -35,7 +37,7 @@ public class SendEmail {
             message.setSender(addressFrom);
             message.setSubject(subject);
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            //message.setContent(msg, "text/plain");
+            
 
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(msg);
@@ -58,12 +60,16 @@ public class SendEmail {
             transport.connect();
             Transport.send(message);
             transport.close();
+            rep=1;
         } catch (NoSuchProviderException ex) {
-            System.out.println("pas de provid'eur'");
+            System.err.println("pas de provid'eur'");
+            rep+=10;
         } catch (AddressException ex) {
-            System.out.println("addrexc : " + ex);
+            System.err.println("addrexc : " + ex);
         } catch (MessagingException ex) {
-            System.out.println("addrexc : " + ex);
+            rep+=1100;
+            System.err.println("msgexc : " + ex);
         }
+        return rep;
     }
 }
