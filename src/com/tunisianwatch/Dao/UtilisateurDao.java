@@ -34,7 +34,13 @@ public class UtilisateurDao {
 
     public int insertUser(Utilisateur u) {
         int id = 0;
-        String requete = "insert into utilisateur (nom,prenom,sexe,adress,login,mdp,mail,type,datenaissance,photo) values (?,?,?,?,?,?,?,?,?,?)";
+        String requete;
+        FileInputStream fis;
+        if (u.getPath() != null) {
+         requete = "insert into utilisateur (nom,prenom,sexe,adress,login,mdp,mail,type,datenaissance,photo) values (?,?,?,?,?,?,?,?,?,?)";
+        } else {
+         requete = "insert into utilisateur (nom,prenom,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?)";    
+        }
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
@@ -48,10 +54,13 @@ public class UtilisateurDao {
             if (u.getDateNaissance() != null) {
                 ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
             }
-            FileInputStream fis;
+            
             try {
+                if (u.getPath() != null) {
                 fis = new FileInputStream(u.getPath());
                 ps.setBinaryStream(10, fis, (int) u.getPath().length());
+                }
+                
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
             }
