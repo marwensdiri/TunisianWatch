@@ -38,6 +38,7 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         mailButton = new javax.swing.JButton();
         myReclamationButton = new javax.swing.JButton();
         reclamationButton = new javax.swing.JButton();
+        fbButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -105,6 +106,15 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
             }
         });
 
+        fbButton.setBackground(new java.awt.Color(204, 0, 0));
+        fbButton.setForeground(new java.awt.Color(255, 255, 255));
+        fbButton.setText("Page FB");
+        fbButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fbButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -125,6 +135,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addComponent(mailButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                        .addComponent(fbButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         menuPanelLayout.setVerticalGroup(
@@ -142,9 +155,11 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                 .addComponent(reclamationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(mailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
+                .addGap(18, 18, 18)
+                .addComponent(fbButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(30, 30, 30))
         );
 
         contentPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -228,11 +243,19 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         contentPanel.revalidate();
     }//GEN-LAST:event_reclamationButtonActionPerformed
 
+    private void fbButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fbButtonActionPerformed
+        contentPanel.removeAll();
+        contentPanel.add(new FaceBookPage());
+        contentPanel.repaint();
+        contentPanel.revalidate();
+    }//GEN-LAST:event_fbButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DisconnectButton;
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JPanel contentPanel;
+    private javax.swing.JButton fbButton;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton mailButton;
     private javax.swing.JPanel menuPanel;

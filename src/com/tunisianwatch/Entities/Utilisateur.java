@@ -3,10 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/**
- *
- * @author Mekni Aymen
- */
+
 package com.tunisianwatch.Entities;
 
 import java.awt.Image;
@@ -24,13 +21,8 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
-    /**
-     *
-     * @author MekniAymen
-     */
-//////////////////////////////////////////
     private Image photo;
-//////////////////////////////////////////
+    private String path;
     private String login;
     private String mdp;
     private String mail;
@@ -84,8 +76,8 @@ public class Utilisateur {
         this.type = type;
     }
 
-    public Utilisateur(String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
-        this.id = id;
+    public Utilisateur(String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance, String path) {
+
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -94,13 +86,7 @@ public class Utilisateur {
         this.mdp = mdp;
         this.mail = mail;
         this.type = type;
-    }
-
-    public Utilisateur(Date d) {
-
-        this.dateNaissance = d;
-
-        //System.out.println("nnnjhjgghghjghjgjghjgjhgh"+d);
+        this.path = path;
     }
 
     public int getId() {
@@ -209,6 +195,16 @@ public class Utilisateur {
         return age;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         return id;

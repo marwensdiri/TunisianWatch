@@ -86,9 +86,9 @@ public class ReclamationForm extends javax.swing.JPanel {
         lieuErrorLabel = new javax.swing.JLabel();
         domaineErrorLabel = new javax.swing.JLabel();
         dateErrorLabel = new javax.swing.JLabel();
-        timeTimeChooser = new lu.tudor.santec.jtimechooser.JTimeChooser();
         heureErrorLabel = new javax.swing.JLabel();
         heureLabel = new javax.swing.JLabel();
+        timeTimeChooser = new lu.tudor.santec.jtimechooser.JTimeChooser();
 
         setLayout(new java.awt.CardLayout());
 
@@ -179,8 +179,6 @@ public class ReclamationForm extends javax.swing.JPanel {
         dateErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
         dateErrorLabel.setText("Vous devez saisir la date");
 
-        timeTimeChooser.setBackground(new java.awt.Color(255, 255, 255));
-
         heureErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         heureErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
         heureErrorLabel.setText("Vous devez saisir l'heure");
@@ -227,9 +225,9 @@ public class ReclamationForm extends javax.swing.JPanel {
                                     .addComponent(lieuErrorLabel)
                                     .addComponent(titreErrorLabel)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(timeTimeChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(dateTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dateTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                    .addComponent(timeTimeChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(133, 133, 133)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(dateErrorLabel)

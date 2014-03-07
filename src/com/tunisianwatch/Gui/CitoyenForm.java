@@ -7,6 +7,13 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -20,19 +27,35 @@ public class CitoyenForm extends javax.swing.JFrame {
 
     private boolean modif = false;
     private Utilisateur user;
-
+    private String PathImage ;
+    
     /**
      * Creates new form CitoyenForm
      */
     public CitoyenForm() {
         initComponents();
         setLocationRelativeTo(null);
+        nameErrorLabel.setVisible(false);
+        mailErrorLabel.setVisible(false);
+        prenomErrorLabel.setVisible(false);
+        loginErrorLabel.setVisible(false);
+        mdpErrorLabel.setVisible(false);
+        mailErrorLabel.setVisible(false);
+        dateErrorLabel.setVisible(false);
+
     }
 
     public CitoyenForm(Object ob) {
+        initComponents();
+        nameErrorLabel.setVisible(false);
+        mailErrorLabel.setVisible(false);
+        prenomErrorLabel.setVisible(false);
+        loginErrorLabel.setVisible(false);
+        mdpErrorLabel.setVisible(false);
+        mailErrorLabel.setVisible(false);
+        dateErrorLabel.setVisible(false);
         modif = true;
         this.user = (Utilisateur) ob;
-        initComponents();
         setLocationRelativeTo(null);
         setTitle("Modification - " + user.getNom() + "  " + user.getPrenom());
         prenomTextfield.setText(user.getNom());
@@ -49,7 +72,15 @@ public class CitoyenForm extends javax.swing.JFrame {
         dateTextfield.setDate(user.getDateNaissance());
         //pathTextfield.setText(user.getPhoto());
         submitButton.setText("Modifier");
-
+        lblImage.setBounds(lblImage.getX(), lblImage.getY(), 200, 200);
+        lblImage.removeAll();
+        if (user.getPhoto() != null) {
+            ImageIcon icon = new ImageIcon(user.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
+            lblImage.setIcon(icon);
+        }
+        else{
+           lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
+        }
     }
 
     /**
@@ -74,19 +105,27 @@ public class CitoyenForm extends javax.swing.JFrame {
         mdpTextfield = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         dateTextfield = new com.toedter.calendar.JDateChooser();
-        jLabel3 = new javax.swing.JLabel();
-        pathTextfield = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jLabel9 = new javax.swing.JLabel();
-        adrTextfield = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         pseudoTextfield = new javax.swing.JTextField();
+        nameErrorLabel = new javax.swing.JLabel();
+        prenomErrorLabel = new javax.swing.JLabel();
+        loginErrorLabel = new javax.swing.JLabel();
+        mdpErrorLabel = new javax.swing.JLabel();
+        mailErrorLabel = new javax.swing.JLabel();
+        dateErrorLabel = new javax.swing.JLabel();
+        btnModifphoto = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        adrTextfield = new javax.swing.JTextArea();
         submitButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Citoyen - Form"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajout Citoyen"));
         jPanel1.setPreferredSize(new java.awt.Dimension(870, 500));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -97,6 +136,11 @@ public class CitoyenForm extends javax.swing.JFrame {
                 prenomTextfieldActionPerformed(evt);
             }
         });
+        prenomTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                prenomTextfieldKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Prénom :");
@@ -104,6 +148,11 @@ public class CitoyenForm extends javax.swing.JFrame {
         nomTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 nomTextfieldMouseExited(evt);
+            }
+        });
+        nomTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomTextfieldKeyReleased(evt);
             }
         });
 
@@ -117,29 +166,28 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Email :");
 
+        mailTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mailTextfieldKeyReleased(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Mot de passe :");
+
+        mdpTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mdpTextfieldKeyReleased(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Date de naissance :");
 
         dateTextfield.setDateFormatString("yyyy-MM-d");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Joindre photo :");
-
-        pathTextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pathTextfieldActionPerformed(evt);
-            }
-        });
-
-        jToggleButton1.setBackground(new java.awt.Color(204, 0, 0));
-        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton1.setText("Parcourir");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+        dateTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dateTextfieldMouseClicked(evt);
             }
         });
 
@@ -149,84 +197,185 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Pseudo :");
 
+        pseudoTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pseudoTextfieldKeyReleased(evt);
+            }
+        });
+
+        nameErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nameErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        nameErrorLabel.setText("Ce champ est obligatoire");
+
+        prenomErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        prenomErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        prenomErrorLabel.setText("Ce champ est obligatoire");
+
+        loginErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loginErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        loginErrorLabel.setText("Ce champ est obligatoire");
+
+        mdpErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mdpErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        mdpErrorLabel.setText("Ce champ est obligatoire");
+
+        mailErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mailErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        mailErrorLabel.setText("Ce champ est obligatoire");
+
+        dateErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dateErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        dateErrorLabel.setText("Ce champ est obligatoire");
+
+        btnModifphoto.setBackground(new java.awt.Color(204, 0, 0));
+        btnModifphoto.setForeground(new java.awt.Color(255, 255, 255));
+        btnModifphoto.setText("Joindre Photo");
+        btnModifphoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifphotoActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblImage.setBackground(new java.awt.Color(0, 0, 0));
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImage)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        adrTextfield.setColumns(20);
+        adrTextfield.setLineWrap(true);
+        adrTextfield.setRows(5);
+        adrTextfield.setAutoscrolls(false);
+        jScrollPane1.setViewportView(adrTextfield);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(65, 65, 65)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(btnModifphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(159, 159, 159)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sexeCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateErrorLabel)
+                            .addComponent(mailErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(12, 12, 12)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(mailTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(sexeCombox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pseudoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(34, 34, 34)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(prenomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adrTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(loginErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                        .addComponent(mdpErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(prenomErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(nameErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(mdpTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                        .addComponent(pseudoTextfield, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(prenomTextfield, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(nomTextfield, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(prenomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pseudoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sexeCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adrTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(nameErrorLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prenomTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(prenomErrorLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pseudoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addComponent(loginErrorLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mdpErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sexeCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(mailErrorLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnModifphoto)
+                        .addGap(58, 58, 58)))
+                .addComponent(dateErrorLabel)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         submitButton.setBackground(new java.awt.Color(204, 0, 0));
@@ -251,26 +400,23 @@ public class CitoyenForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(45, 45, 45)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(submitButton))
-                .addGap(0, 25, Short.MAX_VALUE))
+                    .addComponent(submitButton)
+                    .addComponent(jButton2))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -280,27 +426,13 @@ public class CitoyenForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_prenomTextfieldActionPerformed
 
-    private void pathTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathTextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pathTextfieldActionPerformed
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
-        JFileChooser shooser = new JFileChooser();
-        FileFilter  filtre = new  FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg") ;
-        shooser.setFileFilter(filtre);
-        int res = shooser.showOpenDialog(null);
-        if (res == JFileChooser.APPROVE_OPTION) {
-            pathTextfield.setText(shooser.getSelectedFile().toString());            
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
+        //   if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
+        if (isValidNom() & isValidPrenom() & isValidMail() & isValidPass() & isValidDate() & isValidPseudo()) {
 
             if (!modif) {
                 user = new Utilisateur();
@@ -315,48 +447,193 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setMail(mailTextfield.getText());
             user.setMdp(mdpTextfield.getText());
             user.setDateNaissance(dateTextfield.getDate());
-            //user.setPhoto(pathTextfield.getText());
+            user.setPath(PathImage);
             user.setType('C');
+            try {
             if (modif) {
-                if(userDao.updateUser(user.getId(), user)){
+                if (userDao.updateUser(user.getId(), user)) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
                     ConsultationPanel.tableModel.fireTableDataChanged();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-               if(userDao.insertUser(user)>0){
-                    JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
-                    this.dispose();
-                    ConsultationPanel.tableModel.refresh();
-                    ConsultationPanel.tableModel.fireTableDataChanged();
-               }
-               else{
-                   JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ","Erreur", JOptionPane.ERROR_MESSAGE);
-               }
+                
+                    if (userDao.insertUser(user) > 0) {
+                        JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+                        this.dispose();
+                        ConsultationPanel.tableModel.refresh();
+                        ConsultationPanel.tableModel.fireTableDataChanged();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(CitoyenForm.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
+                    "Message d'information",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }
         }
-        
+//        else {
+//            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
+//        }
+
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void nomTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomTextfieldMouseExited
 
     }//GEN-LAST:event_nomTextfieldMouseExited
 
-    
+    private void nomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomTextfieldKeyReleased
+        isValidNom();
+    }//GEN-LAST:event_nomTextfieldKeyReleased
+
+    private void dateTextfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseClicked
+        isValidDate();
+    }//GEN-LAST:event_dateTextfieldMouseClicked
+
+    private void prenomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prenomTextfieldKeyReleased
+        isValidPrenom();
+    }//GEN-LAST:event_prenomTextfieldKeyReleased
+
+    private void pseudoTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pseudoTextfieldKeyReleased
+        isValidPseudo();
+    }//GEN-LAST:event_pseudoTextfieldKeyReleased
+
+    private void mdpTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mdpTextfieldKeyReleased
+        isValidPass();
+    }//GEN-LAST:event_mdpTextfieldKeyReleased
+
+    private void mailTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailTextfieldKeyReleased
+        isValidMail();
+    }//GEN-LAST:event_mailTextfieldKeyReleased
+
+    private void btnModifphotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifphotoActionPerformed
+        // TODO add your handling code here:       
+        try {
+            JFileChooser shooser = new JFileChooser();
+            shooser.showOpenDialog(null);
+            File f = shooser.getSelectedFile();
+            PathImage = f.getAbsolutePath();
+            System.out.println(" test "+PathImage);
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
+            ImageIcon icon = new ImageIcon(Image1.getScaledInstance(200, 200, Image.SCALE_FAST));
+            lblImage.setIcon(icon);
+            lblImage.repaint();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
+                "Message d'information",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnModifphotoActionPerformed
+
+    private boolean isValidDate() {
+        if (dateTextfield.getDate() != null && dateErrorLabel.isVisible()) {
+            dateErrorLabel.setVisible(false);
+            return true;
+        } else if (dateTextfield.getDate() == null && !dateErrorLabel.isVisible()) {
+            dateErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPrenom() {
+        if (prenomTextfield.getText().length() > 0 && prenomErrorLabel.isVisible()) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else if (prenomTextfield.getText().length() == 0 && !prenomErrorLabel.isVisible()) {
+            prenomErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPseudo() {
+        if (pseudoTextfield.getText().length() > 0 && loginErrorLabel.isVisible()) {
+             loginErrorLabel.setVisible(false);
+            return true;
+        } else if (pseudoTextfield.getText().length() == 0 && !loginErrorLabel.isVisible()) {
+            loginErrorLabel.setText("Ce champ est obligatoire");
+            loginErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidNom() {
+        if (nomTextfield.getText().length() > 0 && nameErrorLabel.isVisible()) {
+            nameErrorLabel.setVisible(false);
+            return true;
+        } else if (nomTextfield.getText().length() == 0 && !nameErrorLabel.isVisible()) {
+            nameErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPass() {
+        if (mdpTextfield.getText().length() > 0 && mdpErrorLabel.isVisible()) {
+            mdpErrorLabel.setVisible(false);
+            return true;
+        } else if (mdpTextfield.getText().length() == 0 && !mdpErrorLabel.isVisible()) {
+            mdpErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidMail() {
+        if (mailTextfield.getText().length() > 0) {
+            if (mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                
+                    mailErrorLabel.setVisible(false);
+                    return true;
+              
+            } else if (!mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                mailErrorLabel.setText("Mail invalide");
+                mailErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (mailTextfield.getText().length() == 0) {
+            mailErrorLabel.setText("Ce champ est obligatoire");
+            mailErrorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean existeMail(String mail) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByMail(mail) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean existeLogin(String login) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByLogin(login) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField adrTextfield;
+    private javax.swing.JTextArea adrTextfield;
+    private javax.swing.JButton btnModifphoto;
+    private javax.swing.JLabel dateErrorLabel;
     private com.toedter.calendar.JDateChooser dateTextfield;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -364,11 +641,17 @@ public class CitoyenForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel loginErrorLabel;
+    private javax.swing.JLabel mailErrorLabel;
     private javax.swing.JTextField mailTextfield;
+    private javax.swing.JLabel mdpErrorLabel;
     private javax.swing.JTextField mdpTextfield;
+    private javax.swing.JLabel nameErrorLabel;
     private javax.swing.JTextField nomTextfield;
-    private javax.swing.JTextField pathTextfield;
+    private javax.swing.JLabel prenomErrorLabel;
     private javax.swing.JTextField prenomTextfield;
     private javax.swing.JTextField pseudoTextfield;
     private javax.swing.JComboBox sexeCombox;

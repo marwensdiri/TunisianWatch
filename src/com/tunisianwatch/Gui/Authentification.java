@@ -54,18 +54,10 @@ public class Authentification extends javax.swing.JFrame {
         corePanel.setMinimumSize(new java.awt.Dimension(662, 444));
         corePanel.setPreferredSize(new java.awt.Dimension(662, 444));
 
-        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/tw_logo_final.png"))); // NOI18N
+        logoPanel.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
-        logoPanel.setLayout(logoPanelLayout);
-        logoPanelLayout.setHorizontalGroup(
-            logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-        );
-        logoPanelLayout.setVerticalGroup(
-            logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/tw_logo_final.png"))); // NOI18N
+        logoPanel.add(logoLabel, "card2");
 
         loginLabel.setText("Login");
 
@@ -153,30 +145,29 @@ public class Authentification extends javax.swing.JFrame {
         corePanel.setLayout(corePanelLayout);
         corePanelLayout.setHorizontalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(fbButton)
-                .addGap(29, 29, 29))
             .addGroup(corePanelLayout.createSequentialGroup()
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(corePanelLayout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(connectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(191, 191, 191)
+                        .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(corePanelLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(157, Short.MAX_VALUE))
+                        .addGap(167, 167, 167)
+                        .addComponent(connectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(185, 185, 185))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
+                .addComponent(fbButton)
+                .addContainerGap())
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(28, 28, 28)
                 .addComponent(connectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addComponent(fbButton)
-                .addGap(27, 27, 27))
+                .addGap(29, 29, 29))
         );
 
         getContentPane().add(corePanel, "card2");
@@ -223,9 +214,9 @@ public class Authentification extends javax.swing.JFrame {
           System.out.println(FbConnect.getAccessToken());
     }//GEN-LAST:event_fbButtonActionPerformed
     
-public  void notifyFbConnection(String email){
-    UtilisateurDao uDao=new UtilisateurDao();
-    MainFrame.getInstance(uDao.selectUserByMail(email)).setVisible(true);
+public  void notifyFbConnection(Utilisateur user){
+   // UtilisateurDao uDao=new UtilisateurDao();
+    MainFrame.getInstance(user).setVisible(true);
     this.setVisible(false);
 };
     // Variables declaration - do not modify//GEN-BEGIN:variables

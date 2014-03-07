@@ -80,9 +80,9 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="timeTimeChooser" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="dateTextfield" alignment="0" pref="155" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="dateTextfield" pref="155" max="32767" attributes="0"/>
+                                          <Component id="timeTimeChooser" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
@@ -366,13 +366,6 @@
                 <Property name="text" type="java.lang.String" value="Vous devez saisir la date"/>
               </Properties>
             </Component>
-            <Component class="lu.tudor.santec.jtimechooser.JTimeChooser" name="timeTimeChooser">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="heureErrorLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -391,6 +384,8 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Heure de l&apos;incident"/>
               </Properties>
+            </Component>
+            <Component class="lu.tudor.santec.jtimechooser.JTimeChooser" name="timeTimeChooser">
             </Component>
           </SubComponents>
         </Container>
