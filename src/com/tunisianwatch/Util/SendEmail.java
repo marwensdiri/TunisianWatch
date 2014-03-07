@@ -1,6 +1,5 @@
 package com.tunisianwatch.Util;
 
-import com.sun.mail.smtp.SMTPAddressFailedException;
 import java.util.*;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -37,7 +36,7 @@ public class SendEmail {
             message.setSender(addressFrom);
             message.setSubject(subject);
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            
+
 
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(msg);
@@ -49,7 +48,8 @@ public class SendEmail {
 
                 DataSource source = new FileDataSource(file);
                 messageBodyPart.setDataHandler(new DataHandler(source));
-                messageBodyPart.setFileName("joint");
+                String ext = (file.lastIndexOf('.') == -1) ? "" : file.substring(file.lastIndexOf('.') + 1);
+                messageBodyPart.setFileName("joint."+ ext);
                 multipart.addBodyPart(messageBodyPart);
             }
 
@@ -60,14 +60,14 @@ public class SendEmail {
             transport.connect();
             Transport.send(message);
             transport.close();
-            rep=1;
+            rep = 1;
         } catch (NoSuchProviderException ex) {
             System.err.println("pas de provid'eur'");
-            rep+=10;
+            rep += 10;
         } catch (AddressException ex) {
             System.err.println("addrexc : " + ex);
         } catch (MessagingException ex) {
-            rep+=1100;
+            rep += 1100;
             System.err.println("msgexc : " + ex);
         }
         return rep;
