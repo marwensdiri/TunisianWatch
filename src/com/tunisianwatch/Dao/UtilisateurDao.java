@@ -182,8 +182,13 @@ public class UtilisateurDao {
 
     }
 
-    public boolean updateUser(int id, Utilisateur u) throws FileNotFoundException {
-        String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? ,photo=? WHERE id=? ";
+    public boolean updateUser(int id, Utilisateur u) {
+        String requete ;
+        if (u.getPath() != null) {
+        requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? ,photo=? WHERE id=? ";
+        }else {
+        requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=?  WHERE id=? ";         
+        }
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
@@ -196,9 +201,19 @@ public class UtilisateurDao {
             ps.setString(7, u.getMail());
             ps.setString(8, u.getType() + "");
             ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
-            FileInputStream fis = new FileInputStream(u.getPath());
-            ps.setBinaryStream(10, fis, (int) u.getPath().length());
-            ps.setInt(11, id);
+            
+            try {
+                if (u.getPath() != null) {
+                FileInputStream fis = new FileInputStream(u.getPath());
+                ps.setBinaryStream(10, fis, (int) u.getPath().length());
+                ps.setInt(11, id);
+                }else 
+                ps.setInt(10, id);    
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                       
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
