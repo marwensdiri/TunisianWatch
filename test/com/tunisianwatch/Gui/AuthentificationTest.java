@@ -6,10 +6,9 @@
 
 package com.tunisianwatch.Gui;
 
-import org.junit.After;
-import org.junit.AfterClass;
+import com.tunisianwatch.Dao.UtilisateurDao;
+import com.tunisianwatch.Entities.Utilisateur;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,24 +16,20 @@ import static org.junit.Assert.*;
  *
  * @author MarwenSdiri <marwen.sdiri@esprit.tn>
  */
-public class CitoyenFormTest {
-    
-    private CitoyenForm citoyenForm ;
-    
-    public CitoyenFormTest() {
+public class AuthentificationTest {
+    Utilisateur user ;
+    public AuthentificationTest() {
     }
     
     @Before
     public void setUp() {
-        citoyenForm = new CitoyenForm();
     }
 
     @Test
     public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-       // assertTrue(citoyenForm.isValid(),);
-        //assertTrue(maClasse.additioner(2,2) == 4);
+        // TODO review the generated test code and remove the default call to fail.      
+        user = new UtilisateurDao().Authentification("marwen","0000");
+        assertNotNull("Connection Non Valide",user);
     }
     
 }
