@@ -26,7 +26,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ProfilPanel extends javax.swing.JPanel {
 
-    //String PathImage = "C:\\Users\\DELL\\Documents\\NetBeansProjects\\TunisianWatch\\src\\com\\tunisianwatch\\Images\\avatar.png";
     String PathImage = null;
     Utilisateur logger = MainFrame.getMe();
     Boolean modif = null;
