@@ -7,12 +7,16 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -63,7 +67,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
         adrTextfield.setText(user.getAdress());
         mailTextfield.setText(user.getMail());
-        mdpTextfield.setText(user.getMdp());
+        mdpPasswordField.setText(user.getMdp());
         dateTextfield.setDate(user.getDateNaissance());
         //pathTextfield.setText(user.getPhoto());
         submitButton.setText("Modifier");
@@ -97,7 +101,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         mailTextfield = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        mdpTextfield = new javax.swing.JTextField();
+        mdpPasswordField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         dateTextfield = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
@@ -170,9 +174,9 @@ public class CitoyenForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Mot de passe :");
 
-        mdpTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+        mdpPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                mdpTextfieldKeyReleased(evt);
+                mdpPasswordFieldKeyReleased(evt);
             }
         });
 
@@ -274,16 +278,16 @@ public class CitoyenForm extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dateErrorLabel))
+                                .addComponent(dateErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(mailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(mailErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(mailErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -296,17 +300,17 @@ public class CitoyenForm extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(mdpTextfield, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mdpPasswordField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pseudoTextfield, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(prenomTextfield, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nomTextfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prenomErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mdpErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nameErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(prenomErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(loginErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mdpErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -341,7 +345,7 @@ public class CitoyenForm extends javax.swing.JFrame {
                             .addComponent(loginErrorLabel))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(mdpTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mdpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mdpErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
@@ -433,7 +437,7 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setSexe(sexeCombox.getSelectedItem().toString().charAt(0));
             user.setAdress(adrTextfield.getText());
             user.setMail(mailTextfield.getText());
-            user.setMdp(mdpTextfield.getText());
+            user.setMdp(mdpPasswordField.getText());
             user.setDateNaissance(dateTextfield.getDate());
             user.setPath(PathImage);
             user.setType('C');
@@ -485,9 +489,9 @@ public class CitoyenForm extends javax.swing.JFrame {
         isValidPseudo();
     }//GEN-LAST:event_pseudoTextfieldKeyReleased
 
-    private void mdpTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mdpTextfieldKeyReleased
+    private void mdpPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mdpPasswordFieldKeyReleased
         isValidPass();
-    }//GEN-LAST:event_mdpTextfieldKeyReleased
+    }//GEN-LAST:event_mdpPasswordFieldKeyReleased
 
     private void mailTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailTextfieldKeyReleased
         isValidMail();
@@ -497,6 +501,10 @@ public class CitoyenForm extends javax.swing.JFrame {
         // TODO add your handling code here:       
         try {
             JFileChooser shooser = new JFileChooser();
+            //FileFilter filtre = new FileNameExtensionFilter("Fichier Image", "jpg", "jpeg", "png" ,"gif") ; 
+            FileFilter filtre = new ImageFilter();
+            shooser.setFileFilter(filtre);
+            shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
@@ -506,86 +514,79 @@ public class CitoyenForm extends javax.swing.JFrame {
             lblImage.repaint();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
-                "Message d'information",
-                JOptionPane.INFORMATION_MESSAGE);
+           
         }
     }//GEN-LAST:event_btnModifphotoActionPerformed
 
     private boolean isValidDate() {
-        if (dateTextfield.getDate() != null && dateErrorLabel.isVisible()) {
+        if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
             dateErrorLabel.setVisible(false);
             return true;
-        } else if (dateTextfield.getDate() == null && !dateErrorLabel.isVisible()) {
+        } else {
             dateErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
-
-    private boolean isValidPrenom() {
-        if (prenomTextfield.getText().length() > 0 && prenomErrorLabel.isVisible()) {
-            prenomErrorLabel.setVisible(false);
-            return true;
-        } else if (prenomTextfield.getText().length() == 0 && !prenomErrorLabel.isVisible()) {
-            prenomErrorLabel.setVisible(true);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isValidPseudo() {
-        if (pseudoTextfield.getText().length() > 0 && loginErrorLabel.isVisible()) {
-             loginErrorLabel.setVisible(false);
-            return true;
-        } else if (pseudoTextfield.getText().length() == 0 && !loginErrorLabel.isVisible()) {
-            loginErrorLabel.setText("Ce champ est obligatoire");
-            loginErrorLabel.setVisible(true);
-            return false;
-        }
-        return true;
-    }
-
+    
     private boolean isValidNom() {
-        if (nomTextfield.getText().length() > 0 && nameErrorLabel.isVisible()) {
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
             nameErrorLabel.setVisible(false);
             return true;
-        } else if (nomTextfield.getText().length() == 0 && !nameErrorLabel.isVisible()) {
+        } else {
+            nameErrorLabel.setText(FieldVerifier.getErrorMsg());
             nameErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
-    private boolean isValidPass() {
-        if (mdpTextfield.getText().length() > 0 && mdpErrorLabel.isVisible()) {
+    private boolean isValidPrenom() {
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else {
+            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
+            prenomErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidPseudo() {
+        if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
+            loginErrorLabel.setVisible(false);
+            return true;
+        } else {
+            loginErrorLabel.setText(FieldVerifier.getErrorMsg());
+            loginErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidPass(){
+        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(),3)) {
             mdpErrorLabel.setVisible(false);
             return true;
-        } else if (mdpTextfield.getText().length() == 0 && !mdpErrorLabel.isVisible()) {
+        } else {
+            mdpErrorLabel.setText(FieldVerifier.getErrorMsg());
             mdpErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
     private boolean isValidMail() {
-        if (mailTextfield.getText().length() > 0) {
-            if (mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
-                
-                    mailErrorLabel.setVisible(false);
-                    return true;
-              
-            } else if (!mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
-                mailErrorLabel.setText("Mail invalide");
+        if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
+            if (FieldVerifier.VerifComplexField(mailTextfield.getText(), 2)) {
+                mailErrorLabel.setVisible(false);
+                return true;
+            } else {
+                mailErrorLabel.setText(FieldVerifier.getErrorMsg());
                 mailErrorLabel.setVisible(true);
                 return false;
             }
-        } else if (mailTextfield.getText().length() == 0) {
-            mailErrorLabel.setText("Ce champ est obligatoire");
+        } else {
+            mailErrorLabel.setText(FieldVerifier.getErrorMsg());
             mailErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
     private boolean existeMail(String mail) {
@@ -628,7 +629,7 @@ public class CitoyenForm extends javax.swing.JFrame {
     private javax.swing.JLabel mailErrorLabel;
     private javax.swing.JTextField mailTextfield;
     private javax.swing.JLabel mdpErrorLabel;
-    private javax.swing.JTextField mdpTextfield;
+    private javax.swing.JTextField mdpPasswordField;
     private javax.swing.JLabel nameErrorLabel;
     private javax.swing.JTextField nomTextfield;
     private javax.swing.JLabel prenomErrorLabel;
