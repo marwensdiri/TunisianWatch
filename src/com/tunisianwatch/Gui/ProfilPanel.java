@@ -469,9 +469,7 @@ public class ProfilPanel extends javax.swing.JPanel {
             prenomErrorLabel.setVisible(true);
             return false;
         }
-    } //matches("^[a-zA-Z]+[a-zA-Z0-9\\.\\-\\_]+([a-zA-Z])$"))
-
-//^[a-zA-Z0-9\\.\\-\\_]+$
+    }
     private boolean isValidPseudo() {
         if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), logger.getLogin(), 1)) {
             loginErrorLabel.setVisible(false);
@@ -482,30 +480,6 @@ public class ProfilPanel extends javax.swing.JPanel {
             return false;
         }
 
-        /* if (pseudoTextfield.getText().length() > 0) {
-         if (pseudoTextfield.getText().length() > 45) {
-         loginErrorLabel.setText("Le champ est trop long");
-         loginErrorLabel.setVisible(true);
-         }
-         if (!pseudoTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+$")) { 
-         loginErrorLabel.setText("Le champ contient des carractères spéciaux");
-         loginErrorLabel.setVisible(true);
-         return false;
-         }
-         if (!existeLogin(pseudoTextfield.getText())) {
-         loginErrorLabel.setVisible(false);
-         return true;
-         } else {
-         loginErrorLabel.setText("Ce Pseudo est déjà utilisé");
-         loginErrorLabel.setVisible(true);
-         return false;
-         }
-         } else if (pseudoTextfield.getText().length() == 0) {
-         loginErrorLabel.setText("Ce champ est obligatoire");
-         loginErrorLabel.setVisible(true);
-         return false;
-         }
-         return true;*/
     }
 
     private boolean isValidNom() {
@@ -537,31 +511,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         }
     }
 
-    private boolean existeMail(String mail) {
-        if (!mail.equals(logger.getMail())) {
-            UtilisateurDao userDao = new UtilisateurDao();
-            if (userDao.selectUserByMail(mail) != null) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    private boolean existeLogin(String login) {
-        if (!logger.getLogin().equals(login)) {
-            UtilisateurDao userDao = new UtilisateurDao();
-            if (userDao.selectUserByLogin(login) != null) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
+   
 
     private void pseudoTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pseudoTextfieldMouseExited
         // TODO add your handling code here:
