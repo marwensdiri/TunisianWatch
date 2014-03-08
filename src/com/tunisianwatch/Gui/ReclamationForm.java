@@ -14,6 +14,7 @@ import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
 import com.tunisianwatch.Entities.Reclamation;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -32,7 +33,7 @@ public class ReclamationForm extends javax.swing.JPanel {
      */
     private List<File> listFile = new ArrayList<File>();
 
-    public ReclamationForm() {
+    public ReclamationForm() throws SQLException {
         initComponents();
         titreErrorLabel.setVisible(false);
         lieuErrorLabel.setVisible(false);
@@ -43,7 +44,7 @@ public class ReclamationForm extends javax.swing.JPanel {
         DefaultComboBoxModel<Domaine> domaineModel = new DefaultComboBoxModel();
         List<Lieu> listLieu = new LieuDao().selectLieux();
         for (Lieu L : listLieu) {
-            lieuModel.addElement(L);
+                lieuModel.addElement(L);
         }
         lieuComboBox.setModel(lieuModel);
 
@@ -330,7 +331,7 @@ public class ReclamationForm extends javax.swing.JPanel {
             titreErrorLabel.setVisible(true);
             ok = false;
         }
-        if (lieuComboBox.getSelectedIndex() == -1) {
+        if (lieuComboBox.getSelectedIndex() == -1 && geoJFrame.tmplieu==null) {
             lieuErrorLabel.setVisible(true);
             ok = false;
         }
@@ -346,10 +347,13 @@ public class ReclamationForm extends javax.swing.JPanel {
             heureErrorLabel.setVisible(true);
             ok = false;
         }
+        
+            
         if (ok) {
             Lieu L = (Lieu) lieuComboBox.getSelectedItem();
             Domaine D = (Domaine) domaineComboBox.getSelectedItem();
             Reclamation reclamation = new Reclamation();
+            
             reclamation.setLieu(L);
             reclamation.setDomaine(D);
             reclamation.setCitoyen(MainFrame.me);

@@ -33,7 +33,7 @@ public class geoJFrame extends javax.swing.JFrame {
     /**
      * Creates new form geoJFrame
      */
-    private String tmplieu = null;
+    public static String tmplieu = null;
 
     public geoJFrame() {
         initComponents();
@@ -95,10 +95,10 @@ public class geoJFrame extends javax.swing.JFrame {
                 URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + maplat + "," + maplon + "&sensor=false");
                 ObjectMapper parserMap = new ObjectMapper();
                 Geoloc geoloc = parserMap.readValue(url, Geoloc.class);
-                String addressGeo = geoloc.getResults().get(2).getFormatted_address();
-                MapMarkerDot map = new MapMarkerDot(addressGeo, new Coordinate(maplat, maplon));
+                tmplieu = geoloc.getResults().get(2).getFormatted_address();
+                MapMarkerDot map = new MapMarkerDot(tmplieu, new Coordinate(maplat, maplon));
                 Map.addMapMarker(map);
-                Lieu lieu = new Lieu(addressGeo, maplat, maplon);
+                Lieu lieu = new Lieu(tmplieu, maplat, maplon);
                 geo.insertLieu(lieu);
                 
             } catch (MalformedURLException ex) {
