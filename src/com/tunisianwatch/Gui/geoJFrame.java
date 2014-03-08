@@ -96,20 +96,11 @@ public class geoJFrame extends javax.swing.JFrame {
                 ObjectMapper parserMap = new ObjectMapper();
                 Geoloc geoloc = parserMap.readValue(url, Geoloc.class);
                 String addressGeo = geoloc.getResults().get(2).getFormatted_address();
-                
-
-
-                //tmplieu = JOptionPane.showInputDialog("le nom de votre reclamation");
-                //System.out.println(tmplieu);
-                //            if(!tmplieu.isEmpty()){
                 MapMarkerDot map = new MapMarkerDot(addressGeo, new Coordinate(maplat, maplon));
                 Map.addMapMarker(map);
                 Lieu lieu = new Lieu(addressGeo, maplat, maplon);
                 geo.insertLieu(lieu);
-                //            }else
-                //            {
-                //            }
-                //            }
+                
             } catch (MalformedURLException ex) {
                 Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
