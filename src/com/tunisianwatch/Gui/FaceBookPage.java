@@ -241,9 +241,10 @@ public class FaceBookPage extends javax.swing.JPanel implements Runnable {
                 dateContentLabel.setText(comment.getDate().toString());
                 nomContentLabel.setText(comment.getNom());
                 this.idPost = idPost;
-                if (!comment.isCanRemove()) {
+                
+                //if (!comment.isCanRemove()) {
                     deleteButton.hide();
-                }
+                //}
             }
 
             /**

@@ -16,20 +16,16 @@ public class LieuDao {
      * @param L
      */
     public void insertLieu(Lieu L) {
-         String requete = "insert into lieu (gouvernorat,lat,lon) values (?,?,?)";
+        String requete = "insert into lieu (gouvernorat) values (?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, L.getNom());
-            ps.setDouble(2, L.getLat());
-            ps.setDouble(3, L.getLon());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
     }
-
-   
 
     /**
      *
@@ -48,20 +44,6 @@ public class LieuDao {
             System.out.println("erreur lors de la mise à jour " + ex.getMessage());
         }
     }
-    
-    public void updateGeo(int id, Lieu L) {
-        String requete = "update lieu set lat=?,lon=? where id=?";
-        try {
-            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setDouble(1, L.getLat());
-            ps.setDouble(2, L.getLon());
-            ps.setInt(3, L.getId());
-            ps.executeUpdate();
-            System.out.println("Mise à jour effectuée avec succès");
-        } catch (SQLException ex) {
-            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
-        }
-    }
 
     public List<Lieu> selectLieux() {
         List<Lieu> lieux = new ArrayList<Lieu>();
@@ -71,20 +53,16 @@ public class LieuDao {
             statement = ResourceManager.getInstance().createStatement();
             ResultSet resultat = statement.executeQuery(requete);
             while (resultat.next()) {
-               Lieu lieu= new Lieu();
-               lieu.setId(resultat.getInt("id"));
-               lieu.setNom(resultat.getString("gouvernorat"));
-               lieu.setLat(resultat.getDouble("lat"));
-               lieu.setLon(resultat.getDouble("lon"));
-               lieux.add(lieu);
+                Lieu lieu = new Lieu();
+                lieu.setId(resultat.getInt("id"));
+                lieu.setNom(resultat.getString("gouvernorat"));
+                lieux.add(lieu);
             }
         } catch (SQLException ex) {
-            System.out.println("erreur lors du chargement"+ex.getMessage());
+            System.out.println("erreur lors du chargement" + ex.getMessage());
         }
         return lieux;
     }
-    
-    
 
     /**
      *
@@ -98,11 +76,9 @@ public class LieuDao {
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-               lieu= new Lieu();
-               lieu.setId(resultat.getInt("id"));
-               lieu.setNom(resultat.getString("gouvernorat"));
-               lieu.setLat(resultat.getDouble("lat"));
-               lieu.setLon(resultat.getDouble("lon"));               
+                lieu = new Lieu();
+                lieu.setId(resultat.getInt("id"));
+                lieu.setNom(resultat.getString("gouvernorat"));
             }
         } catch (SQLException ex) {
 
@@ -110,8 +86,8 @@ public class LieuDao {
         return lieu;
 
     }
-    
-      public Lieu selectLieuByNom(String nom) {
+
+    public Lieu selectLieuByNom(String nom) {
         String requete = "select * from lieu where id=?";
         Lieu lieu = null;
         try {
@@ -119,12 +95,10 @@ public class LieuDao {
             ps.setString(1, nom);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
-                lieu= new Lieu();
-               lieu.setId(resultat.getInt("id"));
-               lieu.setNom(resultat.getString("gouvernorat"));
-               lieu.setLat(resultat.getDouble("lat"));
-               lieu.setLon(resultat.getDouble("lon"));
-              
+                lieu = new Lieu();
+                lieu.setId(resultat.getInt("id"));
+                lieu.setNom(resultat.getString("gouvernorat"));
+
             }
         } catch (SQLException ex) {
 
