@@ -26,8 +26,8 @@ import javax.swing.text.html.parser.ParserDelegator;
  */
 public class FbConnect {
 
-    public static String API_KEY = "230388273830300";
-    public static String SECRET = "0fb1320107f9a2aaf989251e8eeb8b99";
+    public static String API_KEY = "305489412915482";
+    public static String SECRET = "d20076416897be3b315e391cb1c59609";
 
     public static String firstRequest = "https://graph.facebook.com/oauth/authorize?"
             + "client_id="
