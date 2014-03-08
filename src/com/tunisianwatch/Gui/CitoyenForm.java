@@ -528,7 +528,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
     
-    private boolean isValidNom() {
+    public boolean isValidNom() {
         if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
             nameErrorLabel.setVisible(false);
             return true;
