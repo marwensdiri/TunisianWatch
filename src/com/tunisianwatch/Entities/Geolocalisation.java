@@ -13,6 +13,7 @@ package com.tunisianwatch.Entities;
 public class Geolocalisation {
     int id;
     Lieu lieu;
+    Reclamation reclamation;
     double lon;
     double lat;
     
@@ -20,6 +21,16 @@ public class Geolocalisation {
         
     }
 
+    public Reclamation getReclamation() {
+        return reclamation;
+    }
+
+    public void setReclamation(Reclamation reclamation) {
+        this.reclamation = reclamation;
+    }
+
+    
+    
     public int getId() {
         return id;
     }

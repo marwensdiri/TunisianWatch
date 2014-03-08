@@ -22,12 +22,13 @@ import java.util.List;
 public class GeolocalisationDao {
 
     public void insertGeo(Geolocalisation G) {
-        String requete = "insert into geolocalisation (idlieu,lat,lon) values (?,?,?)";
+        String requete = "insert into geolocalisation (idlieu,lat,lon,idreclamation) values (?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, G.getLieu().getId());
             ps.setDouble(2, G.getLat());
             ps.setDouble(3, G.getLon());
+            ps.setInt(4, G.getReclamation().getId());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -52,6 +53,8 @@ public class GeolocalisationDao {
 
     public List<Geolocalisation> selectGeo() {
         List<Geolocalisation> geolocalisations = new ArrayList<Geolocalisation>();
+        LieuDao lieuDao = new LieuDao();
+        ReclamationDao reclamationDao = new ReclamationDao();
         String requete = "select * from geolocalisation";
         Statement statement;
         try {
@@ -62,6 +65,8 @@ public class GeolocalisationDao {
                 geo.setId(resultat.getInt("id"));
                 geo.setLat(resultat.getDouble("lat"));
                 geo.setLon(resultat.getDouble("lon"));
+                geo.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                geo.setReclamation(reclamationDao.selectReclamationById(resultat.getInt("idreclamation")));
                 geolocalisations.add(geo);
             }
         } catch (SQLException ex) {
@@ -72,6 +77,8 @@ public class GeolocalisationDao {
     
     public List<Geolocalisation> selectGeoByidLieu(int idlieu) {
         List<Geolocalisation> geolocalisations = new ArrayList<Geolocalisation>();
+        LieuDao lieuDao = new LieuDao();
+        ReclamationDao reclamationDao = new ReclamationDao();
         String requete = "select * from geolocalisation where idlieu=?";
         PreparedStatement ps;
         try {
@@ -83,6 +90,8 @@ public class GeolocalisationDao {
                 geo.setId(resultat.getInt("id"));
                 geo.setLat(resultat.getDouble("lat"));
                 geo.setLon(resultat.getDouble("lon"));
+                geo.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                geo.setReclamation(reclamationDao.selectReclamationById(resultat.getInt("idreclamation")));
                 geolocalisations.add(geo);
             }
         } catch (SQLException ex) {
@@ -97,8 +106,9 @@ public class GeolocalisationDao {
      */
     public Geolocalisation selectGeoById(int id) {
         String requete = "select * from geolocalisation where id=?";
-        Lieu lieu = null;
         Geolocalisation geo = null;
+        LieuDao lieuDao = new LieuDao();
+        ReclamationDao reclamationDao = new ReclamationDao();
         try {
             geo = new Geolocalisation();
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -108,6 +118,32 @@ public class GeolocalisationDao {
                 geo.setId(resultat.getInt("id"));
                 geo.setLat(resultat.getDouble("lat"));
                 geo.setLon(resultat.getDouble("lon"));
+                geo.setReclamation(reclamationDao.selectReclamationById(resultat.getInt("idreclamation")));
+                geo.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return geo;
+
+    }
+    
+        public Geolocalisation selectGeoByIdReclamation(int idreclamation) {
+        String requete = "select * from geolocalisation where idreclamation=?";
+        Geolocalisation geo = null;
+        LieuDao lieuDao = new LieuDao();
+        ReclamationDao reclamationDao = new ReclamationDao();
+        try {
+            geo = new Geolocalisation();
+            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
+            ps.setInt(1, idreclamation);
+            ResultSet resultat = ps.executeQuery();
+            if (resultat.next()) {
+                geo.setId(resultat.getInt("id"));
+                geo.setLat(resultat.getDouble("lat"));
+                geo.setLon(resultat.getDouble("lon"));
+                geo.setReclamation(reclamationDao.selectReclamationById(resultat.getInt("idreclamation")));
+                geo.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
             }
         } catch (SQLException ex) {
 

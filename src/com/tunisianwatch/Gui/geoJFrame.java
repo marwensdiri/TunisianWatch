@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.Geoloc;
 import com.tunisianwatch.Dao.LieuDao;
+import com.tunisianwatch.Entities.Geolocalisation;
 import com.tunisianwatch.Entities.Lieu;
 
 import java.awt.event.MouseEvent;
@@ -34,21 +35,11 @@ public class geoJFrame extends javax.swing.JFrame {
      * Creates new form geoJFrame
      */
     public static String tmplieu = null;
-
+    public static Geolocalisation geo=null;
+    
     public geoJFrame() {
         initComponents();
-        LieuDao lieux = new LieuDao();
-        List<Lieu> listlieu = lieux.selectLieux();
-
-        for (Lieu lieu : listlieu) {
-            MapMarkerDot map = new MapMarkerDot(lieu.getNom(), new Coordinate(lieu.getLat(), lieu.getLon()));
-            Map.addMapMarker(map);
-        }
-
-
-
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +78,7 @@ public class geoJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         double maplat = Map.getPosition(evt.getPoint()).getLat();
         double maplon = Map.getPosition(evt.getPoint()).getLon();
-        LieuDao geo = new LieuDao();
+        Geolocalisation geo = new Geolocalisation();
         
         if (MouseEvent.BUTTON1 == evt.getButton()) {
             try {
@@ -98,8 +89,9 @@ public class geoJFrame extends javax.swing.JFrame {
                 tmplieu = geoloc.getResults().get(2).getFormatted_address();
                 MapMarkerDot map = new MapMarkerDot(tmplieu, new Coordinate(maplat, maplon));
                 Map.addMapMarker(map);
-                Lieu lieu = new Lieu(tmplieu, maplat, maplon);
-                geo.insertLieu(lieu);
+               geo.setLat(maplat);
+               geo.setLon(maplon);
+               geo.setLieu(new Lieu(tmplieu));
                 
             } catch (MalformedURLException ex) {
                 Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
