@@ -53,6 +53,8 @@ public class UtilisateurDao {
             ps.setString(8, u.getType() + "");
             if (u.getDateNaissance() != null) {
                 ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
+            }else{
+                ps.setDate(9, null);
             }
             
             try {
