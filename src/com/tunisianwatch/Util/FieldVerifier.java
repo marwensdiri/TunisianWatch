@@ -62,7 +62,7 @@ public class FieldVerifier {
                     errorMsg = "Ce Mail est invalide";
                     return false;
                 }
-                if (existeMail(champ, currentValue)){
+                if (existeMail(champ, currentValue)) {
                     errorMsg = "Ce Mail est déjà utilisé";
                     return false;
                 }
@@ -74,6 +74,31 @@ public class FieldVerifier {
                 }
                 if (!validePassword(champ, currentValue)) {
                     errorMsg = "Le mot de passe ne corréspond pas";
+                    return false;
+                }
+            } else {
+                System.err.println("type non valide");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean VerifComplexField(String champ, int type) {
+        if (VerifOrdinaryField(champ)) {
+            if (type == 1) { //type login
+                if (existeLogin(champ)) {
+                    errorMsg = "Ce Pseudo est déjà utilisé";
+                    return false;
+                }
+                return true;
+            } else if (type == 2) {//type mail
+                if (!champ.matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                    errorMsg = "Ce Mail est invalide";
+                    return false;
+                }
+                if (existeMail(champ)) {
+                    errorMsg = "Ce Mail est déjà utilisé";
                     return false;
                 }
             } else {
@@ -112,6 +137,25 @@ public class FieldVerifier {
         } else {
             return false;
         }
+    }
+
+    private static boolean existeMail(String mail) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByMail(mail) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean existeLogin(String login) {
+       
+            UtilisateurDao userDao = new UtilisateurDao();
+            if (userDao.selectUserByLogin(login) != null) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     public static String errorMsg = "";
