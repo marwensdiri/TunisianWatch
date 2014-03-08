@@ -8,6 +8,7 @@ import com.sun.org.apache.xpath.internal.compiler.PsuedoNames;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -415,8 +416,9 @@ public class ProfilPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             JFileChooser shooser = new JFileChooser();
-            FileFilter filtre = new FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg") ;
+            FileFilter filtre = new ImageFilter();
             shooser.setFileFilter(filtre);
+            shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
