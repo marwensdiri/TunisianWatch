@@ -119,6 +119,12 @@ public class EtablissementFrame extends javax.swing.JFrame {
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Etablissement - Form"));
         inputPanel.setMinimumSize(new java.awt.Dimension(621, 469));
 
+        nomTxtFeild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomTxtFeildActionPerformed(evt);
+            }
+        });
+
         responsableCmboBox.setBackground(new java.awt.Color(204, 0, 0));
         responsableCmboBox.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -468,6 +474,11 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void nomTxtFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomTxtFeildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomTxtFeildActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BoutonPanel;
     private javax.swing.JLabel addDoaminLabel;
