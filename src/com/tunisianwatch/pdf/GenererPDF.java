@@ -33,7 +33,7 @@ public static void getPdf(String  path) {
             // - Connexion à la base
             connection=MySQLConnexion.getInstance();
             // - Chargement et compilation du rapport (charger le fichier jrxml déjà généré)
-            JasperDesign jasperDesign = JRXmlLoader.load("C:\\Users\\Skan\\Desktop\\classic.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load("src/com/tunisianwatch/pdf/classic.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
             // - Paramètres à envoyer au rapport
             Map  parameters = new HashMap();
