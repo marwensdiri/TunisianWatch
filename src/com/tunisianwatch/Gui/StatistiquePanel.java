@@ -3,15 +3,9 @@
  * and open the template in the editor.
  */
 package com.tunisianwatch.Gui;
-
 import com.tunisianwatch.Dao.ChartDAO;
-
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.File;
-import javax.swing.ImageIcon;
+import com.tunisianwatch.pdf.GenererPDF;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 
 /**
@@ -243,9 +237,26 @@ public class StatistiquePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ComboTypeActionPerformed
 
     private void generer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generer1ActionPerformed
-        
        
-           
+       JFileChooser   chooser =    new JFileChooser(); 
+   
+    chooser.setCurrentDirectory(new java.io.File("."));
+    chooser.setDialogTitle("Selectionner le repertoire de l'export");
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    chooser.setAcceptAllFileFilterUsed(false);
+    //    
+    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+      System.out.println("getCurrentDirectory(): " 
+         +  chooser.getCurrentDirectory());
+      System.out.println("getSelectedFile() : " 
+         +  chooser.getSelectedFile());
+      GenererPDF.getPdf(chooser.getSelectedFile().getPath()) ; 
+      }
+    else {
+      System.out.println("No Selection ");
+      }
+    
+       
         
 
            
