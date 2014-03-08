@@ -31,7 +31,7 @@ public class FieldVerifier {
 
     public static boolean isNotNull(Object obj) {
         if (obj == null) {
-            errorMsg = "Le champ est obligatroire";
+            errorMsg = "Le champ est obligatoire";
             return false;
         }
         return true;
@@ -39,7 +39,7 @@ public class FieldVerifier {
 
     public static boolean VerifOrdinaryField(String champ) {
         if (champ.length() == 0) {
-            errorMsg = "Le champ est obligatroire";
+            errorMsg = "Le champ est obligatoire";
             return false;
         }
         if (champ.length() > 45) {
@@ -81,6 +81,9 @@ public class FieldVerifier {
                 return false;
             }
         }
+        else{
+            return false;
+        }
         return true;
     }
 
@@ -105,6 +108,9 @@ public class FieldVerifier {
                 System.err.println("type non valide");
                 return false;
             }
+        }
+        else{
+            return false;
         }
         return true;
     }
