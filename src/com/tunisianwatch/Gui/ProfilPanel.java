@@ -464,16 +464,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         }
     }
 
-    private boolean isValidPrenom() {
-        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
-            prenomErrorLabel.setVisible(false);
-            return true;
-        } else {
-            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
-            prenomErrorLabel.setVisible(true);
-            return false;
-        }
-    }
+    
     private boolean isValidPseudo() {
         if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), logger.getLogin(), 1)) {
             loginErrorLabel.setVisible(false);
@@ -486,13 +477,24 @@ public class ProfilPanel extends javax.swing.JPanel {
 
     }
 
-    private boolean isValidNom() {
-        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+   private boolean isValidNom() {
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
         } else {
             nameErrorLabel.setText(FieldVerifier.getErrorMsg());
             nameErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidPrenom() {
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else {
+            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
+            prenomErrorLabel.setVisible(true);
             return false;
         }
     }

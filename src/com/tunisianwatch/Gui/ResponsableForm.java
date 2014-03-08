@@ -616,7 +616,7 @@ public class ResponsableForm extends javax.swing.JFrame {
     }
 
     private boolean isValidNom() {
-        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
         } else {
@@ -627,7 +627,7 @@ public class ResponsableForm extends javax.swing.JFrame {
     }
 
     private boolean isValidPrenom() {
-        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             prenomErrorLabel.setVisible(false);
             return true;
         } else {

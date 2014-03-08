@@ -542,8 +542,8 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
     
-    private boolean isValidNom() {
-        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+   private boolean isValidNom() {
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
         } else {
@@ -554,7 +554,7 @@ public class CitoyenForm extends javax.swing.JFrame {
     }
 
     private boolean isValidPrenom() {
-        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             prenomErrorLabel.setVisible(false);
             return true;
         } else {
@@ -564,14 +564,25 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidPseudo() {
-        if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
-            loginErrorLabel.setVisible(false);
-            return true;
+   private boolean isValidPseudo() {
+        if (!modif) {
+            if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
+                loginErrorLabel.setVisible(false);
+                return true;
+            } else {
+                loginErrorLabel.setText(FieldVerifier.getErrorMsg());
+                loginErrorLabel.setVisible(true);
+                return false;
+            }
         } else {
-            loginErrorLabel.setText(FieldVerifier.getErrorMsg());
-            loginErrorLabel.setVisible(true);
-            return false;
+            if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), user.getLogin(), 1)) {
+                loginErrorLabel.setVisible(false);
+                return true;
+            } else {
+                loginErrorLabel.setText(FieldVerifier.getErrorMsg());
+                loginErrorLabel.setVisible(true);
+                return false;
+            }
         }
     }
 
@@ -586,23 +597,40 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidMail() {
-        if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
-            if (FieldVerifier.VerifComplexField(mailTextfield.getText(), 2)) {
-                mailErrorLabel.setVisible(false);
-                return true;
+     private boolean isValidMail() {
+        if (!modif) {
+            if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
+                if (FieldVerifier.VerifComplexField(mailTextfield.getText(), 2)) {
+                    mailErrorLabel.setVisible(false);
+                    return true;
+                } else {
+                    mailErrorLabel.setText(FieldVerifier.getErrorMsg());
+                    mailErrorLabel.setVisible(true);
+                    return false;
+                }
             } else {
                 mailErrorLabel.setText(FieldVerifier.getErrorMsg());
                 mailErrorLabel.setVisible(true);
                 return false;
             }
-        } else {
-            mailErrorLabel.setText(FieldVerifier.getErrorMsg());
-            mailErrorLabel.setVisible(true);
-            return false;
+        }
+        else{
+            if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
+                if (FieldVerifier.VerifComplexField(mailTextfield.getText(),user.getMail(), 2)) {
+                    mailErrorLabel.setVisible(false);
+                    return true;
+                } else {
+                    mailErrorLabel.setText(FieldVerifier.getErrorMsg());
+                    mailErrorLabel.setVisible(true);
+                    return false;
+                }
+            } else {
+                mailErrorLabel.setText(FieldVerifier.getErrorMsg());
+                mailErrorLabel.setVisible(true);
+                return false;
+            }
         }
     }
-
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
