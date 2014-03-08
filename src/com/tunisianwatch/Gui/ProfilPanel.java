@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -413,6 +415,8 @@ public class ProfilPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             JFileChooser shooser = new JFileChooser();
+            FileFilter filtre = new FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg") ;
+            shooser.setFileFilter(filtre);
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
@@ -423,9 +427,7 @@ public class ProfilPanel extends javax.swing.JPanel {
             lblImage.repaint();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
-                    "Message d'information",
-                    JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("format de la photo invalide");
         }
 
 
