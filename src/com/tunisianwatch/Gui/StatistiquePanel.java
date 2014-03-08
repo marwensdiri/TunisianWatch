@@ -244,7 +244,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
     private void generer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generer1ActionPerformed
         
-        GenererPdf test =    new  GenererPdf.getPdf();
+       
            
         
 
