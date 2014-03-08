@@ -63,7 +63,6 @@ public class GraphReader {
         out.println("* Fetching single objects *");
 
         User user = facebookClient.fetchObject("me", User.class);
-        Page page = facebookClient.fetchObject("cocacola", Page.class);
         Utilisateur curUser = new Utilisateur();
         curUser.setLogin(user.getUsername());
         curUser.setNom(user.getLastName());
@@ -72,10 +71,10 @@ public class GraphReader {
         // System.out.println("Name: " + user.getName());
         //System.out.println("Username: " + user.getUsername());
         curUser.setMail(user.getEmail());
-
-        //System.out.println("Email: " + user.getEmail());
+        if(user.getBirthday()!=null){
+            curUser.setDateNaissance(user.getBirthdayAsDate());
+        }
         return curUser;
-        //out.println("Page likes: " + page.getLikes());
     }
 
     /**

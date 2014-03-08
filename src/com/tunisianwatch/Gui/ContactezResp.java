@@ -175,7 +175,7 @@ public class ContactezResp extends javax.swing.JPanel {
 
             String msg = "message de la part de " + logger.getLogin() + " : \n" + msgTxtArea.getText();
 
-            state = new com.tunisianwatch.Util.SendEmail().send(resp.getMail()/*"farouk.youssef@esprit.tn"*/,
+            state = new com.tunisianwatch.Util.SendEmail().send(/*resp.getMail()*/"farouk.youssef@esprit.tn",
                     sujetTextFeild.getText(),
                     msg,
                     filename,

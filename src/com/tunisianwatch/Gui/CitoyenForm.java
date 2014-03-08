@@ -237,6 +237,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         });
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setMinimumSize(new java.awt.Dimension(176, 207));
 
         lblImage.setBackground(new java.awt.Color(0, 0, 0));
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -246,10 +247,10 @@ public class CitoyenForm extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblImage)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,12 +273,12 @@ public class CitoyenForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
-                        .addComponent(btnModifphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(159, 159, 159)
+                        .addComponent(btnModifphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(147, 147, 147)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,7 +450,6 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setDateNaissance(dateTextfield.getDate());
             user.setPath(PathImage);
             user.setType('C');
-            try {
             if (modif) {
                 if (userDao.updateUser(user.getId(), user)) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
@@ -461,22 +461,16 @@ public class CitoyenForm extends javax.swing.JFrame {
                 }
             } else {
                 
-                    if (userDao.insertUser(user) > 0) {
-                        JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
-                        this.dispose();
-                        ConsultationPanel.tableModel.refresh();
-                        ConsultationPanel.tableModel.fireTableDataChanged();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (userDao.insertUser(user) > 0) {
+                    JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
+                    this.dispose();
+                    ConsultationPanel.tableModel.refresh();
+                    ConsultationPanel.tableModel.fireTableDataChanged();
+                } else {
+                    JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
                 
             }
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(CitoyenForm.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
-                    "Message d'information",
-                    JOptionPane.INFORMATION_MESSAGE);
-                }
         }
 //        else {
 //            JOptionPane.showMessageDialog(null, "Vous devez remplir tous les champs !!", "Message d'avertissement", JOptionPane.WARNING_MESSAGE);
@@ -519,7 +513,6 @@ public class CitoyenForm extends javax.swing.JFrame {
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
-            System.out.println(" test "+PathImage);
             Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(200, 200, Image.SCALE_FAST));
             lblImage.setIcon(icon);
