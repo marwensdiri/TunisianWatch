@@ -4,8 +4,10 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.sun.org.apache.xpath.internal.compiler.PsuedoNames;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import com.tunisianwatch.Util.FieldVerifier;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -430,17 +432,8 @@ public class ProfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModifphotoActionPerformed
 
     private boolean isValidPass() {
-        if (mdpPasswordField.getText().length() > 0) {
-            if(mdpPasswordField.getText().length()<3){
-                mdpErrorLabel.setText("Le mot de passe est trop court");
-                mdpErrorLabel.setVisible(true);
-                return false;
-            }
-            else if(mdpPasswordField.getText().length()>45){
-                mdpErrorLabel.setText("Le mot de passe est trop long");
-                mdpErrorLabel.setVisible(true);
-                return false;
-            }
+        //if (mdpPasswordField.getText().length() > 0) {
+        if (FieldVerifier.VerifOrdinaryField(mdpPasswordField.getText())) {
             UtilisateurDao userDao = new UtilisateurDao();
             if (userDao.Authentification(logger.getLogin(), mdpPasswordField.getText()) != null) {
                 mdpErrorLabel.setVisible(false);
@@ -450,124 +443,98 @@ public class ProfilPanel extends javax.swing.JPanel {
                 mdpErrorLabel.setVisible(true);
                 return false;
             }
-        } else if (mdpPasswordField.getText().length() == 0 && !mdpErrorLabel.isVisible()) {
-            mdpErrorLabel.setText("Champ obligatoire");
+        } else {
+            mdpErrorLabel.setText(FieldVerifier.getErrorMsg());
             mdpErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
     private boolean isValidDate() {
-        if (dateTextfield.getDate() != null && dateErrorLabel.isVisible()) {
+        if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
             dateErrorLabel.setVisible(false);
             return true;
-        } else if (dateTextfield.getDate() == null && !dateErrorLabel.isVisible()) {
+        } else {
             dateErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
     private boolean isValidPrenom() {
-        if (prenomTextfield.getText().length() > 0) {
-            if (prenomTextfield.getText().length() > 45) {
-                prenomErrorLabel.setText("Le champ est trop long");
-                prenomErrorLabel.setVisible(true);
-                return false;
-            } 
-            if (!prenomTextfield.getText().matches("^[a-zA-Z]+$")) {
-                prenomErrorLabel.setText("Le champ contient des carractères spéciaux");
-                prenomErrorLabel.setVisible(true);
-                return false;
-            } else {
-                prenomErrorLabel.setVisible(false);
-                return true;
-            }
-        } else if (prenomTextfield.getText().length() == 0 && !prenomErrorLabel.isVisible()) { //matches("^[a-zA-Z]+[a-zA-Z0-9\\.\\-\\_]+([a-zA-Z])$"))
-            prenomErrorLabel.setText("Le champ est obligatoire");
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else {
+            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
             prenomErrorLabel.setVisible(true);
             return false;
         }
-        return true;
-    }
+    } //matches("^[a-zA-Z]+[a-zA-Z0-9\\.\\-\\_]+([a-zA-Z])$"))
 
+//^[a-zA-Z0-9\\.\\-\\_]+$
     private boolean isValidPseudo() {
-        if (pseudoTextfield.getText().length() > 0) {
-            if (pseudoTextfield.getText().length() > 45) {
-                loginErrorLabel.setText("Le champ est trop long");
-                loginErrorLabel.setVisible(true);
-            }
-            if (!pseudoTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+$")) {
-                 loginErrorLabel.setText("Le champ contient des carractères spéciaux");
-                 loginErrorLabel.setVisible(true);
-                 return false;
-            }
-            if (!existeLogin(pseudoTextfield.getText())) {
-                loginErrorLabel.setVisible(false);
-                return true;
-            } else {
-                loginErrorLabel.setText("Ce Pseudo est déjà utilisé");
-                loginErrorLabel.setVisible(true);
-                return false;
-            }
-        } else if (pseudoTextfield.getText().length() == 0) {
-            loginErrorLabel.setText("Ce champ est obligatoire");
+        if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), logger.getLogin(), 1)) {
+            loginErrorLabel.setVisible(false);
+            return true;
+        } else {
+            loginErrorLabel.setText(FieldVerifier.getErrorMsg());
             loginErrorLabel.setVisible(true);
             return false;
         }
-        return true;
+
+        /* if (pseudoTextfield.getText().length() > 0) {
+         if (pseudoTextfield.getText().length() > 45) {
+         loginErrorLabel.setText("Le champ est trop long");
+         loginErrorLabel.setVisible(true);
+         }
+         if (!pseudoTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+$")) { 
+         loginErrorLabel.setText("Le champ contient des carractères spéciaux");
+         loginErrorLabel.setVisible(true);
+         return false;
+         }
+         if (!existeLogin(pseudoTextfield.getText())) {
+         loginErrorLabel.setVisible(false);
+         return true;
+         } else {
+         loginErrorLabel.setText("Ce Pseudo est déjà utilisé");
+         loginErrorLabel.setVisible(true);
+         return false;
+         }
+         } else if (pseudoTextfield.getText().length() == 0) {
+         loginErrorLabel.setText("Ce champ est obligatoire");
+         loginErrorLabel.setVisible(true);
+         return false;
+         }
+         return true;*/
     }
 
     private boolean isValidNom() {
-        if (nomTextfield.getText().length() > 0) {
-            if (nomTextfield.getText().length() > 45) {
-                nameErrorLabel.setText("Le champ est trop long");
-                nameErrorLabel.setVisible(true);
-                return false;
-            } else if (!nomTextfield.getText().matches("^[a-zA-Z]+$")) {
-                nameErrorLabel.setText("Le champ contient des carractères spéciaux");
-                nameErrorLabel.setVisible(true);
-                return false;
-            } else {
-                nameErrorLabel.setVisible(false);
-                return true;
-            }
-        } else if (nomTextfield.getText().length() == 0) { //matches("^[a-zA-Z]+[a-zA-Z0-9\\.\\-\\_]+([a-zA-Z])$"))
-            nameErrorLabel.setText("Le champ est obligatoire");
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+            nameErrorLabel.setVisible(false);
+            return true;
+        } else {
+            nameErrorLabel.setText(FieldVerifier.getErrorMsg());
             nameErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
+    
     private boolean isValidMail() {
-        if (mailTextfield.getText().length() > 0) {
-            if (mailTextfield.getText().length() > 45) {
-                mailErrorLabel.setText("Le champ est trop long");
+        if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
+            if (FieldVerifier.VerifComplexField(mailTextfield.getText(), logger.getMail(), 2)) {
+                mailErrorLabel.setVisible(false);
+                return true;
+            } else {
+                mailErrorLabel.setText(FieldVerifier.getErrorMsg());
                 mailErrorLabel.setVisible(true);
                 return false;
             }
-            if (mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
-                if (!existeMail(mailTextfield.getText())) {
-                    mailErrorLabel.setVisible(false);
-                    return true;
-                } else {
-                    mailErrorLabel.setText("Ce Mail existe déjà");
-                    mailErrorLabel.setVisible(true);
-                    return false;
-                }
-            } else if (!mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
-                mailErrorLabel.setText("Mail invalide");
-                mailErrorLabel.setVisible(true);
-                return false;
-            }
-        } else if (mailTextfield.getText().length() == 0) {
-            mailErrorLabel.setText("Ce champ est obligatoire");
+        } else {
+            mailErrorLabel.setText(FieldVerifier.getErrorMsg());
             mailErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
 
     private boolean existeMail(String mail) {
