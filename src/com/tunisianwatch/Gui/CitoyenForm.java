@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -500,9 +501,10 @@ public class CitoyenForm extends javax.swing.JFrame {
         // TODO add your handling code here:       
         try {
             JFileChooser shooser = new JFileChooser();
-            FileFilter filtre = new FileNameExtensionFilter("Fichier Image", "jpg", "jpeg", "png" ,"gif") ; 
-            
+            //FileFilter filtre = new FileNameExtensionFilter("Fichier Image", "jpg", "jpeg", "png" ,"gif") ; 
+            FileFilter filtre = new ImageFilter();
             shooser.setFileFilter(filtre);
+            shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
@@ -512,9 +514,7 @@ public class CitoyenForm extends javax.swing.JFrame {
             lblImage.repaint();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
-                "Message d'information",
-                JOptionPane.INFORMATION_MESSAGE);
+           
         }
     }//GEN-LAST:event_btnModifphotoActionPerformed
 
