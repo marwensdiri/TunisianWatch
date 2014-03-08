@@ -603,23 +603,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
 
-    private boolean existeMail(String mail) {
-        UtilisateurDao userDao = new UtilisateurDao();
-        if (userDao.selectUserByMail(mail) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean existeLogin(String login) {
-        UtilisateurDao userDao = new UtilisateurDao();
-        if (userDao.selectUserByLogin(login) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adrTextfield;
