@@ -122,7 +122,11 @@ public class EtablissementTableModel extends ConsultationTableModel {
         } else if (columnIndex == 2) {
             return etablissement.getLieu();
         } else if (columnIndex == 3) {
-            return etablissement.getResponsable();
+            if (etablissement.getResponsable() != null) {
+                return etablissement.getResponsable();
+            } else {
+                return "";
+            }
         } else if (columnIndex == 4) {
             String domaines = "";
             List<Domaine> listDomaine = etablissement.getListDomaine();

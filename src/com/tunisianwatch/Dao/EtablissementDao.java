@@ -24,14 +24,24 @@ public class EtablissementDao {
      * @param E
      */
     public int insertEtablissement(Etablissement E) {
-        String requete = "insert into etablissement (nom , description,idlieu,idresponsable) values (?,?,?,?)";
+        String requete1 = "insert into etablissement (nom , description,idlieu,idresponsable) values (?,?,?,?)";
+        String requete2 = "insert into etablissement (nom , description,idlieu) values (?,?,?)";
+        String requete ="";
+        if(E.getResponsable()!=null){
+            requete= requete1;
+        }
+        else{
+            requete = requete2;
+        }
         int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
             ps.setString(2, E.getDescription());
             ps.setInt(3, E.getLieu().getId());
-            ps.setInt(4, E.getResponsable().getId());
+            if (E.getResponsable() != null) {
+                ps.setInt(4, E.getResponsable().getId());
+            }
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -45,8 +55,7 @@ public class EtablissementDao {
         }
         return id;
     }
-    
-    
+
     public int insertEtablissement(Etablissement E, String path) throws FileNotFoundException {
         String requete = "insert into etablissement (nom , description,image,idlieu,idresponsable) values (?,?,?,?,?)";
         int id = -1;
@@ -94,7 +103,7 @@ public class EtablissementDao {
             return false;
         }
     }
-    
+
     public boolean updateEtablissement(int id, Etablissement E, String path) throws FileNotFoundException {
         String requete = "update etablissement set nom=?, description=?, image=?,idlieu=?,idresponsable=? where id=?";
         try {
@@ -129,7 +138,7 @@ public class EtablissementDao {
             while (resultat.next()) {
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
                 Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                
+
                 Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
                 byte[] Imagebytes = resultat.getBytes("image");
                 if (Imagebytes != null) {
