@@ -7,6 +7,7 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
+import com.tunisianwatch.Util.FieldVerifier;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -518,108 +519,91 @@ public class InscriForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_mailTextfieldActionPerformed
 
-    private boolean isValidDate(){
-        if (dateTextfield.getDate() != null && dateErrorLabel.isVisible()) {
+     private boolean isValidDate() {
+        if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
             dateErrorLabel.setVisible(false);
             return true;
-        } else if (dateTextfield.getDate() == null && !dateErrorLabel.isVisible()) {
+        } else {
             dateErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
-    
-    private boolean isValidPrenom(){
-         if (prenomTextfield.getText().length() > 0 && prenomErrorLabel.isVisible()) {
+
+    private boolean isValidPrenom() {
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
             prenomErrorLabel.setVisible(false);
             return true;
-        } else if (prenomTextfield.getText().length() == 0 && !prenomErrorLabel.isVisible()) {
+        } else {
+            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
             prenomErrorLabel.setVisible(true);
             return false;
         }
-         return true;
     }
-    
-    private boolean isValidPseudo(){
-        if (pseudoTextfield.getText().length() > 0) {
-            if (!existeLogin(pseudoTextfield.getText())) {
-                loginErrorLabel.setVisible(false);
-                return true;
-            } else {
-                loginErrorLabel.setText("Ce Pseudo est déjà utilisé");
-                loginErrorLabel.setVisible(true);
-                return false;
-            }
-        } else if (pseudoTextfield.getText().length() == 0) {
-            loginErrorLabel.setText("Ce champ est obligatoire");
+    private boolean isValidPseudo() {
+        if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
+            loginErrorLabel.setVisible(false);
+            return true;
+        } else {
+            loginErrorLabel.setText(FieldVerifier.getErrorMsg());
             loginErrorLabel.setVisible(true);
             return false;
         }
-        return true;
+
     }
-    
-    private boolean isValidNom(){
-        if (nomTextfield.getText().length() > 0 && nameErrorLabel.isVisible()) {
+
+    private boolean isValidNom() {
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
             nameErrorLabel.setVisible(false);
             return true;
-        } else if (nomTextfield.getText().length() == 0 && !nameErrorLabel.isVisible()) {
+        } else {
+            nameErrorLabel.setText(FieldVerifier.getErrorMsg());
             nameErrorLabel.setVisible(true);
             return false;
         }
-        return true;
     }
-    private boolean isValidPass(){
-        if (mdpPasswordField.getText().length() > 0 && mdpErrorLabel.isVisible()) {
-            mdpErrorLabel.setVisible(false);
-            return true;
-        } else if (mdpPasswordField.getText().length() == 0 && !mdpErrorLabel.isVisible()) {
-            mdpErrorLabel.setVisible(true);
-            return false;
-        }
-        return true;
-    }
+
     
-    private boolean isValidPassConfirm(){
-         if (mdpPasswordField.getText().length() > 0 && confirmMdpPasswordField.getText().length() > 0) {
-            if (!mdpPasswordField.getText().equals(confirmMdpPasswordField.getText())) {
-                confirmMdpErrorLabel.setText("Le mot de passe ne corréspond pas");
-                confirmMdpErrorLabel.setVisible(true);
-                return false;
-            } else {
-                confirmMdpErrorLabel.setVisible(false);
+    private boolean isValidMail() {
+        if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
+            if (FieldVerifier.VerifComplexField(mailTextfield.getText(), 2)) {
+                mailErrorLabel.setVisible(false);
                 return true;
-            }
-        } else if (confirmMdpPasswordField.getText().length() == 0) {
-            confirmMdpErrorLabel.setText("Ce champ est obligatoire");
-            confirmMdpErrorLabel.setVisible(true);
-            return false;
-        }
-         return true;
-    }
-    
-    private boolean isValidMail(){
-         if (mailTextfield.getText().length() > 0) {
-            if (mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
-                if (!existeMail(mailTextfield.getText())) {
-                    mailErrorLabel.setVisible(false);
-                    return true;
-                } else {
-                    mailErrorLabel.setText("Ce Mail existe déjà");
-                    mailErrorLabel.setVisible(true);
-                    return false;
-                }
-            } else if (!mailTextfield.getText().matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
-                mailErrorLabel.setText("Mail invalide");
+            } else {
+                mailErrorLabel.setText(FieldVerifier.getErrorMsg());
                 mailErrorLabel.setVisible(true);
                 return false;
             }
-        } else if (mailTextfield.getText().length() == 0) {
-            mailErrorLabel.setText("Ce champ est obligatoire");
+        } else {
+            mailErrorLabel.setText(FieldVerifier.getErrorMsg());
             mailErrorLabel.setVisible(true);
             return false;
         }
-         return true;
     }
+
+    
+    private boolean isValidPass(){
+        if (FieldVerifier.VerifOrdinaryField(mdpPasswordField.getText())) {
+            mdpErrorLabel.setVisible(false);
+            return true;
+        } else {
+            mdpErrorLabel.setText(FieldVerifier.getErrorMsg());
+            mdpErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+    
+    private boolean isValidPassConfirm(){
+         if (FieldVerifier.VerifComplexField(confirmMdpPasswordField.getText(), mdpPasswordField.getText(), 3)) {
+            confirmMdpErrorLabel.setVisible(false);
+            return true;
+        } else {
+            confirmMdpErrorLabel.setText(FieldVerifier.getErrorMsg());
+            confirmMdpErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+    
+    
     
     private void dateTextfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseClicked
         isValidDate();

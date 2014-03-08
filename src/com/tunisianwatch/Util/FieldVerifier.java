@@ -31,7 +31,7 @@ public class FieldVerifier {
 
     public static boolean isNotNull(Object obj) {
         if (obj == null) {
-            errorMsg = "Le champ est obligatroire";
+            errorMsg = "Le champ est obligatoire";
             return false;
         }
         return true;
@@ -39,7 +39,7 @@ public class FieldVerifier {
 
     public static boolean VerifOrdinaryField(String champ) {
         if (champ.length() == 0) {
-            errorMsg = "Le champ est obligatroire";
+            errorMsg = "Le champ est obligatoire";
             return false;
         }
         if (champ.length() > 45) {
@@ -62,7 +62,7 @@ public class FieldVerifier {
                     errorMsg = "Ce Mail est invalide";
                     return false;
                 }
-                if (existeMail(champ, currentValue)){
+                if (existeMail(champ, currentValue)) {
                     errorMsg = "Ce Mail est déjà utilisé";
                     return false;
                 }
@@ -80,6 +80,37 @@ public class FieldVerifier {
                 System.err.println("type non valide");
                 return false;
             }
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean VerifComplexField(String champ, int type) {
+        if (VerifOrdinaryField(champ)) {
+            if (type == 1) { //type login
+                if (existeLogin(champ)) {
+                    errorMsg = "Ce Pseudo est déjà utilisé";
+                    return false;
+                }
+                return true;
+            } else if (type == 2) {//type mail
+                if (!champ.matches("^[a-zA-Z0-9\\.\\-\\_]+@([a-zA-Z0-9\\-\\_\\.]+\\.)+([a-zA-Z]{2,4})$")) {
+                    errorMsg = "Ce Mail est invalide";
+                    return false;
+                }
+                if (existeMail(champ)) {
+                    errorMsg = "Ce Mail est déjà utilisé";
+                    return false;
+                }
+            } else {
+                System.err.println("type non valide");
+                return false;
+            }
+        }
+        else{
+            return false;
         }
         return true;
     }
@@ -112,6 +143,25 @@ public class FieldVerifier {
         } else {
             return false;
         }
+    }
+
+    private static boolean existeMail(String mail) {
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByMail(mail) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean existeLogin(String login) {
+       
+            UtilisateurDao userDao = new UtilisateurDao();
+            if (userDao.selectUserByLogin(login) != null) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     public static String errorMsg = "";
