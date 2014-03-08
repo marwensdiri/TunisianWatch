@@ -8,6 +8,7 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -15,6 +16,8 @@ import java.io.FileNotFoundException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -424,7 +427,11 @@ public class InscriForm extends javax.swing.JFrame {
     private void btnModifphotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifphotoActionPerformed
         // TODO add your handling code here:
         try {
+            //Utils.
             JFileChooser shooser = new JFileChooser();
+            FileFilter filtre = new ImageFilter();
+            shooser.setFileFilter(filtre);
+            shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
@@ -435,9 +442,7 @@ public class InscriForm extends javax.swing.JFrame {
             lblImage.repaint();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
-                    "Message d'information",
-                    JOptionPane.INFORMATION_MESSAGE);
+            //System.out.println("aa");
         }
 
     }//GEN-LAST:event_btnModifphotoActionPerformed
@@ -529,16 +534,7 @@ public class InscriForm extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidPrenom() {
-        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
-            prenomErrorLabel.setVisible(false);
-            return true;
-        } else {
-            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
-            prenomErrorLabel.setVisible(true);
-            return false;
-        }
-    }
+    
     private boolean isValidPseudo() {
         if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
             loginErrorLabel.setVisible(false);
@@ -551,13 +547,24 @@ public class InscriForm extends javax.swing.JFrame {
 
     }
 
-    private boolean isValidNom() {
-        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ']+)")) {
+  private boolean isValidNom() {
+        if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
         } else {
             nameErrorLabel.setText(FieldVerifier.getErrorMsg());
             nameErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidPrenom() {
+        if (FieldVerifier.VerifOrdinaryField(prenomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
+            prenomErrorLabel.setVisible(false);
+            return true;
+        } else {
+            prenomErrorLabel.setText(FieldVerifier.getErrorMsg());
+            prenomErrorLabel.setVisible(true);
             return false;
         }
     }
@@ -582,7 +589,7 @@ public class InscriForm extends javax.swing.JFrame {
 
     
     private boolean isValidPass(){
-        if (FieldVerifier.VerifOrdinaryField(mdpPasswordField.getText())) {
+        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(),3)) {
             mdpErrorLabel.setVisible(false);
             return true;
         } else {
@@ -633,23 +640,7 @@ public class InscriForm extends javax.swing.JFrame {
        isValidMail();
     }//GEN-LAST:event_mailTextfieldKeyReleased
 
-    private boolean existeMail(String mail) {
-        UtilisateurDao userDao = new UtilisateurDao();
-        if (userDao.selectUserByMail(mail) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean existeLogin(String login) {
-        UtilisateurDao userDao = new UtilisateurDao();
-        if (userDao.selectUserByLogin(login) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+   
 
     
 

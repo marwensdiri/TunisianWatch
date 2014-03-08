@@ -31,7 +31,7 @@ public class FieldVerifier {
 
     public static boolean isNotNull(Object obj) {
         if (obj == null) {
-            errorMsg = "Le champ est obligatroire";
+            errorMsg = "Le champ est obligatoire";
             return false;
         }
         return true;
@@ -39,7 +39,7 @@ public class FieldVerifier {
 
     public static boolean VerifOrdinaryField(String champ) {
         if (champ.length() == 0) {
-            errorMsg = "Le champ est obligatroire";
+            errorMsg = "Le champ est obligatoire";
             return false;
         }
         if (champ.length() > 45) {
@@ -68,10 +68,6 @@ public class FieldVerifier {
                 }
                 return true;
             } else if (type == 3) {//confirmation mot de passe
-                if (champ.length() < 3) {
-                    errorMsg = "Le mot de passe est trop court";
-                    return false;
-                }
                 if (!validePassword(champ, currentValue)) {
                     errorMsg = "Le mot de passe ne corréspond pas";
                     return false;
@@ -80,6 +76,8 @@ public class FieldVerifier {
                 System.err.println("type non valide");
                 return false;
             }
+        } else {
+            return false;
         }
         return true;
     }
@@ -101,10 +99,14 @@ public class FieldVerifier {
                     errorMsg = "Ce Mail est déjà utilisé";
                     return false;
                 }
-            } else {
-                System.err.println("type non valide");
-                return false;
+            } else if (type == 3) {//confirmation mot de passe
+                if (champ.length() < 3) {
+                    errorMsg = "Le mot de passe est trop court";
+                    return false;
+                }
             }
+        } else {
+            return false;
         }
         return true;
     }
@@ -149,13 +151,13 @@ public class FieldVerifier {
     }
 
     private static boolean existeLogin(String login) {
-       
-            UtilisateurDao userDao = new UtilisateurDao();
-            if (userDao.selectUserByLogin(login) != null) {
-                return true;
-            } else {
-                return false;
-            }
+
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByLogin(login) != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static String errorMsg = "";

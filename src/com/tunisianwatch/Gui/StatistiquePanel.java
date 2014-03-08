@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 package com.tunisianwatch.Gui;
-
 import com.tunisianwatch.Dao.ChartDAO;
-import javax.swing.JOptionPane;
+import com.tunisianwatch.pdf.GenererPDF;
+import javax.swing.JFileChooser;
 import org.jfree.chart.ChartPanel;
 
 /**
@@ -85,6 +85,7 @@ public class StatistiquePanel extends javax.swing.JPanel {
         ComboType = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        generer1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
@@ -113,6 +114,15 @@ public class StatistiquePanel extends javax.swing.JPanel {
 
         jLabel2.setText("Type de Graphe");
 
+        generer1.setBackground(new java.awt.Color(204, 0, 0));
+        generer1.setForeground(new java.awt.Color(255, 255, 255));
+        generer1.setText("Gènèrer toutes Les statistiques");
+        generer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generer1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -126,7 +136,9 @@ public class StatistiquePanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                .addComponent(generer1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +148,8 @@ public class StatistiquePanel extends javax.swing.JPanel {
                     .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(generer1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -225,10 +238,37 @@ public class StatistiquePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ComboTypeActionPerformed
 
+    private void generer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generer1ActionPerformed
+       
+       JFileChooser   chooser =    new JFileChooser(); 
+   
+    chooser.setCurrentDirectory(new java.io.File("."));
+    chooser.setDialogTitle("Selectionner le repertoire de l'export");
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    chooser.setAcceptAllFileFilterUsed(false);
+    //    
+    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+      System.out.println("getCurrentDirectory(): " 
+         +  chooser.getCurrentDirectory());
+      System.out.println("getSelectedFile() : " 
+         +  chooser.getSelectedFile());
+      GenererPDF.getPdf(chooser.getSelectedFile().getPath()) ; 
+      }
+    else {
+      System.out.println("No Selection ");
+      }
+    
+       
+        
+
+           
+    }//GEN-LAST:event_generer1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboType;
     private javax.swing.JComboBox comboName;
     private javax.swing.JPanel contentPanel;
+    private javax.swing.JButton generer1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
