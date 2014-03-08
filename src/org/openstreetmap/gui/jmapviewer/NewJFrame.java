@@ -4,8 +4,17 @@
  */
 package org.openstreetmap.gui.jmapviewer;
 
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.Geoloc;
 import java.awt.event.MouseEvent;
-import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -18,6 +27,8 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
+         MapMarkerDot map = new MapMarkerDot("", new Coordinate(40.714232, -73.9612889));
+               Map.addMapMarker(map);
         
     }
 
@@ -56,13 +67,29 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MapMouseClicked
-        // TODO add your handling code here:
-        if (MouseEvent.BUTTON1==evt.getButton()){
-           String tmp = JOptionPane.showInputDialog("le nom de votre reclamation");
-           MapMarkerDot map = new MapMarkerDot(tmp, new Coordinate(Map.getPosition(evt.getPoint()).getLat(), Map.getPosition(evt.getPoint()).getLon()));
-           Map.addMapMarker(map);
+        try {
+            // TODO add your handling code here:
+            Geoloc gLoc = null;
+            URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng="+Map.getPosition(evt.getPoint()).getLat()+","+Map.getPosition(evt.getPoint()).getLon()+"&sensor=false");
+            ObjectMapper mapper = new ObjectMapper();
+            gLoc = mapper.readValue(url, Geoloc.class);
+            System.out.println(gLoc.getResults());
+//            for (Results ac : gLoc.getResults()){
+//                System.out.println(ac.getFormatted_address());
+//            }
+            gLoc.getResults().get(0).getFormatted_address();
+            if (MouseEvent.BUTTON1==evt.getButton()){
+               
+               MapMarkerDot map = new MapMarkerDot(gLoc.getResults().get(2).getFormatted_address(), new Coordinate(Map.getPosition(evt.getPoint()).getLat(), Map.getPosition(evt.getPoint()).getLon()));
+               Map.addMapMarker(map);
           
-        }
+              
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
             
     }//GEN-LAST:event_MapMouseClicked
