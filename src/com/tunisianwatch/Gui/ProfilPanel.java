@@ -33,7 +33,7 @@ public class ProfilPanel extends javax.swing.JPanel {
     public ProfilPanel() {
         initComponents();
         //lblUser.setText(logger.getNom() + " " + logger.getPrenom());
-        contentPanel.setName("Profil " + logger.getNom() + " " + logger.getPrenom());
+        contentPanel.setName("Profil : " + logger.getNom() + " " + logger.getPrenom());
         nomTextfield.setText(logger.getNom());
         prenomTextfield.setText(logger.getPrenom());
         pseudoTextfield.setText(logger.getLogin());

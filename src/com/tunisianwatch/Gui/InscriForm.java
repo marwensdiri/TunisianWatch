@@ -474,7 +474,7 @@ public class InscriForm extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
-                    if (userDao.insertResponsable(user, PathImage) <= 0) {
+                    if (userDao.insertUser(user, PathImage) <= 0) {
                         JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
                     } else {
                        JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);

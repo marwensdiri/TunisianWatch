@@ -51,7 +51,7 @@ public class Lieu {
 
     @Override
     public String toString() {
-        return "Lieu{" + "id=" + id + ", nom=" + nom + ", lat=" + lat + ", lon=" + lon + '}';
+        return nom;
     }
     
 

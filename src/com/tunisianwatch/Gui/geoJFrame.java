@@ -52,7 +52,7 @@ public class geoJFrame extends javax.swing.JFrame {
         jMapViewer1 = new org.openstreetmap.gui.jmapviewer.JMapViewer();
         Map = new org.openstreetmap.gui.jmapviewer.JMapViewer();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Map.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
