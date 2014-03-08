@@ -422,7 +422,6 @@ public class CitoyenForm extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         //   if (nomTextfield.getText().length() != 0 & prenomTextfield.getText().length() != 0 & pseudoTextfield.getText().length() != 0 & mdpTextfield.getText().length() != 0 & dateTextfield.getDate() != null) {
         if (isValidNom() & isValidPrenom() & isValidMail() & isValidPass() & isValidDate() & isValidPseudo()) {
-            System.out.println("test " +isValidDate());
             if (!modif) {
                 user = new Utilisateur();
             }
@@ -521,7 +520,7 @@ public class CitoyenForm extends javax.swing.JFrame {
             dateErrorLabel.setVisible(true);
             return false;
         }
-        return false;
+        return true;
     }
 
     private boolean isValidPrenom() {
