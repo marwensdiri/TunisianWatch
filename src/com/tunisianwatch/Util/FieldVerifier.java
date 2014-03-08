@@ -68,10 +68,6 @@ public class FieldVerifier {
                 }
                 return true;
             } else if (type == 3) {//confirmation mot de passe
-                if (champ.length() < 3) {
-                    errorMsg = "Le mot de passe est trop court";
-                    return false;
-                }
                 if (!validePassword(champ, currentValue)) {
                     errorMsg = "Le mot de passe ne corréspond pas";
                     return false;
@@ -80,8 +76,7 @@ public class FieldVerifier {
                 System.err.println("type non valide");
                 return false;
             }
-        }
-        else{
+        } else {
             return false;
         }
         return true;
@@ -104,12 +99,13 @@ public class FieldVerifier {
                     errorMsg = "Ce Mail est déjà utilisé";
                     return false;
                 }
-            } else {
-                System.err.println("type non valide");
-                return false;
+            } else if (type == 3) {//confirmation mot de passe
+                if (champ.length() < 3) {
+                    errorMsg = "Le mot de passe est trop court";
+                    return false;
+                }
             }
-        }
-        else{
+        } else {
             return false;
         }
         return true;
@@ -155,13 +151,13 @@ public class FieldVerifier {
     }
 
     private static boolean existeLogin(String login) {
-       
-            UtilisateurDao userDao = new UtilisateurDao();
-            if (userDao.selectUserByLogin(login) != null) {
-                return true;
-            } else {
-                return false;
-            }
+
+        UtilisateurDao userDao = new UtilisateurDao();
+        if (userDao.selectUserByLogin(login) != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static String errorMsg = "";

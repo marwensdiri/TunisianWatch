@@ -582,7 +582,7 @@ public class InscriForm extends javax.swing.JFrame {
 
     
     private boolean isValidPass(){
-        if (FieldVerifier.VerifOrdinaryField(mdpPasswordField.getText())) {
+        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(),3)) {
             mdpErrorLabel.setVisible(false);
             return true;
         } else {
