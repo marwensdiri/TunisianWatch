@@ -8,6 +8,7 @@ import com.sun.org.apache.xpath.internal.compiler.PsuedoNames;
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -413,6 +416,9 @@ public class ProfilPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             JFileChooser shooser = new JFileChooser();
+            FileFilter filtre = new ImageFilter();
+            shooser.setFileFilter(filtre);
+            shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
             File f = shooser.getSelectedFile();
             PathImage = f.getAbsolutePath();
@@ -423,9 +429,7 @@ public class ProfilPanel extends javax.swing.JPanel {
             lblImage.repaint();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas selection une image",
-                    "Message d'information",
-                    JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("format de la photo invalide");
         }
 
 
