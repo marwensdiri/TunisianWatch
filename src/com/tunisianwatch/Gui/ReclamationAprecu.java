@@ -9,7 +9,7 @@ import com.tunisianwatch.Dao.CommentaireDao;
 import com.tunisianwatch.Entities.Commentaire;
 import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Util.ScallerImage;
-import fbConnect.GraphReader;
+import com.tunisianwatch.fbConnect.GraphReader;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.util.Date;
@@ -30,6 +30,9 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     public ReclamationAprecu(Object obj) {
         reclamation = (Reclamation) obj;
         initComponents();
+        if(!GraphReader.isConnect()){
+            shareButton.hide();
+        }
         setLocationRelativeTo(null);
         this.setTitle(reclamation.getTitre());
         titreLabel.setText(reclamation.getTitre());
@@ -105,9 +108,11 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         nextButton = new javax.swing.JButton();
         previousButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        shareButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(898, 541));
+        setPreferredSize(new java.awt.Dimension(898, 541));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         coreScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -189,10 +194,10 @@ public class ReclamationAprecu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/icone_fb.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        shareButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/share_facebook_button.png"))); // NOI18N
+        shareButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                shareButtonActionPerformed(evt);
             }
         });
 
@@ -201,47 +206,49 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         corePanelLayout.setHorizontalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(corePanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(descriptionScrollPane)
-                    .addComponent(titreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(corePanelLayout.createSequentialGroup()
+                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(corePanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(shareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(corePanelLayout.createSequentialGroup()
+                        .addContainerGap(48, Short.MAX_VALUE)
                         .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(comsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(descriptionScrollPane)
+                            .addComponent(titreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(corePanelLayout.createSequentialGroup()
-                                .addComponent(etatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(etatContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addComponent(citoyenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 138, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(corePanelLayout.createSequentialGroup()
-                                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(corePanelLayout.createSequentialGroup()
-                                        .addComponent(previousButton)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(nextButton)
-                                        .addGap(183, 183, 183))
-                                    .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(91, 91, 91)
-                                .addComponent(jButton1)))
-                        .addGap(64, 64, 64)))
-                .addGap(18, 18, 18))
+                                        .addComponent(etatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(etatContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(corePanelLayout.createSequentialGroup()
+                                        .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(corePanelLayout.createSequentialGroup()
+                                        .addComponent(citoyenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(citoyenContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(corePanelLayout.createSequentialGroup()
+                                        .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lieuContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corePanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(previousButton)
+                                .addGap(80, 80, 80)
+                                .addComponent(nextButton)
+                                .addGap(229, 229, 229)
+                                .addComponent(jButton1)
+                                .addGap(64, 64, 64)))))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         corePanelLayout.setVerticalGroup(
             corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,20 +271,20 @@ public class ReclamationAprecu extends javax.swing.JFrame {
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(domaineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(domaineContentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(corePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(previousButton)
                         .addComponent(nextButton))
                     .addComponent(jButton1))
-                .addGap(19, 19, 19)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(shareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(comsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -309,10 +316,10 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void shareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shareButtonActionPerformed
         // TODO add your handling code here:
         GraphReader.share(titreLabel.getText());
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_shareButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -330,12 +337,12 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     private javax.swing.JLabel etatLabel;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lieuContentLabel;
     private javax.swing.JLabel lieuLabel;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton previousButton;
+    private javax.swing.JButton shareButton;
     private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
 

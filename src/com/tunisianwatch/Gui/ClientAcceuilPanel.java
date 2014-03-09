@@ -5,6 +5,7 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.fbConnect.GraphReader;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,6 +22,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
      */
     public ClientAcceuilPanel() {
         initComponents();
+        if(!GraphReader.isConnect()){
+            fbButton.hide();
+        }
     }
 
     /**
