@@ -37,10 +37,20 @@ public class EtablissementDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, E.getNom());
-            ps.setString(2, E.getDescription());
-            ps.setInt(3, E.getLieu().getId());
+            if (E.getDescription() != null) {
+                ps.setString(2, E.getDescription());
+            } else {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            }
+            if (E.getLieu() != null) {
+                ps.setInt(3, E.getLieu().getId());
+            } else {
+                ps.setNull(3, java.sql.Types.NUMERIC);
+            }
             if (E.getResponsable() != null) {
                 ps.setInt(4, E.getResponsable().getId());
+            } else {
+                ps.setNull(4, java.sql.Types.NUMERIC);
             }
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -61,12 +71,32 @@ public class EtablissementDao {
         int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, E.getNom());
-            ps.setString(2, E.getDescription());
-            FileInputStream fis = new FileInputStream(path);
-            ps.setBinaryStream(3, fis, (int) path.length());
-            ps.setInt(4, E.getLieu().getId());
-            ps.setInt(5, E.getResponsable().getId());
+            if (E.getNom() != null) {
+                ps.setString(1, E.getNom());
+            } else {
+                ps.setNull(1, java.sql.Types.VARCHAR);
+            }
+            if (E.getDescription() != null) {
+                ps.setString(2, E.getDescription());
+            } else {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            }
+            if (path != null) {
+                FileInputStream fis = new FileInputStream(path);
+                ps.setBinaryStream(3, fis, (int) path.length());
+            } else {
+                ps.setNull(3, java.sql.Types.BLOB);
+            }
+            if (E.getLieu() != null) {
+                ps.setInt(4, E.getLieu().getId());
+            } else {
+                ps.setNull(4, java.sql.Types.NUMERIC);
+            }
+            if (E.getResponsable() != null) {
+                ps.setInt(5, E.getResponsable().getId());
+            } else {
+                ps.setNull(5, java.sql.Types.NUMERIC);
+            }
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -90,10 +120,26 @@ public class EtablissementDao {
         String requete = "update etablissement set nom=?, description=?,idlieu=?,idresponsable=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, E.getNom());
-            ps.setString(2, E.getDescription());
-            ps.setInt(3, E.getLieu().getId());
-            ps.setInt(4, E.getResponsable().getId());
+            if (E.getNom() != null) {
+                ps.setString(1, E.getNom());
+            } else {
+                ps.setNull(1, java.sql.Types.NUMERIC);
+            }
+            if (E.getDescription() != null) {
+                ps.setString(2, E.getDescription());
+            } else {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            }
+            if (E.getLieu() != null) {
+                ps.setInt(3, E.getLieu().getId());
+            } else {
+                ps.setNull(3, java.sql.Types.NUMERIC);
+            }
+            if (E.getResponsable() != null) {
+                ps.setInt(4, E.getResponsable().getId());
+            } else {
+                ps.setNull(4, java.sql.Types.NUMERIC);
+            }
             ps.setInt(5, E.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
@@ -108,12 +154,33 @@ public class EtablissementDao {
         String requete = "update etablissement set nom=?, description=?, image=?,idlieu=?,idresponsable=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, E.getNom());
-            ps.setString(2, E.getDescription());
-            FileInputStream fis = new FileInputStream(path);
-            ps.setBinaryStream(3, fis, (int) path.length());
-            ps.setInt(4, E.getLieu().getId());
-            ps.setInt(5, E.getResponsable().getId());
+            if (E.getNom() != null) {
+                ps.setString(1, E.getNom());
+            } else {
+                ps.setNull(1, java.sql.Types.VARCHAR);
+            }
+            if (E.getDescription() != null) {
+                ps.setString(2, E.getDescription());
+            } else {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            }
+
+            if (path != null) {
+                FileInputStream fis = new FileInputStream(path);
+                ps.setBinaryStream(3, fis, (int) path.length());
+            } else {
+                ps.setNull(3, java.sql.Types.BLOB);
+            }
+            if (E.getLieu() != null) {
+                ps.setInt(4, E.getLieu().getId());
+            } else {
+                ps.setNull(4, java.sql.Types.NUMERIC);
+            }
+            if (E.getResponsable() != null) {
+                ps.setInt(5, E.getResponsable().getId());
+            } else {
+                ps.setNull(5, java.sql.Types.NUMERIC);
+            }
             ps.setInt(6, E.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");

@@ -202,6 +202,7 @@
             <Component class="javax.swing.JTextField" name="titreTextfield">
               <Events>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="titreTextfieldMouseExited"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="titreTextfieldKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="titreLabel">
@@ -332,6 +333,9 @@
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-d"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dateTextfieldMouseReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="submitButton">
               <Properties>
@@ -366,7 +370,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Vous devez saisir le lieu"/>
+                <Property name="text" type="java.lang.String" value="Vous devez pr&#xe9;ciser le lieu"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="domaineErrorLabel">
@@ -411,6 +415,9 @@
               </Properties>
             </Component>
             <Component class="lu.tudor.santec.jtimechooser.JTimeChooser" name="timeTimeChooser">
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="timeTimeChooserMouseReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="listRadioButton">
               <Properties>

@@ -15,16 +15,23 @@ public class LieuDao {
      *
      * @param L
      */
-    public void insertLieu(Lieu L) {
+    public int insertLieu(Lieu L) {
         String requete = "insert into lieu (gouvernorat) values (?)";
+        int id = 0;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, L.getNom());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
+        return id;
     }
 
     /**
@@ -56,6 +63,7 @@ public class LieuDao {
                 Lieu lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("gouvernorat"));
+
                 lieux.add(lieu);
             }
         } catch (SQLException ex) {
@@ -79,6 +87,12 @@ public class LieuDao {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("gouvernorat"));
+
+
+
+
+
+
             }
         } catch (SQLException ex) {
         }
@@ -87,7 +101,7 @@ public class LieuDao {
     }
 
     public Lieu selectLieuByNom(String nom) {
-        String requete = "select * from lieu where id=?";
+        String requete = "select * from lieu where gouvernorat=?";
         Lieu lieu = null;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -97,6 +111,7 @@ public class LieuDao {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("gouvernorat"));
+
 
             }
         } catch (SQLException ex) {

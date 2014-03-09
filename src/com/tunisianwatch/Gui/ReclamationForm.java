@@ -14,6 +14,7 @@ import com.tunisianwatch.Entities.Document;
 import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
 import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Util.FieldVerifier;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class ReclamationForm extends javax.swing.JPanel {
      */
     private List<File> listFile = new ArrayList<File>();
 
-    public ReclamationForm(){
+    public ReclamationForm() {
         initComponents();
         titreErrorLabel.setVisible(false);
         lieuErrorLabel.setVisible(false);
@@ -42,12 +43,12 @@ public class ReclamationForm extends javax.swing.JPanel {
         dateErrorLabel.setVisible(false);
         heureErrorLabel.setVisible(false);
         listRadioButton.setSelected(true);
-        
+
         DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();
         DefaultComboBoxModel<Domaine> domaineModel = new DefaultComboBoxModel();
         List<Lieu> listLieu = new LieuDao().selectLieux();
         for (Lieu L : listLieu) {
-                lieuModel.addElement(L);
+            lieuModel.addElement(L);
         }
         lieuComboBox.setModel(lieuModel);
 
@@ -106,6 +107,11 @@ public class ReclamationForm extends javax.swing.JPanel {
                 titreTextfieldMouseExited(evt);
             }
         });
+        titreTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                titreTextfieldKeyReleased(evt);
+            }
+        });
 
         titreLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         titreLabel.setText("Titre:");
@@ -160,6 +166,11 @@ public class ReclamationForm extends javax.swing.JPanel {
         dateLabel.setText("Date de l'incident");
 
         dateTextfield.setDateFormatString("yyyy-MM-d");
+        dateTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                dateTextfieldMouseReleased(evt);
+            }
+        });
 
         submitButton.setBackground(new java.awt.Color(204, 0, 0));
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -176,7 +187,7 @@ public class ReclamationForm extends javax.swing.JPanel {
 
         lieuErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lieuErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
-        lieuErrorLabel.setText("Vous devez saisir le lieu");
+        lieuErrorLabel.setText("Vous devez préciser le lieu");
 
         domaineErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         domaineErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
@@ -192,6 +203,12 @@ public class ReclamationForm extends javax.swing.JPanel {
 
         heureLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         heureLabel.setText("Heure de l'incident");
+
+        timeTimeChooser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                timeTimeChooserMouseReleased(evt);
+            }
+        });
 
         buttonGroup.add(listRadioButton);
         listRadioButton.setText("par liste");
@@ -362,63 +379,58 @@ public class ReclamationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_mapButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // if (titreTextfield.getText().length() > 0 && lieuComboBox.getSelectedIndex() != -1 && domaineComboBox.getSelectedIndex() != -1 && dateTextfield.getDate() != null) {
         boolean ok = true;
-        if (titreTextfield.getText().length() == 0) {
-            titreErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (lieuComboBox.getSelectedIndex() == -1 && geoJFrame.tmplieu==null) {
-            lieuErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (domaineComboBox.getSelectedIndex() == -1) {
-            domaineErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (dateTextfield.getDate() == null) {
-            dateErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (timeTimeChooser.getTimeField().getText() == "") {
-            heureErrorLabel.setVisible(true);
-            ok = false;
-        }
-        
-            
-        if (ok) {
+        if (isValidDate() & isValidHeure() & isValidTitre() & isValidLieu()) {
             Reclamation reclamation = new Reclamation();
-            System.out.println(geoJFrame.geo);
-            if(geoJFrame.geo!=null && mapRadioButton.isSelected()){
-                reclamation.setGeolocalisation(geoJFrame.geo);
-                new GeolocalisationDao().insertGeo(geoJFrame.geo);
-                LieuDao lieuDao = new LieuDao();
-                if(lieuDao.selectLieuByNom(geoJFrame.geo.getLieu().getNom())==null){
-                    lieuDao.insertLieu(new Lieu(geoJFrame.geo.getLieu().getNom()));
+            LieuDao lieuDao = new LieuDao();
+            int idgeo = 0;
+            int idlieu = 0;
+            Lieu lieu = null;
+            if (mapRadioButton.isSelected() && geoJFrame.geo != null) {
+                lieu = lieuDao.selectLieuByNom(geoJFrame.lieu);
+                if (lieu == null) {
+                    ok = false;
+                    lieu = new Lieu(geoJFrame.lieu);
+                    idlieu = lieuDao.insertLieu(lieu);
+                    if (idlieu > 0) {
+                        ok = true;
+                        lieu.setId(idlieu);
+                    }
                 }
+            } else if (listRadioButton.isSelected()) {
+                lieu = (Lieu) lieuComboBox.getSelectedItem();
             }
-            else if(listRadioButton.isSelected()){
-                Lieu L = (Lieu) lieuComboBox.getSelectedItem();
-                reclamation.setLieu(L);
-            }
-           
-            Domaine D = (Domaine) domaineComboBox.getSelectedItem();
-            reclamation.setDomaine(D);
-            reclamation.setCitoyen(MainFrame.me);
+            System.out.println(lieu);
+            reclamation.setTitre(titreTextfield.getText());
+            reclamation.setCitoyen(MainFrame.getMe());
             reclamation.setDate(dateTextfield.getDate());
             reclamation.setHeure(timeTimeChooser.getTimeField().getText());
+            reclamation.setDomaine((Domaine) domaineComboBox.getSelectedItem());
             reclamation.setEtat(0);
-            reclamation.setTitre(titreTextfield.getText());
-            int idreclamation = new ReclamationDao().insertReclamation(reclamation);
-            if (idreclamation > 0) {
-                if (listFile.size() > 0){
-                    DocumentDao docDao = new DocumentDao();
-                    for(File file : listFile){
-                        Document document = new Document();
-                        document.setIdReclamation(idreclamation);
-                        document.setNom(file.getName());
-                        document.setType(1);
-                        docDao.insertDocument(document,file.getAbsolutePath());
+            reclamation.setLieu(lieu);
+            reclamation.setDescription(descriptionTextArea.getText());
+            if (ok) {
+                 ReclamationDao reclamationDao = new ReclamationDao();
+                int idreclamation = reclamationDao.insertReclamation(reclamation);
+                if (idreclamation > 0) {
+                    reclamation.setId(idreclamation);
+                    if (mapRadioButton.isSelected()) {
+                        System.out.println(idreclamation);
+                        geoJFrame.geo.setReclamation(reclamation);
+                        idgeo = new GeolocalisationDao().insertGeo(geoJFrame.geo);
+                        geoJFrame.geo.setId(idgeo);
+                        reclamation.setGeolocalisation(geoJFrame.geo);
+                        reclamationDao.updateReclamation(idreclamation, reclamation);
+                    }
+                    if (listFile.size() > 0) {
+                        DocumentDao docDao = new DocumentDao();
+                        for (File file : listFile) {
+                            Document document = new Document();
+                            document.setIdReclamation(idreclamation);
+                            document.setNom(file.getName());
+                            document.setType(1);
+                            docDao.insertDocument(document, file.getAbsolutePath());
+                        }
                     }
                 }
             }
@@ -426,12 +438,76 @@ public class ReclamationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void listRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRadioButtonActionPerformed
-      
+
     }//GEN-LAST:event_listRadioButtonActionPerformed
 
     private void mapRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapRadioButtonActionPerformed
-     
+
     }//GEN-LAST:event_mapRadioButtonActionPerformed
+
+    private void dateTextfieldMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseReleased
+        isValidDate();
+    }//GEN-LAST:event_dateTextfieldMouseReleased
+
+    private void titreTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_titreTextfieldKeyReleased
+        isValidTitre();
+    }//GEN-LAST:event_titreTextfieldKeyReleased
+
+    private void timeTimeChooserMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeTimeChooserMouseReleased
+        isValidHeure();
+    }//GEN-LAST:event_timeTimeChooserMouseReleased
+
+    private boolean isValidTitre() {
+        if (FieldVerifier.VerifOrdinaryField(titreTextfield.getText())) {
+            titreErrorLabel.setVisible(false);
+            return true;
+        } else {
+            titreErrorLabel.setText(FieldVerifier.getErrorMsg());
+            titreErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidDate() {
+        if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
+            dateErrorLabel.setVisible(false);
+            return true;
+        } else {
+            dateErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidHeure() {
+        if (FieldVerifier.isNotNull((timeTimeChooser.getTimeField()))) {
+            heureErrorLabel.setVisible(false);
+            return true;
+        } else {
+            heureErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidLieu() {
+        if (listRadioButton.isSelected()) {
+            if (FieldVerifier.isNotNull((lieuComboBox.getSelectedItem()))) {
+                lieuErrorLabel.setVisible(false);
+                return true;
+            } else {
+                lieuErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (mapRadioButton.isSelected()) {
+            if (FieldVerifier.isNotNull((geoJFrame.geo))) {
+                lieuErrorLabel.setVisible(false);
+                return true;
+            } else {
+                lieuErrorLabel.setVisible(true);
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
