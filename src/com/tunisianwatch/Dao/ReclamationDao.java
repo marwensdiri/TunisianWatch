@@ -16,11 +16,19 @@ public class ReclamationDao {
      */
     public int insertReclamation(Reclamation r) {
         int id = 0;
-        String requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,iddomaine,etat) values (?,?,?,?,?,?,?,?)";
+        String requete = "";
+        if (r.getGeolocalisation() != null) {
+            requete = "insert into reclamation (idgeolocalisation,date,heure,description,titre,idcitoyen,iddomaine,etat) values (?,?,?,?,?,?,?,?)";
+        } else {
+            requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,iddomaine,etat) values (?,?,?,?,?,?,?,?)";
+        }
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-
-            ps.setInt(1, r.getLieu().getId());
+            if (r.getGeolocalisation() != null) {
+                ps.setInt(1, r.getGeolocalisation().getLieu().getId());
+            } else {
+                ps.setInt(1, r.getLieu().getId());
+            }
             ps.setDate(2, new java.sql.Date(r.getDate().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Date afin de l'inserer dans la base de donnée
             ps.setTime(3, new java.sql.Time(r.getHeure().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Time afin de l'inserer dans la base de donnée
             ps.setString(4, r.getDescription());
@@ -84,6 +92,7 @@ public class ReclamationDao {
     public List<Reclamation> selectReclamations() {
         List<Reclamation> listeReclamations = new ArrayList<Reclamation>();
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         EvaluationDao evaluationDao = new EvaluationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
@@ -96,6 +105,7 @@ public class ReclamationDao {
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setId(resultat.getInt("id"));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));

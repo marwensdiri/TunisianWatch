@@ -1,5 +1,6 @@
 package com.tunisianwatch.Entities;
 
+import com.test.Geoloc;
 import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ public class Reclamation {
 
     private int id;
     private Lieu lieu;
+    private Geolocalisation geolocalisation;
     private Date date;
     private Date heure;
     private String description;
@@ -21,28 +23,11 @@ public class Reclamation {
     private List<Evaluation> listEvaluation = new ArrayList<Evaluation>();
     private List<Document> listDocument = new ArrayList<Document>();
 
-    public Reclamation(int id, Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, int etat) {
-        this.id = id;
-        this.lieu = lieu;
-        this.date = date;
-        this.heure = heure;
-        this.description = description;
-        this.titre = titre;
-        this.citoyen = citoyen;
-        this.etat = etat;
-        this.domaine = domaine;
+    public Reclamation() {
+        
     }
 
-    public Reclamation(Lieu lieu, Date date, Date heure, String description, String titre, Utilisateur citoyen, Domaine domaine, int etat) {
-        this.lieu = lieu;
-        this.date = date;
-        this.heure = heure;
-        this.description = description;
-        this.titre = titre;
-        this.citoyen = citoyen;
-        this.etat = etat;
-        this.domaine = domaine;
-    }
+   
 
     public List<Document> getListDocument() {
         return listDocument;
@@ -71,8 +56,16 @@ public class Reclamation {
         listEvaluation.remove(ev);
     }
 
-    public Reclamation() {
+    public Geolocalisation getGeolocalisation() {
+        return geolocalisation;
     }
+
+    public void setGeolocalisation(Geolocalisation geolocalisation) {
+        this.geolocalisation = geolocalisation;
+    }
+
+    
+    
 
     public int getId() {
         return id;

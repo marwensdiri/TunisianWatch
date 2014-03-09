@@ -24,7 +24,15 @@ public class EtablissementDao {
      * @param E
      */
     public int insertEtablissement(Etablissement E) {
-        String requete = "insert into etablissement (nom , description,idlieu,idresponsable) values (?,?,?,?)";
+        String requete1 = "insert into etablissement (nom , description,idlieu,idresponsable) values (?,?,?,?)";
+        String requete2 = "insert into etablissement (nom , description,idlieu) values (?,?,?)";
+        String requete ="";
+        if(E.getResponsable()!=null){
+            requete= requete1;
+        }
+        else{
+            requete = requete2;
+        }
         int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);

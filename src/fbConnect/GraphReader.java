@@ -105,7 +105,7 @@ public class GraphReader {
                             comment.setNom(C.getFrom().getName());
                             comment.setDate(C.getCreatedTime());
                             comment.setMessage(C.getMessage());
-                            comment.setCanRemove(C.getCanRemove());
+                            comment.setCanRemove(C.getCanRemove().booleanValue());
                             status.addComment(comment);
                         }
                     }
