@@ -386,10 +386,10 @@ public class ReclamationForm extends javax.swing.JPanel {
             int idlieu = 0;
             Lieu lieu = null;
             if (mapRadioButton.isSelected() && geoJFrame.geo != null) {
-                lieu = lieuDao.selectLieuByNom(geoJFrame.lieu);
+                lieu = lieuDao.selectLieuByNom(geoJFrame.ville);
                 if (lieu == null) {
                     ok = false;
-                    lieu = new Lieu(geoJFrame.lieu);
+                    lieu = new Lieu(geoJFrame.ville);
                     idlieu = lieuDao.insertLieu(lieu);
                     if (idlieu > 0) {
                         ok = true;
