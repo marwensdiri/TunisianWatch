@@ -69,46 +69,48 @@ public class geoJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MapMouseClicked
-        if (!tag) {
-            tag = true;
-            double maplat = Map.getPosition(evt.getPoint()).getLat();
-            double maplon = Map.getPosition(evt.getPoint()).getLon();
-            geo = new Geolocalisation();
 
-            if (MouseEvent.BUTTON1 == evt.getButton()) {
-                try {
+        double maplat = Map.getPosition(evt.getPoint()).getLat();
+        double maplon = Map.getPosition(evt.getPoint()).getLon();
+        geo = new Geolocalisation();
 
-                    URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + maplat + "," + maplon + "&sensor=false");
-                    ObjectMapper parserMap = new ObjectMapper();
-                    Geoloc geoloc = parserMap.readValue(url, Geoloc.class);
-                    ville ="";
-                    for (Results rs : geoloc.getResults()) {
-                        for (Address_components ac : rs.getAddress_components()) {
-                            for (Types ty : ac.getTypes()) {
-                                if (ty == Types.administrative_area_level_2) {
-                                    ville = ac.getLong_name()+",";
-                                }
-                                if(ty == Types.administrative_area_level_1){
-                                    ville+=ac.getLong_name();
-                                }
-                                break;
+        if (MouseEvent.BUTTON1 == evt.getButton()) {
+            try {
+                URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + maplat + "," + maplon + "&sensor=false");
+                ObjectMapper parserMap = new ObjectMapper();
+                Geoloc geoloc = null;
+                geoloc = parserMap.readValue(url, Geoloc.class);
+
+                ville = "";
+                for (Results rs : geoloc.getResults()) {
+                    for (Address_components ac : rs.getAddress_components()) {
+                        for (Types ty : ac.getTypes()) {
+                            if (ty == Types.administrative_area_level_2) {
+                                ville = ac.getLong_name() + ",";
+                            }
+                            if (ty == Types.administrative_area_level_1) {
+                                ville += ac.getLong_name();
                             }
                             break;
-
                         }
-                    }
-                    MapMarkerDot map = new MapMarkerDot(ville, new Coordinate(maplat, maplon));
-                    Map.addMapMarker(map);
-                    geo.setLat(maplat);
-                    geo.setLon(maplon);
+                        break;
 
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+                MapMarkerDot map = new MapMarkerDot(ville, new Coordinate(maplat, maplon));
+
+                Map.removeAllMapMarkers();
+                Map.addMapMarker(map);
+                geo.setLat(maplat);
+                geo.setLon(maplon);
+
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }//GEN-LAST:event_MapMouseClicked
 
 
