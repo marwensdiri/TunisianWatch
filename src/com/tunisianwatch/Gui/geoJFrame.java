@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
@@ -29,6 +30,7 @@ public class geoJFrame extends javax.swing.JFrame {
     public static String ville = null;
     public static Geolocalisation geo = null;
     private boolean tag = false;
+    private String country;
 
     public geoJFrame() {
         initComponents();
@@ -85,6 +87,8 @@ public class geoJFrame extends javax.swing.JFrame {
                 for (Results rs : geoloc.getResults()) {
                     for (Address_components ac : rs.getAddress_components()) {
                         for (Types ty : ac.getTypes()) {
+                            if (ty==ty.country)
+                                country=ac.getLong_name();
                             if (ty == Types.administrative_area_level_2) {
                                 ville = ac.getLong_name() + ",";
                             }
@@ -97,12 +101,16 @@ public class geoJFrame extends javax.swing.JFrame {
 
                     }
                 }
+               
+                if(country.equals("Tunisia")){
                 MapMarkerDot map = new MapMarkerDot(ville, new Coordinate(maplat, maplon));
 
                 Map.removeAllMapMarkers();
                 Map.addMapMarker(map);
                 geo.setLat(maplat);
                 geo.setLon(maplon);
+                }else
+                    JOptionPane.showMessageDialog(null, "Acheter la version internationale pour afficher des reclamation au dehors de la tunisie :)","TunisianWatch",JOptionPane.OK_OPTION);
 
             } catch (MalformedURLException ex) {
                 Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
