@@ -374,7 +374,6 @@ public class ReclamationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_pathTextfieldActionPerformed
 
     private void mapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtonActionPerformed
-        // TODO add your handling code here:
         new geoJFrame().setVisible(true);
     }//GEN-LAST:event_mapButtonActionPerformed
 

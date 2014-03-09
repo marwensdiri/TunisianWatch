@@ -148,7 +148,6 @@ public class ReclamationDao {
         LieuDao lieuDao = new LieuDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
-        GeolocalisationDao geoDao = new GeolocalisationDao();
         String requete = "select * from reclamation where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -159,7 +158,7 @@ public class ReclamationDao {
                 r = new Reclamation();
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
-                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(id));
+                //r.setGeolocalisation(geoDao.selectGeoByIdReclamation(id));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));

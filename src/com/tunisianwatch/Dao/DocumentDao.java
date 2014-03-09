@@ -28,8 +28,16 @@ public class DocumentDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, d.getType());
-            ps.setString(2, d.getUrl());
-            ps.setString(3, d.getNom());
+            if (d.getUrl() != null) {
+                ps.setString(2, d.getUrl());
+            } else {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            }
+            if (d.getNom() != null) {
+                ps.setString(3, d.getNom());
+            } else {
+                ps.setNull(3, java.sql.Types.VARCHAR);
+            }
             ps.setInt(4, d.getIdReclamation());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -191,8 +199,8 @@ public class DocumentDao {
             return false;
         }
     }
-    
-        public boolean deleteDocumentByReclamation(int idreclamation) {
+
+    public boolean deleteDocumentByReclamation(int idreclamation) {
         String requete = "delete from document where idreclamation=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -206,5 +214,4 @@ public class DocumentDao {
             return false;
         }
     }
-
 }
