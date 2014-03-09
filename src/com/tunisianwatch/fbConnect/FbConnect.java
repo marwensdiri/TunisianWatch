@@ -1,4 +1,4 @@
-package fbConnect;
+package com.tunisianwatch.fbConnect;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;

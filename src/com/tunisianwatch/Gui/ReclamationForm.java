@@ -15,12 +15,14 @@ import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
 import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -360,8 +362,9 @@ public class ReclamationForm extends javax.swing.JPanel {
     private void fileToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileToggleButtonActionPerformed
 
         JFileChooser shooser = new JFileChooser();
-        FileFilter filtre = new FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg");
+        FileFilter filtre = new ImageFilter();
         shooser.setFileFilter(filtre);
+        shooser.setAcceptAllFileFilterUsed(false);
         int res = shooser.showOpenDialog(null);
         if (res == JFileChooser.APPROVE_OPTION) {
             fileLabel.setText(fileLabel.getText() + " " + shooser.getSelectedFile().getName());
@@ -409,7 +412,7 @@ public class ReclamationForm extends javax.swing.JPanel {
             reclamation.setLieu(lieu);
             reclamation.setDescription(descriptionTextArea.getText());
             if (ok) {
-                 ReclamationDao reclamationDao = new ReclamationDao();
+                ReclamationDao reclamationDao = new ReclamationDao();
                 int idreclamation = reclamationDao.insertReclamation(reclamation);
                 if (idreclamation > 0) {
                     reclamation.setId(idreclamation);
@@ -433,6 +436,7 @@ public class ReclamationForm extends javax.swing.JPanel {
                     }
                 }
             }
+            JOptionPane.showConfirmDialog(null, "Réclamation Ajoutée", "La réclamation a été ajoutée avec succèes", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 

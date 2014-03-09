@@ -7,7 +7,7 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Entities.CommentFaceBook;
 import com.tunisianwatch.Entities.StatusFaceBook;
-import fbConnect.GraphReader;
+import com.tunisianwatch.fbConnect.GraphReader;
 import java.util.Date;
 import java.util.List;
 

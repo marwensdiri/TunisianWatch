@@ -87,6 +87,7 @@ public class InscriForm extends javax.swing.JFrame {
         dateErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Inscription");
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -301,7 +302,7 @@ public class InscriForm extends javax.swing.JFrame {
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(contentPanelLayout.createSequentialGroup()

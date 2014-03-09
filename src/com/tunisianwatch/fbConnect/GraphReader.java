@@ -1,4 +1,4 @@
-package fbConnect;
+package com.tunisianwatch.fbConnect;
 
 import com.restfb.Connection;
 import static java.lang.System.out;

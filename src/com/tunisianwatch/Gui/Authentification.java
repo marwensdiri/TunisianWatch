@@ -7,7 +7,7 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import fbConnect.FbConnect;
+import com.tunisianwatch.fbConnect.FbConnect;
 import javax.swing.JOptionPane;
 
 /**

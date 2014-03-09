@@ -8,8 +8,6 @@ package com.tunisianwatch.Gui;
 import com.tunisianwatch.Dao.CommentaireDao;
 import com.tunisianwatch.Entities.Commentaire;
 import com.tunisianwatch.Entities.Reclamation;
-import com.tunisianwatch.Util.ScallerImage;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +28,12 @@ public class ReclamationAprecu extends javax.swing.JFrame {
         reclamation = (Reclamation) obj;
         initComponents();
         setLocationRelativeTo(null);
+        this.setTitle(reclamation.getTitre());
         titreLabel.setText(reclamation.getTitre());
         citoyenContentLabel.setText(reclamation.getCitoyen() + "");
         lieuContentLabel.setText(reclamation.getLieu() + "");
         domaineContentLabel.setText(reclamation.getDomaine() + "");
+        descriptionTextArea.setText(reclamation.getDescription());
         String etat = "";
         if (reclamation.getEtat() == 0) {
             etat = "Pas encore Réglée";
