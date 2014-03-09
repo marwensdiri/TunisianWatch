@@ -34,7 +34,7 @@ public class geoJFrame extends javax.swing.JFrame {
     /**
      * Creates new form geoJFrame
      */
-    public static String tmplieu = null;
+    public static String lieu = null;
     public static Geolocalisation geo=null;
     
     public geoJFrame() {
@@ -78,7 +78,7 @@ public class geoJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         double maplat = Map.getPosition(evt.getPoint()).getLat();
         double maplon = Map.getPosition(evt.getPoint()).getLon();
-        Geolocalisation geo = new Geolocalisation();
+        geo = new Geolocalisation();
         
         if (MouseEvent.BUTTON1 == evt.getButton()) {
             try {
@@ -86,12 +86,11 @@ public class geoJFrame extends javax.swing.JFrame {
                 URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + maplat + "," + maplon + "&sensor=false");
                 ObjectMapper parserMap = new ObjectMapper();
                 Geoloc geoloc = parserMap.readValue(url, Geoloc.class);
-                tmplieu = geoloc.getResults().get(2).getFormatted_address();
-                MapMarkerDot map = new MapMarkerDot(tmplieu, new Coordinate(maplat, maplon));
+                lieu = geoloc.getResults().get(2).getFormatted_address();
+                MapMarkerDot map = new MapMarkerDot(lieu, new Coordinate(maplat, maplon));
                 Map.addMapMarker(map);
                geo.setLat(maplat);
                geo.setLon(maplon);
-               geo.setLieu(new Lieu(tmplieu));
                 
             } catch (MalformedURLException ex) {
                 Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,40 +100,7 @@ public class geoJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MapMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(geoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(geoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(geoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(geoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new geoJFrame().setVisible(true);
-            }
-        });
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.openstreetmap.gui.jmapviewer.JMapViewer Map;
     private org.openstreetmap.gui.jmapviewer.JMapViewer jMapViewer1;
