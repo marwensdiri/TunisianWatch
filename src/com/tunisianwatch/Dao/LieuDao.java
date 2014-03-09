@@ -63,6 +63,7 @@ public class LieuDao {
                 Lieu lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("gouvernorat"));
+
                 lieux.add(lieu);
             }
         } catch (SQLException ex) {
@@ -86,6 +87,12 @@ public class LieuDao {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("gouvernorat"));
+
+
+
+
+
+
             }
         } catch (SQLException ex) {
         }
@@ -104,6 +111,7 @@ public class LieuDao {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("gouvernorat"));
+
 
             }
         } catch (SQLException ex) {
