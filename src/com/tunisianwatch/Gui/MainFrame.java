@@ -36,7 +36,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void chargement() {
         corePanel.removeAll();
+        System.out.println(me);
         if (me.getType() == 'A') {
+            
             corePanel.add(new AdminAcceuilPanel());
         } else if (me.getType() == 'C') {
             corePanel.add(new ClientAcceuilPanel());

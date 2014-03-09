@@ -12,7 +12,6 @@ package com.tunisianwatch.Entities;
  */
 public class Geolocalisation {
     int id;
-    Lieu lieu;
     Reclamation reclamation;
     double lon;
     double lat;
@@ -35,9 +34,7 @@ public class Geolocalisation {
         return id;
     }
 
-    public Lieu getLieu() {
-        return lieu;
-    }
+  
 
     public double getLon() {
         return lon;
@@ -51,9 +48,7 @@ public class Geolocalisation {
         this.id = id;
     }
 
-    public void setLieu(Lieu lieu) {
-        this.lieu = lieu;
-    }
+   
 
     public void setLon(double lon) {
         this.lon = lon;

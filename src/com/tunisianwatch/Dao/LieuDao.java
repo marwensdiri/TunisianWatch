@@ -15,16 +15,23 @@ public class LieuDao {
      *
      * @param L
      */
-    public void insertLieu(Lieu L) {
-        String requete = "insert into lieu (gouvernorat) values (?)";
+    public int insertLieu(Lieu L) {
+        String requete = "insert into lieu (ville) values (?)";
+        int id = 0;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, L.getNom());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
         } catch (SQLException ex) {
             System.out.println("erreur lors de l'insertion " + ex.getMessage());
         }
+        return id;
     }
 
     /**
@@ -33,7 +40,7 @@ public class LieuDao {
      * @param L
      */
     public void updateLieu(int id, Lieu L) {
-        String requete = "update lieu set gouvernorat=? where id=?";
+        String requete = "update lieu set ville=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, L.getNom());
@@ -55,7 +62,7 @@ public class LieuDao {
             while (resultat.next()) {
                 Lieu lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
-                lieu.setNom(resultat.getString("gouvernorat"));
+                lieu.setNom(resultat.getString("ville"));
 
                 lieux.add(lieu);
             }
@@ -79,7 +86,7 @@ public class LieuDao {
             if (resultat.next()) {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
-                lieu.setNom(resultat.getString("gouvernorat"));
+                lieu.setNom(resultat.getString("ville"));
 
 
 
@@ -94,7 +101,7 @@ public class LieuDao {
     }
 
     public Lieu selectLieuByNom(String nom) {
-        String requete = "select * from lieu where id=?";
+        String requete = "select * from lieu where ville=?";
         Lieu lieu = null;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -103,7 +110,7 @@ public class LieuDao {
             if (resultat.next()) {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
-                lieu.setNom(resultat.getString("gouvernorat"));
+                lieu.setNom(resultat.getString("ville"));
 
 
             }
