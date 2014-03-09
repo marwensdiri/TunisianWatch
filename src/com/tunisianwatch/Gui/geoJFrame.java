@@ -138,6 +138,7 @@ public class geoJFrame extends javax.swing.JFrame {
 
                     } else {
                         JOptionPane.showConfirmDialog(null, "azezr", "11111", JOptionPane.OK_OPTION);
+                        lieu=null;
                     }
 
 
