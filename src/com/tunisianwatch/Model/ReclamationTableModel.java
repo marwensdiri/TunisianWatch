@@ -103,10 +103,6 @@ public class ReclamationTableModel extends ConsultationTableModel {
                         if (reclamation.getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
                             listResultSearch.add(reclamation);
                         }
-                    } else if (reclamation.getGeolocalisation() != null) {
-                        if (reclamation.getGeolocalisation().getLieu().getNom().toUpperCase().matches("(.*)" + searchString.toUpperCase() + "(.*)")) {
-                            listResultSearch.add(reclamation);
-                        }
                     }
                 } else if (searchIndex == 3) {
                     if (reclamation.getDate() != null) {
@@ -165,13 +161,7 @@ public class ReclamationTableModel extends ConsultationTableModel {
         } else if (columnIndex == 1) {
             return reclamation.getDescription();
         } else if (columnIndex == 2) {
-            if (reclamation.getLieu() != null) {
-                return reclamation.getLieu();
-            } else if (reclamation.getGeolocalisation() != null) {
-                return reclamation.getGeolocalisation().getLieu().getId();
-            } else {
-                return null;
-            }
+            return reclamation.getLieu();
         } else if (columnIndex == 3) {
             return reclamation.getDate();
         } else if (columnIndex == 4) {
