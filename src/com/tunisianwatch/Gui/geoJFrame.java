@@ -4,29 +4,16 @@
  */
 package com.tunisianwatch.Gui;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.Address_components;
-import com.test.Geoloc;
-import com.test.Results;
-import com.test.Types;
-import com.tunisianwatch.Dao.LieuDao;
+import com.test.*;
 import com.tunisianwatch.Entities.Geolocalisation;
-import com.tunisianwatch.Entities.Lieu;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.spi.DirStateFactory;
-import javax.swing.JOptionPane;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
@@ -39,10 +26,9 @@ public class geoJFrame extends javax.swing.JFrame {
     /**
      * Creates new form geoJFrame
      */
-    public static String lieu = null;
+    public static String ville = null;
     public static Geolocalisation geo = null;
-    boolean tag = false;
-    private String test_lieu;
+    private boolean tag = false;
 
     public geoJFrame() {
         initComponents();
@@ -83,75 +69,51 @@ public class geoJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MapMouseClicked
-        // TODO add your handling code here:
+
         double maplat = Map.getPosition(evt.getPoint()).getLat();
         double maplon = Map.getPosition(evt.getPoint()).getLon();
         geo = new Geolocalisation();
 
-        if (!tag) {
-            if (MouseEvent.BUTTON1 == evt.getButton()) {
-                try {
+        if (MouseEvent.BUTTON1 == evt.getButton()) {
+            try {
+                URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + maplat + "," + maplon + "&sensor=false");
+                ObjectMapper parserMap = new ObjectMapper();
+                Geoloc geoloc = null;
+                geoloc = parserMap.readValue(url, Geoloc.class);
 
-                    URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + maplat + "," + maplon + "&sensor=false");
-                    ObjectMapper parserMap = new ObjectMapper();
-                    Geoloc geoloc = parserMap.readValue(url, Geoloc.class);
-
-                    System.out.println(geoloc.getResults().size());
-//                    if (geoloc.getResults().size() > 3) {
-//                        StringTokenizer str = new StringTokenizer(geoloc.getResults().get(2).getFormatted_address(), ",");
-//                        lieu = str.nextToken();
-//                    } else {
-//                        StringTokenizer str = new StringTokenizer(geoloc.getResults().get(1).getFormatted_address(), ",");
-//                        lieu = str.nextToken();
-//                    }
-                    for (Results rs : geoloc.getResults()) {
-                        for (Address_components ad : rs.getAddress_components()) {
-                            for (Types ty : ad.getTypes()) {
-                                if (ty == ty.country) {
-                                    test_lieu = ad.getLong_name();
-                                }
-
-
-                                if (ty == ty.administrative_area_level_2) {
-                                    lieu = ad.getLong_name();
-                                    System.out.println(ad.getLong_name());
-                                }
-                                if (ty == ty.administrative_area_level_1) {
-                                    lieu = ad.getLong_name();
-                                    System.out.println(ad.getLong_name());
-                                }
-
-
-
+                ville = "";
+                for (Results rs : geoloc.getResults()) {
+                    for (Address_components ac : rs.getAddress_components()) {
+                        for (Types ty : ac.getTypes()) {
+                            if (ty == Types.administrative_area_level_2) {
+                                ville = ac.getLong_name() + ",";
                             }
-
+                            if (ty == Types.administrative_area_level_1) {
+                                ville += ac.getLong_name();
+                            }
+                            break;
                         }
+                        break;
 
                     }
-                    System.out.println(test_lieu);
-                    if (test_lieu.equals("Tunisia")) {
-                        MapMarkerDot map = new MapMarkerDot(lieu, new Coordinate(maplat, maplon));
-                        Map.addMapMarker(map);
-
-                        geo.setLat(maplat);
-                        geo.setLon(maplon);
-
-                    } else {
-                        JOptionPane.showConfirmDialog(null, "azezr", "11111", JOptionPane.OK_OPTION);
-                        lieu=null;
-                    }
-
-
-
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //tag=true;
+                MapMarkerDot map = new MapMarkerDot(ville, new Coordinate(maplat, maplon));
+
+                Map.removeAllMapMarkers();
+                Map.addMapMarker(map);
+                geo.setLat(maplat);
+                geo.setLon(maplon);
+
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }//GEN-LAST:event_MapMouseClicked
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.openstreetmap.gui.jmapviewer.JMapViewer Map;
     private org.openstreetmap.gui.jmapviewer.JMapViewer jMapViewer1;
