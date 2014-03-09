@@ -60,8 +60,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
             ImageIcon icon = new ImageIcon(etb.getImage().getScaledInstance(250, 250, Image.SCALE_FAST));
             imageLabel.setIcon(icon);
             imageLabel.repaint();
-        }
-        else{
+        } else {
             imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/building-3-256x256.png")));
         }
         for (Domaine d : etb.getListDomaine()) {
@@ -471,6 +470,17 @@ public class EtablissementFrame extends javax.swing.JFrame {
                     etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
                 }
             }
+            /*if (action != -1) {
+                List<EtablissementDomaine> LLL = new ArrayList<EtablissementDomaine>();
+                LLL = new EtablissementDomaineDao().seletcEtablissementDomaineByIdEtablissement(action);
+                for (EtablissementDomaine eD : LLL) {
+                    if (!listeDomainesAjouter.contains(new Domaine(eD.getIdEtablissement(),new DomaineDao().selectDomaineById(eD.getIdDomaine()).getNom()))) {
+                        new EtablissementDomaineDao().deleteEtablissementDomaineByDomaine(eD.getIdDomaine());
+                        
+                    }
+                }
+            }*/
+
             this.dispose();
         }
 
@@ -483,7 +493,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private void nomTxtFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomTxtFeildActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomTxtFeildActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BoutonPanel;
     private javax.swing.JLabel addDoaminLabel;
@@ -518,7 +527,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
      * methode pour intialiser les combobox et les liste en récupairant les valeurs de la base de donnée
      */
     private void init() {
-        
+
         errMsg = "";
         errMsg2 = "";
 
@@ -590,7 +599,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         }
 
         nomTxtFeild.addFocusListener(new java.awt.event.FocusListener() {
-
             @Override
             public void focusGained(FocusEvent e) {
                 errLbl.setVisible(false);
@@ -598,7 +606,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
             @Override
             public void focusLost(FocusEvent e) {
-                
             }
         });
 
