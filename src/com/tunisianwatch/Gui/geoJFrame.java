@@ -42,6 +42,7 @@ public class geoJFrame extends javax.swing.JFrame {
     public static String lieu = null;
     public static Geolocalisation geo = null;
     boolean tag = false;
+    private String test_lieu;
 
     public geoJFrame() {
         initComponents();
@@ -96,30 +97,50 @@ public class geoJFrame extends javax.swing.JFrame {
                     Geoloc geoloc = parserMap.readValue(url, Geoloc.class);
 
                     System.out.println(geoloc.getResults().size());
-                    if (geoloc.getResults().size() > 3) {
-                        StringTokenizer str = new StringTokenizer(geoloc.getResults().get(2).getFormatted_address(), ",");
-                        lieu = str.nextToken();
-                    } else {
-                        StringTokenizer str = new StringTokenizer(geoloc.getResults().get(1).getFormatted_address(), ",");
-                        lieu = str.nextToken();
-                    }
-//                    for(Results rs : geoloc.getResults()){
-//                        for (Address_components ad : rs.getAddress_components()){
-//                            for (Types ty : ad.getTypes()){
-//                                if (ty==ty.administrative_area_level_2)
-//                                    lieu=ad.getLong_name();
-//                                else
-//                                    if(ty==ty.administrative_area_level_1)
-//                                        lieu=ad.getLong_name();
-//                            }
-//                        }
+//                    if (geoloc.getResults().size() > 3) {
+//                        StringTokenizer str = new StringTokenizer(geoloc.getResults().get(2).getFormatted_address(), ",");
+//                        lieu = str.nextToken();
+//                    } else {
+//                        StringTokenizer str = new StringTokenizer(geoloc.getResults().get(1).getFormatted_address(), ",");
+//                        lieu = str.nextToken();
 //                    }
+                    for (Results rs : geoloc.getResults()) {
+                        for (Address_components ad : rs.getAddress_components()) {
+                            for (Types ty : ad.getTypes()) {
+                                if (ty == ty.country) {
+                                    test_lieu = ad.getLong_name();
+                                }
 
-                    MapMarkerDot map = new MapMarkerDot(lieu, new Coordinate(maplat, maplon));
-                    Map.addMapMarker(map);
 
-                    geo.setLat(maplat);
-                    geo.setLon(maplon);
+                                if (ty == ty.administrative_area_level_2) {
+                                    lieu = ad.getLong_name();
+                                    System.out.println(ad.getLong_name());
+                                }
+                                if (ty == ty.administrative_area_level_1) {
+                                    lieu = ad.getLong_name();
+                                    System.out.println(ad.getLong_name());
+                                }
+
+
+
+                            }
+
+                        }
+
+                    }
+                    System.out.println(test_lieu);
+                    if (test_lieu.equals("Tunisia")) {
+                        MapMarkerDot map = new MapMarkerDot(lieu, new Coordinate(maplat, maplon));
+                        Map.addMapMarker(map);
+
+                        geo.setLat(maplat);
+                        geo.setLon(maplon);
+
+                    } else {
+                        JOptionPane.showConfirmDialog(null, "azezr", "11111", JOptionPane.OK_OPTION);
+                    }
+
+
 
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(geoJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,7 +151,6 @@ public class geoJFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_MapMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.openstreetmap.gui.jmapviewer.JMapViewer Map;
     private org.openstreetmap.gui.jmapviewer.JMapViewer jMapViewer1;
