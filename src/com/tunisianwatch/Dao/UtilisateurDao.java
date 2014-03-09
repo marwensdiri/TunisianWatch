@@ -643,11 +643,12 @@ public class UtilisateurDao {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, login);
             ps.setString(2, password);
+            
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
                 user = new Utilisateur(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("prenom"), null, resultat.getString("login"), resultat.getString("mdp"), resultat.getString("mail"), resultat.getString("type").charAt(0), resultat.getDate("datenaissance"));
                 user.setSexe(resultat.getString("sexe").charAt(0));
-
+             
 //------------------------------------------------------------------------------
                 byte[] Imagebytes = resultat.getBytes("photo");
                 if (Imagebytes != null) {
