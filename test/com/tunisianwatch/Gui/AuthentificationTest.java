@@ -28,7 +28,7 @@ public class AuthentificationTest {
     @Test
     public void testSomeMethod() {
         // TODO review the generated test code and remove the default call to fail.      
-        user = new UtilisateurDao().Authentification("marwen","0000");
+        user = new UtilisateurDao().Authentification("user","0000");
         assertNotNull("Connection Non Valide",user);
     }
     

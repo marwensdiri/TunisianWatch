@@ -30,32 +30,33 @@ public class UtilisateurDaoTest {
     /**
      * Test of insertUser method, of class UtilisateurDao.
      */
-//    @Test
-//    public void testInsertUser_Utilisateur() {
-//        System.out.println("insertUser");
-//        Utilisateur u = new Utilisateur();
-//        UtilisateurDao instance = new UtilisateurDao();
-//        
-//        u.setNom("marwen");
-//        u.setPrenom("sdiri");
-//        u.setLogin("user");
-//        u.setMdp("0000");
-//        u.setAdress("MyAdress");
-//        u.setMail("mail@live.fr");
-//        u.setType('C');
-//        u.setDateNaissance(new Date(2014-02-10));
-//       
-//        int result = instance.insertUser(u);
-//        assertNotNull(result);
-//       
-//        System.out.println(u);
+    @Test
+    public void testInsertUser_Utilisateur() {
+        System.out.println("insertUser");
+        Utilisateur u = new Utilisateur();
+        UtilisateurDao instance = new UtilisateurDao();
+        
+        u.setNom("marwen");
+        u.setPrenom("sdiri");
+        u.setLogin("user");
+        u.setMdp("0000");
+        u.setAdress("MyAdress");
+        u.setMail("mail@live.fr");
+        u.setType('C');
+        u.setDateNaissance(new Date(2014-02-10));
+       
+        int result = instance.insertUser(u);
+        assertNotNull(result);
+       
+        System.out.println(u);
         // TODO review the generated test code and remove the default call to fail.
        
- //   }
+    }
  
     /**
      * Test of insertResponsable method, of class UtilisateurDao.
      */
+    
     @Test
     public void testInsertResponsable_Utilisateur() {
         System.out.println("insertResponsable");
@@ -83,6 +84,7 @@ public class UtilisateurDaoTest {
     /**
      * Test of updateUser method, of class UtilisateurDao.
      */
+    
     @Test
     public void testUpdateUser_int_Utilisateur() {
         System.out.println("updateUser");
@@ -96,23 +98,6 @@ public class UtilisateurDaoTest {
         fail("The test case is a prototype.");
     }
 
-
-    /**
-     * Test of updateResponsable method, of class UtilisateurDao.
-     */
-    @Test
-    public void testUpdateResponsable_int_Utilisateur() {
-        System.out.println("updateResponsable");
-        int id = 0;
-        Utilisateur u = null;
-        UtilisateurDao instance = new UtilisateurDao();
-        boolean expResult = false;
-        boolean result = instance.updateResponsable(id, u);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
     
     /**
      * Test of deleteUser method, of class UtilisateurDao.
@@ -120,13 +105,12 @@ public class UtilisateurDaoTest {
     @Test
     public void testDeleteUser() {
         System.out.println("deleteUser");
-        int id = 0;
+        int id = 1 ;               // id de citoyen
         UtilisateurDao instance = new UtilisateurDao();
-        boolean expResult = false;
         boolean result = instance.deleteUser(id);
-        assertEquals(expResult, result);
+        assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -136,11 +120,10 @@ public class UtilisateurDaoTest {
     public void testSelectUsers() {
         System.out.println("selectUsers");
         UtilisateurDao instance = new UtilisateurDao();
-        List<Utilisateur> expResult = null;
         List<Utilisateur> result = instance.selectUsers();
-        assertEquals(expResult, result);
+        System.out.println(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -149,13 +132,13 @@ public class UtilisateurDaoTest {
     @Test
     public void testSelectUserById() {
         System.out.println("selectUserById");
-        int id = 0;
+        int id = 1;
         UtilisateurDao instance = new UtilisateurDao();
-        Utilisateur expResult = null;
+
         Utilisateur result = instance.selectUserById(id);
-        assertEquals(expResult, result);
+        System.out.println(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -164,13 +147,12 @@ public class UtilisateurDaoTest {
     @Test
     public void testSelectUserByLogin() {
         System.out.println("selectUserByLogin");
-        String login = "";
+        String login = "user";
         UtilisateurDao instance = new UtilisateurDao();
-        Utilisateur expResult = null;
         Utilisateur result = instance.selectUserByLogin(login);
-        assertEquals(expResult, result);
+        System.out.println(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -179,13 +161,12 @@ public class UtilisateurDaoTest {
     @Test
     public void testSelectUserByMail() {
         System.out.println("selectUserByMail");
-        String mail = "";
+        String mail = "mail@live.fr";
         UtilisateurDao instance = new UtilisateurDao();
-        Utilisateur expResult = null;
         Utilisateur result = instance.selectUserByMail(mail);
-        assertEquals(expResult, result);
+        System.out.println(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -194,44 +175,13 @@ public class UtilisateurDaoTest {
     @Test
     public void testSelectUserByType() {
         System.out.println("selectUserByType");
-        char type = ' ';
+        char type = 'R';
         UtilisateurDao instance = new UtilisateurDao();
-        List<Utilisateur> expResult = null;
         List<Utilisateur> result = instance.selectUserByType(type);
-        assertEquals(expResult, result);
+        System.out.println(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
-    /**
-     * Test of Authentification method, of class UtilisateurDao.
-     */
-    @Test
-    public void testAuthentification() {
-        System.out.println("Authentification");
-        String login = "";
-        String password = "";
-        UtilisateurDao instance = new UtilisateurDao();
-        Utilisateur expResult = null;
-        Utilisateur result = instance.Authentification(login, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deleteUserByEtablissement method, of class UtilisateurDao.
-     */
-    @Test
-    public void testDeleteUserByEtablissement() {
-        System.out.println("deleteUserByEtablissement");
-        int idetablissement = 0;
-        UtilisateurDao instance = new UtilisateurDao();
-        boolean expResult = false;
-        boolean result = instance.deleteUserByEtablissement(idetablissement);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }
