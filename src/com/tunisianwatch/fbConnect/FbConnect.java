@@ -105,6 +105,7 @@ public class FbConnect {
                                                 String[] temp2 = temp1[0].split("=");
                                                 System.out.println("access tocken=" + temp2);
                                                 access_token = temp2[1];
+                                                loginFrame.dispose();
                                                 retriveUser();
                                             }
                                         };
