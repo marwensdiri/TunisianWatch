@@ -388,6 +388,7 @@ public class ReclamationForm extends javax.swing.JPanel {
             
         if (ok) {
             Reclamation reclamation = new Reclamation();
+            System.out.println(geoJFrame.geo);
             if(geoJFrame.geo!=null && mapRadioButton.isSelected()){
                 reclamation.setGeolocalisation(geoJFrame.geo);
                 new GeolocalisationDao().insertGeo(geoJFrame.geo);
