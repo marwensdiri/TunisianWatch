@@ -36,12 +36,12 @@ public class UtilisateurDaoTest {
         Utilisateur u = new Utilisateur();
         UtilisateurDao instance = new UtilisateurDao();
         
-        u.setNom("marwen");
-        u.setPrenom("sdiri");
-        u.setLogin("user");
+        u.setNom("user1");
+        u.setPrenom("user1");
+        u.setLogin("login");
         u.setMdp("0000");
         u.setAdress("MyAdress");
-        u.setMail("mail@live.fr");
+        u.setMail("monmail@live.fr");
         u.setType('C');
         u.setDateNaissance(new Date(2014-02-10));
        
@@ -88,7 +88,7 @@ public class UtilisateurDaoTest {
     @Test
     public void testUpdateUser_int_Utilisateur() {
         System.out.println("updateUser");
-        int id = 0;
+        int id = 1;
         Utilisateur u = null;
         UtilisateurDao instance = new UtilisateurDao();
         boolean expResult = false;

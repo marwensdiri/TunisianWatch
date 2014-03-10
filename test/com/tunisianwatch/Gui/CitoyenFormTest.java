@@ -34,12 +34,12 @@ public class CitoyenFormTest {
     public void testSomeMethod() {
         // TODO review the generated test code and remove the default call to fail.
         
-        assertTrue("Nom invalide",citoyenForm.isValidNom("a"));                           // il doit composé seulement des caractéres 
-        assertTrue("Prenom invalide",citoyenForm.isValidPrenom("a"));                    // il doit composé seulement des caractéres 
+        assertTrue("Nom invalide",citoyenForm.isValidNom("marwen"));                           // il doit composé seulement des caractéres 
+        assertTrue("Prenom invalide",citoyenForm.isValidPrenom("sdiri"));                    // il doit composé seulement des caractéres 
         assertNotNull("Date invalide",citoyenForm.isValidDate(new Date(03-1-2014)));    // Date not null
-        assertTrue("Pseudo existe",citoyenForm.isValidPseudo("ab"));                   // pseudo qui n'existe pas dans la Base 
-        assertTrue("MotDePasse invalide",citoyenForm.isValidPass("123"));             // longeur de password superieur a 3   
-        assertTrue("Mail invalide",citoyenForm.isValidMail("aze@live.fr"));          // format de mail valide 
+        assertTrue("Pseudo existe",citoyenForm.isValidPseudo("user1"));                   // pseudo qui n'existe pas dans la Base 
+        assertTrue("MotDePasse invalide",citoyenForm.isValidPass("0000"));             // longeur de password superieur a 3   
+        assertTrue("Mail invalide",citoyenForm.isValidMail("mail@live.fr"));          // format de mail valide 
 
     }
 

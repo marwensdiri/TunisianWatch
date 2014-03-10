@@ -387,7 +387,6 @@ public class ProfilPanel extends javax.swing.JPanel {
                 /////////////////////////////////////////
                 //user.setPhoto(Path);
                 /////////////////////////////////////////
-                logger.setType('A');
                 try {
                     if (PathImage == null) {
                         if (!userDao.updateUser(logger.getId(), logger)) {
