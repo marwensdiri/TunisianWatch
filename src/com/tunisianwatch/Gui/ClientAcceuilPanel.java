@@ -47,6 +47,7 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         reclamationButton = new javax.swing.JButton();
         fbButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
+        backgroundLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setName(""); // NOI18N
@@ -173,6 +174,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
         contentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         contentPanel.setLayout(new java.awt.CardLayout());
 
+        backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/background.png"))); // NOI18N
+        contentPanel.add(backgroundLabel, "card2");
+
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
         bodyPanel.setLayout(bodyPanelLayout);
         bodyPanelLayout.setHorizontalGroup(
@@ -181,7 +185,7 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         bodyPanelLayout.setVerticalGroup(
@@ -262,6 +266,7 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DisconnectButton;
+    private javax.swing.JLabel backgroundLabel;
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JButton fbButton;

@@ -436,7 +436,7 @@ public class ReclamationForm extends javax.swing.JPanel {
                     }
                 }
             }
-            JOptionPane.showConfirmDialog(null, "Réclamation Ajoutée", "La réclamation a été ajoutée avec succèes", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Réclamation Ajoutée", "La réclamation a été ajoutée avec succèes", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
