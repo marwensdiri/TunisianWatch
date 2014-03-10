@@ -176,7 +176,7 @@ public class ContactezResp extends javax.swing.JPanel {
 
             Utilisateur logger = MainFrame.getMe(); // l'utilisateur actuellement "logger" ou connecté, PS : dédicace a #Tiger
 
-            String msg = "message de la part de " + logger.getLogin() + " : \n" + msgTxtArea.getText();
+            String msg = "message de la part de " + logger.getPrenom() + " "+ logger.getNom() +" : \n" + msgTxtArea.getText();
 
             state = new com.tunisianwatch.Util.SendEmail().send(/*resp.getMail()*/"farouk.youssef@esprit.tn",
                     sujetTextFeild.getText(),
@@ -206,6 +206,7 @@ public class ContactezResp extends javax.swing.JPanel {
         
         sujetTextFeild.setText("");
         msgTxtArea.setText("");
+        filename=null;
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void addFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileBtnActionPerformed
