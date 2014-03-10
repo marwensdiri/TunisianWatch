@@ -98,7 +98,6 @@ public class geoJFrame extends javax.swing.JFrame {
                             break;
                         }
                         break;
-
                     }
                 }
                
