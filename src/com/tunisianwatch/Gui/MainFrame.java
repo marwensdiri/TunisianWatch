@@ -40,11 +40,9 @@ public class MainFrame extends javax.swing.JFrame {
         if (me.getType() == 'A') {
             
             corePanel.add(new AdminAcceuilPanel());
-        } else if (me.getType() == 'C') {
+        } else{
             corePanel.add(new ClientAcceuilPanel());
-        } else {
-
-        }
+        } 
         corePanel.repaint();
         corePanel.revalidate();
     }

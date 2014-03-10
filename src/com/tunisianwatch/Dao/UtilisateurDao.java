@@ -612,7 +612,7 @@ public class UtilisateurDao {
                 if (Imagebytes != null) {
                     Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
                     user.setPhoto(image);
-                }
+                }else user.setPhoto(null);
 //------------------------------------------------------------------------------
                 //user.setPhoto(resultat.getString("photo"));
                 user.setSexe(resultat.getString("sexe").charAt(0));

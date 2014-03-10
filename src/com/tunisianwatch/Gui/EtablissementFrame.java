@@ -20,6 +20,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
     private String errMsg;
     private String errMsg2;
+    List<Integer> lSupp = new ArrayList<Integer>();
     private String imageTxt = "";
     private List<Domaine> listeDomainesAjouter = new ArrayList<Domaine>();//liste des domaines a ajouter a l'etab
     private List<Domaine> listeDomainesExistant = new ArrayList<Domaine>();//liste des domaines dans la base de données
@@ -40,6 +41,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     public EtablissementFrame() {
         initComponents();
         init();
+        responsableCmboBox.setSelectedItem(null);
         imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/building-3-256x256.png")));
         etb = new Etablissement();
     }
@@ -375,8 +377,10 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
     private void to1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_to1ActionPerformed
         if (domaines2.getSelectedIndices().length > 0) {
+            lSupp.add(domaines2Model.getElementAt(domaines2.getSelectedIndex()).getId());
             domaines1Model.addElement(domaines2Model.getElementAt(domaines2.getSelectedIndex()));
             domaines2Model.remove(domaines2.getSelectedIndex());
+
         }
     }//GEN-LAST:event_to1ActionPerformed
 
@@ -460,7 +464,11 @@ public class EtablissementFrame extends javax.swing.JFrame {
                 }
             }
 
-
+            if (action != -1) {
+                for (Integer i : lSupp) {
+                    new EtablissementDomaineDao().deleteEtablissementDomaine(action, i);
+                }
+            }
 
             for (Domaine d : listeDomainesAjouter) {
                 if (!listeDomainesExistant.contains(d)) {
@@ -470,17 +478,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
                     etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
                 }
             }
-            /*if (action != -1) {
-                List<EtablissementDomaine> LLL = new ArrayList<EtablissementDomaine>();
-                LLL = new EtablissementDomaineDao().seletcEtablissementDomaineByIdEtablissement(action);
-                for (EtablissementDomaine eD : LLL) {
-                    if (!listeDomainesAjouter.contains(new Domaine(eD.getIdEtablissement(),new DomaineDao().selectDomaineById(eD.getIdDomaine()).getNom()))) {
-                        new EtablissementDomaineDao().deleteEtablissementDomaineByDomaine(eD.getIdDomaine());
-                        
-                    }
-                }
-            }*/
 
+            ConsultationPanel.tableModel.refresh();
+            ConsultationPanel.tableModel.fireTableDataChanged();
             this.dispose();
         }
 
@@ -558,6 +558,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
         //remplissage du combobox des responsables
         try {
 
+
             lU = UDAO.selectUserByType('R');
             for (Utilisateur utilisateur : lU) {
                 utilisateurModel.addElement(utilisateur);
@@ -608,8 +609,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         });
-
-
     }
 
     private boolean verif() {
