@@ -49,7 +49,7 @@ GROUP BY iddomaine]]>
 			</bar3DChart>
 			<image>
 				<reportElement x="0" y="-55" width="209" height="80" uuid="56d80447-d5f0-4f16-9bb4-c6bce19555dd"/>
-				<imageExpression><![CDATA["C:\\Users\\Skan\\Desktop\\logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src\\com\\tunisianwatch\\Images\\logo.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="13" y="25" width="180" height="38" uuid="d2c3200a-478b-412c-b72d-b6b3ae6484b2"/>

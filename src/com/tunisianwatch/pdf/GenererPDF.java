@@ -37,8 +37,10 @@ public static void getPdf(String  path) {
             // - Chargement et compilation du rapport (charger le fichier jrxml déjà généré)
             JasperDesign jasperDesign = JRXmlLoader.load("src/com/tunisianwatch/pdf/chart1.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-             JasperDesign jasperDesign1 = JRXmlLoader.load("src/com/tunisianwatch/pdf/classic.jrxml");
-            JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign);
+             
+            JasperDesign jasperDesign1 = JRXmlLoader.load("src/com/tunisianwatch/pdf/watch.jrxml");
+           
+            JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign1);
             // - Paramètres à envoyer au rapport
             Map  parameters = new HashMap();
             parameters.put("", "");
