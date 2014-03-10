@@ -15,6 +15,7 @@ import java.awt.Image;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -319,6 +320,7 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     private void shareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shareButtonActionPerformed
         // TODO add your handling code here:
         GraphReader.share(titreLabel.getText());
+        JOptionPane.showMessageDialog(null, "Partage effectuée avec succès");
     }//GEN-LAST:event_shareButtonActionPerformed
 
 

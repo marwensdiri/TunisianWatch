@@ -387,20 +387,24 @@ public class ProfilPanel extends javax.swing.JPanel {
                 /////////////////////////////////////////
                 //user.setPhoto(Path);
                 /////////////////////////////////////////
-                try {
+                
                     if (PathImage == null) {
                         if (!userDao.updateUser(logger.getId(), logger)) {
                             JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                         }
+                        else{
+                           MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
+                        }
                     } else {
-
                         if (!userDao.updateUser(logger.getId(), logger, PathImage)) {
+                            
                             JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                         }
+                        else{
+                            MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
+                        }
                     }
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(ProfilPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
                 this.repaint();
             }
         }

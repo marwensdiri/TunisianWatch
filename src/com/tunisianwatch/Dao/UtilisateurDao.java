@@ -81,7 +81,7 @@ public class UtilisateurDao {
 
     }
 
-    public int insertUser(Utilisateur u, String PathImage) throws FileNotFoundException {
+    public int insertUser(Utilisateur u, String PathImage){
         int id = 0;
         String requete = "insert into utilisateur (nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -90,8 +90,14 @@ public class UtilisateurDao {
             ps.setString(2, u.getPrenom());
             //---------------------------------
 
-            FileInputStream fis = new FileInputStream(PathImage);
-            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(PathImage);
+                 ps.setBinaryStream(3, fis, (int) PathImage.length());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
 
             //---------------------------------
             //ps.setString(3, u.getPhoto());
@@ -147,7 +153,7 @@ public class UtilisateurDao {
 
     }
 
-    public int insertResponsable(Utilisateur u, String PathImage) throws FileNotFoundException {
+    public int insertResponsable(Utilisateur u, String PathImage) {
 
         String requete = "insert into utilisateur (idetablissement,nom,prenom,photo,sexe,adress,login,mdp,mail,type,datenaissance) values (?,?,?,?,?,?,?,?,?,?,?)";
         int id = 0;
@@ -158,8 +164,15 @@ public class UtilisateurDao {
             ps.setString(3, u.getPrenom());
             //---------------------------------
 
-            FileInputStream fis = new FileInputStream(PathImage);
-            ps.setBinaryStream(4, fis, (int) PathImage.length());
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(PathImage);
+                ps.setBinaryStream(4, fis, (int) PathImage.length());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }
+            
 
             //---------------------------------
             //ps.setString(4, u.getPhoto());
@@ -186,11 +199,10 @@ public class UtilisateurDao {
 
     public boolean updateUser(int id, Utilisateur u) {
         String requete ;
-        if (u.getPath() != null) {
-        requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? ,photo=? WHERE id=? ";
-        }else {
+       
+        
         requete = "UPDATE utilisateur set  nom=? ,prenom=? ,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=?  WHERE id=? ";         
-        }
+       
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setString(1, u.getNom());
@@ -202,20 +214,8 @@ public class UtilisateurDao {
             ps.setString(6, u.getMdp());
             ps.setString(7, u.getMail());
             ps.setString(8, u.getType() + "");
-            ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime()));
-            
-            try {
-                if (u.getPath() != null) {
-                FileInputStream fis = new FileInputStream(u.getPath());
-                ps.setBinaryStream(10, fis, (int) u.getPath().length());
-                ps.setInt(11, id);
-                }else 
-                ps.setInt(10, id);    
-                
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                       
+            ps.setDate(9, new java.sql.Date(u.getDateNaissance().getTime())); 
+              ps.setInt(10, id);         
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -224,7 +224,7 @@ public class UtilisateurDao {
         }
     }
 
-    public boolean updateUser(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
+    public boolean updateUser(int id, Utilisateur u, String PathImage){
         String requete = "UPDATE utilisateur set  nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -232,9 +232,15 @@ public class UtilisateurDao {
             ps.setString(2, u.getPrenom());
             //---------------------------------
 
-            FileInputStream fis = new FileInputStream(PathImage);
-            ps.setBinaryStream(3, fis, (int) PathImage.length());
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(PathImage);
+                ps.setBinaryStream(3, fis, (int) PathImage.length());
 
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             //---------------------------------
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
@@ -259,7 +265,7 @@ public class UtilisateurDao {
             ps.setInt(1, u.getEtablissement().getId());
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
-            //ps.setString(4, u.getPhoto());
+             
             ps.setString(4, u.getSexe() + "");
             ps.setString(5, u.getAdress() + "");
             ps.setString(6, u.getLogin());
@@ -276,7 +282,7 @@ public class UtilisateurDao {
         }
     }
 
-    public boolean updateResponsable(int id, Utilisateur u, String PathImage) throws FileNotFoundException {
+    public boolean updateResponsable(int id, Utilisateur u, String PathImage) {
         String requete = "UPDATE utilisateur set  idetablissement=? ,nom=? ,prenom=? ,photo=?,sexe=?,adress=? ,login=? ,mdp=? ,mail=? ,type=? ,datenaissance=? WHERE id=? ";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -284,9 +290,20 @@ public class UtilisateurDao {
             ps.setString(2, u.getNom());
             ps.setString(3, u.getPrenom());
             //---------------------------------
-
-            FileInputStream fis = new FileInputStream(PathImage);
-            ps.setBinaryStream(4, fis, (int) PathImage.length());
+            
+            FileInputStream fis;
+            try {
+                if(PathImage!=null){
+                fis = new FileInputStream(PathImage);
+                 ps.setBinaryStream(4, fis, (int) PathImage.length());
+                }
+                else{
+                    ps.setNull(4, java.sql.Types.BLOB);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UtilisateurDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
 
             //---------------------------------
             //ps.setString(4, u.getPhoto());

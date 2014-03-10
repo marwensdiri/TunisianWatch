@@ -558,7 +558,14 @@ public class ResponsableForm extends javax.swing.JFrame {
             user.setPath(PathImage);
             user.setType('R');
             if (modif) {
-                if (userDao.updateResponsable(user.getId(), user)) {
+                boolean ok = false;
+                if(user.getPhoto()!=null || PathImage==null){
+                   ok= userDao.updateResponsable(user.getId(), user);
+                }
+                else {
+                    ok=userDao.updateResponsable(user.getId(), user,PathImage);
+                }
+                if (ok) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
@@ -567,8 +574,14 @@ public class ResponsableForm extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-
-                if (userDao.insertResponsable(user) > 0) {
+                int id = 0;
+                if(PathImage!=null){
+                    id=userDao.insertResponsable(user);
+                }
+                else{
+                    userDao.insertResponsable(user, PathImage);
+                }
+                if (id > 0) {
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();

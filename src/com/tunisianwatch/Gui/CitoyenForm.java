@@ -26,8 +26,8 @@ public class CitoyenForm extends javax.swing.JFrame {
 
     private boolean modif = false;
     private Utilisateur user;
-    private String PathImage ;
-    
+    private String PathImage;
+
     /**
      * Creates new form CitoyenForm
      */
@@ -76,9 +76,8 @@ public class CitoyenForm extends javax.swing.JFrame {
         if (user.getPhoto() != null) {
             ImageIcon icon = new ImageIcon(user.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
             lblImage.setIcon(icon);
-        }
-        else{
-           lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
+        } else {
+            lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
         }
     }
 
@@ -456,7 +455,13 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setPath(PathImage);
             user.setType('C');
             if (modif) {
-                if (userDao.updateUser(user.getId(), user)) {
+                boolean ok = false;
+                if (user.getPhoto() != null || PathImage == null) {
+                    ok = userDao.updateUser(user.getId(), user);
+                } else {
+                    ok = userDao.updateUser(user.getId(), user, PathImage);
+                }
+                if (ok) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
@@ -465,8 +470,13 @@ public class CitoyenForm extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                
-                if (userDao.insertUser(user) > 0) {
+                int id = 0;
+                if (PathImage != null) {
+                    id = userDao.insertUser(user);
+                } else {
+                    userDao.insertUser(user, PathImage);
+                }
+                if (id > 0) {
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
@@ -474,7 +484,7 @@ public class CitoyenForm extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "erreur lors de l'insertion ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
             }
         }
 //        else {
@@ -528,7 +538,7 @@ public class CitoyenForm extends javax.swing.JFrame {
             lblImage.repaint();
 
         } catch (Exception e) {
-           
+
         }
     }//GEN-LAST:event_btnModifphotoActionPerformed
 
@@ -541,8 +551,8 @@ public class CitoyenForm extends javax.swing.JFrame {
             return false;
         }
     }
-    
-   private boolean isValidNom() {
+
+    private boolean isValidNom() {
         if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
@@ -564,7 +574,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
 
-   private boolean isValidPseudo() {
+    private boolean isValidPseudo() {
         if (!modif) {
             if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
                 loginErrorLabel.setVisible(false);
@@ -586,8 +596,8 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidPass(){
-        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(),3)) {
+    private boolean isValidPass() {
+        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(), 3)) {
             mdpErrorLabel.setVisible(false);
             return true;
         } else {
@@ -597,7 +607,7 @@ public class CitoyenForm extends javax.swing.JFrame {
         }
     }
 
-     private boolean isValidMail() {
+    private boolean isValidMail() {
         if (!modif) {
             if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
                 if (FieldVerifier.VerifComplexField(mailTextfield.getText(), 2)) {
@@ -613,10 +623,9 @@ public class CitoyenForm extends javax.swing.JFrame {
                 mailErrorLabel.setVisible(true);
                 return false;
             }
-        }
-        else{
+        } else {
             if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
-                if (FieldVerifier.VerifComplexField(mailTextfield.getText(),user.getMail(), 2)) {
+                if (FieldVerifier.VerifComplexField(mailTextfield.getText(), user.getMail(), 2)) {
                     mailErrorLabel.setVisible(false);
                     return true;
                 } else {
@@ -631,7 +640,7 @@ public class CitoyenForm extends javax.swing.JFrame {
             }
         }
     }
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adrTextfield;

@@ -50,6 +50,8 @@ public class MainFrame extends javax.swing.JFrame {
     public static Utilisateur getMe() {
         return me;
     }
+    
+   
 
     public static void setMe(Utilisateur me) {
         MainFrame.me = me;

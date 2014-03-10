@@ -472,7 +472,6 @@ public class InscriForm extends javax.swing.JFrame {
             user.setDateNaissance(dateTextfield.getDate());
 
             user.setType('C');
-            try {
                 if (PathImage == null) {
                     if (userDao.insertUser(user) <= 0) {
                         JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -486,9 +485,7 @@ public class InscriForm extends javax.swing.JFrame {
                        JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-            } catch (FileNotFoundException ex) {
-
-            }
+    
             this.repaint();
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
