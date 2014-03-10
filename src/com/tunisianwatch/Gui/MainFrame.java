@@ -40,11 +40,9 @@ public class MainFrame extends javax.swing.JFrame {
         if (me.getType() == 'A') {
             
             corePanel.add(new AdminAcceuilPanel());
-        } else if (me.getType() == 'C') {
+        } else{
             corePanel.add(new ClientAcceuilPanel());
-        } else {
-
-        }
+        } 
         corePanel.repaint();
         corePanel.revalidate();
     }
@@ -79,6 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Tunisianwatch");
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
+        setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         corePanel.setLayout(new java.awt.CardLayout());

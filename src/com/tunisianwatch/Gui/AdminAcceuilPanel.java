@@ -40,6 +40,7 @@ public class AdminAcceuilPanel extends javax.swing.JPanel {
         logoLabel = new javax.swing.JLabel();
         DisconnectButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setName(""); // NOI18N
@@ -162,6 +163,9 @@ public class AdminAcceuilPanel extends javax.swing.JPanel {
         contentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         contentPanel.setLayout(new java.awt.CardLayout());
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/background.png"))); // NOI18N
+        contentPanel.add(jLabel1, "card2");
+
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
         bodyPanel.setLayout(bodyPanelLayout);
         bodyPanelLayout.setHorizontalGroup(
@@ -170,7 +174,7 @@ public class AdminAcceuilPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 651, Short.MAX_VALUE)
                 .addContainerGap())
         );
         bodyPanelLayout.setVerticalGroup(
@@ -253,6 +257,7 @@ public class AdminAcceuilPanel extends javax.swing.JPanel {
     private javax.swing.JButton citoyenButton;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JButton etablissementButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton profilButton;

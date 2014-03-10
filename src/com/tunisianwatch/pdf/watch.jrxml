@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="watch1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03f42826-3371-4b36-ade6-609ef5be6349">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     reclamation.`id` AS reclamation_id,
+     reclamation.`date` AS reclamation_date,
+     reclamation.`heure` AS reclamation_heure,
+     reclamation.`description` AS reclamation_description,
+     reclamation.`titre` AS reclamation_titre,
+     reclamation.`etat` AS reclamation_etat
+FROM
+     `reclamation` reclamation]]>
+	</queryString>
+	<field name="reclamation_id" class="java.lang.Integer"/>
+	<field name="reclamation_titre" class="java.lang.String"/>
+	<field name="reclamation_description" class="java.lang.String"/>
+	<field name="reclamation_etat" class="java.lang.Integer"/>
+	<field name="reclamation_date" class="java.sql.Date"/>
+	<field name="reclamation_heure" class="java.sql.Time"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#FF0000" uuid="5ed7feaf-766c-4f75-85b8-1cf367342595"/>
+				<staticText>
+					<reportElement x="30" y="30" width="234" height="43" forecolor="#FFFFFF" uuid="c3457b7d-19ab-4aba-9e71-caeb5ab49242"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REPORTING]]></text>
+				</staticText>
+				<ellipse>
+					<reportElement x="346" y="0" width="249" height="92" uuid="9a3e87da-ed85-4ffb-8d19-892de4fb1bf4"/>
+				</ellipse>
+				<image>
+					<reportElement x="393" y="15" width="150" height="63" uuid="8574d4fc-7982-4462-af56-3ac172a9a2c8"/>
+					<imageExpression><![CDATA["src\\com\\tunisianwatch\\Images\\logo.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="80b5927c-423b-4248-94f6-7e21b4389d82"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="69" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8900d644-fccf-4513-aef7-45b6d86515a7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="70" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2f64f64e-7f97-4000-9009-718603649c73"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Titre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="162" y="0" width="114" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="caa656bf-fd4d-432f-a8ed-273e7032344e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="94796619-f692-4826-8eb5-9b4e938862ca"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Etat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f11110e0-8d7b-4635-95a2-40169d30c7bc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="435c9f53-8758-4294-983f-76a926d48378"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Heure]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="bfe03c47-0838-4305-8f8b-fa2889d0bd92"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="69" height="20" uuid="3a168717-7ea9-480b-91ba-4f7936a79fa0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reclamation_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="70" y="0" width="92" height="20" uuid="19a9e390-321b-45c9-b815-d676dcf04c8e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reclamation_titre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="162" y="0" width="114" height="20" uuid="7dfeac92-ab73-422e-aad6-df220796f111"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reclamation_description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="276" y="0" width="92" height="20" uuid="c3796188-2728-4a84-bfc3-e03a6cdbfa22"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reclamation_etat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="368" y="0" width="92" height="20" uuid="c37b28b4-0a8d-4315-8185-6be9927df108"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reclamation_date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="460" y="0" width="92" height="20" uuid="879f57a9-57b3-4a87-91d1-e11a09c8dc69"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reclamation_heure}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="d2ef8bbd-9172-4574-a8f4-e0729e26ab1d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="8c1037f6-2b62-497c-bcbc-47a488b8e33c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="09536791-d067-468b-b9d6-f2f1f53aa325"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

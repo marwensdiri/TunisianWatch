@@ -37,8 +37,10 @@ public static void getPdf(String  path) {
             // - Chargement et compilation du rapport (charger le fichier jrxml déjà généré)
             JasperDesign jasperDesign = JRXmlLoader.load("src/com/tunisianwatch/pdf/chart1.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-             JasperDesign jasperDesign1 = JRXmlLoader.load("src/com/tunisianwatch/pdf/classic.jrxml");
-            JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign);
+             
+            JasperDesign jasperDesign1 = JRXmlLoader.load("src/com/tunisianwatch/pdf/watch.jrxml");
+           
+            JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign1);
             // - Paramètres à envoyer au rapport
             Map  parameters = new HashMap();
             parameters.put("", "");
@@ -51,7 +53,7 @@ public static void getPdf(String  path) {
             JasperExportManager.exportReportToPdfFile(jasperPrint,clean(path)+"\\reclam_domaine-"+sdf.format(new Date())+".pdf" );
             System.out.println("success");
              JasperExportManager.exportReportToPdfFile(jasperPrint1,clean(path)+"\\report_"+sdf.format(new Date())+".pdf" );
-            System.out.println("success");
+            System.out.println("success1");
         }
 
         catch (JRException e) {
