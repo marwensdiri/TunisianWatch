@@ -1,4 +1,4 @@
-package fbConnect;
+package com.tunisianwatch.fbConnect;
 
 import com.restfb.Connection;
 import static java.lang.System.out;
@@ -71,7 +71,7 @@ public class GraphReader {
         // System.out.println("Name: " + user.getName());
         //System.out.println("Username: " + user.getUsername());
         curUser.setMail(user.getEmail());
-        if(user.getBirthday()!=null){
+        if (user.getBirthday() != null) {
             curUser.setDateNaissance(user.getBirthdayAsDate());
         }
         return curUser;
@@ -95,7 +95,7 @@ public class GraphReader {
                     status.setMessage(post.getMessage());
                     status.setDate(post.getCreatedTime());
                     status.setId(post.getId());
-                    if (post.getLikesCount() != null){
+                    if (post.getLikesCount() != null) {
                         status.setNblike(post.getLikesCount());
                     }
                     if (post.getComments() != null) {
@@ -105,7 +105,7 @@ public class GraphReader {
                             comment.setNom(C.getFrom().getName());
                             comment.setDate(C.getCreatedTime());
                             comment.setMessage(C.getMessage());
-                            comment.setCanRemove(C.getCanRemove());
+                            comment.setCanRemove(C.getCanRemove().booleanValue());
                             status.addComment(comment);
                         }
                     }
@@ -117,6 +117,16 @@ public class GraphReader {
         return listStatus;
     }
 
+    
+    public static boolean isConnect(){
+        if(facebookClient!=null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public static String addComment(String idpost, String message) {
         FacebookType publishMessageResponse = facebookClient.publish(idpost + "/comments", FacebookType.class, Parameter.with("message", message));
         return publishMessageResponse.getId();
@@ -127,4 +137,10 @@ public class GraphReader {
         return deleted.booleanValue();
     }
 
+    public static String share(String titre) {
+        FacebookType publishMessageResponse
+                = facebookClient.publish("me/feed", FacebookType.class,
+                        Parameter.with("message", titre));
+        return publishMessageResponse.getId();
+    }
 }

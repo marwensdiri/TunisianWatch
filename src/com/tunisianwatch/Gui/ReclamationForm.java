@@ -7,17 +7,22 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.DocumentDao;
 import com.tunisianwatch.Dao.DomaineDao;
+import com.tunisianwatch.Dao.GeolocalisationDao;
 import com.tunisianwatch.Dao.LieuDao;
 import com.tunisianwatch.Dao.ReclamationDao;
 import com.tunisianwatch.Entities.Document;
 import com.tunisianwatch.Entities.Domaine;
 import com.tunisianwatch.Entities.Lieu;
 import com.tunisianwatch.Entities.Reclamation;
+import com.tunisianwatch.Util.FieldVerifier;
+import com.tunisianwatch.Util.ImageFilter;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -39,6 +44,8 @@ public class ReclamationForm extends javax.swing.JPanel {
         domaineErrorLabel.setVisible(false);
         dateErrorLabel.setVisible(false);
         heureErrorLabel.setVisible(false);
+        listRadioButton.setSelected(true);
+
         DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();
         DefaultComboBoxModel<Domaine> domaineModel = new DefaultComboBoxModel();
         List<Lieu> listLieu = new LieuDao().selectLieux();
@@ -63,6 +70,7 @@ public class ReclamationForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         titreTextfield = new javax.swing.JTextField();
@@ -89,6 +97,8 @@ public class ReclamationForm extends javax.swing.JPanel {
         heureErrorLabel = new javax.swing.JLabel();
         heureLabel = new javax.swing.JLabel();
         timeTimeChooser = new lu.tudor.santec.jtimechooser.JTimeChooser();
+        listRadioButton = new javax.swing.JRadioButton();
+        mapRadioButton = new javax.swing.JRadioButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -97,6 +107,11 @@ public class ReclamationForm extends javax.swing.JPanel {
         titreTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 titreTextfieldMouseExited(evt);
+            }
+        });
+        titreTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                titreTextfieldKeyReleased(evt);
             }
         });
 
@@ -153,6 +168,11 @@ public class ReclamationForm extends javax.swing.JPanel {
         dateLabel.setText("Date de l'incident");
 
         dateTextfield.setDateFormatString("yyyy-MM-d");
+        dateTextfield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                dateTextfieldMouseReleased(evt);
+            }
+        });
 
         submitButton.setBackground(new java.awt.Color(204, 0, 0));
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,7 +189,7 @@ public class ReclamationForm extends javax.swing.JPanel {
 
         lieuErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lieuErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
-        lieuErrorLabel.setText("Vous devez saisir le lieu");
+        lieuErrorLabel.setText("Vous devez préciser le lieu");
 
         domaineErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         domaineErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
@@ -185,6 +205,28 @@ public class ReclamationForm extends javax.swing.JPanel {
 
         heureLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         heureLabel.setText("Heure de l'incident");
+
+        timeTimeChooser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                timeTimeChooserMouseReleased(evt);
+            }
+        });
+
+        buttonGroup.add(listRadioButton);
+        listRadioButton.setText("par liste");
+        listRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRadioButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(mapRadioButton);
+        mapRadioButton.setText("par map");
+        mapRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mapRadioButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -204,43 +246,49 @@ public class ReclamationForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(fileToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(lieuComboBox, 0, 155, Short.MAX_VALUE)
-                                            .addComponent(domaineComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(16, 16, 16)
-                                        .addComponent(mapButton)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(domaineErrorLabel)
-                                    .addComponent(lieuErrorLabel)
-                                    .addComponent(titreErrorLabel)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                    .addComponent(timeTimeChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(133, 133, 133)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(dateErrorLabel)
-                                    .addComponent(heureErrorLabel))))
-                        .addGap(0, 105, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2))
-                        .addGap(127, 127, 127)))
-                .addGap(88, 88, 88))
+                        .addGap(165, 165, 165))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(fileToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(mapRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(mapButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(listRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lieuComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(18, 37, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lieuErrorLabel)
+                                    .addComponent(domaineErrorLabel)
+                                    .addComponent(titreErrorLabel)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(dateTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                            .addComponent(timeTimeChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(41, 41, 41)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(dateErrorLabel)
+                                            .addComponent(heureErrorLabel))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)))
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,25 +298,34 @@ public class ReclamationForm extends javax.swing.JPanel {
                     .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(titreTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(titreErrorLabel))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lieuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mapButton)
-                    .addComponent(lieuErrorLabel))
-                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(lieuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(listRadioButton)
+                            .addComponent(lieuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lieuErrorLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mapRadioButton)
+                            .addComponent(mapButton))
+                        .addGap(30, 30, 30)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(domaineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(domaineErrorLabel))
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pathTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fileToggleButton))
                 .addGap(0, 0, 0)
                 .addComponent(fileLabel)
-                .addGap(15, 15, 15)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,12 +333,12 @@ public class ReclamationForm extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(dateErrorLabel)
                                 .addComponent(dateTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(heureLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                             .addComponent(timeTimeChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(heureErrorLabel))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,8 +362,9 @@ public class ReclamationForm extends javax.swing.JPanel {
     private void fileToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileToggleButtonActionPerformed
 
         JFileChooser shooser = new JFileChooser();
-        FileFilter filtre = new FileNameExtensionFilter("Fichier JPEG", "jpg", "jpeg");
+        FileFilter filtre = new ImageFilter();
         shooser.setFileFilter(filtre);
+        shooser.setAcceptAllFileFilterUsed(false);
         int res = shooser.showOpenDialog(null);
         if (res == JFileChooser.APPROVE_OPTION) {
             fileLabel.setText(fileLabel.getText() + " " + shooser.getSelectedFile().getName());
@@ -319,62 +377,144 @@ public class ReclamationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_pathTextfieldActionPerformed
 
     private void mapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtonActionPerformed
-        // TODO add your handling code here:
         new geoJFrame().setVisible(true);
     }//GEN-LAST:event_mapButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // if (titreTextfield.getText().length() > 0 && lieuComboBox.getSelectedIndex() != -1 && domaineComboBox.getSelectedIndex() != -1 && dateTextfield.getDate() != null) {
         boolean ok = true;
-        if (titreTextfield.getText().length() == 0) {
-            titreErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (lieuComboBox.getSelectedIndex() == -1) {
-            lieuErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (domaineComboBox.getSelectedIndex() == -1) {
-            domaineErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (dateTextfield.getDate() == null) {
-            dateErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (timeTimeChooser.getTimeField().getText() == "") {
-            heureErrorLabel.setVisible(true);
-            ok = false;
-        }
-        if (ok) {
-            Lieu L = (Lieu) lieuComboBox.getSelectedItem();
-            Domaine D = (Domaine) domaineComboBox.getSelectedItem();
+        if (isValidDate() & isValidHeure() & isValidTitre() & isValidLieu()) {
             Reclamation reclamation = new Reclamation();
-            reclamation.setLieu(L);
-            reclamation.setDomaine(D);
-            reclamation.setCitoyen(MainFrame.me);
+            LieuDao lieuDao = new LieuDao();
+            int idgeo = 0;
+            int idlieu = 0;
+            Lieu lieu = null;
+            if (mapRadioButton.isSelected() && geoJFrame.geo != null) {
+                lieu = lieuDao.selectLieuByNom(geoJFrame.ville);
+                if (lieu == null) {
+                    ok = false;
+                    lieu = new Lieu(geoJFrame.ville);
+                    idlieu = lieuDao.insertLieu(lieu);
+                    if (idlieu > 0) {
+                        ok = true;
+                        lieu.setId(idlieu);
+                    }
+                }
+            } else if (listRadioButton.isSelected()) {
+                lieu = (Lieu) lieuComboBox.getSelectedItem();
+            }
+            System.out.println(lieu);
+            reclamation.setTitre(titreTextfield.getText());
+            reclamation.setCitoyen(MainFrame.getMe());
             reclamation.setDate(dateTextfield.getDate());
             reclamation.setHeure(timeTimeChooser.getTimeField().getText());
+            reclamation.setDomaine((Domaine) domaineComboBox.getSelectedItem());
             reclamation.setEtat(0);
-            reclamation.setTitre(titreTextfield.getText());
-            int idreclamation = new ReclamationDao().insertReclamation(reclamation);
-            if (idreclamation > 0) {
-                if (listFile.size() > 0){
-                    DocumentDao docDao = new DocumentDao();
-                    for(File file : listFile){
-                        Document document = new Document();
-                        document.setIdReclamation(idreclamation);
-                        document.setNom(file.getName());
-                        document.setType(1);
-                        docDao.insertDocument(document,file.getAbsolutePath());
+            reclamation.setLieu(lieu);
+            reclamation.setDescription(descriptionTextArea.getText());
+            if (ok) {
+                ReclamationDao reclamationDao = new ReclamationDao();
+                int idreclamation = reclamationDao.insertReclamation(reclamation);
+                if (idreclamation > 0) {
+                    reclamation.setId(idreclamation);
+                    if (mapRadioButton.isSelected()) {
+                        System.out.println(idreclamation);
+                        geoJFrame.geo.setReclamation(reclamation);
+                        idgeo = new GeolocalisationDao().insertGeo(geoJFrame.geo);
+                        geoJFrame.geo.setId(idgeo);
+                        reclamation.setGeolocalisation(geoJFrame.geo);
+                        reclamationDao.updateReclamation(idreclamation, reclamation);
+                    }
+                    if (listFile.size() > 0) {
+                        DocumentDao docDao = new DocumentDao();
+                        for (File file : listFile) {
+                            Document document = new Document();
+                            document.setIdReclamation(idreclamation);
+                            document.setNom(file.getName());
+                            document.setType(1);
+                            docDao.insertDocument(document, file.getAbsolutePath());
+                        }
                     }
                 }
             }
+            JOptionPane.showConfirmDialog(null, "Réclamation Ajoutée", "La réclamation a été ajoutée avec succèes", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
+    private void listRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRadioButtonActionPerformed
+
+    }//GEN-LAST:event_listRadioButtonActionPerformed
+
+    private void mapRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapRadioButtonActionPerformed
+
+    }//GEN-LAST:event_mapRadioButtonActionPerformed
+
+    private void dateTextfieldMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseReleased
+        isValidDate();
+    }//GEN-LAST:event_dateTextfieldMouseReleased
+
+    private void titreTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_titreTextfieldKeyReleased
+        isValidTitre();
+    }//GEN-LAST:event_titreTextfieldKeyReleased
+
+    private void timeTimeChooserMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeTimeChooserMouseReleased
+        isValidHeure();
+    }//GEN-LAST:event_timeTimeChooserMouseReleased
+
+    private boolean isValidTitre() {
+        if (FieldVerifier.VerifOrdinaryField(titreTextfield.getText())) {
+            titreErrorLabel.setVisible(false);
+            return true;
+        } else {
+            titreErrorLabel.setText(FieldVerifier.getErrorMsg());
+            titreErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidDate() {
+        if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
+            dateErrorLabel.setVisible(false);
+            return true;
+        } else {
+            dateErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidHeure() {
+        if (FieldVerifier.isNotNull((timeTimeChooser.getTimeField()))) {
+            heureErrorLabel.setVisible(false);
+            return true;
+        } else {
+            heureErrorLabel.setVisible(true);
+            return false;
+        }
+    }
+
+    private boolean isValidLieu() {
+        if (listRadioButton.isSelected()) {
+            if (FieldVerifier.isNotNull((lieuComboBox.getSelectedItem()))) {
+                lieuErrorLabel.setVisible(false);
+                return true;
+            } else {
+                lieuErrorLabel.setVisible(true);
+                return false;
+            }
+        } else if (mapRadioButton.isSelected()) {
+            if (FieldVerifier.isNotNull((geoJFrame.geo))) {
+                lieuErrorLabel.setVisible(false);
+                return true;
+            } else {
+                lieuErrorLabel.setVisible(true);
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel dateErrorLabel;
     private javax.swing.JLabel dateLabel;
     private com.toedter.calendar.JDateChooser dateTextfield;
@@ -393,7 +533,9 @@ public class ReclamationForm extends javax.swing.JPanel {
     private javax.swing.JComboBox lieuComboBox;
     private javax.swing.JLabel lieuErrorLabel;
     private javax.swing.JLabel lieuLabel;
+    private javax.swing.JRadioButton listRadioButton;
     private javax.swing.JButton mapButton;
+    private javax.swing.JRadioButton mapRadioButton;
     private javax.swing.JTextField pathTextfield;
     private javax.swing.JLabel photoLabel;
     private javax.swing.JButton submitButton;

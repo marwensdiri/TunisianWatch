@@ -57,6 +57,9 @@ public class ContactezResp extends javax.swing.JPanel {
         cancelBtn = new javax.swing.JButton();
         addFileBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Nous Contactez"));
+
         jLabel1.setText("Contactez : ");
 
         jLabel2.setText("Sujet : ");
@@ -115,7 +118,7 @@ public class ContactezResp extends javax.swing.JPanel {
                                         .addComponent(submitBtn)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(cancelBtn)))))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +141,7 @@ public class ContactezResp extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

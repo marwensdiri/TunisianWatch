@@ -60,8 +60,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
             ImageIcon icon = new ImageIcon(etb.getImage().getScaledInstance(250, 250, Image.SCALE_FAST));
             imageLabel.setIcon(icon);
             imageLabel.repaint();
-        }
-        else{
+        } else {
             imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/building-3-256x256.png")));
         }
         for (Domaine d : etb.getListDomaine()) {
@@ -122,6 +121,12 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Etablissement - Form"));
         inputPanel.setMinimumSize(new java.awt.Dimension(621, 469));
+
+        nomTxtFeild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomTxtFeildActionPerformed(evt);
+            }
+        });
 
         responsableCmboBox.setBackground(new java.awt.Color(204, 0, 0));
         responsableCmboBox.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,11 +273,12 @@ public class EtablissementFrame extends javax.swing.JFrame {
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addDoaminLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addDomainTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addDomainBtn)
-                    .addComponent(addFileBtn))
+                .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addFileBtn)
+                    .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(addDoaminLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addDomainTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addDomainBtn)))
                 .addGap(18, 18, 18)
                 .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -464,6 +470,17 @@ public class EtablissementFrame extends javax.swing.JFrame {
                     etabdomDAO.insertEtablissementDomaine(new EtablissementDomaine(id, d.getId()));
                 }
             }
+            /*if (action != -1) {
+                List<EtablissementDomaine> LLL = new ArrayList<EtablissementDomaine>();
+                LLL = new EtablissementDomaineDao().seletcEtablissementDomaineByIdEtablissement(action);
+                for (EtablissementDomaine eD : LLL) {
+                    if (!listeDomainesAjouter.contains(new Domaine(eD.getIdEtablissement(),new DomaineDao().selectDomaineById(eD.getIdDomaine()).getNom()))) {
+                        new EtablissementDomaineDao().deleteEtablissementDomaineByDomaine(eD.getIdDomaine());
+                        
+                    }
+                }
+            }*/
+
             this.dispose();
         }
 
@@ -472,6 +489,10 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void nomTxtFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomTxtFeildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomTxtFeildActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BoutonPanel;
     private javax.swing.JLabel addDoaminLabel;
@@ -506,13 +527,14 @@ public class EtablissementFrame extends javax.swing.JFrame {
      * methode pour intialiser les combobox et les liste en récupairant les valeurs de la base de donnée
      */
     private void init() {
-        
+
         errMsg = "";
         errMsg2 = "";
 
         errLbl.setVisible(false);
 
         descriptionTextArea.setLineWrap(true);
+        descriptionTextArea.setText("");
         setLocationRelativeTo(null);
 
         //remplissage du combobox des lieux
@@ -577,7 +599,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         }
 
         nomTxtFeild.addFocusListener(new java.awt.event.FocusListener() {
-
             @Override
             public void focusGained(FocusEvent e) {
                 errLbl.setVisible(false);
@@ -585,7 +606,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
 
             @Override
             public void focusLost(FocusEvent e) {
-                
             }
         });
 

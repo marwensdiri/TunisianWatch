@@ -5,7 +5,11 @@
  */
 package com.tunisianwatch.Gui;
 
+import com.tunisianwatch.fbConnect.GraphReader;
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +22,9 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
      */
     public ClientAcceuilPanel() {
         initComponents();
+        if(!GraphReader.isConnect()){
+            fbButton.hide();
+        }
     }
 
     /**
@@ -215,10 +222,12 @@ public class ClientAcceuilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_DisconnectButtonActionPerformed
 
     private void reclamationAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reclamationAddButtonActionPerformed
-        contentPanel.removeAll();
-        contentPanel.add(new ReclamationForm());
-        contentPanel.repaint();
-        contentPanel.revalidate();
+       
+            contentPanel.removeAll();
+            contentPanel.add(new ReclamationForm());
+            contentPanel.repaint();
+            contentPanel.revalidate();
+       
     }//GEN-LAST:event_reclamationAddButtonActionPerformed
 
     private void mailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailButtonActionPerformed

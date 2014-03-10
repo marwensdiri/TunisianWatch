@@ -185,5 +185,4 @@ public class ReclamationTableModel extends ConsultationTableModel {
     public String getColumnName(int col) {
         return this.title[col];
     }
-
 }

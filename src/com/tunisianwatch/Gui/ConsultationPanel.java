@@ -9,8 +9,11 @@ import com.tunisianwatch.Model.ConsultationTableModel;
 import com.tunisianwatch.Model.EtablissementTableModel;
 import com.tunisianwatch.Model.ReclamationTableModel;
 import com.tunisianwatch.Model.UtilisateurTableModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -268,7 +271,9 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 new EtablissementFrame().show();
                 break;
             case "mes reclamations":
-                new ReclamationForm().show();
+      
+            new ReclamationForm().show();
+        
                 break;
         }
     }//GEN-LAST:event_ajoutButtonActionPerformed

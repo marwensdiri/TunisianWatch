@@ -179,11 +179,13 @@
                           <Component id="imageLabel" min="-2" pref="256" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="addDoaminLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="addDomainTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="addDomainBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="addFileBtn" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="addDoaminLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="addDomainTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="addDomainBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="descriptionPanel" min="-2" pref="30" max="-2" attributes="0"/>
@@ -196,6 +198,9 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="nomTxtFeild">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nomTxtFeildActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="responsableCmboBox">
               <Properties>

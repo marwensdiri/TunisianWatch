@@ -2,16 +2,11 @@ package com.tunisianwatch.Dao;
 
 import com.tunisianwatch.Connection.ResourceManager;
 import com.tunisianwatch.Entities.Commentaire;
-import com.tunisianwatch.Entities.Commentaire;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CommentaireDao {
 
@@ -25,15 +20,23 @@ public class CommentaireDao {
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, c.getIdReclamation());
-            ps.setString(2, c.getTexte());
+            if (c.getTexte() != null) {
+                ps.setString(2, c.getTexte());
+            } else {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            }
             ps.setInt(3, c.getUser().getId());
-            ps.setDate(4, new java.sql.Date(c.getDate().getTime()));
+            if (c.getDate() != null) {
+                ps.setDate(4, new java.sql.Date(c.getDate().getTime()));
+            } else {
+                ps.setNull(4, java.sql.Types.DATE);
+            }
             ps.executeUpdate();
-             ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            rs.close(); 
+            rs.close();
             System.out.println("Ajout effectuée avec succès");
             return id;
         } catch (SQLException ex) {
@@ -51,8 +54,16 @@ public class CommentaireDao {
         String requete = "update commentaire set texte=?,date=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, c.getTexte());
-            ps.setDate(2, new java.sql.Date(c.getDate().getTime()));
+            if (c.getTexte() != null) {
+                ps.setString(1, c.getTexte());
+            } else {
+                ps.setNull(1, java.sql.Types.VARCHAR);
+            }
+            if (c.getDate() != null) {
+                ps.setDate(2, new java.sql.Date(c.getDate().getTime()));
+            } else {
+                ps.setNull(2, java.sql.Types.DATE);
+            }
             ps.setInt(3, c.getId());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
@@ -84,10 +95,6 @@ public class CommentaireDao {
         return listCommentaire;
     }
 
-    /**
-     *
-     * @param id
-     */
     /**
      *
      * @param id

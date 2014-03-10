@@ -20,24 +20,18 @@ public class DomaineDao {
         int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            
-            ps.setString(1, d.getNom());
-            
+            if (d.getNom() != null) {
+                ps.setString(1, d.getNom());
+            } else {
+                ps.setNull(1, java.sql.Types.VARCHAR);
+            }
             ps.executeUpdate();
-            
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
             rs.close();
-
-            //<tmp>
-            System.out.println("Ajout effectuée avec succès");
-            //</tmp>        
         } catch (SQLException ex) {
-            //<tmp>
-            System.out.println("erreur lors de l'insertion " + ex.getMessage());
-            //</tmp>
         }
         return id;
     }
@@ -51,24 +45,20 @@ public class DomaineDao {
         String requete = "update domaine set nom=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, d.getNom());
+            if (d.getNom() != null) {
+                ps.setString(1, d.getNom());
+            } else {
+                ps.setNull(1, java.sql.Types.VARCHAR);
+            }
             ps.setInt(2, id);
-            
             ps.executeUpdate();
-
-            //<tmp>
-            System.out.println("update effectuée avec succès");
-            //</tmp>        
         } catch (SQLException ex) {
-            //<tmp>
-            System.out.println("erreur lors de l'update " + ex.getMessage());
-            //</tmp>
         }
     }
     
     public List<Domaine> selectDomaines() {
         List<Domaine> listeDomaines = new ArrayList<Domaine>();
-
+        
         String requete = "select * from domaine";
         try {
             Statement statement = ResourceManager.getInstance().createStatement();
@@ -78,12 +68,12 @@ public class DomaineDao {
                 d.setId(resultat.getInt("id"));
                 d.setNom(resultat.getString("nom"));
                 
-
+                
                 listeDomaines.add(d);
             }
             return listeDomaines;
         } catch (SQLException ex) {
-
+            
             return null;
         }
     }
@@ -105,7 +95,7 @@ public class DomaineDao {
                 
             }
             return d;
-
+            
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
@@ -126,15 +116,13 @@ public class DomaineDao {
                 
             }
             return d;
-
+            
         } catch (SQLException ex) {
             //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("erreur lors de la recherche du reclamation " + ex.getMessage());
             return null;
         }
     }
-    
-    
 
     /**
      *

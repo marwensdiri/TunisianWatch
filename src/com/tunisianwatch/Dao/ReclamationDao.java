@@ -16,18 +16,31 @@ public class ReclamationDao {
      */
     public int insertReclamation(Reclamation r) {
         int id = 0;
-        String requete = "insert into reclamation (idlieu,date,heure,description,titre,idcitoyen,iddomaine,etat) values (?,?,?,?,?,?,?,?)";
+        String requete = "";
+        requete = "insert into reclamation (idlieu,idgeolocalisation,date,heure,description,titre,idcitoyen,iddomaine,etat) values (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-
-            ps.setInt(1, r.getLieu().getId());
-            ps.setDate(2, new java.sql.Date(r.getDate().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Date afin de l'inserer dans la base de donnée
-            ps.setTime(3, new java.sql.Time(r.getHeure().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Time afin de l'inserer dans la base de donnée
-            ps.setString(4, r.getDescription());
-            ps.setString(5, r.getTitre());
-            ps.setInt(6, r.getCitoyen().getId());
-            ps.setInt(7, r.getDomaine().getId());
-            ps.setInt(8, r.getEtat());
+            if (r.getLieu() != null) {
+                ps.setInt(1, r.getLieu().getId());
+            } else {
+                ps.setNull(1, java.sql.Types.NUMERIC);
+            }
+            if (r.getGeolocalisation() != null) {
+                ps.setInt(2, r.getGeolocalisation().getId());
+            } else {
+                ps.setNull(2, java.sql.Types.NUMERIC);
+            }
+            ps.setDate(3, new java.sql.Date(r.getDate().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Date afin de l'inserer dans la base de donnée
+            ps.setTime(4, new java.sql.Time(r.getHeure().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Time afin de l'inserer dans la base de donnée
+            ps.setString(5, r.getDescription());
+            ps.setString(6, r.getTitre());
+            ps.setInt(7, r.getCitoyen().getId());
+            if (r.getDomaine() != null) {
+                ps.setInt(8, r.getDomaine().getId());
+            } else {
+                ps.setNull(8, java.sql.Types.NUMERIC);
+            }
+            ps.setInt(9, r.getEtat());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -52,19 +65,32 @@ public class ReclamationDao {
      * @param R
      */
     public boolean updateReclamation(int id, Reclamation r) {
-        String requete = "update reclamation set idlieu=?, date=?, heure=?,";
-        requete += "description=?, titre=?, idcitoyen=?, iddomaine=?, etat=? where id=?";
+        String requete = "update reclamation set idlieu=?,idgeolocalisation=? ,date=?,heure=?,";
+        requete += "description=?,titre=?,idcitoyen=?,iddomaine=?,etat=? where id=?";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setInt(1, r.getLieu().getId());
-            ps.setDate(2, new java.sql.Date(r.getDate().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Date afin de l'inserer dans la base de donnée
-            ps.setTime(3, new java.sql.Time(r.getHeure().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Time afin de l'inserer dans la base de donnée
-            ps.setString(4, r.getDescription());
-            ps.setString(5, r.getTitre());
-            ps.setInt(6, r.getCitoyen().getId());
-            ps.setInt(7, r.getDomaine().getId());
-            ps.setInt(8, r.getEtat());
-            ps.setInt(9, id);
+            if (r.getLieu() != null) {
+                ps.setInt(1, r.getLieu().getId());
+            } else {
+                ps.setNull(1, java.sql.Types.NUMERIC);
+            }
+            if (r.getGeolocalisation() != null) {
+                ps.setInt(2, r.getGeolocalisation().getId());
+            } else {
+                ps.setNull(2, java.sql.Types.NUMERIC);
+            }
+            ps.setDate(3, new java.sql.Date(r.getDate().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Date afin de l'inserer dans la base de donnée
+            ps.setTime(4, new java.sql.Time(r.getHeure().getTime()));//conversion de l'objet java.util.Date récuprer de "r" ves l'objet java.sql.Time afin de l'inserer dans la base de donnée
+            ps.setString(5, r.getDescription());
+            ps.setString(6, r.getTitre());
+            ps.setInt(7, r.getCitoyen().getId());
+            if (r.getDomaine() != null) {
+                ps.setInt(8, r.getDomaine().getId());
+            } else {
+                ps.setNull(8, java.sql.Types.NUMERIC);
+            }
+            ps.setInt(9, r.getEtat());
+            ps.setInt(10, id);
 
             ps.executeUpdate();
 
@@ -84,6 +110,7 @@ public class ReclamationDao {
     public List<Reclamation> selectReclamations() {
         List<Reclamation> listeReclamations = new ArrayList<Reclamation>();
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         EvaluationDao evaluationDao = new EvaluationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
@@ -96,6 +123,7 @@ public class ReclamationDao {
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setId(resultat.getInt("id"));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -108,7 +136,6 @@ public class ReclamationDao {
             }
             return listeReclamations;
         } catch (SQLException ex) {
-
             return null;
         }
     }
@@ -131,6 +158,7 @@ public class ReclamationDao {
                 r = new Reclamation();
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
+                //r.setGeolocalisation(geoDao.selectGeoByIdReclamation(id));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
@@ -151,6 +179,7 @@ public class ReclamationDao {
 
     public List<Reclamation> selectReclamationsByIdLieu(int idLieu) {
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         List<Reclamation> listReclamation = new ArrayList<Reclamation>();
@@ -164,6 +193,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -184,6 +214,7 @@ public class ReclamationDao {
 
     public List<Reclamation> selectReclamationsByDate(Date date) {
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         List<Reclamation> listReclamation = new ArrayList<Reclamation>();
@@ -197,6 +228,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -218,6 +250,7 @@ public class ReclamationDao {
     public List<Reclamation> selectReclamationByTime(Date date) {
         LieuDao lieuDao = new LieuDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         DomaineDao domaineDao = new DomaineDao();
         List<Reclamation> listReclamation = new ArrayList<Reclamation>();
         String requete = "select * from reclamation where heure=?";
@@ -230,6 +263,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -250,6 +284,7 @@ public class ReclamationDao {
 
     public Reclamation selectReclamationByTitre(String titre) {
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         Reclamation r;
@@ -263,6 +298,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                 r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -282,6 +318,7 @@ public class ReclamationDao {
 
     public List<Reclamation> selectReclamationByIdCitoyen(int idCitoyen) {
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         List<Reclamation> listReclamation = new ArrayList<Reclamation>();
@@ -295,6 +332,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -315,6 +353,7 @@ public class ReclamationDao {
 
     public List<Reclamation> selectReclamationByIdDomaine(int idDomaine) {
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         List<Reclamation> listReclamation = new ArrayList<Reclamation>();
@@ -328,6 +367,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));
@@ -348,6 +388,7 @@ public class ReclamationDao {
 
     public List<Reclamation> selectReclamationByEtat(int etat) {
         LieuDao lieuDao = new LieuDao();
+        GeolocalisationDao geoDao = new GeolocalisationDao();
         UtilisateurDao utilisateurDao = new UtilisateurDao();
         DomaineDao domaineDao = new DomaineDao();
         List<Reclamation> listReclamation = new ArrayList<Reclamation>();
@@ -361,6 +402,7 @@ public class ReclamationDao {
                 r.setId(resultat.getInt("id"));
                 r.setListDocument(new DocumentDao().selectDocumentByIdReclamation(resultat.getInt("id")));
                 r.setLieu(lieuDao.selectLieuById(resultat.getInt("idlieu")));
+                r.setGeolocalisation(geoDao.selectGeoByIdReclamation(resultat.getInt("id")));
                 r.setDate(resultat.getDate("date"));
                 r.setHeure(resultat.getTime("heure"));
                 r.setDescription(resultat.getString("description"));

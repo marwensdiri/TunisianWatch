@@ -7,7 +7,7 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
-import fbConnect.FbConnect;
+import com.tunisianwatch.fbConnect.FbConnect;
 import javax.swing.JOptionPane;
 
 /**
@@ -179,6 +179,7 @@ public class Authentification extends javax.swing.JFrame {
         Utilisateur user = new UtilisateurDao().Authentification(loginTextField.getText(), mdpPasswordField.getText());
         if (user != null) {
             this.dispose();
+            
             MainFrame.getInstance(user).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Erreur d'authentification", "Message d'avertissement", JOptionPane.ERROR_MESSAGE);

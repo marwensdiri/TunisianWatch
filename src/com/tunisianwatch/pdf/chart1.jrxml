@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="chart1" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="519afa3a-407a-47c3-a393-c4efbe0bc3c2">
+	<property name="ireport.zoom" value="1.0443120423539145"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT count( * ) AS nbr, d.nom
+FROM reclamation r
+INNER JOIN domaine d ON d.id = r.iddomaine
+GROUP BY iddomaine]]>
+	</queryString>
+	<field name="nbr" class="java.lang.Long"/>
+	<field name="nom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="36"/>
+	</pageHeader>
+	<detail>
+		<band height="469" splitType="Immediate">
+			<bar3DChart>
+				<chart theme="default">
+					<reportElement x="109" y="111" width="610" height="310" isPrintWhenDetailOverflows="true" forecolor="#CC0066" uuid="55ded498-b1eb-4b29-8ea6-10ec66fc77e5"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Réclamations par Domaine"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nom}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{nbr}]]></valueExpression>
+						<labelExpression><![CDATA["Domaine" ]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat tickLabelColor="#CC0000" axisLineColor="#006600"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<image>
+				<reportElement x="0" y="-55" width="209" height="80" uuid="56d80447-d5f0-4f16-9bb4-c6bce19555dd"/>
+				<imageExpression><![CDATA["C:\\Users\\Skan\\Desktop\\logo.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="13" y="25" width="180" height="38" uuid="d2c3200a-478b-412c-b72d-b6b3ae6484b2"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Times New Roman" size="28" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REPORTING"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField evaluationTime="Report">
+				<reportElement x="402" y="30" width="126" height="20" uuid="78829e0a-6543-4829-936d-860052b6bc76"/>
+				<textFieldExpression><![CDATA["/" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="30" width="80" height="20" uuid="36538a81-5ba8-4b4f-bb2b-df9529c5579b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss Z">
+				<reportElement x="0" y="30" width="157" height="20" uuid="92b5e980-989e-4bdb-96f8-e768d18705ab"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -17,13 +17,13 @@ public class CommentFaceBook {
     private Date date;
     private String message;
     private String id;
-    private Boolean canRemove;
+    private boolean canRemove;
 
-    public Boolean isCanRemove() {
+    public boolean isCanRemove() {
         return canRemove;
     }
 
-    public void setCanRemove(Boolean canRemove) {
+    public void setCanRemove(boolean canRemove) {
         this.canRemove = canRemove;
     }
 

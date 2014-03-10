@@ -34,7 +34,7 @@ public class Utilisateur {
 
     @Override
     public String toString() {
-        return nom + " " + prenom + " " + adress + " " + mail + " " + dateNaissance;
+        return nom + " " + prenom +" "+type;
     }
 
     public Utilisateur(Etablissement etablissement, String nom, String prenom, Image photo, char sexe, String adress, String login, String mdp, String mail, char type, Date dateNaissance) {
