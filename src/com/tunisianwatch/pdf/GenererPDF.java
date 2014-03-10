@@ -53,7 +53,7 @@ public static void getPdf(String  path) {
             JasperExportManager.exportReportToPdfFile(jasperPrint,clean(path)+"\\reclam_domaine-"+sdf.format(new Date())+".pdf" );
             System.out.println("success");
              JasperExportManager.exportReportToPdfFile(jasperPrint1,clean(path)+"\\report_"+sdf.format(new Date())+".pdf" );
-            System.out.println("success");
+            System.out.println("success1");
         }
 
         catch (JRException e) {
