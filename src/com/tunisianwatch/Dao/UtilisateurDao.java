@@ -385,7 +385,7 @@ public class UtilisateurDao {
     }
 
     public Utilisateur selectUserById(int id) {
-        Utilisateur user = new Utilisateur();
+        Utilisateur user = null;
 
         String requete = "select * from Utilisateur where id=?";
         try {
@@ -394,7 +394,7 @@ public class UtilisateurDao {
             ResultSet resultat = ps.executeQuery();
 
             if (resultat.next()) {
-
+                user = new Utilisateur();
                 user.setId(resultat.getInt("id"));
                 if (resultat.getString("type").charAt(0) == 'R') {
                     Etablissement etablissement = new EtablissementDao().selectEtablissementById(resultat.getInt("idetablissement"));
