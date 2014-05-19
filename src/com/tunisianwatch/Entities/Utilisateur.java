@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.tunisianwatch.Entities;
 
-import java.awt.Image;
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -21,13 +20,14 @@ public class Utilisateur {
     private char sexe;
     private String adress;
     private Date dateNaissance;
-    private Image photo;
-    private String path;
+    private String photo;
+    private File file;
     private String login;
     private String mdp;
     private String mail;
     private char type;
     private Etablissement etablissement;
+    private String roles;
 
     public Utilisateur() {
     }
@@ -37,56 +37,12 @@ public class Utilisateur {
         return nom + " " + prenom;
     }
 
-    public Utilisateur(Etablissement etablissement, String nom, String prenom, Image photo, char sexe, String adress, String login, String mdp, String mail, char type, Date dateNaissance) {
-        this.etablissement = etablissement;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
-        this.photo = photo;
-        this.login = login;
-        this.mdp = mdp;
-        this.mail = mail;
-        this.type = type;
-        this.adress = adress;
-        this.sexe = sexe;
+    public String getRoles() {
+        return roles;
     }
 
-    public Utilisateur(int id, Etablissement etablissement, String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
-        this.photo = photo;
-        this.login = login;
-        this.mdp = mdp;
-        this.mail = mail;
-        this.type = type;
-        this.etablissement = etablissement;
-    }
-
-    public Utilisateur(int id, String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
-        this.photo = photo;
-        this.login = login;
-        this.mdp = mdp;
-        this.mail = mail;
-        this.type = type;
-    }
-
-    public Utilisateur(String nom, String prenom, Image photo, String login, String mdp, String mail, char type, Date dateNaissance, String path) {
-
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
-        this.photo = photo;
-        this.login = login;
-        this.mdp = mdp;
-        this.mail = mail;
-        this.type = type;
-        this.path = path;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public int getId() {
@@ -119,14 +75,6 @@ public class Utilisateur {
 
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
-    }
-
-    public Image getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Image photo) {
-        this.photo = photo;
     }
 
     public String getLogin() {
@@ -195,16 +143,10 @@ public class Utilisateur {
         return age;
     }
 
-    public String getPath() {
-        return path;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    
-    
     @Override
     public int hashCode() {
         return id;
@@ -223,5 +165,30 @@ public class Utilisateur {
             return false;
         }
         return true;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+        this.photo = file.getName();
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void moveFile() {
+        File directory = new File("C:\\wamp\\www\\TunisianWatch\\web\\uploads\\utilisateur\\" + login);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        file.renameTo(new File("C:\\wamp\\www\\TunisianWatch\\web\\uploads\\utilisateur\\" + login + "\\" + file.getName()));
+    }
+
+    public String getPath() {
+        return "C:\\wamp\\www\\TunisianWatch\\web\\uploads\\utilisateur\\" + login + "\\" + photo;
     }
 }

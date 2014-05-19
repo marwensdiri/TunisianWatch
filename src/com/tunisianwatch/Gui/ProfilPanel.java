@@ -12,14 +12,15 @@ import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import static org.hsqldb.Library.user;
 
 /**
  *
@@ -27,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ProfilPanel extends javax.swing.JPanel {
 
-    String PathImage = null;
+    File imageUpload = null;
     Utilisateur logger = MainFrame.getMe();
     Boolean modif = null;
 
@@ -60,9 +61,14 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblImage.setBounds(lblImage.getX(), lblImage.getY(), 250, 250);                 //affecter la width,heigth
         //JOptionPane.showConfirmDialog(null, lblImage.getWidth()+" "+ lblImage.getHeight());//test unitaire
         lblImage.removeAll();
-        if (logger.getPhoto() != null) {
-            ImageIcon icon = new ImageIcon(logger.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
-            lblImage.setIcon(icon);
+        if (logger.getPhoto()!= null) {
+            try {
+                Image image = ImageIO.read(new File(logger.getPath()));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
+                lblImage.setIcon(icon);
+            } catch (IOException ex) {
+                Logger.getLogger(ProfilPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
         }
@@ -384,11 +390,9 @@ public class ProfilPanel extends javax.swing.JPanel {
                 logger.setMail(mailTextfield.getText());
 
                 logger.setDateNaissance(dateTextfield.getDate());
-                /////////////////////////////////////////
-                //user.setPhoto(Path);
-                /////////////////////////////////////////
                 
-                    if (PathImage == null) {
+                
+                    if (imageUpload == null) {
                         if (!userDao.updateUser(logger.getId(), logger)) {
                             JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                         }
@@ -396,7 +400,9 @@ public class ProfilPanel extends javax.swing.JPanel {
                            MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
                         }
                     } else {
-                        if (!userDao.updateUser(logger.getId(), logger, PathImage)) {
+                        logger.setFile(imageUpload);
+                        logger.moveFile();
+                        if (!userDao.updateUser(logger.getId(), logger, imageUpload.getName())) {
                             
                             JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                         }
@@ -422,10 +428,9 @@ public class ProfilPanel extends javax.swing.JPanel {
             shooser.setFileFilter(filtre);
             shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
-            File f = shooser.getSelectedFile();
-            PathImage = f.getAbsolutePath();
+            imageUpload = shooser.getSelectedFile();
 
-            Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(imageUpload.getAbsolutePath());
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(250, 250, Image.SCALE_FAST));
             lblImage.setIcon(icon);
             lblImage.repaint();

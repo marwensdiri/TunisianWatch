@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class InscriForm extends javax.swing.JFrame {
 
-    private String PathImage;
+    private File imageUpload;
 
     /**
      * Creates new form InscriForm
@@ -434,10 +434,9 @@ public class InscriForm extends javax.swing.JFrame {
             shooser.setFileFilter(filtre);
             shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
-            File f = shooser.getSelectedFile();
-            PathImage = f.getAbsolutePath();
+            imageUpload = shooser.getSelectedFile();
 
-            Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(imageUpload.getAbsolutePath());
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(250, 250, Image.SCALE_FAST));
             lblImage.setIcon(icon);
             lblImage.repaint();
@@ -458,7 +457,7 @@ public class InscriForm extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
 
-        if(isValidNom() & isValidPrenom() & isValidMail() & isValidPass() & isValidPassConfirm() & isValidDate() & isValidPseudo()){
+        if (isValidNom() & isValidPrenom() & isValidMail() & isValidPass() & isValidPassConfirm() & isValidDate() & isValidPseudo()) {
             UtilisateurDao userDao = new UtilisateurDao();
             Utilisateur user = new Utilisateur();
 
@@ -470,22 +469,22 @@ public class InscriForm extends javax.swing.JFrame {
             user.setMail(mailTextfield.getText());
             user.setMdp(mdpPasswordField.getText());
             user.setDateNaissance(dateTextfield.getDate());
+            if (imageUpload != null) {
+                user.setFile(imageUpload);
+            }
 
             user.setType('C');
-                if (PathImage == null) {
-                    if (userDao.insertUser(user) <= 0) {
-                        JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } else {
-                    if (userDao.insertUser(user, PathImage) <= 0) {
-                        JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                       JOptionPane.showMessageDialog(null,"Inscirption effetée avec succèes","Bienvenu",JOptionPane.INFORMATION_MESSAGE);
-                    }
+            user.setRoles("a:1:{i:0;s:12:\"ROLE_CITOYEN\";}");
+            int id = userDao.insertUser(user);
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(null, "Erreur lors de l'inscription ", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (imageUpload != null) {
+                    user.setId(id);
+                    user.moveFile();
                 }
-    
+                JOptionPane.showMessageDialog(null, "Inscirption effetée avec succèes", "Bienvenu", JOptionPane.INFORMATION_MESSAGE);
+            }
             this.repaint();
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -522,7 +521,7 @@ public class InscriForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_mailTextfieldActionPerformed
 
-     private boolean isValidDate() {
+    private boolean isValidDate() {
         if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
             dateErrorLabel.setVisible(false);
             return true;
@@ -532,7 +531,6 @@ public class InscriForm extends javax.swing.JFrame {
         }
     }
 
-    
     private boolean isValidPseudo() {
         if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), 1)) {
             loginErrorLabel.setVisible(false);
@@ -545,7 +543,7 @@ public class InscriForm extends javax.swing.JFrame {
 
     }
 
-  private boolean isValidNom() {
+    private boolean isValidNom() {
         if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
@@ -567,7 +565,6 @@ public class InscriForm extends javax.swing.JFrame {
         }
     }
 
-    
     private boolean isValidMail() {
         if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
             if (FieldVerifier.VerifComplexField(mailTextfield.getText(), 2)) {
@@ -585,9 +582,8 @@ public class InscriForm extends javax.swing.JFrame {
         }
     }
 
-    
-    private boolean isValidPass(){
-        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(),3)) {
+    private boolean isValidPass() {
+        if (FieldVerifier.VerifComplexField(mdpPasswordField.getText(), 3)) {
             mdpErrorLabel.setVisible(false);
             return true;
         } else {
@@ -596,9 +592,9 @@ public class InscriForm extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    private boolean isValidPassConfirm(){
-         if (FieldVerifier.VerifComplexField(confirmMdpPasswordField.getText(), mdpPasswordField.getText(), 3)) {
+
+    private boolean isValidPassConfirm() {
+        if (FieldVerifier.VerifComplexField(confirmMdpPasswordField.getText(), mdpPasswordField.getText(), 3)) {
             confirmMdpErrorLabel.setVisible(false);
             return true;
         } else {
@@ -607,15 +603,14 @@ public class InscriForm extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    
-    
+
+
     private void dateTextfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextfieldMouseClicked
         isValidDate();
     }//GEN-LAST:event_dateTextfieldMouseClicked
 
     private void prenomTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prenomTextfieldKeyReleased
-       isValidPrenom();
+        isValidPrenom();
     }//GEN-LAST:event_prenomTextfieldKeyReleased
 
     private void pseudoTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pseudoTextfieldKeyReleased
@@ -627,20 +622,17 @@ public class InscriForm extends javax.swing.JFrame {
     }//GEN-LAST:event_mdpPasswordFieldKeyReleased
 
     private void confirmMdpPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmMdpPasswordFieldKeyReleased
-       isValidPassConfirm();
+        isValidPassConfirm();
     }//GEN-LAST:event_confirmMdpPasswordFieldKeyReleased
 
     private void sexeComboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sexeComboxMouseClicked
-        
+
     }//GEN-LAST:event_sexeComboxMouseClicked
 
     private void mailTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailTextfieldKeyReleased
-       isValidMail();
+        isValidMail();
     }//GEN-LAST:event_mailTextfieldKeyReleased
 
-   
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adrTextfield;

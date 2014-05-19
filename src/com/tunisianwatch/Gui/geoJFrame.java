@@ -89,11 +89,9 @@ public class geoJFrame extends javax.swing.JFrame {
                         for (Types ty : ac.getTypes()) {
                             if (ty==ty.country)
                                 country=ac.getLong_name();
-                            if (ty == Types.administrative_area_level_2) {
-                                ville = ac.getLong_name() + ",";
-                            }
+                           
                             if (ty == Types.administrative_area_level_1) {
-                                ville += ac.getLong_name();
+                                ville = ac.getLong_name();
                             }
                             break;
                         }

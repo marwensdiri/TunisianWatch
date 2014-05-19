@@ -14,8 +14,12 @@ import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -30,7 +34,7 @@ public class ResponsableForm extends javax.swing.JFrame {
 
     private boolean modif = false;
     private Utilisateur user;
-    private String PathImage;
+    private File imageUpload;
     EtablissementDao etabblissementDao = new EtablissementDao();
     DefaultComboBoxModel<Etablissement> etablissementModel = new DefaultComboBoxModel<Etablissement>();
 
@@ -73,8 +77,13 @@ public class ResponsableForm extends javax.swing.JFrame {
         lblImage.setBounds(lblImage.getX(), lblImage.getY(), 200, 200);
         lblImage.removeAll();
         if (user.getPhoto() != null) {
-            ImageIcon icon = new ImageIcon(user.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
-            lblImage.setIcon(icon);
+            try {
+                Image image = ImageIO.read(new File(user.getPath()));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
+                lblImage.setIcon(icon);
+            } catch (IOException ex) {
+                Logger.getLogger(CitoyenForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
         }
@@ -527,9 +536,8 @@ public class ResponsableForm extends javax.swing.JFrame {
             shooser.setFileFilter(filtre);
             shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
-            File f = shooser.getSelectedFile();
-            PathImage = f.getAbsolutePath();
-            Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
+            imageUpload = shooser.getSelectedFile();
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(imageUpload.getAbsolutePath());
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(200, 200, Image.SCALE_FAST));
             lblImage.setIcon(icon);
             lblImage.repaint();
@@ -555,15 +563,20 @@ public class ResponsableForm extends javax.swing.JFrame {
             user.setMdp(mdpPasswordField.getText());
             user.setDateNaissance(dateTextfield.getDate());
             user.setEtablissement((Etablissement) etablissementComboBox.getSelectedItem());
-            user.setPath(PathImage);
+
             user.setType('R');
+            user.setRoles("a:1:{i:0;s:16:\"ROLE_RESPONSABLE\";}");
             if (modif) {
                 boolean ok = false;
-                if(user.getPhoto()!=null || PathImage==null){
-                   ok= userDao.updateResponsable(user.getId(), user);
-                }
-                else {
-                    ok=userDao.updateResponsable(user.getId(), user,PathImage);
+                if (user.getPhoto() != null || imageUpload == null) {
+                    ok = userDao.updateResponsable(user.getId(), user);
+                    user.getEtablissement().setResponsable(user);
+                    EtablissementDao etabDao = new EtablissementDao();
+                    etabDao.updateEtablissement(user.getEtablissement().getId(), user.getEtablissement());
+                } else {
+                    user.setFile(imageUpload);
+                    user.moveFile();
+                    ok = userDao.updateResponsable(user.getId(), user, imageUpload.getName());
                 }
                 if (ok) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
@@ -575,13 +588,19 @@ public class ResponsableForm extends javax.swing.JFrame {
                 }
             } else {
                 int id = 0;
-                if(PathImage!=null){
-                    id=userDao.insertResponsable(user);
+                if (imageUpload != null) {
+                    user.setFile(imageUpload);
                 }
-                else{
-                    userDao.insertResponsable(user, PathImage);
+                id = userDao.insertUser(user);
+                if (imageUpload != null) {
+                    user.setId(id);
+                    user.moveFile();
                 }
                 if (id > 0) {
+                    user.setId(id);
+                    user.getEtablissement().setResponsable(user);
+                    EtablissementDao etabDao = new EtablissementDao();
+                    etabDao.updateEtablissement(user.getEtablissement().getId(), user.getEtablissement());
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
                     this.dispose();
                     ConsultationPanel.tableModel.refresh();
@@ -617,7 +636,7 @@ public class ResponsableForm extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     private boolean isValidDate() {
         if (FieldVerifier.isNotNull((dateTextfield.getDate()))) {
             dateErrorLabel.setVisible(false);
@@ -699,10 +718,9 @@ public class ResponsableForm extends javax.swing.JFrame {
                 mailErrorLabel.setVisible(true);
                 return false;
             }
-        }
-        else{
+        } else {
             if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
-                if (FieldVerifier.VerifComplexField(mailTextfield.getText(),user.getMail(), 2)) {
+                if (FieldVerifier.VerifComplexField(mailTextfield.getText(), user.getMail(), 2)) {
                     mailErrorLabel.setVisible(false);
                     return true;
                 } else {

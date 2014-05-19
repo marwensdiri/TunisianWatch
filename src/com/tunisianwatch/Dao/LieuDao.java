@@ -75,6 +75,7 @@ public class LieuDao {
     /**
      *
      * @param id
+     * @return 
      */
     public Lieu selectLieuById(int id) {
         String requete = "select * from lieu where id=?";
@@ -87,12 +88,6 @@ public class LieuDao {
                 lieu = new Lieu();
                 lieu.setId(resultat.getInt("id"));
                 lieu.setNom(resultat.getString("ville"));
-
-
-
-
-
-
             }
         } catch (SQLException ex) {
         }

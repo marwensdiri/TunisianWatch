@@ -37,12 +37,12 @@ public class Reclamation {
         this.listDocument = listDocument;
     }
 
-    public List<Image> getImages() {
+    public List<Document> getImages() {
         System.out.println(listDocument.size());
-        List<Image> listPhoto = new ArrayList<Image>();
+        List<Document> listPhoto = new ArrayList<Document>();
         for (Document doc : listDocument) {
             if (doc.getType() == 1) {
-                listPhoto.add(doc.getImage());
+                listPhoto.add(doc);
             }
         }
         return listPhoto;

@@ -12,6 +12,10 @@ import com.tunisianwatch.Util.ImageFilter;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,7 +30,7 @@ public class CitoyenForm extends javax.swing.JFrame {
 
     private boolean modif = false;
     private Utilisateur user;
-    private String PathImage;
+    private File imageupload;
 
     /**
      * Creates new form CitoyenForm
@@ -74,8 +78,13 @@ public class CitoyenForm extends javax.swing.JFrame {
         lblImage.setBounds(lblImage.getX(), lblImage.getY(), 200, 200);
         lblImage.removeAll();
         if (user.getPhoto() != null) {
-            ImageIcon icon = new ImageIcon(user.getPhoto().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
-            lblImage.setIcon(icon);
+            try {
+                Image image = ImageIO.read(new File(user.getPath()));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
+                lblImage.setIcon(icon);
+            } catch (IOException ex) {
+                Logger.getLogger(CitoyenForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/avatar.png")));
         }
@@ -452,14 +461,20 @@ public class CitoyenForm extends javax.swing.JFrame {
             user.setMail(mailTextfield.getText());
             user.setMdp(mdpPasswordField.getText());
             user.setDateNaissance(dateTextfield.getDate());
-            user.setPath(PathImage);
+            if (imageupload != null) {
+                user.setFile(imageupload);
+                user.moveFile();
+            }
             user.setType('C');
+            user.setRoles("a:1:{i:0;s:12:\"ROLE_CITOYEN\";}");
             if (modif) {
                 boolean ok = false;
-                if (user.getPhoto() != null || PathImage == null) {
+                if (imageupload == null) {
                     ok = userDao.updateUser(user.getId(), user);
                 } else {
-                    ok = userDao.updateUser(user.getId(), user, PathImage);
+                    user.setFile(imageupload);
+                    user.moveFile();
+                    ok = userDao.updateUser(user.getId(), user, imageupload.getName());
                 }
                 if (ok) {
                     JOptionPane.showMessageDialog(null, "Mise à jour effectuée avec succès");
@@ -471,10 +486,14 @@ public class CitoyenForm extends javax.swing.JFrame {
                 }
             } else {
                 int id = 0;
-                if (PathImage != null) {
-                    id = userDao.insertUser(user);
-                } else {
-                    userDao.insertUser(user, PathImage);
+                user.setRoles("a:1:{i:0;s:12:\"ROLE_CITOYEN\";}");
+                if (imageupload != null) {
+                    user.setFile(imageupload);
+                }
+                id = userDao.insertUser(user);
+                if (imageupload != null) {
+                    user.setId(id);
+                    user.moveFile();
                 }
                 if (id > 0) {
                     JOptionPane.showMessageDialog(null, "Ajout effectuée avec succès");
@@ -530,9 +549,8 @@ public class CitoyenForm extends javax.swing.JFrame {
             shooser.setFileFilter(filtre);
             shooser.setAcceptAllFileFilterUsed(false);
             shooser.showOpenDialog(null);
-            File f = shooser.getSelectedFile();
-            PathImage = f.getAbsolutePath();
-            Image Image1 = Toolkit.getDefaultToolkit().getImage(PathImage);
+            imageupload = shooser.getSelectedFile();
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(imageupload.getAbsolutePath());
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(200, 200, Image.SCALE_FAST));
             lblImage.setIcon(icon);
             lblImage.repaint();

@@ -8,8 +8,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -21,7 +25,7 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private String errMsg;
     private String errMsg2;
     List<Integer> lSupp = new ArrayList<Integer>();
-    private String imageTxt = "";
+    private File imageUpload;
     private List<Domaine> listeDomainesAjouter = new ArrayList<Domaine>();//liste des domaines a ajouter a l'etab
     private List<Domaine> listeDomainesExistant = new ArrayList<Domaine>();//liste des domaines dans la base de données
     private DefaultComboBoxModel<Lieu> lieuModel = new DefaultComboBoxModel();//model pour le combobox lieu
@@ -59,9 +63,14 @@ public class EtablissementFrame extends javax.swing.JFrame {
         nomTxtFeild.setText(etb.getNom());
         descriptionTextArea.setText(etb.getDescription());
         if (etb.getImage() != null) {
-            ImageIcon icon = new ImageIcon(etb.getImage().getScaledInstance(250, 250, Image.SCALE_FAST));
-            imageLabel.setIcon(icon);
-            imageLabel.repaint();
+            try {
+                Image image = ImageIO.read(new File(etb.getPath()));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(250, 250, Image.SCALE_FAST));
+                imageLabel.setIcon(icon);
+                imageLabel.repaint();
+            } catch (IOException ex) {
+                Logger.getLogger(EtablissementFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tunisianwatch/Images/building-3-256x256.png")));
         }
@@ -76,7 +85,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         /*
          * fin des initialisations
          */
-
     }
 
     @SuppressWarnings("unchecked")
@@ -357,11 +365,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
     private void addFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileBtnActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-        if (f != null) {
-            String filename = f.getAbsolutePath();
-            imageTxt = filename;
-            Image Image1 = Toolkit.getDefaultToolkit().getImage(filename);
+        imageUpload = chooser.getSelectedFile();
+        if (imageUpload != null) {
+            Image Image1 = Toolkit.getDefaultToolkit().getImage(imageUpload.getAbsolutePath());
             ImageIcon icon = new ImageIcon(Image1.getScaledInstance(250, 250, Image.SCALE_FAST));
             imageLabel.setIcon(icon);
             imageLabel.repaint();
@@ -422,11 +428,9 @@ public class EtablissementFrame extends javax.swing.JFrame {
             int id = -1;
             int idDomaineAjouter = -1;
 
-
             for (Object o : arr) {
                 listeDomainesAjouter.add((Domaine) o);
             }
-
 
             etb.setLieu((Lieu) lieuModel.getElementAt(lieuCmboBox.getSelectedIndex()));
             Lieu L = (Lieu) lieuCmboBox.getSelectedItem();
@@ -435,31 +439,37 @@ public class EtablissementFrame extends javax.swing.JFrame {
             etb.setDescription(descriptionTextArea.getText());
             etb.setNom(nomTxtFeild.getText());
 
-
-            if (imageTxt != "") {
-                etb.setImage(Toolkit.getDefaultToolkit().getImage(imageTxt));
-            } else {
-                etb.setImage(null);
-            }
-
-
             if (action == -1) {
-                if (imageTxt == "") {
-                    id = EDAO.insertEtablissement(etb);
-                } else {
-                    try {
-                        id = EDAO.insertEtablissement(etb, imageTxt);
-                    } catch (FileNotFoundException ex) {
-                    }
+                if (imageUpload != null) {
+                    etb.setFile(imageUpload);
+                }
+                id = EDAO.insertEtablissement(etb);
+                etb.setId(id);
+                if (etb.getResponsable() != null) {
+                    etb.getResponsable().setEtablissement(etb);
+                    UtilisateurDao userDao = new UtilisateurDao();
+                    userDao.updateResponsable(etb.getResponsable().getId(), etb.getResponsable());
+                }
+                if (imageUpload != null) {
+                    etb.setId(id);
+                    etb.moveFile();
                 }
             } else {
                 id = action;
-                if (imageTxt == "") {
+                if (imageUpload == null) {
                     EDAO.updateEtablissement(id, etb);
                 } else {
                     try {
-                        EDAO.updateEtablissement(id, etb, imageTxt);
+                        etb.setFile(imageUpload);
+                        EDAO.updateEtablissement(id, etb, imageUpload.getName());
+                        if (etb.getResponsable() != null) {
+                            etb.getResponsable().setEtablissement(etb);
+                            UtilisateurDao userDao = new UtilisateurDao();
+                            userDao.updateResponsable(etb.getResponsable().getId(), etb.getResponsable());
+                        }
+                        etb.moveFile();
                     } catch (FileNotFoundException ex) {
+                        Logger.getLogger(EtablissementFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -558,7 +568,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         //remplissage du combobox des responsables
         try {
 
-
             lU = UDAO.selectUserByType('R');
             for (Utilisateur utilisateur : lU) {
                 utilisateurModel.addElement(utilisateur);
@@ -571,7 +580,6 @@ public class EtablissementFrame extends javax.swing.JFrame {
         }
 
         //remplissage des listes de domaines
-
         DomaineDao DDAO = new DomaineDao();
         List<Domaine> listDomaines1 = new ArrayList<Domaine>();
         List<Domaine> listDomaines2 = new ArrayList<Domaine>();

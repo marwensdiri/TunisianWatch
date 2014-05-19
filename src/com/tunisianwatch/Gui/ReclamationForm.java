@@ -431,7 +431,9 @@ public class ReclamationForm extends javax.swing.JPanel {
                             document.setIdReclamation(idreclamation);
                             document.setNom(file.getName());
                             document.setType(1);
-                            docDao.insertDocument(document, file.getAbsolutePath());
+                            document.setImage(file);
+                            docDao.insertDocument(document);
+                            document.moveFile();
                         }
                     }
                 }

@@ -73,7 +73,7 @@ public class UtilisateurDaoTest {
         u.setType('R');
         u.setDateNaissance(new Date(2014-02-10));
         
-        int result = instance.insertResponsable(u);
+        int result = instance.insertUser(u);
         assertNotNull(result);
 
         // TODO review the generated test code and remove the default call to fail.

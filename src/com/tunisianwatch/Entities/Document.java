@@ -1,6 +1,6 @@
 package com.tunisianwatch.Entities;
 
-import java.awt.Image;
+import java.io.File;
 
 public class Document {
 
@@ -8,43 +8,16 @@ public class Document {
     private String nom;
     private int type;
     private String url;
-    private Image image;
+    private File image;
     private int idReclamation;
 
     public Document() {
 
     }
 
-    public Document(String nom, int type, Image image, int idReclamation) {
-        this.type = type;
-        this.image = image;
-        this.nom = nom;
-        this.idReclamation = idReclamation;
-    }
-
-    public Document(String nom, int type, String url, int idReclamation) {
-        this.type = type;
-        this.url = url;
-        this.nom = nom;
-        this.idReclamation = idReclamation;
-    }
-
-    public Document(int id,String nom, int type, String url,int idReclamation) {
-        this.id = id;
-        this.type = type;
-        this.url = url;
-        this.image = image;
-        this.nom = nom;
-        this.idReclamation = idReclamation;
-    }
     
-     public Document(int id,String nom, int type, Image image,int idReclamation) {
-        this.id = id;
-        this.type = type;
-        this.image = image;
-        this.nom = nom;
-        this.idReclamation = idReclamation;
-    }
+    
+   
 
     public void setIdReclamation(int idReclamation) {
         this.idReclamation = idReclamation;
@@ -66,7 +39,7 @@ public class Document {
         this.nom = nom;
     }
 
-    public Image getImage() {
+    public File getImage() {
         return image;
     }
 
@@ -78,8 +51,9 @@ public class Document {
         this.url = url;
     }
 
-    public void setImage(Image image) {
+    public void setImage(File image) {
         this.image = image;
+        this.url = image.getName();
     }
 
     public int getId() {
@@ -92,6 +66,19 @@ public class Document {
 
     public void setType(int type) {
         this.type = type;
+    }
+    
+    
+     public void moveFile() {
+        File directory = new File("C:\\wamp\\www\\TunisianWatch\\web\\uploads\\reclamations\\" + idReclamation);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        image.renameTo(new File("C:\\wamp\\www\\TunisianWatch\\web\\uploads\\reclamations\\" + idReclamation + "\\" + image.getName()));
+    }
+
+    public String getPath() {
+        return "C:\\wamp\\www\\TunisianWatch\\web\\uploads\\reclamations\\" + idReclamation + "\\" + url;
     }
 
 }

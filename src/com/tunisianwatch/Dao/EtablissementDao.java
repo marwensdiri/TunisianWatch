@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EtablissementDao {
 
@@ -24,15 +26,8 @@ public class EtablissementDao {
      * @param E
      */
     public int insertEtablissement(Etablissement E) {
-        String requete1 = "insert into etablissement (nom , description,idlieu,idresponsable) values (?,?,?,?)";
-        String requete2 = "insert into etablissement (nom , description,idlieu) values (?,?,?)";
-        String requete ="";
-        if(E.getResponsable()!=null){
-            requete= requete1;
-        }
-        else{
-            requete = requete2;
-        }
+        String requete = "insert into etablissement (nom , description,idlieu,idresponsable,image) values (?,?,?,?,?)";
+       
         int id = -1;
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
@@ -51,6 +46,12 @@ public class EtablissementDao {
                 ps.setInt(4, E.getResponsable().getId());
             } else {
                 ps.setNull(4, java.sql.Types.NUMERIC);
+            }
+            if(E.getImage() != null){
+                 ps.setString(5, E.getImage());
+            }
+            else{
+                ps.setNull(5, java.sql.Types.VARCHAR);
             }
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -166,8 +167,7 @@ public class EtablissementDao {
             }
 
             if (path != null) {
-                FileInputStream fis = new FileInputStream(path);
-                ps.setBinaryStream(3, fis, (int) path.length());
+                ps.setString(3, path);
             } else {
                 ps.setNull(3, java.sql.Types.BLOB);
             }
@@ -205,13 +205,14 @@ public class EtablissementDao {
             while (resultat.next()) {
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
                 Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
+                Etablissement E = new Etablissement();
+                E.setId(resultat.getInt("id"));
+                E.setImage(resultat.getString("image"));
+                E.setLieu(lieu);
+                E.setDescription(resultat.getString("description"));
+                E.setNom(resultat.getString("nom"));
+                E.setResponsable(responsable);
 
-                Etablissement E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
-                byte[] Imagebytes = resultat.getBytes("image");
-                if (Imagebytes != null) {
-                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    E.setImage(image);
-                }
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
                 for (int i = 0; i < listEtabDomaine.size(); i++) {
@@ -229,103 +230,42 @@ public class EtablissementDao {
     /**
      *
      * @param id
+     * @return Etablissement
      */
     public Etablissement selectEtablissementById(int id) {
-        LieuDao lieuDao = new LieuDao();
-        UtilisateurDao utilisaeurDao = new UtilisateurDao();
-        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
-        DomaineDao domaineDao = new DomaineDao();
-        String requete = "select * from etablissement where id=?";
-        Etablissement E = null;
         try {
+            LieuDao lieuDao = new LieuDao();
+            EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
+            DomaineDao domaineDao = new DomaineDao();
+            String requete = "select * from etablissement where id=?";
+            Etablissement E = null;
+
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
             ps.setInt(1, id);
             ResultSet resultat = ps.executeQuery();
             if (resultat.next()) {
+                E = new Etablissement();
                 Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
-                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
-                byte[] Imagebytes = resultat.getBytes("image");
-                if (Imagebytes != null) {
-                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    E.setImage(image);
-                }
                 List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
                 List<Domaine> listDomaine = new ArrayList<Domaine>();
                 for (int i = 0; i < listDomaine.size(); i++) {
                     listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
                 }
+                E.setNom(resultat.getString("nom"));
+                E.setLieu(lieu);
                 E.setListDomaine(listDomaine);
+                return E;
             }
-        } catch (SQLException ex) {
-        }
-        return E;
 
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(EtablissementDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
-    public Etablissement selectEtablissementByNom(String nom) {
-        LieuDao lieuDao = new LieuDao();
-        UtilisateurDao utilisaeurDao = new UtilisateurDao();
-        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
-        DomaineDao domaineDao = new DomaineDao();
-        String requete = "select * from etablissement where nom=?";
-        Etablissement E = null;
-        try {
-            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setString(1, nom);
-            ResultSet resultat = ps.executeQuery();
-            if (resultat.next()) {
-                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
-                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
-                byte[] Imagebytes = resultat.getBytes("image");
-                if (Imagebytes != null) {
-                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    E.setImage(image);
-                }
-                List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
-                List<Domaine> listDomaine = new ArrayList<Domaine>();
-                for (int i = 0; i < listDomaine.size(); i++) {
-                    listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
-                }
-            }
-        } catch (SQLException ex) {
-        }
-        return E;
+   
 
-    }
-
-    public Etablissement selectEtablissementByIdLien(int idLieu) {
-        LieuDao lieuDao = new LieuDao();
-        UtilisateurDao utilisaeurDao = new UtilisateurDao();
-        EtablissementDomaineDao etablissementDomaineDao = new EtablissementDomaineDao();
-        DomaineDao domaineDao = new DomaineDao();
-        String requete = "select * from etablissement where idlieu=?";
-        Etablissement E = null;
-        try {
-            PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
-            ps.setInt(1, idLieu);
-            ResultSet resultat = ps.executeQuery();
-            if (resultat.next()) {
-                Lieu lieu = lieuDao.selectLieuById(resultat.getInt("idlieu"));
-                Utilisateur responsable = utilisaeurDao.selectUserById(resultat.getInt("idresponsable"));
-                E = new Etablissement(resultat.getInt("id"), resultat.getString("nom"), resultat.getString("description"), null, lieu, responsable);
-                byte[] Imagebytes = resultat.getBytes("image");
-                if (Imagebytes != null) {
-                    Image image = Toolkit.getDefaultToolkit().createImage(Imagebytes);
-                    E.setImage(image);
-                }
-                List<EtablissementDomaine> listEtabDomaine = etablissementDomaineDao.seletcEtablissementDomaineByIdEtablissement(resultat.getInt("id"));
-                List<Domaine> listDomaine = new ArrayList<Domaine>();
-                for (int i = 0; i < listDomaine.size(); i++) {
-                    listDomaine.add(domaineDao.selectDomaineById(listEtabDomaine.get(i).getIdDomaine()));
-                }
-            }
-        } catch (SQLException ex) {
-        }
-        return E;
-
-    }
 
     /**
      *

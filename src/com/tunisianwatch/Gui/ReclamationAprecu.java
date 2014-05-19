@@ -7,13 +7,17 @@ package com.tunisianwatch.Gui;
 
 import com.tunisianwatch.Dao.CommentaireDao;
 import com.tunisianwatch.Entities.Commentaire;
+import com.tunisianwatch.Entities.Document;
 import com.tunisianwatch.Entities.Reclamation;
-import com.tunisianwatch.Util.ScallerImage;
 import com.tunisianwatch.fbConnect.GraphReader;
-import java.awt.Dimension;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -23,7 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class ReclamationAprecu extends javax.swing.JFrame {
 
-    List<Image> listImage;
+    List<Document> listImage;
     int indexImage = 0;
     Reclamation reclamation;
     List<Commentaire> commentaires;
@@ -71,13 +75,18 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     }
 
     private void setImage() {
-        // Image image=ScallerImage.scaleImage(listImage.get(indexImage), 670, 400);
-        ImageIcon icon = new ImageIcon(listImage.get(indexImage).getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_FAST));
-       // if(icon.getIconWidth()>670 && icon.getIconHeight()>400){
-
-        //icon.setImage(ScallerImage.scaleImage(listImage.get(indexImage), imageLabel.getWidth(), imageLabel.getHeight()));
-        //}        imageLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        imageLabel.setIcon(icon);
+        try {
+            Image image = ImageIO.read(new File(listImage.get(indexImage).getPath()));
+            // Image image=ScallerImage.scaleImage(listImage.get(indexImage), 670, 400);
+            ImageIcon icon = new ImageIcon(image.getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_FAST));
+            // if(icon.getIconWidth()>670 && icon.getIconHeight()>400){
+            
+            //icon.setImage(ScallerImage.scaleImage(listImage.get(indexImage), imageLabel.getWidth(), imageLabel.getHeight()));
+            //}        imageLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+            imageLabel.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(ReclamationAprecu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
