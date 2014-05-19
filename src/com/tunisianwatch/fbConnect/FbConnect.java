@@ -132,6 +132,7 @@ public class FbConnect {
 
     public static void retriveUser() {
         Utilisateur curU = new GraphReader(access_token).fetchObject();
+        curU.setRoles("a:1:{i:0;s:12:\"ROLE_CITYOEN\";}");
         UtilisateurDao uDAO = new UtilisateurDao();
         Utilisateur user = uDAO.selectUserByMail(curU.getMail());
         if (user == null) {
@@ -143,6 +144,8 @@ public class FbConnect {
             MainFrame.getInstance(user).setVisible(true);
         }
     }
+    
+    
 
     public static String getAccessToken() {
         return access_token;

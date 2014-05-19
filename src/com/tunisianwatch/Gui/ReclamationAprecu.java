@@ -12,6 +12,7 @@ import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.fbConnect.GraphReader;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -327,9 +328,13 @@ public class ReclamationAprecu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void shareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shareButtonActionPerformed
-        // TODO add your handling code here:
-        GraphReader.share(titreLabel.getText());
-        JOptionPane.showMessageDialog(null, "Partage effectuée avec succès");
+        try {
+            // TODO add your handling code here:
+            GraphReader.share(reclamation);
+            JOptionPane.showMessageDialog(null, "Partage effectuée avec succès");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReclamationAprecu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_shareButtonActionPerformed
 
 

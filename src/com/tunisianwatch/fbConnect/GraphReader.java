@@ -1,5 +1,6 @@
 package com.tunisianwatch.fbConnect;
 
+import com.restfb.BinaryAttachment;
 import com.restfb.Connection;
 import static java.lang.System.out;
 
@@ -12,8 +13,13 @@ import com.restfb.types.Page;
 import com.restfb.types.Post;
 import com.restfb.types.User;
 import com.tunisianwatch.Entities.CommentFaceBook;
+import com.tunisianwatch.Entities.Reclamation;
 import com.tunisianwatch.Entities.StatusFaceBook;
 import com.tunisianwatch.Entities.Utilisateur;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,16 +123,14 @@ public class GraphReader {
         return listStatus;
     }
 
-    
-    public static boolean isConnect(){
-        if(facebookClient!=null){
+    public static boolean isConnect() {
+        if (facebookClient != null) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    
+
     public static String addComment(String idpost, String message) {
         FacebookType publishMessageResponse = facebookClient.publish(idpost + "/comments", FacebookType.class, Parameter.with("message", message));
         return publishMessageResponse.getId();
@@ -137,10 +141,18 @@ public class GraphReader {
         return deleted.booleanValue();
     }
 
-    public static String share(String titre) {
-        FacebookType publishMessageResponse
-                = facebookClient.publish("me/feed", FacebookType.class,
-                        Parameter.with("message", titre));
-        return publishMessageResponse.getId();
+    public static String share(Reclamation reclamation) throws FileNotFoundException {
+        if (reclamation.getListDocument().size() > 0) {
+            InputStream is = new FileInputStream(new File(reclamation.getListDocument().get(0).getPath()));
+            FacebookType publishMessageResponse
+                    = facebookClient.publish("me/photos", FacebookType.class, BinaryAttachment.with("myphoto", is),
+                            Parameter.with("message", reclamation.getTitre()+"\n Description: "+reclamation.getDescription()+" -"+reclamation.getDate().toString()));
+            return publishMessageResponse.getId();
+        } else {
+            FacebookType publishMessageResponse
+                    = facebookClient.publish("me/feed", FacebookType.class,
+                            Parameter.with("message", reclamation.getTitre()+"\n Description: "+reclamation.getDescription()+"\n"+reclamation.getDate().toString()));
+            return publishMessageResponse.getId();
+        }
     }
 }

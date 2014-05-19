@@ -4,11 +4,11 @@
  */
 package com.tunisianwatch.Gui;
 
-
 import com.tunisianwatch.Dao.UtilisateurDao;
 import com.tunisianwatch.Entities.Utilisateur;
 import com.tunisianwatch.Util.FieldVerifier;
 import com.tunisianwatch.Util.ImageFilter;
+import com.tunisianwatch.fbConnect.GraphReader;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -37,6 +37,10 @@ public class ProfilPanel extends javax.swing.JPanel {
      */
     public ProfilPanel() {
         initComponents();
+        if(GraphReader.isConnect()){
+            mdpPasswordField.setVisible(false);
+            msgLabel.setVisible(false);
+        }
         nameErrorLabel.setVisible(false);
         mailErrorLabel.setVisible(false);
         prenomErrorLabel.setVisible(false);
@@ -61,7 +65,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblImage.setBounds(lblImage.getX(), lblImage.getY(), 250, 250);                 //affecter la width,heigth
         //JOptionPane.showConfirmDialog(null, lblImage.getWidth()+" "+ lblImage.getHeight());//test unitaire
         lblImage.removeAll();
-        if (logger.getPhoto()!= null) {
+        if (logger.getPhoto() != null) {
             try {
                 Image image = ImageIO.read(new File(logger.getPath()));
                 ImageIcon icon = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_FAST));
@@ -390,27 +394,24 @@ public class ProfilPanel extends javax.swing.JPanel {
                 logger.setMail(mailTextfield.getText());
 
                 logger.setDateNaissance(dateTextfield.getDate());
-                
-                
-                    if (imageUpload == null) {
-                        if (!userDao.updateUser(logger.getId(), logger)) {
-                            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                        }
-                        else{
-                           MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
-                        }
+
+                if (imageUpload == null) {
+                    if (!userDao.updateUser(logger.getId(), logger)) {
+                        JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        logger.setFile(imageUpload);
-                        logger.moveFile();
-                        if (!userDao.updateUser(logger.getId(), logger, imageUpload.getName())) {
-                            
-                            JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
-                        }
-                        else{
-                            MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
-                        }
+                        MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
                     }
-                
+                } else {
+                    logger.setFile(imageUpload);
+                    logger.moveFile();
+                    if (!userDao.updateUser(logger.getId(), logger, imageUpload.getName())) {
+
+                        JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        MainFrame.setMe(userDao.selectUserById(MainFrame.getMe().getId()));
+                    }
+                }
+
                 this.repaint();
             }
         }
@@ -443,21 +444,24 @@ public class ProfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModifphotoActionPerformed
 
     private boolean isValidPass() {
-        //if (mdpPasswordField.getText().length() > 0) {
-        if (FieldVerifier.VerifOrdinaryField(mdpPasswordField.getText())) {
-            UtilisateurDao userDao = new UtilisateurDao();
-            if (userDao.Authentification(logger.getLogin(), mdpPasswordField.getText()) != null) {
-                mdpErrorLabel.setVisible(false);
-                return true;
+        if (!GraphReader.isConnect()) {
+            if (FieldVerifier.VerifOrdinaryField(mdpPasswordField.getText())) {
+                UtilisateurDao userDao = new UtilisateurDao();
+                if (userDao.Authentification(logger.getLogin(), mdpPasswordField.getText()) != null) {
+                    mdpErrorLabel.setVisible(false);
+                    return true;
+                } else {
+                    mdpErrorLabel.setText("Le mot de passe est incorrect");
+                    mdpErrorLabel.setVisible(true);
+                    return false;
+                }
             } else {
-                mdpErrorLabel.setText("Le mot de passe est incorrect");
+                mdpErrorLabel.setText(FieldVerifier.getErrorMsg());
                 mdpErrorLabel.setVisible(true);
                 return false;
             }
-        } else {
-            mdpErrorLabel.setText(FieldVerifier.getErrorMsg());
-            mdpErrorLabel.setVisible(true);
-            return false;
+        }else{
+            return true;
         }
     }
 
@@ -471,7 +475,6 @@ public class ProfilPanel extends javax.swing.JPanel {
         }
     }
 
-    
     private boolean isValidPseudo() {
         if (FieldVerifier.VerifComplexField(pseudoTextfield.getText(), logger.getLogin(), 1)) {
             loginErrorLabel.setVisible(false);
@@ -484,7 +487,7 @@ public class ProfilPanel extends javax.swing.JPanel {
 
     }
 
-   private boolean isValidNom() {
+    private boolean isValidNom() {
         if (FieldVerifier.VerifOrdinaryField(nomTextfield.getText(), "^([a-zA-Zéè0çôêâ' ]+)")) {
             nameErrorLabel.setVisible(false);
             return true;
@@ -506,7 +509,6 @@ public class ProfilPanel extends javax.swing.JPanel {
         }
     }
 
-    
     private boolean isValidMail() {
         if (FieldVerifier.VerifOrdinaryField(mailTextfield.getText())) { //mailTextfield.getText().length() >
             if (FieldVerifier.VerifComplexField(mailTextfield.getText(), logger.getMail(), 2)) {
@@ -524,7 +526,6 @@ public class ProfilPanel extends javax.swing.JPanel {
         }
     }
 
-   
 
     private void pseudoTextfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pseudoTextfieldMouseExited
         // TODO add your handling code here:

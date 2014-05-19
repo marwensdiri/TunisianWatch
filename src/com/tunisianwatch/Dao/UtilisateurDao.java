@@ -34,6 +34,7 @@ public class UtilisateurDao {
         int id = 0;
         String requete;
         FileInputStream fis;
+        System.out.println("test facebook");
         requete = "insert into utilisateur (nom,prenom,sexe,adress,login,mdp,mail,type,datenaissance,photo,username,username_canonical,email_canonical,enabled,salt,locked,expired,roles,credentials_expired,idetablissement) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = ResourceManager.getInstance().prepareStatement(requete);
