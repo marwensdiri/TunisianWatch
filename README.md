@@ -1,3 +1,2 @@
 # TunisianWatch
-Plateforme de gestion des réclamations.
-langage de programmation Java 
+Plateforme de gestion des réclamations -java Swing
